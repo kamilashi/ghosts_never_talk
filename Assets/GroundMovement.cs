@@ -33,6 +33,7 @@ namespace GNT
         private float currentHorizontalVelocity; // working speed that is used for smooth movement, range from - MaxSpeed to  MaxSpeed
 
         Collider2D collider2D;
+        Animator animator;
         LayerMask groundCollisionMask; // move to global data
 
         void Awake()
@@ -46,6 +47,7 @@ namespace GNT
 
             groundCollisionMask = LayerMask.GetMask("Ground");
             collider2D = gameObject.GetComponentInChildren<Collider2D>();
+            animator = gameObject.GetComponentInChildren<Animator>();
         }
 
         void Start()
@@ -64,6 +66,11 @@ namespace GNT
             {
                 moveAlongGroundCollisionNormal(currentHorizontalVelocity * Time.deltaTime);
             }
+
+            float speedBlendAnimationInput = getNormalizedSpeedBlend(SpeedValues[(int)MoveSpeed.Walk]);
+            int directionAninmationInput = getDirectionInt();
+            animator.SetFloat("idleToWalkSpeedBlend", speedBlendAnimationInput);
+            animator.SetInteger("directionInt", directionAninmationInput);
         }
 
         public void SetMovementInput(MoveDirection direction, MoveSpeed speed)
@@ -89,6 +96,16 @@ namespace GNT
             Vector3 horizontalVelocity = new Vector3(horizontalVelocitzPerTimeStep, 0.0f, 0.0f);
             transform.Translate(horizontalVelocity, Space.World);
         }
+
+        private float getNormalizedSpeedBlend(float maxSpeed)
+        {
+            return Mathf.Abs(currentHorizontalVelocity / maxSpeed);
+        }
+        private int getDirectionInt()
+        {
+            return inputDirection;
+        }
+
         private void moveAlongGroundCollisionNormal(float horizontalVelocitzPerTimeStep)
         {
             float rayLength = 10.0f;
