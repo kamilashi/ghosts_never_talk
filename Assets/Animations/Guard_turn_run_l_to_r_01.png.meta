@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b0f9bdfcca7977542935fd6655776d5b
+guid: 7b4f622b4da89ff4bb032e653fc13bdb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Guard_Idle_r_01_0
+      name: Guard_turn_run_l_to_r_01_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 512
-        height: 512
+        x: 67
+        y: 571
+        width: 340
+        height: 414
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a19f346d0fa9e73438eed40253bcf94c
-      internalID: -345518640
+      spriteID: 5d40380418ffa1548a966c6aac9ab874
+      internalID: -1310593774
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_Idle_r_01_1
+      name: Guard_turn_run_l_to_r_01_1
       rect:
         serializedVersion: 2
-        x: 512
-        y: 512
-        width: 512
-        height: 512
+        x: 667
+        y: 594
+        width: 201
+        height: 380
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d442411a980e5d94598cb1b3063009f5
-      internalID: -431237487
+      spriteID: def0bbfb6e5a7a0468cfbfaf1a13bb8d
+      internalID: 857087808
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_Idle_r_01_2
+      name: Guard_turn_run_l_to_r_01_2
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 512
-        width: 512
-        height: 512
+        x: 1247
+        y: 594
+        width: 132
+        height: 391
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd1cfda1f16020d4da4a8b0c5fc2f57f
-      internalID: 1564156232
+      spriteID: e906802ac85f74a46a4960e1df9f10d9
+      internalID: -1416068695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_Idle_r_01_3
+      name: Guard_turn_run_l_to_r_01_3
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 512
-        width: 512
-        height: 512
+        x: 189
+        y: 82
+        width: 113
+        height: 402
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0443d84282cd8a64081ecf91dfa10eda
-      internalID: -898303531
+      spriteID: 8fa02de185c1be84b99173981b3edb92
+      internalID: 104802478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_Idle_r_01_4
+      name: Guard_turn_run_l_to_r_01_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 693
+        y: 79
+        width: 180
+        height: 405
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6e442aad062ad545be3b298aea89853
-      internalID: -1830920184
+      spriteID: b1f11de7426833541a158ec01632e8e2
+      internalID: -1297399705
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_Idle_r_01_5
+      name: Guard_turn_run_l_to_r_01_5
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 1137
+        y: 78
+        width: 322
+        height: 403
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,50 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e3f07a785d86ae42bfd5fd5db4dcd47
-      internalID: -1641185566
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Guard_Idle_r_01_6
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 14abb401397ab8d4b81fd773e62f00bf
-      internalID: 1116264455
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Guard_Idle_r_01_7
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f5618193ca7c54f40913841516bb4eec
-      internalID: -492764314
+      spriteID: e5d60177d7318df40929a6acb9f70eb2
+      internalID: 86941624
       vertices: []
       indices: 
       edges: []
@@ -275,14 +233,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Guard_Idle_r_01_0: -345518640
-      Guard_Idle_r_01_1: -431237487
-      Guard_Idle_r_01_2: 1564156232
-      Guard_Idle_r_01_3: -898303531
-      Guard_Idle_r_01_4: -1830920184
-      Guard_Idle_r_01_5: -1641185566
-      Guard_Idle_r_01_6: 1116264455
-      Guard_Idle_r_01_7: -492764314
+      Guard_turn_run_l_to_r_01_0: -1310593774
+      Guard_turn_run_l_to_r_01_1: 857087808
+      Guard_turn_run_l_to_r_01_2: -1416068695
+      Guard_turn_run_l_to_r_01_3: 104802478
+      Guard_turn_run_l_to_r_01_4: -1297399705
+      Guard_turn_run_l_to_r_01_5: 86941624
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

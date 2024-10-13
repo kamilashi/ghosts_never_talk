@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b0f9bdfcca7977542935fd6655776d5b
+guid: 2b56b92f151c3914c9ae1efffef22e8d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Guard_Idle_r_01_0
+      name: Guard_turn_run_r_to_l_01_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a19f346d0fa9e73438eed40253bcf94c
-      internalID: -345518640
+      spriteID: fe456820c3421ed4fb27ed5053fb581f
+      internalID: -121597687
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_Idle_r_01_1
+      name: Guard_turn_run_r_to_l_01_1
       rect:
         serializedVersion: 2
         x: 512
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d442411a980e5d94598cb1b3063009f5
-      internalID: -431237487
+      spriteID: 623757a34770dc5488d72f8f921967fb
+      internalID: -1863722565
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_Idle_r_01_2
+      name: Guard_turn_run_r_to_l_01_2
       rect:
         serializedVersion: 2
         x: 1024
@@ -153,35 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd1cfda1f16020d4da4a8b0c5fc2f57f
-      internalID: 1564156232
+      spriteID: 3e78df411e71f1f448b9227d289d4ab4
+      internalID: -467101280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_Idle_r_01_3
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 512
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0443d84282cd8a64081ecf91dfa10eda
-      internalID: -898303531
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Guard_Idle_r_01_4
+      name: Guard_turn_run_r_to_l_01_3
       rect:
         serializedVersion: 2
         x: 0
@@ -195,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6e442aad062ad545be3b298aea89853
-      internalID: -1830920184
+      spriteID: c8670e1162d077e47998811d46797082
+      internalID: -628719163
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_Idle_r_01_5
+      name: Guard_turn_run_r_to_l_01_4
       rect:
         serializedVersion: 2
         x: 512
@@ -216,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e3f07a785d86ae42bfd5fd5db4dcd47
-      internalID: -1641185566
+      spriteID: 0a34f59e7309c224ca2bbec22d153e4a
+      internalID: 1039556361
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_Idle_r_01_6
+      name: Guard_turn_run_r_to_l_01_5
       rect:
         serializedVersion: 2
         x: 1024
@@ -237,29 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14abb401397ab8d4b81fd773e62f00bf
-      internalID: 1116264455
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Guard_Idle_r_01_7
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f5618193ca7c54f40913841516bb4eec
-      internalID: -492764314
+      spriteID: ec7a9481a294fd545a35cbebfa2257ec
+      internalID: 1513318746
       vertices: []
       indices: 
       edges: []
@@ -275,14 +233,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Guard_Idle_r_01_0: -345518640
-      Guard_Idle_r_01_1: -431237487
-      Guard_Idle_r_01_2: 1564156232
-      Guard_Idle_r_01_3: -898303531
-      Guard_Idle_r_01_4: -1830920184
-      Guard_Idle_r_01_5: -1641185566
-      Guard_Idle_r_01_6: 1116264455
-      Guard_Idle_r_01_7: -492764314
+      Guard_turn_run_r_to_l_01_0: -121597687
+      Guard_turn_run_r_to_l_01_1: -1863722565
+      Guard_turn_run_r_to_l_01_2: -467101280
+      Guard_turn_run_r_to_l_01_3: -628719163
+      Guard_turn_run_r_to_l_01_4: 1039556361
+      Guard_turn_run_r_to_l_01_5: 1513318746
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

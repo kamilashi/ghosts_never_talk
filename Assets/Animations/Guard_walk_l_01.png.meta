@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 512
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Guard_walk_r_01 - Copy_0
+      name: Guard_walk_l_01_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
-        width: 300
-        height: 300
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf67d29d32e61df41acb377c1d4128ad
-      internalID: 1244377400
+      spriteID: 84eecccf03a77b644b04d457233def5a
+      internalID: -1191490642
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_walk_r_01 - Copy_1
+      name: Guard_walk_l_01_1
       rect:
         serializedVersion: 2
-        x: 300
-        y: 300
-        width: 300
-        height: 300
+        x: 512
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46767d11520561a43ae3d4eb8244b92a
-      internalID: 1830668526
+      spriteID: 989eb4ae2092f884e9919ed2638f2177
+      internalID: -1577699929
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_walk_r_01 - Copy_2
+      name: Guard_walk_l_01_2
       rect:
         serializedVersion: 2
-        x: 600
-        y: 300
-        width: 300
-        height: 300
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d970411c2f5576f46bebcb972608b62b
-      internalID: -1384136697
+      spriteID: feab1b59d5f73d7438dae30e0d0cd11d
+      internalID: 2137152881
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_walk_r_01 - Copy_3
+      name: Guard_walk_l_01_3
       rect:
         serializedVersion: 2
-        x: 900
-        y: 300
-        width: 300
-        height: 300
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d06fc8d8bfe359d43b777f3fdf0b17c4
-      internalID: -1971612616
+      spriteID: 721af814bdef41e4ebd198eef639109f
+      internalID: -259454871
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_walk_r_01 - Copy_4
+      name: Guard_walk_l_01_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 300
-        height: 300
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 946911aaafc28884184c185611bc999f
-      internalID: -332697973
+      spriteID: 3f6be25d0bbbdf348b1bf925f9b16501
+      internalID: -448220616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_walk_r_01 - Copy_5
+      name: Guard_walk_l_01_5
       rect:
         serializedVersion: 2
-        x: 300
+        x: 512
         y: 0
-        width: 300
-        height: 300
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e32ff80fab9c36844a82fc45a9652658
-      internalID: -1125242574
+      spriteID: 44381a6557606d2418ee7fb29d1c9b1a
+      internalID: 1633521221
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_walk_r_01 - Copy_6
+      name: Guard_walk_l_01_6
       rect:
         serializedVersion: 2
-        x: 600
+        x: 1024
         y: 0
-        width: 300
-        height: 300
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e211974f2c706b74b86de7e226b760d4
-      internalID: 752824865
+      spriteID: 75b78173b1cbee649a96015fcb25c778
+      internalID: -2020519943
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guard_walk_r_01 - Copy_7
+      name: Guard_walk_l_01_7
       rect:
         serializedVersion: 2
-        x: 900
+        x: 1536
         y: 0
-        width: 300
-        height: 300
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,8 +258,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d1cc65a1294ce644a7af73eb22aee7a
-      internalID: -996755685
+      spriteID: eab1afb4030fced4a88578864dd08484
+      internalID: -1812327936
       vertices: []
       indices: 
       edges: []
@@ -275,14 +275,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Guard_walk_r_01 - Copy_0: 1244377400
-      Guard_walk_r_01 - Copy_1: 1830668526
-      Guard_walk_r_01 - Copy_2: -1384136697
-      Guard_walk_r_01 - Copy_3: -1971612616
-      Guard_walk_r_01 - Copy_4: -332697973
-      Guard_walk_r_01 - Copy_5: -1125242574
-      Guard_walk_r_01 - Copy_6: 752824865
-      Guard_walk_r_01 - Copy_7: -996755685
+      Guard_walk_l_01_0: -1191490642
+      Guard_walk_l_01_1: -1577699929
+      Guard_walk_l_01_2: 2137152881
+      Guard_walk_l_01_3: -259454871
+      Guard_walk_l_01_4: -448220616
+      Guard_walk_l_01_5: 1633521221
+      Guard_walk_l_01_6: -2020519943
+      Guard_walk_l_01_7: -1812327936
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
