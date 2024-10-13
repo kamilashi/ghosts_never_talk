@@ -27,8 +27,9 @@ namespace GNT
         [SerializeField]
         private float Acceleration = 0.0f; // only settable in the inspector
 
-        private int inputDirection;   // input speed received from controller
-        private int inputSpeed;   // input speed received from controller
+        private int inputDirection = 1;   // input speed received from controller
+        private int inputSpeed = 0;   // input speed received from controller
+        private bool isTurning = false;
 
         private float currentHorizontalVelocity; // working speed that is used for smooth movement, range from - MaxSpeed to  MaxSpeed
 
@@ -44,7 +45,6 @@ namespace GNT
             Assert.AreNotEqual(0,  SpeedValues[(int)GNT.MoveSpeed.Count-2]);
             Assert.AreNotEqual(0, Acceleration);
 #endif
-
             groundCollisionMask = LayerMask.GetMask("Ground");
             collider2D = gameObject.GetComponentInChildren<Collider2D>();
             animator = gameObject.GetComponentInChildren<Animator>();
@@ -60,9 +60,19 @@ namespace GNT
 
         void Update()
         {
-           currentHorizontalVelocity = SmoothingFuncitons.ApproachReferenceLinear(currentHorizontalVelocity, inputDirection*inputSpeed, Acceleration * Time.deltaTime);
+            float newHorizontalVelocity = SmoothingFuncitons.ApproachReferenceLinear(currentHorizontalVelocity, inputDirection*inputSpeed, Acceleration * Time.deltaTime);
 
-            if(currentHorizontalVelocity != 0.0f)
+            /*
+                        if(newHorizontalVelocity * currentHorizontalVelocity < 0.0f)
+                        {
+                            animator.SetBool("triggerTurning", true);
+                        }
+                        else*/
+           // bool isTurning = newHorizontalVelocity * currentHorizontalVelocity < 0.0f /*|| (newHorizontalVelocity != 0.0f && currentHorizontalVelocity == 0.0f)*/;
+
+            currentHorizontalVelocity = newHorizontalVelocity;
+
+            if (currentHorizontalVelocity != 0.0f)
             {
                 moveAlongGroundCollisionNormal(currentHorizontalVelocity * Time.deltaTime);
             }
@@ -75,8 +85,25 @@ namespace GNT
 
         public void SetMovementInput(MoveDirection direction, MoveSpeed speed)
         {
+            if((int)direction * inputDirection < 0.0f && !isTurning)
+            {
+                animator.SetBool("triggerTurning",true );
+                isTurning = true;
+            }
+
             inputDirection = (int)direction;
             inputSpeed = SpeedValues[(int)speed];
+        }
+
+        public void OnTurnFinishedAnimationEvent()
+        {
+            animator.SetBool("triggerTurning", false);
+
+            Vector3 Lscale = transform.localScale;
+            Lscale.x *= -1.0f;
+            transform.localScale = Lscale;
+
+            isTurning = false;
         }
 
         // hacky

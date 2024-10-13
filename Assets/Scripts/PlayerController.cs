@@ -50,7 +50,7 @@ namespace GNT
                 groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
             }
 
-            Vector3 debugPos = new Vector3(Screen.width - 100.0f, Screen.height - 100.0f, 0.0f);
+            Vector3 debugPos = new Vector3( 100.0f, 100.0f, 0.0f);
             Debug.DrawLine(debugPos, debugPos + Vector3.right * moveKeyHoldTime * 10.0f, Color.magenta, Time.deltaTime, false);
         }
 
