@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace GNT
 {
@@ -56,8 +57,8 @@ namespace GNT
                 ProcessMoveInput(-1.0f);
             }
 
-            Vector3 debugPos = new Vector3( 100.0f, 100.0f, 0.0f);
-            Debug.DrawLine(debugPos, debugPos + Vector3.right * moveKeyHoldTimeScaled * 10.0f, Color.magenta, Time.deltaTime, false);
+           /* Vector3 debugPos = new Vector3( 100.0f, 100.0f, 0.0f);
+            Debug.DrawLine(debugPos, debugPos + Vector3.right * moveKeyHoldTimeScaled * 10.0f, Color.magenta, Time.deltaTime, false);*/
         }
 
        private void ProcessMoveInput(float sign)
@@ -78,8 +79,23 @@ namespace GNT
 
         public void BlockInputAnimationEvent(float duration = -1, int frames = -1)
         {
-            setAcceptInput(false); 
-            // #todo: 
+            if(duration > 0)
+            {
+                // #todo: Subscribe to event here
+                GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration/*, OnDurationEnd*/);
+                setAcceptInput(false);
+            }
+            else if (frames > 0)
+            {
+                // #todo: Subscribe to event here
+                GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(frames/*, OnDurationEnd*/);
+                setAcceptInput(false);
+            }
+            else
+            {
+                Assert.IsTrue(true, "Duration events must have a duration!");
+                // #todo: exception?
+            }
         }
 
         private void setAcceptInput(bool isEnabled)

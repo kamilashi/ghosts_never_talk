@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using ProcessingHelpers;
 // this is persistent
 
 namespace GNT
@@ -19,6 +19,9 @@ namespace GNT
 
 
         private SceneInterface activeScene; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
+
+        public AnimationEventProcessor animationEventProcessor;
+
 
         public static event Action OnSceneLoadFinishEvent;
 
@@ -40,6 +43,7 @@ namespace GNT
 
             // Hack, this should be in the project settings:
             Physics2D.queriesStartInColliders = false;
+            animationEventProcessor = new AnimationEventProcessor();
         }
 
         void Start()
@@ -51,7 +55,7 @@ namespace GNT
 
         void Update()
         {
-
+            animationEventProcessor.Run(Time.deltaTime);
         }
     }
 }

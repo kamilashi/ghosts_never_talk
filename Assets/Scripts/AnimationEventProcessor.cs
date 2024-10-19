@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ProcessorHelpers
+namespace ProcessingHelpers
 {
     public delegate void Notify();  // delegate
     public abstract class DurationAnimationEvent
     {
         public event Notify DurationEnded; // event
 
-       // protected virtual void CountDown();
+        public void InvokeDurationEnded()
+        {
+            DurationEnded?.Invoke();
+        }
+            // protected virtual void CountDown();
     }
 
     public class TimeDurationAnimationEvent : DurationAnimationEvent
@@ -47,13 +51,21 @@ namespace ProcessorHelpers
         List<TimeDurationAnimationEvent> timeDurationEventBuffer;
         List<FrameDurationAnimationEvent> frameDurationEventBuffer;
 
-        public void ProcessAnimationEvents(float timeStep)
+        public void Run(float timeStep)
         {
-            foreach (TimeDurationAnimationEvent timedEvent in timeDurationEventBuffer)
+            foreach (TimeDurationAnimationEvent animEvent in timeDurationEventBuffer)
             {
-               if(timedEvent.CountDown(timeStep))
+               if(animEvent.CountDown(timeStep))
                 {
-                    timedEvent.DurationEnded?.Invoke();
+                    animEvent.InvokeDurationEnded();
+                }
+            }
+            
+            foreach (FrameDurationAnimationEvent animEvent in frameDurationEventBuffer)
+            {
+               if(animEvent.CountDown())
+                {
+                    animEvent.InvokeDurationEnded();
                 }
             }
         }
