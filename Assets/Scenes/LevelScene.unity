@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 318446025}
   - component: {fileID: 318446024}
   - component: {fileID: 318446023}
+  - component: {fileID: 318446026}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -500,6 +501,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &318446026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318446022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08d16185032b8344580f01bf6a1da169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  riseLerpValue: 0.8
+  fallLerpValue: 0.4
+  maxLookaheadDistanceX: 1
 --- !u!1 &452479364
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startScene: {fileID: 1318752995}
-  activeScene: {fileID: 0}
+  playerController: {fileID: 1294591926}
 --- !u!4 &644905460
 Transform:
   m_ObjectHideFlags: 0
@@ -922,7 +938,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea0b3b64d5c1fd45b2454110400d06f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputSensitivity: 1000
+  inputSensitivity: 1
+  moveKeyHoldTime: 0
 --- !u!4 &1294591927
 Transform:
   m_ObjectHideFlags: 0

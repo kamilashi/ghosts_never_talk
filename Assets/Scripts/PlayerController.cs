@@ -12,6 +12,7 @@ namespace GNT
 
         private GroundMovement groundMovement;
         private MoveDirection lastMoveDirection;
+
         private float moveKeyHoldTime;
 
         void Awake()
@@ -49,6 +50,10 @@ namespace GNT
                 processMoveInput(-1.0f);
                 groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
             }
+            else
+            {
+                processMoveInput(-1.0f);
+            }
 
             Vector3 debugPos = new Vector3( 100.0f, 100.0f, 0.0f);
             Debug.DrawLine(debugPos, debugPos + Vector3.right * moveKeyHoldTime * 10.0f, Color.magenta, Time.deltaTime, false);
@@ -58,6 +63,15 @@ namespace GNT
         {
             moveKeyHoldTime += sign * Time.deltaTime * inputSensitivity; // replace with smoothing curves? 
             moveKeyHoldTime = Mathf.Clamp01(moveKeyHoldTime);
+        }
+
+        public float getDirectedInput()
+        {
+            return moveKeyHoldTime * (float)lastMoveDirection;
+        }
+        public float getUndirectedInput()
+        {
+            return moveKeyHoldTime;
         }
     }
 

@@ -9,14 +9,18 @@ namespace GNT
 {
     public class GlobalData : MonoBehaviour
     {
-        private static GlobalData globalDataInstance;
+        private static GlobalData globalDataInstance; // singleton
 
         [SerializeField]
-        private SceneInterface startScene; // set i the inspector only
+        private SceneInterface startScene; // read only, set i the inspector only, invisible to other scripts
+        [SerializeField]
+        // store reference to game object instead?
+        public PlayerController playerController; // read only, reference needs to be set in the inspector, visible too other scripts
+
+
+        private SceneInterface activeScene; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
 
         public static event Action OnSceneLoadFinishEvent;
-
-        public SceneInterface activeScene;
 
         public static GlobalData Instance
         {
