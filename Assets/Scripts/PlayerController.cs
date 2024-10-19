@@ -14,6 +14,7 @@ namespace GNT
         private MoveDirection lastMoveDirection;
 
         private float moveKeyHoldTimeScaled;
+        private bool acceptInput = true;
 
         void Awake()
         {
@@ -73,6 +74,17 @@ namespace GNT
         public float GetMoveKeyHoldScale()
         {
             return moveKeyHoldTimeScaled;
+        }
+
+        public void BlockInputAnimationEvent(float duration = -1, int frames = -1)
+        {
+            setAcceptInput(false); 
+            // #todo: 
+        }
+
+        private void setAcceptInput(bool isEnabled)
+        {
+            acceptInput = isEnabled;
         }
     }
 
