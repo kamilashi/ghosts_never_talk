@@ -13,12 +13,12 @@ namespace GNT
         private GroundMovement groundMovement;
         private MoveDirection lastMoveDirection;
 
-        private float moveKeyHoldTime;
+        private float moveKeyHoldTimeScaled;
 
         void Awake()
         {
             lastMoveDirection = MoveDirection.Right;
-            moveKeyHoldTime = 0.0f;
+            moveKeyHoldTimeScaled = 0.0f;
             groundMovement = gameObject.GetComponentInChildren<GroundMovement>();
         }   
         
@@ -35,43 +35,44 @@ namespace GNT
 
             if (Input.GetKey(moveLeftMappedKey))
             {
-                processMoveInput(1.0f);
+                ProcessMoveInput(1.0f);
                 groundMovement.SetMovementInput(MoveDirection.Left, MoveSpeed.Run);
                 lastMoveDirection = MoveDirection.Left;
             }
             else if (Input.GetKey(moveRightMappedKey))
             {
-                processMoveInput(1.0f);
+                ProcessMoveInput(1.0f);
                 groundMovement.SetMovementInput(MoveDirection.Right, MoveSpeed.Run);
                 lastMoveDirection = MoveDirection.Right;
             }
             else if (Input.GetKeyUp(moveLeftMappedKey) || Input.GetKeyUp(moveRightMappedKey))
             {
-                processMoveInput(-1.0f);
+                ProcessMoveInput(-1.0f);
                 groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
             }
             else
             {
-                processMoveInput(-1.0f);
+                ProcessMoveInput(-1.0f);
             }
 
             Vector3 debugPos = new Vector3( 100.0f, 100.0f, 0.0f);
-            Debug.DrawLine(debugPos, debugPos + Vector3.right * moveKeyHoldTime * 10.0f, Color.magenta, Time.deltaTime, false);
+            Debug.DrawLine(debugPos, debugPos + Vector3.right * moveKeyHoldTimeScaled * 10.0f, Color.magenta, Time.deltaTime, false);
         }
 
-       private void processMoveInput(float sign)
+       private void ProcessMoveInput(float sign)
         {
-            moveKeyHoldTime += sign * Time.deltaTime * inputSensitivity; // replace with smoothing curves? 
-            moveKeyHoldTime = Mathf.Clamp01(moveKeyHoldTime);
+            moveKeyHoldTimeScaled += sign * Time.deltaTime * inputSensitivity; // replace with smoothing curves? 
+            moveKeyHoldTimeScaled = Mathf.Clamp01(moveKeyHoldTimeScaled);
         }
 
-        public float getDirectedInput()
+        public int GetLastDirectionInput()
         {
-            return moveKeyHoldTime * (float)lastMoveDirection;
+            return (int)lastMoveDirection;
         }
-        public float getUndirectedInput()
+
+        public float GetMoveKeyHoldScale()
         {
-            return moveKeyHoldTime;
+            return moveKeyHoldTimeScaled;
         }
     }
 
