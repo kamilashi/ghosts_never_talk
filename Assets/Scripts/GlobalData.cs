@@ -55,6 +55,7 @@ namespace GNT
 
         void Update()
         {
+            // #todo: move to some game processor/simulation script?
             animationEventProcessor.Run(Time.deltaTime);
         }
     }

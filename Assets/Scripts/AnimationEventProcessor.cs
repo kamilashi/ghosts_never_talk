@@ -3,25 +3,30 @@ using System.Collections.Generic;
 
 namespace ProcessingHelpers
 {
-    public delegate void Notify();  // delegate
+    public delegate void OnFinishedCallbackDelegate();
+
     public abstract class DurationAnimationEvent
     {
-        public event Notify DurationEnded; // event
+        public OnFinishedCallbackDelegate onFinishedCallbackDelegate;
 
         public void InvokeDurationEnded()
         {
-            DurationEnded?.Invoke();
+            onFinishedCallbackDelegate?.Invoke();
         }
-            // protected virtual void CountDown();
+        protected void RegisterOnFinishedCallback(OnFinishedCallbackDelegate callBack)
+        {
+            onFinishedCallbackDelegate = callBack;
+        }
     }
 
     public class TimeDurationAnimationEvent : DurationAnimationEvent
     {
         float timeDurationCountdown; // in seconds
 
-        public TimeDurationAnimationEvent(float duration)
+        public TimeDurationAnimationEvent(float duration, OnFinishedCallbackDelegate callBack)
         {
             this.timeDurationCountdown = duration;
+            RegisterOnFinishedCallback(callBack);
         }
         public bool CountDown(float timeSTep)
         {
@@ -34,9 +39,10 @@ namespace ProcessingHelpers
     {
         int frameDurationCountdown; // in seconds
 
-        public FrameDurationAnimationEvent(int duration)
+        public FrameDurationAnimationEvent(int duration, OnFinishedCallbackDelegate callBack)
         {
-            this.frameDurationCountdown = duration;
+            frameDurationCountdown = duration;
+            RegisterOnFinishedCallback(callBack);
         }
 
         public bool CountDown()
@@ -48,8 +54,8 @@ namespace ProcessingHelpers
 
     public class AnimationEventProcessor
     {
-        List<TimeDurationAnimationEvent> timeDurationEventBuffer;
-        List<FrameDurationAnimationEvent> frameDurationEventBuffer;
+        List<TimeDurationAnimationEvent> timeDurationEventBuffer = new List<TimeDurationAnimationEvent>();
+        List<FrameDurationAnimationEvent> frameDurationEventBuffer = new List<FrameDurationAnimationEvent>();
 
         public void Run(float timeStep)
         {
@@ -57,7 +63,13 @@ namespace ProcessingHelpers
             {
                if(animEvent.CountDown(timeStep))
                 {
+                    // #todo : handle collection modified case 
                     animEvent.InvokeDurationEnded();
+                    timeDurationEventBuffer.Remove(animEvent);
+                    if(timeDurationEventBuffer.Count == 0)
+                    {
+                        break;
+                    }
                 }
             }
             
@@ -65,22 +77,27 @@ namespace ProcessingHelpers
             {
                if(animEvent.CountDown())
                 {
+                    // #todo : handle collection modified case 
                     animEvent.InvokeDurationEnded();
+                    frameDurationEventBuffer.Remove(animEvent);
+                    if (timeDurationEventBuffer.Count == 0)
+                    {
+                        break;
+                    }
                 }
             }
         }
 
-        public TimeDurationAnimationEvent RegisterDurationEvent(float durationInSeconds)
+        public void RegisterDurationEvent(float durationInSeconds, OnFinishedCallbackDelegate eventHandlerDelegate)
         {
-            TimeDurationAnimationEvent animationEvent = new TimeDurationAnimationEvent(durationInSeconds);
-
-            return animationEvent;
+            TimeDurationAnimationEvent animationEvent = new TimeDurationAnimationEvent(durationInSeconds, eventHandlerDelegate);
+            timeDurationEventBuffer.Add(animationEvent);
         }
-        public FrameDurationAnimationEvent RegisterDurationEvent(int durationInFrames)
-        {
-            FrameDurationAnimationEvent animationEvent = new FrameDurationAnimationEvent(durationInFrames);
 
-            return animationEvent;
+        public void RegisterDurationEvent(int durationInFrames, OnFinishedCallbackDelegate eventHandlerDelegate)
+        {
+            FrameDurationAnimationEvent animationEvent = new FrameDurationAnimationEvent(durationInFrames, eventHandlerDelegate);
+            frameDurationEventBuffer.Add(animationEvent);
         }
     }
 }

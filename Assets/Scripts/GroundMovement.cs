@@ -106,6 +106,11 @@ namespace GNT
             isTurning = false;
         }
 
+        public bool IsTurning()
+        {
+            return isTurning;
+        }
+
         // hacky
         private void snapToGround()
         {

@@ -31,37 +31,36 @@ namespace GNT
 
         void Update()
         {
-            // #Todo: get this data from control map
-            KeyCode moveLeftMappedKey = KeyCode.A;
-            KeyCode moveRightMappedKey = KeyCode.D;
+                // #Todo: get this data from control map
+                KeyCode moveLeftMappedKey = KeyCode.A;
+                KeyCode moveRightMappedKey = KeyCode.D;
 
-            if (Input.GetKey(moveLeftMappedKey))
-            {
-                ProcessMoveInput(1.0f);
-                groundMovement.SetMovementInput(MoveDirection.Left, MoveSpeed.Run);
-                lastMoveDirection = MoveDirection.Left;
-            }
-            else if (Input.GetKey(moveRightMappedKey))
-            {
-                ProcessMoveInput(1.0f);
-                groundMovement.SetMovementInput(MoveDirection.Right, MoveSpeed.Run);
-                lastMoveDirection = MoveDirection.Right;
-            }
-            else if (Input.GetKeyUp(moveLeftMappedKey) || Input.GetKeyUp(moveRightMappedKey))
-            {
-                ProcessMoveInput(-1.0f);
-                groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
-            }
-            else
-            {
-                ProcessMoveInput(-1.0f);
-            }
-
-           /* Vector3 debugPos = new Vector3( 100.0f, 100.0f, 0.0f);
-            Debug.DrawLine(debugPos, debugPos + Vector3.right * moveKeyHoldTimeScaled * 10.0f, Color.magenta, Time.deltaTime, false);*/
+                if (Input.GetKey(moveLeftMappedKey))
+                {
+                    processMoveInput(1.0f);
+                    lastMoveDirection = groundMovement.IsTurning() ? lastMoveDirection : MoveDirection.Left;
+                groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
+                }
+                else if (Input.GetKey(moveRightMappedKey))
+                {
+                    processMoveInput(1.0f);
+                    lastMoveDirection = groundMovement.IsTurning() ? lastMoveDirection : MoveDirection.Right;
+                groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
+                }
+                else if (Input.GetKeyUp(moveLeftMappedKey) || Input.GetKeyUp(moveRightMappedKey))
+                {
+                    processMoveInput(-1.0f);
+                    groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
+                }
+                else
+                {
+                    processMoveInput(-1.0f);
+                }
+                /* Vector3 debugPos = new Vector3( 100.0f, 100.0f, 0.0f);
+                 Debug.DrawLine(debugPos, debugPos + Vector3.right * moveKeyHoldTimeScaled * 10.0f, Color.magenta, Time.deltaTime, false);*/
         }
 
-       private void ProcessMoveInput(float sign)
+       private void processMoveInput(float sign)
         {
             moveKeyHoldTimeScaled += sign * Time.deltaTime * inputSensitivity; // replace with smoothing curves? 
             moveKeyHoldTimeScaled = Mathf.Clamp01(moveKeyHoldTimeScaled);
@@ -77,18 +76,13 @@ namespace GNT
             return moveKeyHoldTimeScaled;
         }
 
-        public void BlockInputAnimationEvent(float duration = -1, int frames = -1)
+        public void BlockInputAnimationEvent(float duration)
         {
-            if(duration > 0)
+            if (duration > 0)
             {
-                // #todo: Subscribe to event here
-                GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration/*, OnDurationEnd*/);
-                setAcceptInput(false);
-            }
-            else if (frames > 0)
-            {
-                // #todo: Subscribe to event here
-                GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(frames/*, OnDurationEnd*/);
+                // Create event handler delegate and pass it to the duration event constructor
+                ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = onBlockInputDurationEnd;
+                GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration, eventHandlerDelegate);
                 setAcceptInput(false);
             }
             else
@@ -101,6 +95,11 @@ namespace GNT
         private void setAcceptInput(bool isEnabled)
         {
             acceptInput = isEnabled;
+        }
+
+        private void onBlockInputDurationEnd()
+        {
+            setAcceptInput(true);
         }
     }
 
