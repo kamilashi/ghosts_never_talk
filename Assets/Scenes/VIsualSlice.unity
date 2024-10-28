@@ -301,13 +301,16 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _FarClipModifier: 10
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity01: 1
     - _MainCamFarPlane: 21
     - _MainCamNearPlane: 0.3
     - _MainCamZPos: -4.36
     - _Metallic: 0
+    - _NearClipModifier: 6
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -322,7 +325,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _Base: {r: 0.26873443, g: 0.5754717, b: 0.37330398, a: 0}
+    - _Base: {r: 0.23429155, g: 0.3679245, b: 0.27883586, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
@@ -783,7 +786,7 @@ Transform:
   m_GameObject: {fileID: 1768302171}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -2.86, z: 7.66}
+  m_LocalPosition: {x: 0, y: -1.66, z: 7.66}
   m_LocalScale: {x: 77.23773, y: 26.544, z: 26.544}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1871,7 +1874,7 @@ Transform:
   m_GameObject: {fileID: 7175876121979235982}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.62, z: 3.0599995}
+  m_LocalPosition: {x: 0, y: 7.11, z: 3.0599995}
   m_LocalScale: {x: 2.5203, y: 4.1083407, z: 2.5203}
   m_ConstrainProportionsScale: 0
   m_Children: []
