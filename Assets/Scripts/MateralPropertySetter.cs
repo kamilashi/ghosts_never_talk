@@ -4,14 +4,10 @@ using UnityEngine;
 
 namespace GNT
 {
-    [ExecuteInEditMode]
+    //[ExecuteInEditMode]
     public class MateralPropertySetter : MonoBehaviour
     {
-       // public List<Material> setCameraForMaterials;
         public Camera cameraToSet;
-        //public depthGradient
-        //private Material thisMaterial;
-
         // #todo Implement singleton!!!
 
         void Awake()
