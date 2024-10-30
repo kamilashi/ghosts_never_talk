@@ -2,25 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GNT
+namespace Graphics
 {
-    //[ExecuteInEditMode]
     public class LocalUVConverter : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void OnEnable()
+        SpriteRenderer renderer;
+
+        void Awake()
         {
-            SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
-            
-            renderer.material.SetFloat("_LocalTopPixel", renderer.sprite.rect.position.y + renderer.sprite.rect.height);
-            renderer.material.SetFloat("_LocalBottomPixel", renderer.sprite.rect.position.y);
-            renderer.material.SetFloat("_TextureHeightInPixels", renderer.sprite.texture.height);
+            renderer = gameObject.GetComponent<SpriteRenderer>();
+
+            ShaderPropertySetter.InitializeAllShaderParametersEvent += SetLocalSpriteUVs;
         }
 
-        // Update is called once per frame
+
         void Update()
         {
 
+        }
+
+       void SetLocalSpriteUVs()
+        {
+            // should be per instance
+            renderer.sharedMaterial.SetFloat("_LocalTopPixel", renderer.sprite.rect.position.y + renderer.sprite.rect.height);
+            renderer.sharedMaterial.SetFloat("_LocalBottomPixel", renderer.sprite.rect.position.y);
+            renderer.sharedMaterial.SetFloat("_TextureHeightInPixels", renderer.sprite.texture.height);
         }
     }
 }

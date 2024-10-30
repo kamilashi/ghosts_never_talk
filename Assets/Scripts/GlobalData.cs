@@ -38,7 +38,7 @@ namespace GNT
         {
             if (globalDataInstance == null)
             {
-                globalDataInstance = gameObject.GetComponentInChildren<GlobalData>();
+                globalDataInstance = gameObject.GetComponent<GlobalData>();
             }
 
             // Hack, this should be in the project settings:
@@ -58,5 +58,6 @@ namespace GNT
             // #todo: move to some game processor/simulation script?
             animationEventProcessor.Run(Time.deltaTime);
         }
+
     }
 }

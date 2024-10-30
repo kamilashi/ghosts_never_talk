@@ -173,20 +173,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "346bbeb009784613bbb1fed61cf0c1cc"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "a4b6c4afdfb74cbbbe57463d360acdfb"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "4271488d5e1b433ea92118ae21798490"
                 },
                 "m_SlotId": 0
@@ -196,6 +182,20 @@
                     "m_Id": "662d8f964a1c4f5daf6a52aa68fad79a"
                 },
                 "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "5c47b81f96604740abf239b20d76fc6e"
+                },
+                "m_SlotId": 3
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "a4b6c4afdfb74cbbbe57463d360acdfb"
+                },
+                "m_SlotId": 0
             }
         },
         {
@@ -707,7 +707,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "25786a6e9fd345348d35bc6c3ddb475f",
     "m_Id": 0,
-    "m_DisplayName": "FadeOutStart",
+    "m_DisplayName": "BottomFade_FadeOutStart",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -881,10 +881,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1489.0,
-            "y": 355.99993896484377,
-            "width": 208.0,
-            "height": 302.00006103515627
+            "x": -1420.0001220703125,
+            "y": 417.00006103515627,
+            "width": 208.0001220703125,
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -1303,9 +1303,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1106.9998779296875,
-            "y": 160.99996948242188,
-            "width": 207.99993896484376,
+            "x": -1104.0,
+            "y": 356.0,
+            "width": 208.00006103515626,
             "height": 326.0
         }
     },
@@ -1340,18 +1340,18 @@
     "m_Guid": {
         "m_GuidSerialized": "fd23e430-d372-4f58-b749-fab24710e26a"
     },
-    "m_Name": "LinearRadius",
+    "m_Name": "BottomFade_YOffset",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "LinearRadius",
-    "m_DefaultReferenceName": "_LinearRadius",
+    "m_RefNameGeneratedByDisplayName": "BottomFade_YOffset",
+    "m_DefaultReferenceName": "_BottomFade_YOffset",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "hlslDeclarationOverride": 1,
     "m_Hidden": false,
     "m_Value": 0.20000000298023225,
     "m_FloatType": 1,
@@ -1920,12 +1920,12 @@
     "m_Guid": {
         "m_GuidSerialized": "41c5c7a7-7fb1-4ba8-bafe-ddbf9564d96a"
     },
-    "m_Name": "FadeOutEnd",
+    "m_Name": "BottomFade_FadeOutEnd",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "FadeOutEnd",
-    "m_DefaultReferenceName": "_FadeOutEnd",
+    "m_RefNameGeneratedByDisplayName": "BottomFade_FadeOutEnd",
+    "m_DefaultReferenceName": "_BottomFade_FadeOutEnd",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -1958,8 +1958,8 @@
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
     "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "overrideHLSLDeclaration": true,
+    "hlslDeclarationOverride": 3,
     "m_Hidden": false,
     "m_Value": 0.0,
     "m_FloatType": 0,
@@ -2016,8 +2016,8 @@
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
     "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "overrideHLSLDeclaration": true,
+    "hlslDeclarationOverride": 3,
     "m_Hidden": false,
     "m_Value": 0.0,
     "m_FloatType": 0,
@@ -2063,10 +2063,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -837.0,
-            "y": 289.9999694824219,
-            "width": 207.9998779296875,
-            "height": 278.0000305175781
+            "x": -840.0,
+            "y": 356.0,
+            "width": 208.0,
+            "height": 278.0
         }
     },
     "m_Slots": [
@@ -2235,7 +2235,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "bf2c22ef63874ae291825fb7ff011a02",
     "m_Id": 0,
-    "m_DisplayName": "LinearRadius",
+    "m_DisplayName": "BottomFade_YOffset",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -2288,12 +2288,12 @@
     "m_Guid": {
         "m_GuidSerialized": "3b57a137-e8cb-4743-b040-c94d749e7d9a"
     },
-    "m_Name": "FadeOutStart",
+    "m_Name": "BottomFade_FadeOutStart",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "FadeOutStart",
-    "m_DefaultReferenceName": "_FadeOutStart",
+    "m_RefNameGeneratedByDisplayName": "BottomFade_FadeOutStart",
+    "m_DefaultReferenceName": "_BottomFade_FadeOutStart",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -2409,7 +2409,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "cf966e5cca9749db9a0d66605012987a",
     "m_Id": 0,
-    "m_DisplayName": "FadeOutEnd",
+    "m_DisplayName": "BottomFade_FadeOutEnd",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -2806,10 +2806,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1254.9998779296875,
-            "y": 105.0,
-            "width": 140.0,
-            "height": 33.99998474121094
+            "x": -1420.0,
+            "y": 290.0,
+            "width": 199.0,
+            "height": 33.999969482421878
         }
     },
     "m_Slots": [
@@ -3072,9 +3072,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1280.9998779296875,
-            "y": 160.99996948242188,
-            "width": 146.0,
+            "x": -1420.0,
+            "y": 341.0,
+            "width": 204.0,
             "height": 34.000030517578128
         }
     },
