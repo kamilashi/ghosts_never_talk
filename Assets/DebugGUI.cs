@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace GNT
 {
+    [ExecuteAlways]
     public class DebugGUI : MonoBehaviour
     {
         public Graphics.ShaderPropertySetter shaderPropertySetter;
+        public List<Graphics.SpriteScaler> sceneSpriteScalers;
 
         void Awake()
         {
@@ -39,6 +41,14 @@ namespace GNT
             {
                 // call event
                 shaderPropertySetter.InitializeAllShaderParameters();
+            }
+
+            if (GUI.Button(new Rect(screen_width - 110, screep_pos_y_from_top + ui_element_no++ * vertical_interval, element_width, element_height), "Scale all scene sprites"))
+            {
+                foreach (Graphics.SpriteScaler scene in sceneSpriteScalers)
+                {
+                    scene.ScaleChildSprites();
+                }
             }
         }
     }
