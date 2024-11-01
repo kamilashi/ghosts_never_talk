@@ -30,26 +30,27 @@ namespace GNT
         [ExecuteAlways]
         private void OnDebugGui()
         {
-            float element_width = 100;
+            float right_screen_offset = 10;
+            float element_width = 200;
             float element_height = 30;
             float vertical_interval = 35;
             float screep_pos_y_from_top = 35;
             int ui_element_no = 0;
             float screen_width = Screen.width;
 
-            if (GUI.Button(new Rect(screen_width - 110, screep_pos_y_from_top + ui_element_no++ * vertical_interval, element_width, element_height), "Set All Shader Params"))
+            if (GUI.Button(new Rect(screen_width - element_width - right_screen_offset, screep_pos_y_from_top + ui_element_no++ * vertical_interval, element_width, element_height), "Set All Shader Params"))
             {
                 // call event
                 shaderPropertySetter.InitializeAllShaderParameters();
             }
 
-            if (GUI.Button(new Rect(screen_width - 110, screep_pos_y_from_top + ui_element_no++ * vertical_interval, element_width, element_height), "Scale all scene sprites"))
+            /*if (GUI.Button(new Rect(screen_width - element_width - right_screen_offset, screep_pos_y_from_top + ui_element_no++ * vertical_interval, element_width, element_height), "Scale all scene sprites"))
             {
                 foreach (Graphics.SpriteScaler scene in sceneSpriteScalers)
                 {
                     scene.ScaleChildSprites();
                 }
-            }
+            }*/
         }
     }
 }
