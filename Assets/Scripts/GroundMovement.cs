@@ -141,6 +141,7 @@ namespace GNT
         private void moveAlongGroundCollisionNormal(float horizontalVelocitzPerTimeStep)
         {
             float rayLength = 10.0f;
+            float stepDistance = 0.5f;
             Vector3 rayStart = transform.position;
             RaycastHit2D downHit =  Physics2D.Raycast(rayStart, Vector2.down, rayLength, groundCollisionMask);
 
@@ -149,7 +150,8 @@ namespace GNT
             Vector3 alongNormal = Vector3.Cross(groundNormal, new Vector3(0.0f,0.0f,1.0f));
             alongNormal *= horizontalVelocitzPerTimeStep;
 
-            alongNormal.y -= downHit.distance - (collider2D.bounds.center.y - collider2D.bounds.min.y); // snap to the ground.
+            // alongNormal.y = downHit.distance - (collider2D.bounds.center.y - collider2D.bounds.min.y); // snap to the ground.
+            alongNormal.y += stepDistance;
 
 #if UNITY_EDITOR
             // Vector3 endPosition = transform.position;
@@ -157,6 +159,8 @@ namespace GNT
             //Debug.DrawLine(transform.position, endPosition, Color.magenta, Time.deltaTime, false);
 #endif
             transform.Translate(alongNormal, Space.World);
+
+            snapToGround();
         }
     }
 }

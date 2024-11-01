@@ -1614,7 +1614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToSet: {fileID: 1263628533}
-  yOffset: 0
+  yOffset: 0.849
   fadeOutStart: 0.075
   fadeOutEnd: 0
 --- !u!1 &1263628531
@@ -2894,8 +2894,8 @@ Transform:
   m_GameObject: {fileID: 352206436779569905}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.99, y: 1, z: 1}
-  m_LocalScale: {x: 4.255508, y: 4.255508, z: 4.255508}
+  m_LocalPosition: {x: 1.99, y: 2.95, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8721353329943268604}
