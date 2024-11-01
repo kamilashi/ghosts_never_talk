@@ -228,9 +228,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 1
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -239,6 +241,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -369,9 +372,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 1
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -380,6 +385,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -510,9 +516,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 0.8
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -521,6 +529,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -651,9 +660,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 0.8
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -662,6 +673,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -792,9 +804,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 1
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -803,6 +817,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -933,9 +948,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: -3.7
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 1
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -944,6 +961,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -1074,9 +1092,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 0
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -1085,6 +1105,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 1.3
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -1152,140 +1173,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
---- !u!21 &840301720
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 3D ground (Instance) (Instance) (Instance) (Instance) (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: ccda53bc8b929cb4481a7d0c78a1fc9f, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BaseMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Diffuse:
-        m_Texture: {fileID: 2800000, guid: 691d73f50acaea0449c32698bcfa84d8, type: 3}
-        m_Scale: {x: 0.5, y: 0.5}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 691d73f50acaea0449c32698bcfa84d8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _AlphaClip: 0
-    - _AlphaToMask: 0
-    - _Blend: 0
-    - _BlendModePreserveSpecular: 1
-    - _BumpScale: 1
-    - _ClearCoatMask: 0
-    - _ClearCoatSmoothness: 0
-    - _Cull: 2
-    - _Cutoff: 0.5
-    - _DetailAlbedoMapScale: 1
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _DstBlendAlpha: 0
-    - _EnvironmentReflections: 1
-    - _FarClipModifier: -11.4
-    - _GlossMapScale: 0
-    - _Glossiness: 0
-    - _GlossyReflections: 0
-    - _GradientEnd: 0
-    - _GradientStart: 1
-    - _Intensity01: 0.802
-    - _MainCamFarPlane: 21
-    - _MainCamNearPlane: 0.3
-    - _MainCamZPos: -4.36
-    - _Metallic: 0
-    - _NearClipModifier: 21.14
-    - _OcclusionStrength: 1
-    - _Parallax: 0.005
-    - _QueueControl: 0
-    - _QueueOffset: 0
-    - _ReceiveShadows: 1
-    - _SampleTexture: 0
-    - _Smoothness: 0.5
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _SrcBlendAlpha: 1
-    - _Surface: 0
-    - _WorkflowMode: 1
-    - _ZWrite: 1
-    m_Colors:
-    - _Base: {r: 0.14117648, g: 0.32156864, b: 0.14901961, a: 0}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FarColor: {r: 0.6863207, g: 0.9150943, b: 0.8739749, a: 0}
-    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tint: {r: 0.05767174, g: 0.26048377, b: 0.45283014, a: 0}
   m_BuildTextureStacks: []
 --- !u!21 &1083320853
 Material:
@@ -1393,9 +1280,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 0.8
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -1404,6 +1293,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -1534,9 +1424,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 0.8
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -1545,6 +1437,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -1614,7 +1507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToSet: {fileID: 1263628533}
-  yOffset: 0.849
+  yOffset: 0.145
   fadeOutStart: 0.075
   fadeOutEnd: 0
 --- !u!1 &1263628531
@@ -1862,7 +1755,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 840301720}
+  - {fileID: 2100000, guid: 4c4f2e28c51f56d429c4c41f706b1824, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1901,7 +1794,7 @@ Transform:
   m_GameObject: {fileID: 1437474674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.2, z: 49.8}
+  m_LocalPosition: {x: 0, y: 3.2, z: 42.7}
   m_LocalScale: {x: 236.56519, y: -83.05376, z: 2452.5632}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2001,7 +1894,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 840301720}
+  - {fileID: 2100000, guid: 4c4f2e28c51f56d429c4c41f706b1824, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2152,9 +2045,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 1
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -2163,6 +2058,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0

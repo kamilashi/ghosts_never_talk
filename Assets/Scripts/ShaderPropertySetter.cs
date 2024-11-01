@@ -8,7 +8,7 @@ namespace Graphics
     //[ExecuteInEditMode]
     public class ShaderPropertySetter : MonoBehaviour
     {
-        private static ShaderPropertySetter shaderPropertySetterInstance; // singleton
+        private /*static*/ ShaderPropertySetter shaderPropertySetterInstance; // singleton
 
 
         public Camera cameraToSet;
@@ -25,20 +25,21 @@ namespace Graphics
 
         public static event Action InitializeAllShaderParametersEvent;
 
+/*
         public static ShaderPropertySetter Instance
         {
             get
             {
                 return shaderPropertySetterInstance;
             }
-        }
+        }*/
 
         void Awake()
         {
-            if (shaderPropertySetterInstance == null)
+            /*if (shaderPropertySetterInstance == null)
             {
                 shaderPropertySetterInstance = gameObject.GetComponent<ShaderPropertySetter>();
-            }
+            }*/
 
             InitializeAllShaderParametersEvent += SetGlobalCameraParams;
             InitializeAllShaderParametersEvent += SetGlobalBottomFadeParams;
