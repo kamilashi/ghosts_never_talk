@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3D ground level test
+  m_Name: Mesh Gameplay Scene
   m_Shader: {fileID: -6465566751694194690, guid: ccda53bc8b929cb4481a7d0c78a1fc9f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -95,7 +95,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FarClipModifier: -41.45
+    - _FarClipModifier: -42.78
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

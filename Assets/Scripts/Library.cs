@@ -12,7 +12,7 @@ namespace Library
             output = direction > 0 ? System.Math.Min(output, reference) : System.Math.Max(output, reference);
             return output;
         }
-        
+
         /// <summary>
         /// Based on magnitude
         /// </summary>
@@ -49,6 +49,48 @@ namespace Library
             }
 
             return output;
+        }
+    }
+
+    public static class TextWriter
+   {
+        public static void WriteTextToFile(string content, string resourceFolder, string fileNameNoExt)
+        {
+            string wholePath = "Assets/Resources/" + resourceFolder + fileNameNoExt + ".txt";
+            System.IO.StreamWriter writer = new System.IO.StreamWriter(wholePath, false);
+            writer.WriteLine(content);
+            writer.Close();
+            //Re-import the file to update the reference in the editor
+            UnityEditor.AssetDatabase.ImportAsset(wholePath);
+
+            //Print the text from the file
+            UnityEngine.TextAsset asset = (UnityEngine.TextAsset) UnityEngine.Resources.Load(resourceFolder + fileNameNoExt);
+            UnityEngine.Debug.Log(asset.text);
+        }
+        public static string LoadTextFromFile(string fileResourcePath, string fileNameNoExt)
+        {
+            string content = "";
+
+            UnityEngine.TextAsset asset = (UnityEngine.TextAsset) UnityEngine.Resources.Load("Assets/Resources/" + fileResourcePath + fileNameNoExt);
+            content = asset.text;
+            return content;
+        }
+
+        public static void SaveVec3(UnityEngine.Vector3 serializable, string folderPath, string fileNameNoExt)
+        {
+            string jsonText = UnityEngine.JsonUtility.ToJson(serializable);
+
+            WriteTextToFile(jsonText, folderPath, fileNameNoExt);
+        }
+
+        public static UnityEngine.Vector3 LoadVec3(string folderPath, string fileNameNoExt)
+        {
+            string jsonText = LoadTextFromFile(folderPath, fileNameNoExt);
+
+            UnityEngine.Vector3 vector3 = UnityEngine.JsonUtility.FromJson<UnityEngine.Vector3>(jsonText);
+
+            UnityEngine.Debug.Log("Loaded " + vector3.ToString());
+            return vector3;
         }
     }
 }

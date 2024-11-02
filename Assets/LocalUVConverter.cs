@@ -4,29 +4,43 @@ using UnityEngine;
 
 namespace Graphics
 {
+    [ExecuteInEditMode]
     public class LocalUVConverter : MonoBehaviour
     {
-        SpriteRenderer renderer;
+        public float localTopPixel;
+        public float localBottomPixel;
+        public float textureHeightInPixels;
 
         void Awake()
         {
-            renderer = gameObject.GetComponent<SpriteRenderer>();
-
-            ShaderPropertySetter.InitializeAllShaderParametersEvent += SetLocalSpriteUVs;
+            FetchLocalSpriteData();
+            SetLocalSpriteUVs();
+            ShaderPropertySetter.SetLocalSpriteUVsEvent += SetLocalSpriteUVs;
         }
 
-
-        void Update()
+        [ExecuteInEditMode]
+        private void Update()
         {
+            SetLocalSpriteUVs();
+        }
 
+        void FetchLocalSpriteData()
+        {
+            SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            localTopPixel = spriteRenderer.sprite.rect.position.y + spriteRenderer.sprite.rect.height;
+            localBottomPixel = spriteRenderer.sprite.rect.position.y;
+            textureHeightInPixels = spriteRenderer.sprite.texture.height;
+
+            ShaderPropertySetter.SetLocalSpriteUVsEvent += SetLocalSpriteUVs;
         }
 
        void SetLocalSpriteUVs()
         {
+            SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             // should be per instance
-            renderer.sharedMaterial.SetFloat("_LocalTopPixel", renderer.sprite.rect.position.y + renderer.sprite.rect.height);
-            renderer.sharedMaterial.SetFloat("_LocalBottomPixel", renderer.sprite.rect.position.y);
-            renderer.sharedMaterial.SetFloat("_TextureHeightInPixels", renderer.sprite.texture.height);
+            spriteRenderer.sharedMaterial.SetFloat("_LocalTopPixel", localTopPixel);
+            spriteRenderer.sharedMaterial.SetFloat("_LocalBottomPixel", localBottomPixel);
+            spriteRenderer.sharedMaterial.SetFloat("_TextureHeightInPixels", textureHeightInPixels);
         }
     }
 }

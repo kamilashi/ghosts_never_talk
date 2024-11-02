@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sprite Unlit
+  m_Name: Sprite Gameplay Scene
   m_Shader: {fileID: -6465566751694194690, guid: 5b9a3787ec724274da2652da5adbd5c4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -116,9 +116,11 @@ Material:
     - _EnvironmentReflections: 1
     - _FadeOutEnd: 0.202
     - _FadeOutStart: 0
+    - _FarClipModifier: -47.44
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 0.338
     - _LinearFadeOutEnd: 0
     - _LinearFadeOutStart: 0
     - _LinearRadius: 0
@@ -127,6 +129,7 @@ Material:
     - _LowerModifier: 0.093
     - _Metallic: 0
     - _Modifier: 0.2
+    - _NearClipModifier: 0.8
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0

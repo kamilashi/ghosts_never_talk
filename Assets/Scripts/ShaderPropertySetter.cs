@@ -13,17 +13,17 @@ namespace Graphics
 
         public Camera cameraToSet;
 
+/*
         [Header("Global Bottom Fade Parameters")]
         [Range(0, 1)]
         public float yOffset = 0.0f;
         [Range(0, 1)]
         public float fadeOutStart = 0.0f;
         [Range(0, 1)]
-        public float fadeOutEnd = 0.0f;
+        public float fadeOutEnd = 0.0f;*/
 
 
-
-        public static event Action InitializeAllShaderParametersEvent;
+        public static event Action SetLocalSpriteUVsEvent;
 
 /*
         public static ShaderPropertySetter Instance
@@ -41,8 +41,8 @@ namespace Graphics
                 shaderPropertySetterInstance = gameObject.GetComponent<ShaderPropertySetter>();
             }*/
 
-            InitializeAllShaderParametersEvent += SetGlobalCameraParams;
-            InitializeAllShaderParametersEvent += SetGlobalBottomFadeParams;
+            //InitializeAllShaderParametersEvent += SetGlobalCameraParams;
+            //InitializeAllShaderParametersEvent += SetGlobalBottomFadeParams;
         }
 
         void Update()
@@ -60,16 +60,27 @@ namespace Graphics
             Shader.SetGlobalFloat("_MainCamFarPlane", cameraToSet.farClipPlane);
         }
 
+/*
         void SetGlobalBottomFadeParams()
         {
             Shader.SetGlobalFloat("_BottomFade_FadeOutStart", fadeOutStart);
             Shader.SetGlobalFloat("_BottomFade_FadeOutEnd", fadeOutEnd);
             Shader.SetGlobalFloat("_BottomFade_YOffset", yOffset);
-        }
+        }*/
 
         public void InitializeAllShaderParameters()
         {
-            InitializeAllShaderParametersEvent?.Invoke();
+            SetGlobalCameraParams();
+            SetLocalSpriteUVsEvent?.Invoke();
+        }
+
+        public void SetLocalUVs()
+        {
+            SetLocalSpriteUVsEvent?.Invoke();
+        }
+        public void SetGlobalCameraParameters()
+        {
+            SetGlobalCameraParams();
         }
     }
 
