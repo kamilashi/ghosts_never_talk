@@ -249,6 +249,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_DistanceFade_FarClipModifier: 0
+    - _Sprite_DistanceFade_Intensity: 0.8
+    - _Sprite_DistanceFade_NearClipModifier: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
@@ -394,6 +397,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_DistanceFade_FarClipModifier: 0
+    - _Sprite_DistanceFade_Intensity: 0.8
+    - _Sprite_DistanceFade_NearClipModifier: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
@@ -539,6 +545,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_DistanceFade_FarClipModifier: 0
+    - _Sprite_DistanceFade_Intensity: 0.8
+    - _Sprite_DistanceFade_NearClipModifier: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
@@ -684,6 +693,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_DistanceFade_FarClipModifier: 0
+    - _Sprite_DistanceFade_Intensity: 0.8
+    - _Sprite_DistanceFade_NearClipModifier: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
@@ -791,9 +803,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToSet: {fileID: 1263628533}
-  yOffset: 0.151
-  fadeOutStart: 0.731
-  fadeOutEnd: 0
+  yCutOff: 0
+  fadeOutStart: 0.462
+  fadeOutEnd: 0.075
+  intensity: 0.8
+  farClipMofidier: -20.4
+  nearClipModifier: 0
 --- !u!1 &1263628531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,6 +1120,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_DistanceFade_FarClipModifier: 0
+    - _Sprite_DistanceFade_Intensity: 0.8
+    - _Sprite_DistanceFade_NearClipModifier: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
@@ -1356,6 +1374,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_DistanceFade_FarClipModifier: 0
+    - _Sprite_DistanceFade_Intensity: 0.8
+    - _Sprite_DistanceFade_NearClipModifier: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
@@ -1501,6 +1522,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_DistanceFade_FarClipModifier: 0
+    - _Sprite_DistanceFade_Intensity: 0.8
+    - _Sprite_DistanceFade_NearClipModifier: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
@@ -1679,6 +1703,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_DistanceFade_FarClipModifier: 0
+    - _Sprite_DistanceFade_Intensity: 0.8
+    - _Sprite_DistanceFade_NearClipModifier: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
@@ -1824,6 +1851,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_DistanceFade_FarClipModifier: 0
+    - _Sprite_DistanceFade_Intensity: 0.8
+    - _Sprite_DistanceFade_NearClipModifier: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
@@ -2075,6 +2105,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_DistanceFade_FarClipModifier: 0
+    - _Sprite_DistanceFade_Intensity: 0.8
+    - _Sprite_DistanceFade_NearClipModifier: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0

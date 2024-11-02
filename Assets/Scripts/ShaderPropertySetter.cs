@@ -25,9 +25,7 @@ namespace Graphics
         [Header("Sprite Global Distance Fade")]
         [Range(0, 1)]
         public float intensity = 0.8f;
-        [Range(0, 1)]
         public float farClipMofidier = 0.0f;
-        [Range(0, 1)]
         public float nearClipModifier = 0.0f;
 
 
