@@ -50,6 +50,18 @@ namespace GNT
                 shaderPropertySetter.SetLocalUVs();
             }
 
+            if (GUI.Button(new Rect(screen_width - element_width - right_screen_offset, screep_pos_y_from_top + ui_element_no++ * vertical_interval, element_width, element_height), "Set Global Sprite Bottom Fade"))
+            {
+                // call event
+                shaderPropertySetter.SetGlobalSpriteBottomFadeParameters();
+            }
+
+            if (GUI.Button(new Rect(screen_width - element_width - right_screen_offset, screep_pos_y_from_top + ui_element_no++ * vertical_interval, element_width, element_height), "Set Global Sprite Distance Fade"))
+            {
+                // call event
+                shaderPropertySetter.SetGlobalSpriteDistanceFadeParameters();
+            }
+
             /*if (GUI.Button(new Rect(screen_width - element_width - right_screen_offset, screep_pos_y_from_top + ui_element_no++ * vertical_interval, element_width, element_height), "Scale all scene sprites"))
             {
                 foreach (Graphics.SpriteScaler scene in sceneSpriteScalers)

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Graphics
 {
+    // should be per scene!
     //[ExecuteInEditMode]
     public class ShaderPropertySetter : MonoBehaviour
     {
@@ -13,14 +14,21 @@ namespace Graphics
 
         public Camera cameraToSet;
 
-/*
-        [Header("Global Bottom Fade Parameters")]
+        [Header("Sprite Global Bottom Fade")]
         [Range(0, 1)]
-        public float yOffset = 0.0f;
+        public float yCutOff = 0.0f;
         [Range(0, 1)]
-        public float fadeOutStart = 0.0f;
+        public float fadeOutStart = 0.12f;
         [Range(0, 1)]
-        public float fadeOutEnd = 0.0f;*/
+        public float fadeOutEnd = 0.0f;
+
+        [Header("Sprite Global Distance Fade")]
+        [Range(0, 1)]
+        public float intensity = 0.8f;
+        [Range(0, 1)]
+        public float farClipMofidier = 0.0f;
+        [Range(0, 1)]
+        public float nearClipModifier = 0.0f;
 
 
         public static event Action SetLocalSpriteUVsEvent;
@@ -60,13 +68,19 @@ namespace Graphics
             Shader.SetGlobalFloat("_MainCamFarPlane", cameraToSet.farClipPlane);
         }
 
-/*
         void SetGlobalBottomFadeParams()
         {
-            Shader.SetGlobalFloat("_BottomFade_FadeOutStart", fadeOutStart);
-            Shader.SetGlobalFloat("_BottomFade_FadeOutEnd", fadeOutEnd);
-            Shader.SetGlobalFloat("_BottomFade_YOffset", yOffset);
-        }*/
+            Shader.SetGlobalFloat("_Sprite_BottomFade_FadeOutStart", fadeOutStart);
+            Shader.SetGlobalFloat("_Sprite_BottomFade_FadeOutEnd", fadeOutEnd);
+            Shader.SetGlobalFloat("_Sprite_BottomFade_YOffset", yCutOff);
+        }
+
+        void SetGlobalDistanceFadeParams()
+        {
+            Shader.SetGlobalFloat("_Sprite_DistanceFade_Intensity", intensity);
+            Shader.SetGlobalFloat("_Sprite_DistanceFade_FarClipModifier", farClipMofidier);
+            Shader.SetGlobalFloat("_Sprite_DistanceFade_NearClipModifier", nearClipModifier);
+        }
 
         public void InitializeAllShaderParameters()
         {
@@ -81,6 +95,14 @@ namespace Graphics
         public void SetGlobalCameraParameters()
         {
             SetGlobalCameraParams();
+        }
+        public void SetGlobalSpriteBottomFadeParameters()
+        {
+            SetGlobalBottomFadeParams();
+        }
+        public void SetGlobalSpriteDistanceFadeParameters()
+        {
+            SetGlobalDistanceFadeParams();
         }
     }
 

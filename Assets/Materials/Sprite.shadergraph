@@ -50,6 +50,9 @@
             "m_Id": "cb66e1c7b298417aa6953ed639de38b5"
         },
         {
+            "m_Id": "e75f25f0191548b7a38e65b4e2870164"
+        },
+        {
             "m_Id": "6c1fd365a132430fb903cd0741db5dc0"
         },
         {
@@ -1342,7 +1345,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "25786a6e9fd345348d35bc6c3ddb475f",
     "m_Id": 0,
-    "m_DisplayName": "FadeOutStart",
+    "m_DisplayName": "Sprite_BottomFade_FadeOutStart",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -1794,19 +1797,10 @@
             "m_Id": "ae797c61ebab4458ad7ee7435ec7f0c1"
         },
         {
-            "m_Id": "fa37af7b4396412984f5d4b5de0efbe3"
-        },
-        {
             "m_Id": "5e973e60be5e4207a5b5a810190c2d17"
         },
         {
-            "m_Id": "d574eef5e772490994d2404ea4412a4c"
-        },
-        {
-            "m_Id": "334f6f3ad42a43f69abe11aacb5d7f69"
-        },
-        {
-            "m_Id": "df012e524cdb4026a1fcc9de3dd1b134"
+            "m_Id": "fa37af7b4396412984f5d4b5de0efbe3"
         }
     ]
 }
@@ -2428,12 +2422,12 @@
     "m_Guid": {
         "m_GuidSerialized": "fd23e430-d372-4f58-b749-fab24710e26a"
     },
-    "m_Name": "YOffset",
+    "m_Name": "Sprite_BottomFade_YOffset",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "YOffset",
-    "m_DefaultReferenceName": "_YOffset",
+    "m_RefNameGeneratedByDisplayName": "Sprite_BottomFade_YOffset",
+    "m_DefaultReferenceName": "_Sprite_BottomFade_YOffset",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -2456,12 +2450,12 @@
     "m_Guid": {
         "m_GuidSerialized": "f8e8f5b9-1137-44b2-8d7c-eacaf0f019d3"
     },
-    "m_Name": "FarClipModifier",
+    "m_Name": "Sprite_DistanceFade_FarClipModifier",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "FarClipModifier",
-    "m_DefaultReferenceName": "_FarClipModifier",
+    "m_RefNameGeneratedByDisplayName": "Sprite_DistanceFade_FarClipModifier",
+    "m_DefaultReferenceName": "_Sprite_DistanceFade_FarClipModifier",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -3437,12 +3431,12 @@
     "m_Guid": {
         "m_GuidSerialized": "41c5c7a7-7fb1-4ba8-bafe-ddbf9564d96a"
     },
-    "m_Name": "FadeOutEnd",
+    "m_Name": "Sprite_BottomFade_FadeOutEnd",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "FadeOutEnd",
-    "m_DefaultReferenceName": "_FadeOutEnd",
+    "m_RefNameGeneratedByDisplayName": "Sprite_BottomFade_FadeOutEnd",
+    "m_DefaultReferenceName": "_Sprite_BottomFade_FadeOutEnd",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -3463,7 +3457,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "8f99a7a0702147b082cd2e8484a2a361",
     "m_Id": 0,
-    "m_DisplayName": "Intensity",
+    "m_DisplayName": "Sprite_DistanceFade_Intensity",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -3829,12 +3823,12 @@
     "m_Guid": {
         "m_GuidSerialized": "29b39dda-ce00-42fe-ad49-b561aa934baa"
     },
-    "m_Name": "Intensity",
+    "m_Name": "Sprite_DistanceFade_Intensity",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Intensity",
-    "m_DefaultReferenceName": "_Intensity",
+    "m_RefNameGeneratedByDisplayName": "Sprite_DistanceFade_Intensity",
+    "m_DefaultReferenceName": "_Sprite_DistanceFade_Intensity",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -4156,7 +4150,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "bf2c22ef63874ae291825fb7ff011a02",
     "m_Id": 0,
-    "m_DisplayName": "YOffset",
+    "m_DisplayName": "Sprite_BottomFade_YOffset",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -4257,12 +4251,12 @@
     "m_Guid": {
         "m_GuidSerialized": "3b57a137-e8cb-4743-b040-c94d749e7d9a"
     },
-    "m_Name": "FadeOutStart",
+    "m_Name": "Sprite_BottomFade_FadeOutStart",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "FadeOutStart",
-    "m_DefaultReferenceName": "_FadeOutStart",
+    "m_RefNameGeneratedByDisplayName": "Sprite_BottomFade_FadeOutStart",
+    "m_DefaultReferenceName": "_Sprite_BottomFade_FadeOutStart",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -4507,7 +4501,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "cf966e5cca9749db9a0d66605012987a",
     "m_Id": 0,
-    "m_DisplayName": "FadeOutEnd",
+    "m_DisplayName": "Sprite_BottomFade_FadeOutEnd",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -4960,7 +4954,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "e0990b7b3e0045d6ac033020f28db2c9",
     "m_Id": 0,
-    "m_DisplayName": "NearClipModifier",
+    "m_DisplayName": "Sprite_DistanceFade_NearClipModifier",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -5071,6 +5065,24 @@
         "z": 0.0,
         "w": 0.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "e75f25f0191548b7a38e65b4e2870164",
+    "m_Name": "MainCamParams",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "df012e524cdb4026a1fcc9de3dd1b134"
+        },
+        {
+            "m_Id": "334f6f3ad42a43f69abe11aacb5d7f69"
+        },
+        {
+            "m_Id": "d574eef5e772490994d2404ea4412a4c"
+        }
+    ]
 }
 
 {
@@ -5403,7 +5415,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "f415fb545b1e413ba86bc58a6acf277a",
     "m_Id": 0,
-    "m_DisplayName": "FarClipModifier",
+    "m_DisplayName": "Sprite_DistanceFade_FarClipModifier",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -5547,12 +5559,12 @@
     "m_Guid": {
         "m_GuidSerialized": "17fca163-8a01-4a09-895e-d09b0974cd89"
     },
-    "m_Name": "NearClipModifier",
+    "m_Name": "Sprite_DistanceFade_NearClipModifier",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "NearClipModifier",
-    "m_DefaultReferenceName": "_NearClipModifier",
+    "m_RefNameGeneratedByDisplayName": "Sprite_DistanceFade_NearClipModifier",
+    "m_DefaultReferenceName": "_Sprite_DistanceFade_NearClipModifier",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
