@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Graphics
 {
     // should be per scene!
-    //[ExecuteInEditMode]
+    [ExecuteInEditMode]
     public class ShaderPropertySetter : MonoBehaviour
     {
         private /*static*/ ShaderPropertySetter shaderPropertySetterInstance; // singleton
@@ -51,11 +51,11 @@ namespace Graphics
             //InitializeAllShaderParametersEvent += SetGlobalBottomFadeParams;
         }
 
+        [ExecuteInEditMode]
         void Update()
         {
-
-
-            
+            SetGlobalBottomFadeParams();
+            SetGlobalDistanceFadeParams();
         }
 
        void SetGlobalCameraParams()

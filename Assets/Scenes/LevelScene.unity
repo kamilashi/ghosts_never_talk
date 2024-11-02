@@ -717,9 +717,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToSet: {fileID: 318446024}
-  yOffset: 0.129
+  yCutOff: 0
   fadeOutStart: 1
   fadeOutEnd: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!4 &818394515
 Transform:
   m_ObjectHideFlags: 0

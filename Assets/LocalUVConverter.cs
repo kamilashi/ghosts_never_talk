@@ -14,7 +14,6 @@ namespace Graphics
         void Awake()
         {
             FetchLocalSpriteData();
-            SetLocalSpriteUVs();
             ShaderPropertySetter.SetLocalSpriteUVsEvent += SetLocalSpriteUVs;
         }
 
