@@ -28,6 +28,9 @@ namespace Graphics
         public float farClipMofidier = 0.0f;
         public float nearClipModifier = 0.0f;
 
+        [Header("Sprite Global Lighting")]
+        [Range(0, 1)]
+        public float nightMode = 0.0f;
 
         public static event Action SetLocalSpriteUVsEvent;
 
@@ -56,6 +59,7 @@ namespace Graphics
         {
             SetGlobalBottomFadeParams();
             SetGlobalDistanceFadeParams();
+            SetGlobalLightingParams();
         }
 
        void SetGlobalCameraParams()
@@ -78,6 +82,10 @@ namespace Graphics
             Shader.SetGlobalFloat("_Sprite_DistanceFade_Intensity", intensity);
             Shader.SetGlobalFloat("_Sprite_DistanceFade_FarClipModifier", farClipMofidier);
             Shader.SetGlobalFloat("_Sprite_DistanceFade_NearClipModifier", nearClipModifier);
+        }
+        void SetGlobalLightingParams()
+        {
+            Shader.SetGlobalFloat("_Sprite_Lighting_NightMode", nightMode);
         }
 
         public void InitializeAllShaderParameters()
