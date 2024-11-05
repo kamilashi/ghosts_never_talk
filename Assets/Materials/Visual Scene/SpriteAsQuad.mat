@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mesh VIsual Scene
-  m_Shader: {fileID: -6465566751694194690, guid: ccda53bc8b929cb4481a7d0c78a1fc9f, type: 3}
+  m_Name: SpriteAsQuad
+  m_Shader: {fileID: -6465566751694194690, guid: 33896542bab16b74b8e0649ea4f0f43e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 261875d1c935bd74fbb72e4ae617a079, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -95,24 +95,15 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FarClipModifier: 34.76
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientEnd: 0
-    - _GradientStart: 1
-    - _Intensity01: 0.78
-    - _MainCamFarPlane: 21
-    - _MainCamNearPlane: 0.3
-    - _MainCamZPos: -4.36
     - _Metallic: 0
-    - _NearClipModifier: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _SampleTexture: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -122,15 +113,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _Base: {r: 0.0045389733, g: 0.18326963, b: 0.3207547, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FarColor: {r: 0.09327163, g: 0.13348313, b: 0.1509434, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tint: {r: 0.05767174, g: 0.26048377, b: 0.45283014, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &6581084876135567795
+--- !u!114 &7637094276782203468
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

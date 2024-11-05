@@ -25,21 +25,28 @@ namespace Graphics
 
         void FetchLocalSpriteData()
         {
-            SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            localTopPixel = spriteRenderer.sprite.rect.position.y + spriteRenderer.sprite.rect.height;
-            localBottomPixel = spriteRenderer.sprite.rect.position.y;
-            textureHeightInPixels = spriteRenderer.sprite.texture.height;
+            if(gameObject.GetComponent<SpriteRenderer>() != null)
+            {
+                SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
-            ShaderPropertySetter.SetLocalSpriteUVsEvent += SetLocalSpriteUVs;
+                localTopPixel = spriteRenderer.sprite.rect.position.y + spriteRenderer.sprite.rect.height;
+                localBottomPixel = spriteRenderer.sprite.rect.position.y;
+                textureHeightInPixels = spriteRenderer.sprite.texture.height;
+
+                ShaderPropertySetter.SetLocalSpriteUVsEvent += SetLocalSpriteUVs;
+            }
         }
 
        void SetLocalSpriteUVs()
         {
-            SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            // should be per instance
-            spriteRenderer.sharedMaterial.SetFloat("_LocalTopPixel", localTopPixel);
-            spriteRenderer.sharedMaterial.SetFloat("_LocalBottomPixel", localBottomPixel);
-            spriteRenderer.sharedMaterial.SetFloat("_TextureHeightInPixels", textureHeightInPixels);
+            if (gameObject.GetComponent<SpriteRenderer>() != null)
+            {
+                SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                // should be per instance
+                spriteRenderer.sharedMaterial.SetFloat("_LocalTopPixel", localTopPixel);
+                spriteRenderer.sharedMaterial.SetFloat("_LocalBottomPixel", localBottomPixel);
+                spriteRenderer.sharedMaterial.SetFloat("_TextureHeightInPixels", textureHeightInPixels);
+            }
         }
     }
 }
