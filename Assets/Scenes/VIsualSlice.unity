@@ -174,8 +174,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 0.22
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -352,7 +352,7 @@ Transform:
   m_GameObject: {fileID: 608096645}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.58, y: 2.04, z: 22.1}
+  m_LocalPosition: {x: -2.58, y: -0.4, z: 22.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -368,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 634902651}
   - component: {fileID: 634902652}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,9 +569,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToSet: {fileID: 1263628533}
-  yCutOff: 0
-  fadeOutStart: 0.542
-  fadeOutEnd: 0
+  yCutOff: 0.292
+  fadeOutStart: 0.148
+  fadeOutEnd: 0.047
   intensity: 0.873
   farClipMofidier: 31.8
   nearClipModifier: 15.3
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 1260296610}
   - component: {fileID: 1260296611}
   - component: {fileID: 1260296612}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lamp Post
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,6 +676,16 @@ MonoBehaviour:
   localTopPixel: 360
   localBottomPixel: 0
   textureHeightInPixels: 360
+  bottomFadeEnabled: 0
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 0
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!1 &1263628531
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +882,7 @@ GameObject:
   - component: {fileID: 1437474677}
   - component: {fileID: 1437474676}
   - component: {fileID: 1437474675}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground 3D (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1011,7 +1021,7 @@ GameObject:
   - component: {fileID: 1768302174}
   - component: {fileID: 1768302173}
   - component: {fileID: 1768302172}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground 3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1220,7 +1230,7 @@ GameObject:
   - component: {fileID: 5634322038208015332}
   - component: {fileID: 10491617800526373}
   - component: {fileID: 5634322038208015333}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1236,7 +1246,7 @@ Transform:
   m_GameObject: {fileID: 5819039565953070543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.07, y: 4.5, z: 13.359997}
+  m_LocalPosition: {x: -10.07, y: 4.68, z: 15.36}
   m_LocalScale: {x: 5.2379394, y: 5.2379394, z: 5.2379394}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1253,7 +1263,7 @@ GameObject:
   - component: {fileID: 2572053579824959487}
   - component: {fileID: 6052119590977761680}
   - component: {fileID: 6052119590977761681}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Layer 6 copy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1271,7 +1281,7 @@ GameObject:
   - component: {fileID: 3750197570996847434}
   - component: {fileID: 4763077741524439190}
   - component: {fileID: 4763077741524439191}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Clouds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1289,7 +1299,7 @@ GameObject:
   - component: {fileID: 3472143009278954944}
   - component: {fileID: 3374412830646392714}
   - component: {fileID: 3472143009278954945}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Layer 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1359,7 +1369,7 @@ GameObject:
   - component: {fileID: 5878116350830575933}
   - component: {fileID: 1168113179806197338}
   - component: {fileID: 5878116350830575934}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Layer 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1377,7 +1387,7 @@ GameObject:
   - component: {fileID: 3898452964037328285}
   - component: {fileID: 341211876593505089}
   - component: {fileID: 3898452964037328286}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Layer 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1395,7 +1405,7 @@ GameObject:
   - component: {fileID: 3501302298471834579}
   - component: {fileID: 7881806436206138494}
   - component: {fileID: 7881806436206138495}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Layer 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1443,7 +1453,7 @@ Transform:
   m_GameObject: {fileID: 441290509008072001}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.51, y: 5.99, z: 12.359997}
+  m_LocalPosition: {x: 8.51, y: 5.99, z: 13.6}
   m_LocalScale: {x: 5.2379394, y: 5.2379394, z: 5.2379394}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1531,6 +1541,16 @@ MonoBehaviour:
   localTopPixel: 4450.5
   localBottomPixel: 4143
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!4 &3501302298471834579
 Transform:
   m_ObjectHideFlags: 0
@@ -1540,7 +1560,7 @@ Transform:
   m_GameObject: {fileID: 1464426628485604280}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.9800005, y: 14.9, z: 17.36}
+  m_LocalPosition: {x: -8.48, y: 14.68, z: 16.32}
   m_LocalScale: {x: 5.2379394, y: 5.2379394, z: 5.2379394}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1622,7 +1642,7 @@ Transform:
   m_GameObject: {fileID: 1286940863399480703}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.95, y: 14.8, z: 16.359997}
+  m_LocalPosition: {x: 15.01, y: 14.8, z: 16.359997}
   m_LocalScale: {x: 5.2379394, y: 5.2379394, z: 5.2379394}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1643,6 +1663,16 @@ MonoBehaviour:
   localTopPixel: 4090
   localBottomPixel: 3359.5
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!212 &4214884117363205367
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1762,6 +1792,16 @@ MonoBehaviour:
   localTopPixel: 3771
   localBottomPixel: 3359.5
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!212 &5067756655137807011
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1802,7 +1842,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 13
   m_Sprite: {fileID: -533494477582070444, guid: c338deddff6f6064f9b7af939255bbd3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1844,6 +1884,16 @@ MonoBehaviour:
   localTopPixel: 1699.5
   localBottomPixel: 1086
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!1 &5819039565953070543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1855,7 +1905,7 @@ GameObject:
   - component: {fileID: 423166502768696339}
   - component: {fileID: 5067756655137807011}
   - component: {fileID: 5819039565953070544}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Layer 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1877,6 +1927,16 @@ MonoBehaviour:
   localTopPixel: 2924.5
   localBottomPixel: 2328.5
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0.354
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!1 &5822686690005160559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,6 +1970,16 @@ MonoBehaviour:
   localTopPixel: 3355.5
   localBottomPixel: 2928.5
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!4 &5878116350830575933
 Transform:
   m_ObjectHideFlags: 0
@@ -1940,6 +2010,16 @@ MonoBehaviour:
   localTopPixel: 4792
   localBottomPixel: 4094
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!212 &6052119590977761680
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1980,7 +2060,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 13
+  m_SortingOrder: 12
   m_Sprite: {fileID: 532316030392882537, guid: c338deddff6f6064f9b7af939255bbd3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2007,6 +2087,16 @@ MonoBehaviour:
   localTopPixel: 2324.5
   localBottomPixel: 1703.5
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!4 &6238840752725965146
 Transform:
   m_ObjectHideFlags: 0
@@ -2033,7 +2123,7 @@ GameObject:
   - component: {fileID: 6238840752725965146}
   - component: {fileID: 8834046122074611551}
   - component: {fileID: 8834046122074611552}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Layer 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2051,7 +2141,7 @@ GameObject:
   - component: {fileID: 1719537444149806705}
   - component: {fileID: 3813392681414009443}
   - component: {fileID: 7422514188598263746}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Layer 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2073,6 +2163,16 @@ MonoBehaviour:
   localTopPixel: 4139
   localBottomPixel: 3775
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!212 &7881806436206138494
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2113,7 +2213,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 674699143740410172, guid: c338deddff6f6064f9b7af939255bbd3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2140,6 +2240,16 @@ MonoBehaviour:
   localTopPixel: 5430.5
   localBottomPixel: 4796
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!4 &8721353329943268604
 Transform:
   m_ObjectHideFlags: 0
@@ -2233,6 +2343,16 @@ MonoBehaviour:
   localTopPixel: 1082
   localBottomPixel: 2
   textureHeightInPixels: 8192
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
 --- !u!1 &9007391578319545346
 GameObject:
   m_ObjectHideFlags: 0
