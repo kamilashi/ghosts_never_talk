@@ -6,12 +6,11 @@ namespace GNT
 {
     public class CameraMovement : MonoBehaviour
     {
-        [SerializeField]
+        public Vector2 offsetFromPlayer;
         [Range(0, 10)]
-        private float directionChangeReactionSpeed = 5.0f;
-        [SerializeField]
+        public float directionChangeReactionSpeed = 5.0f;
         [Range(0, 5)]
-        private float maxLookaheadDistanceX = 2.0f;
+        public float maxLookaheadDistanceX = 2.0f;
 
         private PlayerController playerController;
 
@@ -33,6 +32,9 @@ namespace GNT
             Vector2 thisFramePlayerPosition = new Vector2(playerController.gameObject.transform.position.x, playerController.gameObject.transform.position.y);
             Vector2 predictedPosition = thisFramePlayerPosition;
             predictedPosition.x += lookaheadDistanceScaled;
+
+            predictedPosition.y += offsetFromPlayer.y; 
+            predictedPosition.x += offsetFromPlayer.x * directionSmoothed;
 
             Vector2 currrentCameraPosition = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
             Vector2 deltaPosition = predictedPosition;
