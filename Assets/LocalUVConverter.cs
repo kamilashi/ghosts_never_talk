@@ -37,9 +37,20 @@ namespace Graphics
         {
             SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             // should be per instance
-            spriteRenderer.sharedMaterial.SetFloat("_LocalTopPixel", localTopPixel);
+            MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
+            spriteRenderer.GetPropertyBlock(materialPropertyBlock);
+
+            //Then you tweak the values in the Material Property Block
+            materialPropertyBlock.SetFloat("_LocalTopPixel", localTopPixel);
+            materialPropertyBlock.SetFloat("_LocalBottomPixel", localBottomPixel);
+            materialPropertyBlock.SetFloat("_TextureHeightInPixels", textureHeightInPixels);
+
+            //Finally you set the property block of the renderer
+            spriteRenderer.SetPropertyBlock(materialPropertyBlock);
+
+            /*spriteRenderer.sharedMaterial.SetFloat("_LocalTopPixel", localTopPixel);
             spriteRenderer.sharedMaterial.SetFloat("_LocalBottomPixel", localBottomPixel);
-            spriteRenderer.sharedMaterial.SetFloat("_TextureHeightInPixels", textureHeightInPixels);
+            spriteRenderer.sharedMaterial.SetFloat("_TextureHeightInPixels", textureHeightInPixels);*/
         }
     }
 }
