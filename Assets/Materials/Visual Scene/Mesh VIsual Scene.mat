@@ -101,7 +101,7 @@ Material:
     - _GlossyReflections: 0
     - _GradientEnd: 0
     - _GradientStart: 1
-    - _Intensity01: 0.78
+    - _Intensity01: 0.599
     - _MainCamFarPlane: 21
     - _MainCamNearPlane: 0.3
     - _MainCamZPos: -4.36
