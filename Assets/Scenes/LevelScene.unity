@@ -3032,7 +3032,7 @@ Transform:
   m_GameObject: {fileID: 1280154432303861347}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.6, y: -9.6, z: 19.3}
+  m_LocalPosition: {x: 5.6, y: -4.8, z: 19.3}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3052,8 +3052,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
-  yCutOff: 0.333
-  fadeOutStart: 0.451
+  yCutOff: 0.192
+  fadeOutStart: 0.435
   fadeOutEnd: 0
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
