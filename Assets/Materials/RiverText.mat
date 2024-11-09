@@ -41,15 +41,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FarClipModifier: 0
-    - _Intensity01: 0
-    - _NearClipModifier: 0
+    - _FarClipModifier: -56.7
+    - _Intensity01: 1
+    - _NearClipModifier: 7.6
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SampleTexture: 1
     m_Colors:
     - _Base: {r: 0.049928784, g: 0.20754716, b: 0.12800616, a: 0}
-    - _FarColor: {r: 0.84301907, g: 0.9528302, b: 0.7505785, a: 0}
+    - _FarColor: {r: 0.18628307, g: 0.18867922, b: 0.18422924, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8449298067947535628
 MonoBehaviour:
