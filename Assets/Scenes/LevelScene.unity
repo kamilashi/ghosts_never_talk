@@ -2439,7 +2439,7 @@ Transform:
   m_GameObject: {fileID: 612183495321169839}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.87, y: -4.48, z: 14.27}
+  m_LocalPosition: {x: -15.3, y: -4.48, z: 14.27}
   m_LocalScale: {x: 2.0385716, y: 2.0385716, z: 2.0385716}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2780,7 +2780,7 @@ Transform:
   m_GameObject: {fileID: 4495143868533079846}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.219999, y: -2.4, z: 16.269999}
+  m_LocalPosition: {x: 11.42, y: -2.4, z: 16.269999}
   m_LocalScale: {x: 2.3242855, y: 2.3242855, z: 2.3242855}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2800,10 +2800,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
-  yCutOff: 0.089
-  fadeOutStart: 0.294
+  yCutOff: 0.149
+  fadeOutStart: 0.054
   fadeOutEnd: 0
-  distanceFadeEnabled: 1
+  distanceFadeEnabled: 0
   overrideGlobalDistanceFade: 0
   intensity: 0.8
   farClipMofidier: 0
@@ -3134,7 +3134,7 @@ Transform:
   m_GameObject: {fileID: 5345740677135868045}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.099999, y: 3, z: 17.269999}
+  m_LocalPosition: {x: -13.59, y: 0.34, z: 17.269999}
   m_LocalScale: {x: 2.4671426, y: 2.4671426, z: 2.4671426}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3154,8 +3154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
-  yCutOff: 0.094
-  fadeOutStart: 0.502
+  yCutOff: 0
+  fadeOutStart: 0.455
   fadeOutEnd: 0
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
@@ -3293,8 +3293,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
-  yCutOff: 0.209
-  fadeOutStart: 0.234
+  yCutOff: 0.158
+  fadeOutStart: 0.32
   fadeOutEnd: 0
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
@@ -3382,7 +3382,7 @@ MonoBehaviour:
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
   yCutOff: 0
-  fadeOutStart: 0.157
+  fadeOutStart: 0.05
   fadeOutEnd: 0
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
@@ -3488,7 +3488,7 @@ MonoBehaviour:
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
   yCutOff: 0
-  fadeOutStart: 0.267
+  fadeOutStart: 0.716
   fadeOutEnd: 0
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
