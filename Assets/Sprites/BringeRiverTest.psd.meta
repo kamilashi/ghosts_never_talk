@@ -171,9 +171,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 3640
       y: 5457
-      width: 4412
+      width: 4343
       height: 364
-    spriteID: f505db1af4deb06439cd26d7eba469ff
+    spriteID: b795d5a8f402e0147858f1589edc3d42
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -183,6 +183,48 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 3640, y: 5457}
     spritePosition: {x: 652, y: 124}
+  - name: 3L right
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 5235
+      y: 10039
+      width: 2348
+      height: 364
+    spriteID: 72cd91143cba8864f90bda651d5cdd5d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 5235, y: 10039}
+    spritePosition: {x: 2647, y: 124}
+  - name: 3L left
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 5293
+      y: 1651
+      width: 2491
+      height: 257
+    spriteID: 9614c9184b4dbbc4193ba2834410bf62
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 5293, y: 1651}
+    spritePosition: {x: 652, y: 172}
   - name: 4L
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -372,27 +414,6 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
     spritePosition: {x: 0, y: 0}
-  - name: BringeRiverTest_0
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 8192
-      height: 11643
-    spriteID: f46db7f1f722a7b4dbc2020e1b36c4bc
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-    spritePosition: {x: 0, y: 0}
   characterData:
     bones: []
     parts: []
@@ -472,7 +493,7 @@ ScriptedImporter:
     mosaicPosition: {x: 4, y: 7040}
     flatten: 0
     isImported: 1
-    isVisible: 1
+    isVisible: 0
   - name: River
     spriteName: River
     isGroup: 0
@@ -487,9 +508,29 @@ ScriptedImporter:
     spriteName: 3L
     isGroup: 0
     parentIndex: -1
-    spriteID: f505db1af4deb06439cd26d7eba469ff
-    layerID: 11
+    spriteID: b795d5a8f402e0147858f1589edc3d42
+    layerID: 16
     mosaicPosition: {x: 3640, y: 5457}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: 3L right
+    spriteName: 3L right
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 72cd91143cba8864f90bda651d5cdd5d
+    layerID: 15
+    mosaicPosition: {x: 5235, y: 10039}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: 3L left
+    spriteName: 3L left
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 9614c9184b4dbbc4193ba2834410bf62
+    layerID: 17
+    mosaicPosition: {x: 5293, y: 1651}
     flatten: 0
     isImported: 1
     isVisible: 1
