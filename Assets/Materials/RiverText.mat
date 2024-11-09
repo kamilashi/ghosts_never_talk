@@ -42,7 +42,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _FarClipModifier: -56.7
-    - _Intensity01: 1
+    - _Intensity01: 0
     - _NearClipModifier: 7.6
     - _QueueControl: 0
     - _QueueOffset: 0
