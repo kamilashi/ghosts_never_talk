@@ -29,11 +29,14 @@ namespace Graphics
         public float farClipMofidier = 0.0f;
         public float nearClipModifier = 0.0f;
 
+
+        //[ExecuteInEditMode]
         void Awake()
         {
             FetchLocalSpriteData();
             ShaderPropertySetter.SetLocalSpriteUVsEvent += SetLocalSpriteUVs;
         }
+
 
         [ExecuteInEditMode]
         private void Update()
@@ -81,5 +84,13 @@ namespace Graphics
             //Finally you set the property block of the renderer
             spriteRenderer.SetPropertyBlock(materialPropertyBlock);
         }
+
+/*
+        [ContextMenu("FetchAndSetLocalUVData")]
+        public void FetchAndSetLocalUVData()
+        {
+            FetchLocalSpriteData();
+            SetLocalSpriteUVs();
+        }*/
     }
 }
