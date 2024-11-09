@@ -95,18 +95,18 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FarClipModifier: -18.07
+    - _FarClipModifier: -18.18
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _GradientEnd: 0
     - _GradientStart: 1
-    - _Intensity01: 0.38
+    - _Intensity01: 0.428
     - _MainCamFarPlane: 21
     - _MainCamNearPlane: 0.3
     - _MainCamZPos: -4.36
     - _Metallic: 0
-    - _NearClipModifier: 18.36
+    - _NearClipModifier: 11.4
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0

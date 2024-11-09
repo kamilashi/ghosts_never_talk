@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Graphics
 {
-    public class SpriteScaler : MonoBehaviour
+    public class PerspectiveCompensator : MonoBehaviour
     {
         public Camera referenceCamera;
         public GameObject unitScaleReference;
