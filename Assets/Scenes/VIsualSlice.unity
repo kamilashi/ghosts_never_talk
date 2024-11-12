@@ -352,7 +352,7 @@ Transform:
   m_GameObject: {fileID: 608096645}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.58, y: -0.4, z: 22.1}
+  m_LocalPosition: {x: -2.58, y: -0.56, z: 22.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -570,7 +570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraToSet: {fileID: 1263628533}
   yCutOff: 0.292
-  fadeOutStart: 0.148
+  fadeOutStart: 0.626
   fadeOutEnd: 0.047
   intensity: 0.873
   farClipMofidier: 31.8
@@ -673,9 +673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 360
-  localBottomPixel: 0
-  textureHeightInPixels: 360
   bottomFadeEnabled: 0
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -868,8 +865,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shaderPropertySetter: {fileID: 1212657460}
-  sceneSpriteScalers:
-  - {fileID: 9007391578319545347}
 --- !u!1 &1437474674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,9 +1533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 4450.5
-  localBottomPixel: 4143
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -1660,9 +1652,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 4090
-  localBottomPixel: 3359.5
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -1789,9 +1778,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 3771
-  localBottomPixel: 3359.5
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -1881,9 +1867,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 1699.5
-  localBottomPixel: 1086
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -1924,9 +1907,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 2924.5
-  localBottomPixel: 2328.5
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0.354
@@ -1967,9 +1947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 3355.5
-  localBottomPixel: 2928.5
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -1989,7 +1966,7 @@ Transform:
   m_GameObject: {fileID: 1263447856273201920}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -26.05, y: 13.72, z: 16.67}
+  m_LocalPosition: {x: -10.67, y: 15.09, z: 16.67}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2007,9 +1984,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 4792
-  localBottomPixel: 4094
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -2084,9 +2058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 2324.5
-  localBottomPixel: 1703.5
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -2160,9 +2131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 4139
-  localBottomPixel: 3775
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -2237,9 +2205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 5430.5
-  localBottomPixel: 4796
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -2340,9 +2305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localTopPixel: 1082
-  localBottomPixel: 2
-  textureHeightInPixels: 8192
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
   yCutOff: 0
@@ -2383,7 +2345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceCamera: {fileID: 1263628533}
-  unitScaleSpriteReference: {fileID: 8834046122074611551}
+  unitScaleReference: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

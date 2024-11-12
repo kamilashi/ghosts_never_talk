@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: RenderObjects
-    Event: 450
+    Event: 300
     filterSettings:
       RenderQueueType: 1
       LayerMask:
@@ -83,9 +83,9 @@ MonoBehaviour:
     overrideShader: {fileID: 0}
     overrideShaderPassIndex: 0
     overrideMode: 1
-    overrideDepthState: 0
-    depthCompareFunction: 0
-    enableWrite: 0
+    overrideDepthState: 1
+    depthCompareFunction: 4
+    enableWrite: 1
     stencilSettings:
       overrideStencilState: 0
       stencilReference: 0
@@ -97,4 +97,4 @@ MonoBehaviour:
       overrideCamera: 0
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
-      cameraFieldOfView: 77.9
+      cameraFieldOfView: 62.3
