@@ -9,9 +9,6 @@ namespace Graphics
     [ExecuteInEditMode]
     public class ShaderPropertySetter : MonoBehaviour
     {
-        private /*static*/ ShaderPropertySetter shaderPropertySetterInstance; // singleton
-
-
         public Camera cameraToSet;
 
         [Header("Sprite Global Bottom Fade")]
@@ -34,24 +31,13 @@ namespace Graphics
 
         public static event Action SetLocalSpriteUVsEvent;
 
-/*
-        public static ShaderPropertySetter Instance
-        {
-            get
-            {
-                return shaderPropertySetterInstance;
-            }
-        }*/
+        public GameObject spritesContainer;
+        public RenderTexture localSpriteUVRenderTexture;
+        public string outputTextureName; // final output
+        public ComputeShader localUVConverterComputeShader;
 
         void Awake()
         {
-            /*if (shaderPropertySetterInstance == null)
-            {
-                shaderPropertySetterInstance = gameObject.GetComponent<ShaderPropertySetter>();
-            }*/
-
-            //InitializeAllShaderParametersEvent += SetGlobalCameraParams;
-            //InitializeAllShaderParametersEvent += SetGlobalBottomFadeParams;
         }
 
         [ExecuteInEditMode]
@@ -62,9 +48,8 @@ namespace Graphics
             SetGlobalLightingParams();
         }
 
-       void SetGlobalCameraParams()
+        void SetGlobalCameraParams()
         {
-            //material.getSh
             Shader.SetGlobalFloat("_MainCamZPos", cameraToSet.transform.position.z);
             Shader.SetGlobalFloat("_MainCamNearPlane", cameraToSet.nearClipPlane);
             Shader.SetGlobalFloat("_MainCamFarPlane", cameraToSet.farClipPlane);
@@ -83,6 +68,7 @@ namespace Graphics
             Shader.SetGlobalFloat("_Sprite_DistanceFade_FarClipModifier", farClipMofidier);
             Shader.SetGlobalFloat("_Sprite_DistanceFade_NearClipModifier", nearClipModifier);
         }
+
         void SetGlobalLightingParams()
         {
             Shader.SetGlobalFloat("_Sprite_Lighting_NightMode", nightMode);
@@ -94,7 +80,7 @@ namespace Graphics
             SetLocalSpriteUVsEvent?.Invoke();
         }
 
-        public void SetLocalUVs()
+        public void SetAllLocalUVs()
         {
             SetLocalSpriteUVsEvent?.Invoke();
         }
@@ -110,6 +96,47 @@ namespace Graphics
         {
             SetGlobalDistanceFadeParams();
         }
-    }
 
+        [ContextMenu("WriteLocalUVDataFromSpritesYCoordOnly")]
+        private void WriteLocalUVDataFromSpritesYCoordOnly()
+        {
+            foreach (Transform sprite in spritesContainer.transform)
+            {
+                if (sprite.GetComponent<LocalUVConverter>() != null)
+                {
+                    LocalUVConverter uvConverterComponent = sprite.GetComponent<LocalUVConverter>();
+                    uvConverterComponent.WriteLocalUVCoordYIntoRenderTexture(ref localSpriteUVRenderTexture, ref localUVConverterComputeShader);
+                }
+            }
+
+            Library.TextureWriter.SaveRenderTextureToFile(localSpriteUVRenderTexture, outputTextureName, true, Library.TextureWriter.SaveTextureFileFormat.PNG);
+        }
+        
+        [ContextMenu("WriteLocalUVDataFromSprites")]
+        private void WriteLocalUVDataFromSprites()
+        {
+            foreach (Transform sprite in spritesContainer.transform)
+            {
+                if (sprite.GetComponent<LocalUVConverter>() != null)
+                {
+                    LocalUVConverter uvConverterComponent = sprite.GetComponent<LocalUVConverter>();
+                    uvConverterComponent.WriteLocalUVDataIntoRenderTexture(ref localSpriteUVRenderTexture, ref localUVConverterComputeShader);
+                }
+            }
+
+            Library.TextureWriter.SaveRenderTextureToFile(localSpriteUVRenderTexture, outputTextureName, true, Library.TextureWriter.SaveTextureFileFormat.PNG);
+        }
+
+        [ContextMenu("ClearRenderTexture")]
+        private void ClearRenderTexture()
+        {
+            int clearTextKernel = localUVConverterComputeShader.FindKernel("clearRenderTexture");
+            localUVConverterComputeShader.SetTexture(clearTextKernel, "localSpriteUVRenderTexture", localSpriteUVRenderTexture);
+
+            localUVConverterComputeShader.Dispatch(clearTextKernel, 1, localSpriteUVRenderTexture.height, 1);
+
+
+            Library.TextureWriter.SaveRenderTextureToFile(localSpriteUVRenderTexture, outputTextureName, true, Library.TextureWriter.SaveTextureFileFormat.PNG);
+        }
+    }
 }

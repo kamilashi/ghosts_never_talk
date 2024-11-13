@@ -29,6 +29,8 @@ namespace Graphics
         public float farClipMofidier = 0.0f;
         public float nearClipModifier = 0.0f;
 
+        //public RenderTexture localSpriteUVRenderTexture;
+        //public ComputeShader localUVConverterComputeShader;
 
         //[ExecuteInEditMode]
         void Awake()
@@ -46,22 +48,29 @@ namespace Graphics
 
         void FetchLocalSpriteData()
         {
-            SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            localTopPixel = spriteRenderer.sprite.rect.position.y + spriteRenderer.sprite.rect.height;
-            localBottomPixel = spriteRenderer.sprite.rect.position.y;
-            textureHeightInPixels = spriteRenderer.sprite.texture.height;
+            int textHeightInpixelsInt = 0;
+            GetLocalSpriteData(ref localTopPixel, ref localBottomPixel, ref textHeightInpixelsInt);
+            textureHeightInPixels = (float)textHeightInpixelsInt;
 
             ShaderPropertySetter.SetLocalSpriteUVsEvent += SetLocalSpriteUVs;
+        }
+        
+        void GetLocalSpriteData(ref float localTopPixelRef, ref float localBottomPixelRef, ref int textureHeightInPixelsRef)
+        {
+            SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            localTopPixelRef = spriteRenderer.sprite.rect.position.y + spriteRenderer.sprite.rect.height;
+            localBottomPixelRef = spriteRenderer.sprite.rect.position.y;
+            textureHeightInPixelsRef = spriteRenderer.sprite.texture.height;
         }
 
        void SetLocalSpriteUVs()
         {
             SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
             // should be per instance
             MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
             spriteRenderer.GetPropertyBlock(materialPropertyBlock);
 
-            //Then you tweak the values in the Material Property Block
             materialPropertyBlock.SetFloat("_LocalTopPixel", localTopPixel);
             materialPropertyBlock.SetFloat("_LocalBottomPixel", localBottomPixel);
             materialPropertyBlock.SetFloat("_TextureHeightInPixels", textureHeightInPixels);
@@ -81,16 +90,52 @@ namespace Graphics
                 materialPropertyBlock.SetFloat("_Sprite_DistanceFade_NearClipModifier", nearClipModifier);
             }
 
-            //Finally you set the property block of the renderer
             spriteRenderer.SetPropertyBlock(materialPropertyBlock);
         }
 
-/*
-        [ContextMenu("FetchAndSetLocalUVData")]
-        public void FetchAndSetLocalUVData()
+        public void WriteLocalUVCoordYIntoRenderTexture(ref RenderTexture targetOutput, ref ComputeShader shader)
         {
-            FetchLocalSpriteData();
-            SetLocalSpriteUVs();
-        }*/
+            float locTopPixel = 0.0f;
+            float locBottomPixel = 0.0f;
+            int textHeightInPixels = 0;
+
+            GetLocalSpriteData(ref locTopPixel, ref locBottomPixel, ref textHeightInPixels);
+
+            Debug.Assert(targetOutput.height == textHeightInPixels);
+
+            int writeLocalUvCoordKernel = shader.FindKernel("writeLocalUvCoordY");
+
+            shader.SetTexture(writeLocalUvCoordKernel, "localSpriteUVRenderTexture", targetOutput);
+
+            shader.SetFloat("localTopPixel", locTopPixel);
+            shader.SetFloat("localBottomPixel", locBottomPixel);
+            shader.SetFloat("textureHeightInPixels", (float)textHeightInPixels);
+
+            shader.Dispatch(writeLocalUvCoordKernel, 1, textHeightInPixels, 1);
+        }
+
+        public void WriteLocalUVDataIntoRenderTexture(ref RenderTexture targetOutput, ref ComputeShader shader)
+        {
+            float locTopPixel = 0.0f;
+            float locBottomPixel = 0.0f;
+            int textHeightInPixels = 0;
+
+            GetLocalSpriteData(ref locTopPixel, ref locBottomPixel, ref textHeightInPixels);
+
+            Debug.Assert(targetOutput.height == textHeightInPixels);
+
+            int writeLocalUvDataKernel = shader.FindKernel("writeLocalUvCoordWithBoundsY");
+
+            shader.SetTexture(writeLocalUvDataKernel, "localSpriteUVRenderTexture", targetOutput);
+
+            shader.SetFloat("localTopPixel", locTopPixel);
+            shader.SetFloat("localBottomPixel", locBottomPixel);
+            shader.SetFloat("textureHeightInPixels", (float)textHeightInPixels);
+
+            shader.SetFloat("topUvBoudY", (float) (locTopPixel / ((float)textHeightInPixels)));
+            shader.SetFloat("bottomUvBoudY", (float) (locBottomPixel/ ((float)textHeightInPixels)));
+
+            shader.Dispatch(writeLocalUvDataKernel, 1, textHeightInPixels, 1);
+        }
     }
 }

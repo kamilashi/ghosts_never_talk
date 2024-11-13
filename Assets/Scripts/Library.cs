@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Library
 {
@@ -52,7 +53,7 @@ namespace Library
         }
     }
 
-    public static class TextWriter
+    public static class TextReadWriter
    {
         public static void WriteTextToFile(string content, string resourceFolder, string fileNameNoExt)
         {
@@ -92,5 +93,76 @@ namespace Library
             UnityEngine.Debug.Log("Loaded " + vector3.ToString());
             return vector3;
         }
+    }
+
+
+
+    public static class TextureWriter
+    {
+        public enum SaveTextureFileFormat
+        {
+            EXR, JPG, PNG, TGA
+        };
+
+        /// <summary>
+        /// Saves a Texture2D to disk with the specified filename and image format
+        /// </summary>
+        /// <param name="tex"></param>
+        /// <param name="filePath"></param>
+        /// <param name="fileFormat"></param>
+        /// <param name="jpgQuality"></param>
+        static public void SaveTexture2DToFile(UnityEngine.Texture2D tex, string filePath, SaveTextureFileFormat fileFormat, int jpgQuality = 95)
+        {
+            switch (fileFormat)
+            {
+                case SaveTextureFileFormat.EXR:
+                    System.IO.File.WriteAllBytes(filePath + ".exr", tex.EncodeToEXR());
+                    break;
+                case SaveTextureFileFormat.JPG:
+                    System.IO.File.WriteAllBytes(filePath + ".jpg", tex.EncodeToJPG(jpgQuality));
+                    break;
+                case SaveTextureFileFormat.PNG:
+                    System.IO.File.WriteAllBytes(filePath + ".png", tex.EncodeToPNG());
+                    break;
+                case SaveTextureFileFormat.TGA:
+                    System.IO.File.WriteAllBytes(filePath + ".tga", tex.EncodeToTGA());
+                    break;
+            }
+        }
+
+
+        /// <summary>
+        /// Saves a RenderTexture to disk with the specified filename and image format
+        /// </summary>
+        /// <param name="renderTexture"></param>
+        /// <param name="filePath"></param>
+        /// <param name="fileFormat"></param>
+        /// <param name="jpgQuality"></param>
+        static public void SaveRenderTextureToFile(RenderTexture renderTexture, string fileName, bool linearColorSpace, SaveTextureFileFormat fileFormat = SaveTextureFileFormat.PNG, int jpgQuality = 95)
+        {
+            string filePath = "Assets/Generated/" + fileName;
+
+            Texture2D tex;
+            if (fileFormat != SaveTextureFileFormat.EXR)
+                tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false, linearColorSpace);
+            else
+                tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBAFloat, false, linearColorSpace);
+
+           // tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false, true);
+
+            var oldRt = RenderTexture.active;
+            RenderTexture.active = renderTexture;
+            tex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+            tex.Apply();
+            RenderTexture.active = oldRt;
+            SaveTexture2DToFile(tex, filePath, fileFormat, jpgQuality);
+
+            /*if (Application.isPlaying)
+                Object.Destroy(tex);
+            else
+                Object.DestroyImmediate(tex);*/
+
+        }
+
     }
 }

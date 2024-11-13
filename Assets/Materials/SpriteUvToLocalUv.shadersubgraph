@@ -15,7 +15,11 @@
     ],
     "m_Keywords": [],
     "m_Dropdowns": [],
-    "m_CategoryData": [],
+    "m_CategoryData": [
+        {
+            "m_Id": "4d566093bd33485fba960b99f304ebfb"
+        }
+    ],
     "m_Nodes": [
         {
             "m_Id": "32cf7699408743c5b11e34bdbd9f84fb"
@@ -741,10 +745,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -450.25,
-            "y": -107.75,
-            "width": 208.0,
-            "height": 302.00006103515627
+            "x": -392.0000305175781,
+            "y": -58.99998092651367,
+            "width": 208.00003051757813,
+            "height": 301.9999694824219
         }
     },
     "m_Slots": [
@@ -884,6 +888,24 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "4d566093bd33485fba960b99f304ebfb",
+    "m_Name": "",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "bcc236d41f8447ea886010682eb70caa"
+        },
+        {
+            "m_Id": "9034f01e6150413e980fa59ece87966e"
+        },
+        {
+            "m_Id": "6300799e6a3940208b79391746a316b0"
+        }
+    ]
 }
 
 {
@@ -1666,10 +1688,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -808.249755859375,
-            "y": 144.25,
-            "width": 153.0,
-            "height": 172.99993896484376
+            "x": -945.0,
+            "y": -43.00000762939453,
+            "width": 152.99993896484376,
+            "height": 173.0
         }
     },
     "m_Slots": [
@@ -2017,10 +2039,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -614.249755859375,
-            "y": 156.25,
+            "x": -736.0,
+            "y": -105.9999771118164,
             "width": 120.0,
-            "height": 149.00006103515626
+            "height": 148.99998474121095
         }
     },
     "m_Slots": [
