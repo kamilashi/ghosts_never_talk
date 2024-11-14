@@ -109,7 +109,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DownShift: 0.89
+    - _DownShift: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
@@ -132,7 +132,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _TextResolution: 6.8
+    - _TextResolution: 1024
     - _TextureHeightInPixels: 0
     - _UVsampleCorrectionY: 0.13
     - _UVsampleCorrectionYBottom: 0

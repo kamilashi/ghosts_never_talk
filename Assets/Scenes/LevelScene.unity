@@ -757,7 +757,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 70
-  field of view: 77.37509
+  field of view: 105.665634
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -784,7 +784,7 @@ Transform:
   m_GameObject: {fileID: 318446022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.38, y: -0.17, z: 0}
+  m_LocalPosition: {x: 23.2, y: 4.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -849,6 +849,113 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &396855187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 396855188}
+  - component: {fileID: 396855190}
+  - component: {fileID: 396855189}
+  m_Layer: 0
+  m_Name: GradientsFogs_1 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &396855188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396855187}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.03643929, y: -0.64196515, z: 0.7651669, w: 0.03275048}
+  m_LocalPosition: {x: 28.43, y: -3.89, z: 7.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1318752996}
+  m_LocalEulerAnglesHint: {x: 80, y: 4.53, z: 178.9}
+--- !u!114 &396855189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396855187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
+--- !u!212 &396855190
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396855187}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 364487034, guid: ee6d06eb41e073e4ba66f908aa0224bb, type: 3}
+  m_Color: {r: 0.36862746, g: 0.3647059, b: 0.36862746, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 4.56, y: 5.12}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &424397640
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +1036,7 @@ Transform:
   m_GameObject: {fileID: 424397640}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
-  m_LocalPosition: {x: 11.739016, y: 3.0926015, z: 4.801153}
+  m_LocalPosition: {x: 11.74, y: 3.49, z: 4.801153}
   m_LocalScale: {x: 2.0172908, y: 2.0172908, z: 2.017291}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1093,7 +1200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &447259253
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1155,7 +1262,7 @@ Transform:
   m_GameObject: {fileID: 447259252}
   serializedVersion: 2
   m_LocalRotation: {x: 0.50909925, y: 0.020002544, z: -0.033782072, w: 0.859812}
-  m_LocalPosition: {x: 14.38, y: -3.62, z: 9.05}
+  m_LocalPosition: {x: 14.38, y: -3.62, z: 8.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1751,7 +1858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &692316362
 Transform:
   m_ObjectHideFlags: 0
@@ -1941,8 +2048,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
-  yCutOff: 0.131
-  fadeOutStart: 0.068
+  yCutOff: 0
+  fadeOutStart: 0.198
   fadeOutEnd: 0
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
@@ -2214,8 +2321,8 @@ Transform:
   m_GameObject: {fileID: 1239344695}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
-  m_LocalPosition: {x: 9.802937, y: 2.1031153, z: 3.570605}
-  m_LocalScale: {x: 1.0086454, y: 1.0086454, z: 1.0086455}
+  m_LocalPosition: {x: 8.08, y: 3.14, z: 3.570605}
+  m_LocalScale: {x: 1, y: 1, z: 1.0086455}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1218737938}
@@ -2233,8 +2340,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
-  overrideGlobalBottomFade: 0
-  yCutOff: 0
+  overrideGlobalBottomFade: 1
+  yCutOff: 0.112
   fadeOutStart: 0.12
   fadeOutEnd: 0
   distanceFadeEnabled: 1
@@ -2514,6 +2621,7 @@ Transform:
   - {fileID: 1218737938}
   - {fileID: 447259254}
   - {fileID: 692316362}
+  - {fileID: 396855188}
   - {fileID: 3837994709939017118}
   - {fileID: 4022696346207905982}
   m_Father: {fileID: 0}
