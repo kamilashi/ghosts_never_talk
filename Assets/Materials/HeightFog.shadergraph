@@ -597,6 +597,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "07a59655ce81437c9b19210b255c7fe0",
+    "m_Id": 942166402,
+    "m_DisplayName": "SceneDepthSampleOffsetX",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_SceneDepthSampleOffsetX",
+    "m_StageCapability": 2,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PositionMaterialSlot",
     "m_ObjectId": "08e81bfc057541f7a07929b3a30f880b",
     "m_Id": 0,
@@ -651,6 +666,9 @@
             "m_Id": "5d67e39737304e71add6876ae737079d"
         },
         {
+            "m_Id": "07a59655ce81437c9b19210b255c7fe0"
+        },
+        {
             "m_Id": "2d2ec223fa9d4fc08c37ef3b77249c5d"
         }
     ],
@@ -667,13 +685,17 @@
         "93c32993-7344-4bac-a5be-c266be81daf6",
         "76c0b2d4-f00e-4c0f-91e5-5ca5905cada5",
         "a8617483-dd51-4962-9341-ebf1955c0426",
-        "6be70e47-995c-4e59-89a6-3d041b4fb032"
+        "6be70e47-995c-4e59-89a6-3d041b4fb032",
+        "a6ced575-2460-42e8-9d32-67b6b3f95a7f",
+        "7e466bf2-1650-4cc6-a1d9-ec9d81f54497"
     ],
     "m_PropertyIds": [
         1215784396,
         977206235,
         921482452,
-        322141833
+        322141833,
+        756759099,
+        942166402
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
