@@ -175,7 +175,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.22
+  m_Intensity: 1.78
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -219,7 +219,7 @@ Light:
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
+  m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
@@ -569,13 +569,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToSet: {fileID: 1263628533}
-  yCutOff: 0.292
-  fadeOutStart: 0.626
-  fadeOutEnd: 0.047
   intensity: 0.873
   farClipMofidier: 31.8
   nearClipModifier: 15.3
   nightMode: 0.377
+  spritesContainer: {fileID: 0}
+  localSpriteUVRenderTexture: {fileID: 0}
+  outputTextureName: 
+  localUVConverterComputeShader: {fileID: 0}
 --- !u!1 &1260296609
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,7 +2113,7 @@ GameObject:
   - component: {fileID: 1719537444149806705}
   - component: {fileID: 3813392681414009443}
   - component: {fileID: 7422514188598263746}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Layer 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}

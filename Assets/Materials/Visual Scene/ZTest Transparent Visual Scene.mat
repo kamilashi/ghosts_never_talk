@@ -150,6 +150,9 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Sprite_BottomFadeEnabled: 1
+    - _Sprite_BottomFade_FadeOutEnd: 0
+    - _Sprite_BottomFade_FadeOutStart: 0.639
+    - _Sprite_BottomFade_YOffset: 0
     - _Sprite_DistanceFadeEnabled: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1

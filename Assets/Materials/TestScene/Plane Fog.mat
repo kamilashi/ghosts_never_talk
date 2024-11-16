@@ -141,8 +141,8 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _FallOff: 0.09
-    - _FogTextureIntensity: 0.516
-    - _FogTextureScrollSpeed: 0.019
+    - _FogTextureIntensity: 0.657
+    - _FogTextureScrollSpeed: 0.028
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

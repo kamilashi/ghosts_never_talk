@@ -98,7 +98,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DensityFallOff: 9.1
+    - _DensityFallOff: 7.1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -107,7 +107,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradStart: 0
+    - _GradStart: 0.038
     - _Metallic: 0
     - _NoiseScale: 29.1
     - _NoiseScrollSpeed: 0.05
@@ -125,18 +125,18 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _SufraceBlendEdge2: 0.774
+    - _SufraceBlendEdge2: 0.567
     - _Surface: 0
-    - _SurfaceBlendDistance: 0.06
-    - _SurfaceBlendEdge1: 0.136
+    - _SurfaceBlendDistance: 0
+    - _SurfaceBlendEdge1: 0.511
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FarColor: {r: 0.46902812, g: 0.5373354, b: 0.6415094, a: 0}
-    - _NearColor: {r: 0.9386792, g: 1, b: 0.989789, a: 0}
+    - _FarColor: {r: 0.9577252, g: 0.9594789, b: 0.9622642, a: 0}
+    - _NearColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6484782603128995066

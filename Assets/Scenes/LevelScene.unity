@@ -222,7 +222,7 @@ Transform:
   m_GameObject: {fileID: 82947804}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5948227, y: 0, z: 0, w: 0.80385697}
-  m_LocalPosition: {x: 24.5, y: -16, z: 27.9}
+  m_LocalPosition: {x: 24.5, y: -4.6, z: 27.9}
   m_LocalScale: {x: 270.21, y: -83.05376, z: 2452.5632}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -484,8 +484,8 @@ Transform:
   m_GameObject: {fileID: 243819983}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
-  m_LocalPosition: {x: -5.78, y: 2.08, z: 3.3991354}
-  m_LocalScale: {x: 1.5129681, y: 1.5129681, z: 1.5129683}
+  m_LocalPosition: {x: -5.89, y: 2.08, z: 4.16}
+  m_LocalScale: {x: 1.8338686, y: 1.8338686, z: 1.833869}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1218737938}
@@ -530,7 +530,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 60
+  m_SortingOrder: 55
   m_Sprite: {fileID: -416252899, guid: 03dcde6fa7917c845b61c69f0baf9dda, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -757,7 +757,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 70
-  field of view: 105.665634
+  field of view: 77.766174
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -784,7 +784,7 @@ Transform:
   m_GameObject: {fileID: 318446022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.2, y: 1.04, z: 0}
+  m_LocalPosition: {x: 22.7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1037,7 +1037,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
   m_LocalPosition: {x: 11.74, y: 3.17, z: 4.801153}
-  m_LocalScale: {x: 2.0172908, y: 2.0172908, z: 2.017291}
+  m_LocalScale: {x: 2.4451582, y: 2.4451582, z: 2.4451585}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1218737938}
@@ -1526,8 +1526,8 @@ Transform:
   m_GameObject: {fileID: 501187123}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
-  m_LocalPosition: {x: -9.02, y: 1.89, z: 5.053314}
-  m_LocalScale: {x: 2.0172908, y: 2.0172908, z: 12.103746}
+  m_LocalPosition: {x: -8.96, y: 2.75, z: 4.6}
+  m_LocalScale: {x: 2.4451582, y: 2.4451582, z: 14.670952}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1218737938}
@@ -1648,8 +1648,8 @@ Transform:
   m_GameObject: {fileID: 524692976}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
-  m_LocalPosition: {x: 9.24, y: 1.58, z: 1.523055}
-  m_LocalScale: {x: 1.5129681, y: 1.5129681, z: 1.5129683}
+  m_LocalPosition: {x: 9.42, y: 1.24, z: 2.6}
+  m_LocalScale: {x: 1.8338686, y: 1.8338686, z: 1.833869}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1218737938}
@@ -1871,8 +1871,8 @@ Transform:
   m_GameObject: {fileID: 714374341}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
-  m_LocalPosition: {x: -7.23, y: 2.04, z: 1.0893371}
-  m_LocalScale: {x: 1.7146972, y: 2.0172908, z: 2.017291}
+  m_LocalPosition: {x: -9.19, y: 2.04, z: 1.97}
+  m_LocalScale: {x: 2.0783846, y: 2.4451582, z: 2.4451585}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1218737938}
@@ -1942,7 +1942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
-  overrideGlobalBottomFade: 1
+  overrideGlobalBottomFade: 0
   yCutOff: 0.081
   fadeOutStart: 0.198
   fadeOutEnd: 0
@@ -1965,6 +1965,89 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   referenceCamera: {fileID: 0}
   unitScaleReference: {fileID: 0}
+--- !u!1 &772784791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 772784792}
+  - component: {fileID: 772784794}
+  - component: {fileID: 772784793}
+  m_Layer: 0
+  m_Name: Quad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &772784792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772784791}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.38252217, y: 0, z: 0, w: 0.9239463}
+  m_LocalPosition: {x: 0, y: 18.6, z: -58.18}
+  m_LocalScale: {x: 100, y: 100, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1016157394}
+  m_LocalEulerAnglesHint: {x: 44.98, y: 0, z: 0}
+--- !u!23 &772784793
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772784791}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6ddd36ef16e0f27488c6817edb14cda4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &772784794
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772784791}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &818394513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2094,6 +2177,7 @@ Transform:
   m_Children:
   - {fileID: 818394515}
   - {fileID: 1005608164}
+  - {fileID: 772784792}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1218737937
@@ -2214,7 +2298,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
   m_LocalPosition: {x: 8.08, y: 2.69, z: 3.570605}
-  m_LocalScale: {x: 1, y: 1, z: 1.0086455}
+  m_LocalScale: {x: 1.2121, y: 1.2121, z: 1.2225792}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1218737938}
@@ -2595,8 +2679,8 @@ Transform:
   m_GameObject: {fileID: 1339279885}
   serializedVersion: 2
   m_LocalRotation: {x: 0.61772245, y: 0, z: 0, w: 0.78639627}
-  m_LocalPosition: {x: 22.47, y: -4.41, z: 9.14}
-  m_LocalScale: {x: 18.3, y: 15, z: 10}
+  m_LocalPosition: {x: 22.47, y: -3.73, z: 9.14}
+  m_LocalScale: {x: 18.3, y: 7.7, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3206,7 +3290,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 24.5, y: 34.6, z: 58.8}
-  m_LocalScale: {x: 272.2, y: 100, z: 2452.5632}
+  m_LocalScale: {x: 400, y: 100, z: 2452.5632}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3744,7 +3828,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1e84c039debd87b47a5f9cffd99d468e, type: 2}
+  - {fileID: 2100000, guid: 8b0a0ac79a7bf2e4497d6981a9c4a434, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3978,8 +4062,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
-  yCutOff: 0.149
-  fadeOutStart: 0.054
+  yCutOff: 0.257
+  fadeOutStart: 0.221
   fadeOutEnd: 0
   distanceFadeEnabled: 0
   overrideGlobalDistanceFade: 0
@@ -4048,9 +4132,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
-  yCutOff: 0.027
-  fadeOutStart: 0.018
-  fadeOutEnd: 0
+  yCutOff: 0
+  fadeOutStart: 0.05
+  fadeOutEnd: 0.032
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
   intensity: 0.8
@@ -4332,7 +4416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
-  yCutOff: 0
+  yCutOff: 0.446
   fadeOutStart: 0.455
   fadeOutEnd: 0
   distanceFadeEnabled: 1
@@ -4610,9 +4694,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
-  yCutOff: 0.192
-  fadeOutStart: 0.435
-  fadeOutEnd: 0
+  yCutOff: 0.311
+  fadeOutStart: 0.455
+  fadeOutEnd: 0.095
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
   intensity: 0.8
@@ -4665,9 +4749,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 1
-  yCutOff: 0
-  fadeOutStart: 0.716
-  fadeOutEnd: 0
+  yCutOff: 0.302
+  fadeOutStart: 0.374
+  fadeOutEnd: 0.072
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
   intensity: 0.8
