@@ -737,7 +737,7 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 1
+  m_FOVAxisMode: 0
   m_Iso: 200
   m_ShutterSpeed: 0.005
   m_Aperture: 16
@@ -757,7 +757,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 70
-  field of view: 77.766174
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1648,7 +1648,7 @@ Transform:
   m_GameObject: {fileID: 524692976}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
-  m_LocalPosition: {x: 9.42, y: 1.24, z: 2.6}
+  m_LocalPosition: {x: -7.81, y: 1.23, z: 0.5}
   m_LocalScale: {x: 1.8338686, y: 1.8338686, z: 1.833869}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1667,10 +1667,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
-  overrideGlobalBottomFade: 0
-  yCutOff: 0.32
-  fadeOutStart: 0.167
-  fadeOutEnd: 0
+  overrideGlobalBottomFade: 1
+  yCutOff: 0.023
+  fadeOutStart: 0.275
+  fadeOutEnd: 0.095
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
   intensity: 0.8
@@ -1871,7 +1871,7 @@ Transform:
   m_GameObject: {fileID: 714374341}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
-  m_LocalPosition: {x: -9.19, y: 2.04, z: 1.97}
+  m_LocalPosition: {x: -6.97, y: 2.04, z: 0.78}
   m_LocalScale: {x: 2.0783846, y: 2.4451582, z: 2.4451585}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2679,8 +2679,8 @@ Transform:
   m_GameObject: {fileID: 1339279885}
   serializedVersion: 2
   m_LocalRotation: {x: 0.61772245, y: 0, z: 0, w: 0.78639627}
-  m_LocalPosition: {x: 22.47, y: -3.73, z: 9.14}
-  m_LocalScale: {x: 18.3, y: 7.7, z: 10}
+  m_LocalPosition: {x: 22.47, y: -3.73, z: 8.37}
+  m_LocalScale: {x: 18.3, y: 8.3, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2796,7 +2796,7 @@ Transform:
   m_GameObject: {fileID: 1536384515}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.0002617804, w: 1}
-  m_LocalPosition: {x: 21.46, y: -6.22, z: 7.09}
+  m_LocalPosition: {x: 22.47, y: -6.22, z: 5.46}
   m_LocalScale: {x: 0.99142855, y: 0.99142855, z: 0.99142855}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3716,8 +3716,8 @@ Transform:
   m_GameObject: {fileID: 1247786367683082838}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.34, y: -5.7, z: 7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 15.42, y: -5.7, z: 5.42}
+  m_LocalScale: {x: 0.77428573, y: 0.77428573, z: 0.77428573}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1318752996}
@@ -3783,8 +3783,8 @@ Transform:
   m_GameObject: {fileID: 6924891890353894833}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.900001, y: -4.8047657, z: 6}
-  m_LocalScale: {x: 0.85714287, y: 0.85714287, z: 0.85714287}
+  m_LocalPosition: {x: 13.9800005, y: -4.8047657, z: 4.42}
+  m_LocalScale: {x: 0.63142854, y: 0.63142854, z: 0.63142854}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1318752996}
@@ -3944,7 +3944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceCamera: {fileID: 318446024}
-  unitScaleReference: {fileID: 6619493202465956097}
+  unitScaleReference: {fileID: 6366259843138025468}
 --- !u!212 &5057004557550207472
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4153,7 +4153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceCamera: {fileID: 318446024}
-  unitScaleReference: {fileID: 1247786367683082838}
+  unitScaleReference: {fileID: 6366259843138025468}
 --- !u!212 &6419325525788911544
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4386,7 +4386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceCamera: {fileID: 318446024}
-  unitScaleReference: {fileID: 1247786367683082838}
+  unitScaleReference: {fileID: 6366259843138025468}
 --- !u!4 &7344077984826869656
 Transform:
   m_ObjectHideFlags: 0
