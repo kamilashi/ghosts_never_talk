@@ -530,7 +530,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 70
+  m_SortingOrder: 60
   m_Sprite: {fileID: -416252899, guid: 03dcde6fa7917c845b61c69f0baf9dda, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
-  overrideGlobalBottomFade: 1
+  overrideGlobalBottomFade: 0
   yCutOff: 0.054
   fadeOutStart: 0.443
   fadeOutEnd: 0
@@ -784,7 +784,7 @@ Transform:
   m_GameObject: {fileID: 318446022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.2, y: 4.4, z: 0}
+  m_LocalPosition: {x: 23.2, y: 1.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1055,7 +1055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
-  overrideGlobalBottomFade: 1
+  overrideGlobalBottomFade: 0
   yCutOff: 0.032
   fadeOutStart: 0.257
   fadeOutEnd: 0
@@ -1650,7 +1650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
-  overrideGlobalBottomFade: 1
+  overrideGlobalBottomFade: 0
   yCutOff: 0.446
   fadeOutStart: 0.12
   fadeOutEnd: 0
@@ -1772,7 +1772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
-  overrideGlobalBottomFade: 1
+  overrideGlobalBottomFade: 0
   yCutOff: 0.32
   fadeOutStart: 0.167
   fadeOutEnd: 0
@@ -2047,7 +2047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
-  overrideGlobalBottomFade: 1
+  overrideGlobalBottomFade: 0
   yCutOff: 0
   fadeOutStart: 0.198
   fadeOutEnd: 0
@@ -2321,7 +2321,7 @@ Transform:
   m_GameObject: {fileID: 1239344695}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
-  m_LocalPosition: {x: 8.08, y: 3.14, z: 3.570605}
+  m_LocalPosition: {x: 8.08, y: 3.01, z: 3.570605}
   m_LocalScale: {x: 1, y: 1, z: 1.0086455}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2340,7 +2340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
-  overrideGlobalBottomFade: 1
+  overrideGlobalBottomFade: 0
   yCutOff: 0.112
   fadeOutStart: 0.12
   fadeOutEnd: 0
@@ -2687,7 +2687,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e19ca800812d9084d96a1c09a008d058, type: 2}
+  - {fileID: 2100000, guid: 2dcc73f4b4c4b6249aeffa7b0c83dece, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
