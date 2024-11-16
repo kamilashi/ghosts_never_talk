@@ -121,7 +121,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _PositionOffsetY: 0.132
+    - _PositionOffsetY: 0.184
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -137,7 +137,7 @@ Material:
     - _TextureHeightInPixels: 0
     - _UVsampleCorrectionY: 0.13
     - _UVsampleCorrectionYBottom: 0
-    - _UVsampleCorrectionYTop: 0
+    - _UVsampleCorrectionYTop: 0.918
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
