@@ -11,13 +11,14 @@ namespace Graphics
     {
         public Camera cameraToSet;
 
+/*
         [Header("Sprite Global Bottom Fade")]
         [Range(0, 1)]
         public float yCutOff = 0.0f;
         [Range(0, 1)]
         public float fadeOutStart = 0.12f;
         [Range(0, 1)]
-        public float fadeOutEnd = 0.0f;
+        public float fadeOutEnd = 0.0f;*/
 
         [Header("Sprite Global Distance Fade")]
         [Range(0, 1)]
@@ -43,7 +44,7 @@ namespace Graphics
         [ExecuteInEditMode]
         void Update()
         {
-            SetGlobalBottomFadeParams();
+           // SetGlobalBottomFadeParams();
             SetGlobalDistanceFadeParams();
             SetGlobalLightingParams();
         }
@@ -55,12 +56,13 @@ namespace Graphics
             Shader.SetGlobalFloat("_MainCamFarPlane", cameraToSet.farClipPlane);
         }
 
+/*
         void SetGlobalBottomFadeParams()
         {
             Shader.SetGlobalFloat("_Sprite_BottomFade_FadeOutStart", fadeOutStart);
             Shader.SetGlobalFloat("_Sprite_BottomFade_FadeOutEnd", fadeOutEnd);
             Shader.SetGlobalFloat("_Sprite_BottomFade_YOffset", yCutOff);
-        }
+        }*/
 
         void SetGlobalDistanceFadeParams()
         {
@@ -88,10 +90,11 @@ namespace Graphics
         {
             SetGlobalCameraParams();
         }
+/*
         public void SetGlobalSpriteBottomFadeParameters()
         {
             SetGlobalBottomFadeParams();
-        }
+        }*/
         public void SetGlobalSpriteDistanceFadeParameters()
         {
             SetGlobalDistanceFadeParams();
