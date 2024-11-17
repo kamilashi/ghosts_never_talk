@@ -14,7 +14,10 @@ namespace GNT
     public class SceneInterface : MonoBehaviour
     {
         [SerializeField]
-        private GroundLayer currentGroundLayer; // sett in the inspector only
+        private GroundLayer currentGroundLayer; // for now set inspector - later should be loaded + managed during the switch
+
+        [SerializeField]
+        private GameObject currentForemostLayer; // for now set inspector - later should be loaded + managed during he switch
 
         [SerializeField]
         private SceneStartData sceneStartData; // set in the inspector only
@@ -41,9 +44,13 @@ namespace GNT
 
         }
 
-        public GroundLayer GetGroundLayer()
+        public GroundLayer GetCurrentGroundLayer()
         {
             return currentGroundLayer;
+        }
+        public GameObject GetCurrentForemostLayer()
+        {
+            return currentForemostLayer;
         }
     }
 }

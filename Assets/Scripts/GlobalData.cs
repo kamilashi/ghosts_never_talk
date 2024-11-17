@@ -18,7 +18,7 @@ namespace GNT
         public PlayerController playerController; // read only, reference needs to be set in the inspector, visible too other scripts
 
 
-        private SceneInterface activeScene; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
+        public SceneInterface activeScene; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
 
         public AnimationEventProcessor animationEventProcessor;
 
@@ -44,12 +44,13 @@ namespace GNT
             // Hack, this should be in the project settings:
             Physics2D.queriesStartInColliders = false;
             animationEventProcessor = new AnimationEventProcessor();
+
+            // until we have loading and save data:
+            activeScene = startScene;
         }
 
         void Start()
         {
-            // until we have loading and save data:
-            activeScene = startScene;
             OnSceneLoadFinishEvent?.Invoke();
         }
 

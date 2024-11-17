@@ -31,9 +31,13 @@ namespace Graphics
         [ContextMenu("SnapToCameraBottom")]
         public void SnapToCameraBottom()
         {
+            
             float distanceFromCamera = System.Math.Abs(gameObject.transform.position.z - referenceCamera.gameObject.transform.position.z);
+            float deltaYto0 = referenceCamera.gameObject.transform.position.y - transform.position.y;
             float deltaY = distanceFromCamera * (float)System.Math.Tan(referenceCamera.fieldOfView * 0.5 * (System.Math.PI / 180.0));
-            transform.Translate(0.0f,-deltaY, 0.0f);
+            transform.Translate(0.0f,-deltaY + deltaYto0, 0.0f);
+
+            Debug.Log("The objects's pivot must be at the bottom of the sprite for the script to work correctly");
         }
     }
 }

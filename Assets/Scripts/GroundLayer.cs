@@ -6,7 +6,6 @@ namespace GNT
 {
     public class GroundLayer : MonoBehaviour
     {
-        public bool IsSwitchLayer;
         void Start()
         {
 
