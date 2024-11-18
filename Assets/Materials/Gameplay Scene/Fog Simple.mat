@@ -103,7 +103,8 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FogDensityFactor: 0.063
+    - _FogAlphaContrast: 1
+    - _FogDensityFactor: 0
     - _FogTextureSampleScale: 34.8
     - _FogTextureScrollSpeed: 0.018
     - _GlossMapScale: 0
