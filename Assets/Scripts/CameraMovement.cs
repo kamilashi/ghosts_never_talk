@@ -17,31 +17,34 @@ namespace GNT
         [Header("Bottom screen position")]
         public bool constantGroundLevel = false;
         private float groundLevel = 0.0f;
-        private GameObject currentForemostLayerReference;
 
         [Header("Height change z-dollying")]
+        public bool dollyOnHeightChange = true;
         public float dollySpeed = 1.0f;
         public float maxDollyAmount = 3.0f;
         public float playerToGroundHeightDifferenceThreshold = 2.6f; // start dollying when the distance from the players y position to the ground level (ground sprites pivot point pos y) if higher than this value
 
         // private
+        [SerializeField]
         private PlayerController playerController;
+        [SerializeField]
+        private GameObject cameraHookReference;
+        [SerializeField]
         private Camera thisCameraReference;
 
         private float directionSmoothed = 0.0f;
-        private float defaultCameraPosY;
+        private float defaultFromPlayerOffsetZ;
 
         void Start()
         {
-            playerController = GlobalData.Instance.playerController; // cash out the reference to the player controllers
 
-            currentForemostLayerReference = GlobalData.Instance.activeScene.GetCurrentForemostLayer();
+            playerController = GlobalData.Instance.GetPlayerController(); // cash out the reference to the player controllers
 
-            thisCameraReference = GetComponent<Camera>();
+            cameraHookReference = GlobalData.Instance.ActiveScene.ActiveGroundLayer.ScreenBottomHook;
 
-            defaultCameraPosY = transform.position.y;
+            thisCameraReference = this.GetComponent<Camera>();
 
-            Debug.Log("All sprites' pivots must be a the bottom!");
+            defaultFromPlayerOffsetZ = transform.position.z - playerController.gameObject.transform.position.z;
         }
 
         void Update()
@@ -64,8 +67,8 @@ namespace GNT
 
             if (constantGroundLevel) // cameras y position relative to ground
             {
-                float referenceExtentY = (currentForemostLayerReference.transform.position.z - transform.position.z) * (float)System.Math.Tan(thisCameraReference.fieldOfView * 0.5 * (System.Math.PI / 180.0));
-                groundLevel = currentForemostLayerReference.transform.position.y + referenceExtentY;
+                float referenceExtentY = (cameraHookReference.transform.position.z - transform.position.z) * (float)System.Math.Tan(thisCameraReference.fieldOfView * 0.5 * (System.Math.PI / 180.0));
+                groundLevel = cameraHookReference.transform.position.y + referenceExtentY;
                 predictedPosition.y = groundLevel;
 
                 heightReference = groundLevel;
@@ -76,20 +79,24 @@ namespace GNT
                 predictedPosition.y += offsetFromPlayer.y;
                 
                 heightDifferenceThreshold = offsetFromPlayer.y;
-                heightReference = defaultCameraPosY;
+                heightReference = thisFramePlayerPosition.y;
             }
 
             Vector3 currrentCameraPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
             Vector3 deltaPosition = predictedPosition;
             deltaPosition -= currrentCameraPosition;
+            deltaPosition.z = 0.0f;
 
-            // Hack: should be triggered by the ground movement nodes, and not depend on absolute y position, but for now
-            // dolly the camera back when going up (reference ground y = 0)
-           float dollyAmount = System.Math.Min( System.Math.Abs(playeFollowPositionY + heightDifferenceThreshold - heightReference), maxDollyAmount);
-            float dollyDirection = System.Math.Sign(transform.position.y - (playeFollowPositionY + heightDifferenceThreshold));
+            if (dollyOnHeightChange)
+            {
+                // Hack: should be triggered by the ground movement nodes, and not depend on absolute y position, but for now
+                // dolly the camera back when going up (reference ground y = 0)
+                float dollyAmount = System.Math.Min(System.Math.Abs(playeFollowPositionY + heightDifferenceThreshold - heightReference), maxDollyAmount);
+                float dollyDirection = System.Math.Sign(transform.position.y - (playeFollowPositionY + heightDifferenceThreshold));
 
-            // the y change in predicted position will already be scaled by deltatime, since it comes from the player movement - so it's safe to just follow it on the z axis
-            deltaPosition.z = 0.0f + dollyDirection * dollyAmount * /*Time.deltaTime **/ dollySpeed;
+                // the y change in predicted position will already be scaled by deltatime, since it comes from the player movement - so it's safe to just follow it on the z axis
+                deltaPosition.z = 0.0f + dollyDirection * dollyAmount * /*Time.deltaTime **/ dollySpeed;
+            }
 
             gameObject.transform.Translate(deltaPosition);
         }

@@ -12,13 +12,14 @@ namespace GNT
         private static GlobalData globalDataInstance; // singleton
 
         [SerializeField]
-        private SceneInterface startScene; // read only, set i the inspector only, invisible to other scripts
+        private SceneInterface startScene; // read only, set in the inspector only, invisible to other scripts
         [SerializeField]
-        // store reference to game object instead?
-        public PlayerController playerController; // read only, reference needs to be set in the inspector, visible too other scripts
+        private Camera mainCamera; // read only, set in the inspector only, invisible to other scripts
+        [SerializeField] // store reference to game object instead?
+        private PlayerController playerController; // read only, reference needs to be set in the inspector, visible too other scripts
 
 
-        public SceneInterface activeScene; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
+        public SceneInterface ActiveScene; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
 
         public AnimationEventProcessor animationEventProcessor;
 
@@ -46,7 +47,8 @@ namespace GNT
             animationEventProcessor = new AnimationEventProcessor();
 
             // until we have loading and save data:
-            activeScene = startScene;
+            ActiveScene = startScene;
+            ActiveScene.OnLoadInitialize();
         }
 
         void Start()
@@ -60,5 +62,14 @@ namespace GNT
             animationEventProcessor.Run(Time.deltaTime);
         }
 
+        public Camera GetActiveCamera()
+        {
+            return mainCamera;
+        }
+
+        public PlayerController GetPlayerController()
+        {
+            return playerController;
+        }
     }
 }

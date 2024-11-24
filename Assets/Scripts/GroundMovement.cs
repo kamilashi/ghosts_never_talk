@@ -62,14 +62,6 @@ namespace GNT
         {
             float newHorizontalVelocity = SmoothingFuncitons.ApproachReferenceLinear(currentHorizontalVelocity, inputDirection*inputSpeed, Acceleration * Time.deltaTime);
 
-            /*
-                        if(newHorizontalVelocity * currentHorizontalVelocity < 0.0f)
-                        {
-                            animator.SetBool("triggerTurning", true);
-                        }
-                        else*/
-           // bool isTurning = newHorizontalVelocity * currentHorizontalVelocity < 0.0f /*|| (newHorizontalVelocity != 0.0f && currentHorizontalVelocity == 0.0f)*/;
-
             currentHorizontalVelocity = newHorizontalVelocity;
 
             if (currentHorizontalVelocity != 0.0f)

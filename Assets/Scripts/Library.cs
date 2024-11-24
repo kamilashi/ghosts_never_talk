@@ -53,6 +53,19 @@ namespace Library
         }
     }
 
+    public static class Helpers
+    {
+        public static float GetDeltaYToScreenBottom(UnityEngine.Vector3 objectPos, UnityEngine.Vector3 currentCamPos, float vertFOV)
+        {
+            float distanceFromCamera = System.Math.Abs(objectPos.z - currentCamPos.z);
+            float deltaObjY = distanceFromCamera * (float)System.Math.Tan(vertFOV * 0.5 * (System.Math.PI / 180.0));
+
+            float deltaObjYtoCam0 = currentCamPos.y - objectPos.y;
+
+            return deltaObjYtoCam0 - deltaObjY;
+        }
+    }
+
     public static class TextReadWriter
    {
         public static void WriteTextToFile(string content, string resourceFolder, string fileNameNoExt)
