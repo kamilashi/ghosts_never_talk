@@ -7935,7 +7935,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 80
   m_Sprite: {fileID: 5064380198088877227, guid: 860b24714849cb64aba648e9d92b7195, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7978,9 +7978,9 @@ MonoBehaviour:
   yCutOff: 0
   fadeOutStart: 0.12
   fadeOutEnd: 0
-  distanceFadeEnabled: 1
+  distanceFadeEnabled: 0
   overrideGlobalDistanceFade: 0
-  intensity: 0.8
+  intensity: 0
   farClipMofidier: 0
   nearClipModifier: 0
 --- !u!1 &1595396765
