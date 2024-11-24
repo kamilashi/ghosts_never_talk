@@ -95,7 +95,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FarClipModifier: -3.22
+    - _FarClipModifier: 34.86
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -106,7 +106,7 @@ Material:
     - _MainCamNearPlane: 0.3
     - _MainCamZPos: -4.36
     - _Metallic: 0
-    - _NearClipModifier: 0
+    - _NearClipModifier: 53.42
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
