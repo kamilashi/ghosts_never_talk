@@ -14,9 +14,9 @@ TagManager:
   - Ground
   - NPC
   - StaticCollision
-  - 
-  - 
-  - 
+  - ZTest Transparent
+  - Opague Bckgrouond
+  - Transparent as Opague
   - 
   - 
   - 

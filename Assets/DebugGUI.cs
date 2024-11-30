@@ -8,7 +8,6 @@ namespace GNT
     public class DebugGUI : MonoBehaviour
     {
         public Graphics.ShaderPropertySetter shaderPropertySetter;
-        public List<Graphics.SpriteScaler> sceneSpriteScalers;
 
         void Awake()
         {

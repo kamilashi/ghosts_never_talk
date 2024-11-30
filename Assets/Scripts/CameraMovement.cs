@@ -1,26 +1,50 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GNT
 {
+    [RequireComponent(typeof(UnityEngine.Camera))]
     public class CameraMovement : MonoBehaviour
     {
-        [SerializeField]
+        [Header("Player following")]
+        public Vector2 offsetFromPlayer;
         [Range(0, 10)]
-        private float directionChangeReactionSpeed = 5.0f;
-        [SerializeField]
+        public float directionChangeReactionSpeed = 5.0f;
         [Range(0, 5)]
-        private float maxLookaheadDistanceX = 2.0f;
+        public float maxLookaheadDistanceX = 2.0f;
 
+        [Header("Bottom screen position")]
+        public bool constantGroundLevel = false;
+        private float groundLevel = 0.0f;
+
+        [Header("Height change z-dollying")]
+        public bool dollyOnHeightChange = true;
+        public float dollySpeed = 1.0f;
+        public float maxDollyAmount = 3.0f;
+        public float playerToGroundHeightDifferenceThreshold = 2.6f; // start dollying when the distance from the players y position to the ground level (ground sprites pivot point pos y) if higher than this value
+
+        // private
+        [SerializeField]
         private PlayerController playerController;
-
+        [SerializeField]
+        private GameObject cameraHookReference;
+        [SerializeField]
+        private Camera thisCameraReference;
 
         private float directionSmoothed = 0.0f;
+        private float defaultFromPlayerOffsetZ;
 
         void Start()
         {
-            playerController = GlobalData.Instance.playerController; // cash out the reference to the player controllers
+
+            playerController = GlobalData.Instance.GetPlayerController(); // cash out the reference to the player controllers
+
+            cameraHookReference = GlobalData.Instance.ActiveScene.ActiveGroundLayer.ScreenBottomHook;
+
+            thisCameraReference = this.GetComponent<Camera>();
+
+            defaultFromPlayerOffsetZ = transform.position.z - playerController.gameObject.transform.position.z;
         }
 
         void Update()
@@ -30,13 +54,49 @@ namespace GNT
             float lookaheadDistanceScaled = directionSmoothed * playerController.GetMoveKeyHoldScale() * maxLookaheadDistanceX;
 
             // read it from ground movement or some other interface?
-            Vector2 thisFramePlayerPosition = new Vector2(playerController.gameObject.transform.position.x, playerController.gameObject.transform.position.y);
-            Vector2 predictedPosition = thisFramePlayerPosition;
-            predictedPosition.x += lookaheadDistanceScaled;
+            Vector2 thisFramePlayerPosition = new Vector2(playerController.gameObject.transform.position.x, playerController.gameObject.transform.position.y); 
 
-            Vector2 currrentCameraPosition = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
-            Vector2 deltaPosition = predictedPosition;
+             Vector2 predictedPosition = thisFramePlayerPosition;
+            predictedPosition.x += lookaheadDistanceScaled;
+            predictedPosition.x += offsetFromPlayer.x * directionSmoothed;
+
+           float playeFollowPositionY = thisFramePlayerPosition.y;
+
+            float heightDifferenceThreshold = playerToGroundHeightDifferenceThreshold;
+            float heightReference = 0.0f;
+
+            if (constantGroundLevel) // cameras y position relative to ground
+            {
+                float referenceExtentY = (cameraHookReference.transform.position.z - transform.position.z) * (float)System.Math.Tan(thisCameraReference.fieldOfView * 0.5 * (System.Math.PI / 180.0));
+                groundLevel = cameraHookReference.transform.position.y + referenceExtentY;
+                predictedPosition.y = groundLevel;
+
+                heightReference = groundLevel;
+            }
+            else // make cameras y position be relative to the player
+            {
+                // should be an instant snap, so y follow to offset from player does not need scaling
+                predictedPosition.y += offsetFromPlayer.y;
+                
+                heightDifferenceThreshold = offsetFromPlayer.y;
+                heightReference = thisFramePlayerPosition.y;
+            }
+
+            Vector3 currrentCameraPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+            Vector3 deltaPosition = predictedPosition;
             deltaPosition -= currrentCameraPosition;
+            deltaPosition.z = 0.0f;
+
+            if (dollyOnHeightChange)
+            {
+                // Hack: should be triggered by the ground movement nodes, and not depend on absolute y position, but for now
+                // dolly the camera back when going up (reference ground y = 0)
+                float dollyAmount = System.Math.Min(System.Math.Abs(playeFollowPositionY + heightDifferenceThreshold - heightReference), maxDollyAmount);
+                float dollyDirection = System.Math.Sign(transform.position.y - (playeFollowPositionY + heightDifferenceThreshold));
+
+                // the y change in predicted position will already be scaled by deltatime, since it comes from the player movement - so it's safe to just follow it on the z axis
+                deltaPosition.z = 0.0f + dollyDirection * dollyAmount * /*Time.deltaTime **/ dollySpeed;
+            }
 
             gameObject.transform.Translate(deltaPosition);
         }

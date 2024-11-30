@@ -35,6 +35,9 @@ namespace GNT
                 KeyCode moveLeftMappedKey = KeyCode.A;
                 KeyCode moveRightMappedKey = KeyCode.D;
 
+                KeyCode switchGroundLayerIn = KeyCode.W;
+                KeyCode switchGroundLayerOut = KeyCode.S;
+
                 if (Input.GetKey(moveLeftMappedKey))
                 {
                     processMoveInput(1.0f);
@@ -56,8 +59,15 @@ namespace GNT
                 {
                     processMoveInput(-1.0f);
                 }
-                /* Vector3 debugPos = new Vector3( 100.0f, 100.0f, 0.0f);
-                 Debug.DrawLine(debugPos, debugPos + Vector3.right * moveKeyHoldTimeScaled * 10.0f, Color.magenta, Time.deltaTime, false);*/
+
+                if (Input.GetKeyDown(switchGroundLayerIn))
+                {
+                    GlobalData.Instance.ActiveScene.SwitchIn();
+                }
+                else if(Input.GetKeyDown(switchGroundLayerOut))
+                {
+                    GlobalData.Instance.ActiveScene.SwitchOut();
+                }
         }
 
        private void processMoveInput(float sign)

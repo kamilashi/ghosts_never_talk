@@ -95,18 +95,18 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FarClipModifier: -42.78
+    - _FarClipModifier: -22.44
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _GradientEnd: 0
     - _GradientStart: 1
-    - _Intensity01: 0.205
+    - _Intensity01: 0.137
     - _MainCamFarPlane: 21
     - _MainCamNearPlane: 0.3
     - _MainCamZPos: -4.36
     - _Metallic: 0
-    - _NearClipModifier: 3.47
+    - _NearClipModifier: 30.1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -122,11 +122,11 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _Base: {r: 0.09985758, g: 0.41509432, b: 0.20493647, a: 0}
+    - _Base: {r: 0.36862746, g: 0.3647059, b: 0.36862746, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FarColor: {r: 0.3915094, g: 1, b: 0.99343735, a: 0}
+    - _FarColor: {r: 0.86800325, g: 0.9245283, b: 0.65850836, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tint: {r: 0.05767174, g: 0.26048377, b: 0.45283014, a: 0}
   m_BuildTextureStacks: []

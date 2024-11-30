@@ -1,0 +1,56 @@
+#pragma kernel writeLocalUvCoordY
+#pragma kernel writeLocalUvCoordWithBoundsY
+#pragma kernel clearRenderTexture
+
+shared RWTexture2D<float4> localSpriteUVRenderTexture;
+
+float localTopPixel;
+float localBottomPixel;
+float textureHeightInPixels;
+
+float topUvBoudY;
+float bottomUvBoudY;
+
+float remap(float value, float startIn, float stopIn, float startOut, float stopOut)
+{
+    return startOut + ((stopOut - startOut) * ((value - startIn) / (stopIn - startIn)));
+}
+
+#define blocksize 1024
+[numthreads(blocksize, 1, 1)]
+void writeLocalUvCoordY(uint3 id : SV_DispatchThreadID)
+{
+    uint yPixelCoord = id.y;
+    float currentGlobalUvY = (((float) yPixelCoord) / (textureHeightInPixels - 1));
+    
+    if (yPixelCoord >= localBottomPixel && yPixelCoord <= localTopPixel)
+    {
+        float localYValue = (textureHeightInPixels * currentGlobalUvY - localBottomPixel) / (localTopPixel - localBottomPixel);
+        localSpriteUVRenderTexture[id.xy] = float4(localYValue, 0.0, 0.0, 1.0);
+    }
+}
+
+#define blocksize 1024
+[numthreads(blocksize, 1, 1)]
+void writeLocalUvCoordWithBoundsY(uint3 id : SV_DispatchThreadID)
+{
+    uint yPixelCoord = id.y;
+    
+    float currentGlobalUvY = (((float) yPixelCoord) / (textureHeightInPixels - 1));
+    //float topUvBoudYl = (((float) localTopPixel) / textureHeightInPixels);
+    //float bottomUvBoudYl = (((float) localBottomPixel) / textureHeightInPixels);
+    
+    if (yPixelCoord >= localBottomPixel && yPixelCoord <= localTopPixel)
+    {
+        //float localYValue = (textureHeightInPixels * currentGlobalUvY - localBottomPixel) / (localTopPixel - localBottomPixel - 1);
+        float localYValue = (yPixelCoord - localBottomPixel) / (localTopPixel - localBottomPixel);
+        localSpriteUVRenderTexture[id.xy] = float4(localYValue, topUvBoudY, bottomUvBoudY, 1.0);
+    }
+}
+
+[numthreads(blocksize, 1, 1)]
+void clearRenderTexture(uint3 id : SV_DispatchThreadID)
+{
+     localSpriteUVRenderTexture[id.xy] = float4(0.0, 0.0, 0.0, 0.0);
+}
+
