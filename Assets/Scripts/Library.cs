@@ -62,6 +62,8 @@ namespace Library
 
             float deltaObjYtoCam0 = currentCamPos.y - objectPos.y;
 
+            Debug.Log("deltaObjYtoCam0: " + deltaObjYtoCam0);
+            Debug.Log("deltaObjYtoScreenBottom: " + deltaObjY);
             return deltaObjYtoCam0 - deltaObjY;
         }
     }

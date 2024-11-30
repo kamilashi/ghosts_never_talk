@@ -27,10 +27,10 @@ namespace GNT
         // private
         [SerializeField]
         private PlayerController playerController;
+       // [SerializeField]
+       // private  GroundLayer activeGroundLayerRef;
         [SerializeField]
-        private GameObject cameraHookReference;
-        [SerializeField]
-        private Camera thisCameraReference;
+        private Camera mainCamera;
 
         private float directionSmoothed = 0.0f;
         private float defaultFromPlayerOffsetZ;
@@ -40,9 +40,9 @@ namespace GNT
 
             playerController = GlobalData.Instance.GetPlayerController(); // cash out the reference to the player controllers
 
-            cameraHookReference = GlobalData.Instance.ActiveScene.ActiveGroundLayer.ScreenBottomHook;
+           // activeGroundLayerRef = GlobalData.Instance.GetActiveGroundLayerRef();
 
-            thisCameraReference = this.GetComponent<Camera>();
+            mainCamera = this.GetComponent<Camera>();
 
             defaultFromPlayerOffsetZ = transform.position.z - playerController.gameObject.transform.position.z;
         }
@@ -67,8 +67,10 @@ namespace GNT
 
             if (constantGroundLevel) // cameras y position relative to ground
             {
-                float referenceExtentY = (cameraHookReference.transform.position.z - transform.position.z) * (float)System.Math.Tan(thisCameraReference.fieldOfView * 0.5 * (System.Math.PI / 180.0));
-                groundLevel = cameraHookReference.transform.position.y + referenceExtentY;
+                GroundLayer activeGroundLayerRef = GlobalData.Instance.ActiveScene.ActiveGroundLayer;
+
+                float referenceExtentY = (activeGroundLayerRef.ScreenBottomHook.transform.position.z - transform.position.z) * (float)System.Math.Tan(mainCamera.fieldOfView * 0.5 * (System.Math.PI / 180.0));
+                groundLevel = activeGroundLayerRef.ScreenBottomHook.transform.position.y + referenceExtentY;
                 predictedPosition.y = groundLevel;
 
                 heightReference = groundLevel;

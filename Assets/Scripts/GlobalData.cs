@@ -66,6 +66,12 @@ namespace GNT
         {
             return mainCamera;
         }
+        
+/*
+        public ref GroundLayer GetActiveGroundLayerRef()
+        {
+            return ref ActiveScene.ActiveGroundLayer;
+        }*/
 
         public PlayerController GetPlayerController()
         {

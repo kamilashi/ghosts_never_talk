@@ -14,6 +14,9 @@ namespace GNT
         private GroundMovement groundMovement;
         private MoveDirection lastMoveDirection;
 
+        // later once we have interactables, this will need to move to that component
+        private GroundLayerPositionMapper groundLayerPositionMapper;
+
         private float moveKeyHoldTimeScaled;
         private bool acceptInput = true;
 
@@ -22,6 +25,7 @@ namespace GNT
             lastMoveDirection = MoveDirection.Right;
             moveKeyHoldTimeScaled = 0.0f;
             groundMovement = gameObject.GetComponentInChildren<GroundMovement>();
+            groundLayerPositionMapper = gameObject.GetComponentInChildren<GroundLayerPositionMapper>();
         }   
         
         void Start()
@@ -63,10 +67,12 @@ namespace GNT
                 if (Input.GetKeyDown(switchGroundLayerIn))
                 {
                     GlobalData.Instance.ActiveScene.SwitchIn();
+                    hackySnapToGroundLayerHook();
                 }
                 else if(Input.GetKeyDown(switchGroundLayerOut))
                 {
                     GlobalData.Instance.ActiveScene.SwitchOut();
+                    hackySnapToGroundLayerHook();
                 }
         }
 
@@ -74,6 +80,13 @@ namespace GNT
         {
             moveKeyHoldTimeScaled += sign * Time.deltaTime * inputSensitivity; // replace with smoothing curves? 
             moveKeyHoldTimeScaled = Mathf.Clamp01(moveKeyHoldTimeScaled);
+        }
+        
+        private void hackySnapToGroundLayerHook()
+        {
+            float offsetFromScreenBottom = 2.5f;
+            groundLayerPositionMapper.TranslateToGroundHookPosition(offsetFromScreenBottom);
+            groundMovement.SnapToGround();
         }
 
         public int GetLastDirectionInput()

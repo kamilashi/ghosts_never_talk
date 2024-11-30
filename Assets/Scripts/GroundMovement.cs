@@ -55,7 +55,7 @@ namespace GNT
             currentHorizontalVelocity = SpeedValues[(int)GNT.MoveSpeed.Stand];
 
             // play spawn animation and hop from the sky?
-            snapToGround();
+            SnapToGround();
         }
 
         void Update()
@@ -104,7 +104,7 @@ namespace GNT
         }
 
         // hacky
-        private void snapToGround()
+        public void SnapToGround()
         {
             float rayLength = 10.0f;
             Vector3 rayStart = transform.position;
@@ -152,7 +152,7 @@ namespace GNT
 #endif
             transform.Translate(alongNormal, Space.World);
 
-            snapToGround();
+            SnapToGround();
         }
     }
 }

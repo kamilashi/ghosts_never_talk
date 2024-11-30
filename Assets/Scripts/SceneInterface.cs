@@ -33,43 +33,21 @@ namespace GNT
 
         }
 
-        /*     public GroundLayer GetCurrentGroundLayer()
-                {
-                    return ActiveGroundLayer;
-                }
-                public GameObject GetCurrentScreenBottomHook()
-                {
-                    return ActiveGroundLayer.GetScreenBottomHook();
-                }
-
-
-                public void SetCurrentGroundLayer(GroundLayer groundLayer)
-                {
-                    currentGroundLayer = groundLayer;
-                }*/
-
-
-        private void SwitchToLayer(int targetLayerIdx)
+        public void SwitchToLayer(int targetLayerIdx)
         {
+            // as soon as colliders are replaced with a waling path, this needs to change. Currently any other collider users besides the plazer will break, as all ground colliders that are unused by the player will be disabled.
+            foreach( GroundLayer layer in groundLayers)
+            {
+                layer.EdgeCollider.enabled = false;
+            }
+
             currentLayerIdx = targetLayerIdx;
             ActiveGroundLayer = groundLayers[targetLayerIdx];
+
+
+            ActiveGroundLayer.EdgeCollider.enabled = true;
+
             Debug.Log("targetLayerIdx " + targetLayerIdx);
-            Camera mainCamera = GlobalData.Instance.GetActiveCamera();
-            float yShift = Library.Helpers.GetDeltaYToScreenBottom(ActiveGroundLayer.ScreenBottomHook.transform.position, mainCamera.transform.position, mainCamera.fieldOfView);
-
-            HashSet<GameObject> uniqueSceneHierarchyLinks = new HashSet<GameObject>();
-
-            for (int backToFrontIdx = groundLayers.Count-1; backToFrontIdx >= 0; backToFrontIdx --)
-            {
-                GameObject sceneLayerHierarchy = groundLayers[backToFrontIdx].SceneLayerHierarchy;
-                uniqueSceneHierarchyLinks.Add(sceneLayerHierarchy);
-            }
-
-            foreach (GameObject sceneLayerHierarchy in uniqueSceneHierarchyLinks)
-            {
-                sceneLayerHierarchy.transform.Translate(0.0f, yShift, 0.0f);
-                Debug.Log("shifted " + sceneLayerHierarchy.name + " in " + yShift);
-            }
         }
 
         public bool SwitchIn()
@@ -97,9 +75,8 @@ namespace GNT
         public void OnLoadInitialize()
         {
             // delegate to load funcitonality and move to globalData
-            currentLayerIdx = sceneStartData.startLayerIdx;
-            ActiveGroundLayer = groundLayers[currentLayerIdx];
-            //SwitchToLayer(currentLayerIdx);
+            
+            SwitchToLayer(sceneStartData.startLayerIdx);
         }
     }
 }
