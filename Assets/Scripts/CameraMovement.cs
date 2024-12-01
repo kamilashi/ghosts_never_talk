@@ -9,6 +9,8 @@ namespace GNT
     {
         [Header("Player following")]
         public Vector2 offsetFromPlayer;
+        public Vector2 playerFollowThreshold; // Camera starts following the player only if the player moves outside of this box
+        public float cameraFollowPlayerSpeed = 2.0f;
         [Range(0, 10)]
         public float directionChangeReactionSpeed = 5.0f;
         [Range(0, 5)]
@@ -22,7 +24,7 @@ namespace GNT
         public bool dollyOnHeightChange = true;
         public float dollySpeed = 1.0f;
         public float maxDollyAmount = 3.0f;
-        public float playerToGroundHeightDifferenceThreshold = 2.6f; // start dollying when the distance from the players y position to the ground level (ground sprites pivot point pos y) if higher than this value
+        private float playerToGroundHeightDifferenceThreshold = 2.6f; // start dollying when the distance from the players y position to the ground level (ground sprites pivot point pos y) if higher than this value
 
         // private
         [SerializeField]
@@ -37,20 +39,19 @@ namespace GNT
 
         void Start()
         {
-
             playerController = GlobalData.Instance.GetPlayerController(); // cash out the reference to the player controllers
-
-           // activeGroundLayerRef = GlobalData.Instance.GetActiveGroundLayerRef();
 
             mainCamera = this.GetComponent<Camera>();
 
             defaultFromPlayerOffsetZ = transform.position.z - playerController.gameObject.transform.position.z;
+
+            //playerToGroundHeightDifferenceThreshold = offsetFromPlayer.y;
         }
 
         void Update()
         {
             // #todo: configurable camera acceleration?
-            directionSmoothed = Library.SmoothingFuncitons.ApproachReferenceLinear(directionSmoothed, (float)playerController.GetLastDirectionInput(), directionChangeReactionSpeed*Time.deltaTime);
+            directionSmoothed = Library.SmoothingFuncitons.ApproachReferenceLinear(directionSmoothed, (float)playerController.GetLastDirectionInput(), directionChangeReactionSpeed  * Time.deltaTime);
             float lookaheadDistanceScaled = directionSmoothed * playerController.GetMoveKeyHoldScale() * maxLookaheadDistanceX;
 
             // read it from ground movement or some other interface?
@@ -88,6 +89,7 @@ namespace GNT
             Vector3 deltaPosition = predictedPosition;
             deltaPosition -= currrentCameraPosition;
             deltaPosition.z = 0.0f;
+            deltaPosition *= cameraFollowPlayerSpeed * Time.deltaTime;
 
             if (dollyOnHeightChange)
             {
@@ -96,8 +98,7 @@ namespace GNT
                 float dollyAmount = System.Math.Min(System.Math.Abs(playeFollowPositionY + heightDifferenceThreshold - heightReference), maxDollyAmount);
                 float dollyDirection = System.Math.Sign(transform.position.y - (playeFollowPositionY + heightDifferenceThreshold));
 
-                // the y change in predicted position will already be scaled by deltatime, since it comes from the player movement - so it's safe to just follow it on the z axis
-                // not enought since 1) layer swith translates the player instantly 2) camera movement is jittery during regular ground movement
+                // todo: define the default camera z offset in the ground layer data!
                 deltaPosition.z = 0.0f + dollyDirection * dollyAmount * Time.deltaTime * dollySpeed;
             }
 
