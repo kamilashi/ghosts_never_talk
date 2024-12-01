@@ -84,9 +84,8 @@ namespace GNT
         
         private void hackySnapToGroundLayerHook()
         {
-            float offsetFromScreenBottom = 2.5f;
-            groundLayerPositionMapper.TranslateToGroundHookPosition(offsetFromScreenBottom);
-            groundMovement.SnapToGround();
+            groundLayerPositionMapper.TranslateToGroundHookPosition();
+            //groundMovement.SnapToGround();
         }
 
         public int GetLastDirectionInput()

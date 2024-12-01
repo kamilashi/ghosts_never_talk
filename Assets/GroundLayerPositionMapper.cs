@@ -4,18 +4,19 @@ using UnityEngine;
 
 namespace GNT
 {
+    [RequireComponent(typeof(GroundMovement))]
     public class GroundLayerPositionMapper : MonoBehaviour
     {
-        private SceneInterface activeScene;
         private SpriteRenderer spriteRenderer;
         private Collider2D collider;
+        private GroundMovement groundMovement;
 
         // Start is called before the first frame update
         void Start()
         {
-            activeScene = GlobalData.Instance.ActiveScene;
             spriteRenderer = this.GetComponent<SpriteRenderer>();
             collider = this.GetComponent<Collider2D>();
+            groundMovement = this.GetComponent<GroundMovement>();
         }
 
         // Update is called once per frame
@@ -24,16 +25,21 @@ namespace GNT
 
         }
 
-        public void TranslateToGroundHookPosition(float heightOffset)
+        public void TranslateToGroundHookPosition()
         {
             spriteRenderer.enabled = false;
-            GameObject positionHook = activeScene.ActiveGroundLayer.ScreenBottomHook;
-            Vector3 deltaPositionTranslate = activeScene.ActiveGroundLayer.EdgeCollider.transform.position;
+            GameObject positionHook = GlobalData.Instance.ActiveScene.ActiveGroundLayer.ScreenBottomHook;
+            Vector3 deltaPositionTranslate = GlobalData.Instance.ActiveScene.ActiveGroundLayer.EdgeCollider.transform.position;
             deltaPositionTranslate.x = positionHook.transform.position.x;
-            deltaPositionTranslate.y += collider.bounds.extents.y - collider.offset.y;
-            deltaPositionTranslate -= this.transform.position;
+            // deltaPositionTranslate.y += collider.bounds.extents.y - collider.offset.y;
+            float testHeight = 20.0f;
+            deltaPositionTranslate.y += testHeight;
 
-            spriteRenderer.sortingOrder = activeScene.ActiveGroundLayer.SpriteLayerOrder;
+            spriteRenderer.sortingOrder = GlobalData.Instance.ActiveScene.ActiveGroundLayer.SpriteLayerOrder;
+
+            deltaPositionTranslate.y -= GroundMovement.GetDistanceToGroundCollider(deltaPositionTranslate, testHeight, collider, groundMovement.GroundCollisionMask);
+
+            deltaPositionTranslate -= this.transform.position;
 
             transform.Translate(deltaPositionTranslate);
             spriteRenderer.enabled = true;
