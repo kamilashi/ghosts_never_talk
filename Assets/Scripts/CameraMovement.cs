@@ -75,7 +75,7 @@ namespace GNT
 
                 heightReference = groundLevel;
             }
-            else // make cameras y position be relative to the player
+            else // make cameras y position be relative to the player - does not work
             {
                 // should be an instant snap, so y follow to offset from player does not need scaling
                 predictedPosition.y += offsetFromPlayer.y;
@@ -97,7 +97,8 @@ namespace GNT
                 float dollyDirection = System.Math.Sign(transform.position.y - (playeFollowPositionY + heightDifferenceThreshold));
 
                 // the y change in predicted position will already be scaled by deltatime, since it comes from the player movement - so it's safe to just follow it on the z axis
-                deltaPosition.z = 0.0f + dollyDirection * dollyAmount * /*Time.deltaTime **/ dollySpeed;
+                // not enought since 1) layer swith translates the player instantly 2) camera movement is jittery during regular ground movement
+                deltaPosition.z = 0.0f + dollyDirection * dollyAmount * Time.deltaTime * dollySpeed;
             }
 
             gameObject.transform.Translate(deltaPosition);
