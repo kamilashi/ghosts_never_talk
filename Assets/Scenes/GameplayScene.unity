@@ -1006,9 +1006,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetFromPlayer: {x: 2.05, y: 2.5}
   playerFollowThreshold: {x: 0, y: 0}
-  cameraFollowPlayerSpeed: 3
+  cameraFollowPlayerSpeed: 4
   directionChangeReactionSpeed: 2.71
-  maxLookaheadDistanceX: 2
+  maxLookaheadDistanceX: 3
+  lookaheadBuildupSpeed: 5
   constantGroundLevel: 1
   dollyOnHeightChange: 1
   dollySpeed: 3
@@ -8048,7 +8049,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0.1
   m_Points:
-  - {x: -24.064316, y: 1.0896387}
+  - {x: -52.00369, y: 0.98167896}
   - {x: -12.459842, y: 1.2662201}
   - {x: -2.735539, y: 1.5285239}
   - {x: -1.206892, y: 1.9574265}
@@ -8708,7 +8709,7 @@ Transform:
   m_GameObject: {fileID: 2027566995}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.75, y: -4.8, z: 7}
+  m_LocalPosition: {x: 3.75, y: -4.8, z: 6.08}
   m_LocalScale: {x: 0.85714287, y: 0.85714287, z: 0.85714287}
   m_ConstrainProportionsScale: 0
   m_Children: []

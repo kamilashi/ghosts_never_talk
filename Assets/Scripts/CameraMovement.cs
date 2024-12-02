@@ -15,6 +15,7 @@ namespace GNT
         public float directionChangeReactionSpeed = 5.0f;
         [Range(0, 5)]
         public float maxLookaheadDistanceX = 2.0f;
+        public float lookaheadBuildupSpeed = 10.0f;
 
         [Header("Bottom screen position")]
         public bool constantGroundLevel = false;
@@ -52,13 +53,11 @@ namespace GNT
         {
             // #todo: configurable camera acceleration?
             directionSmoothed = Library.SmoothingFuncitons.ApproachReferenceLinear(directionSmoothed, (float)playerController.GetLastDirectionInput(), directionChangeReactionSpeed  * Time.deltaTime);
-            float lookaheadDistanceScaled = directionSmoothed * playerController.GetMoveKeyHoldScale() * maxLookaheadDistanceX;
 
             // read it from ground movement or some other interface?
             Vector2 thisFramePlayerPosition = new Vector2(playerController.gameObject.transform.position.x, playerController.gameObject.transform.position.y); 
 
              Vector2 predictedPosition = thisFramePlayerPosition;
-            predictedPosition.x += lookaheadDistanceScaled;
             predictedPosition.x += offsetFromPlayer.x * directionSmoothed;
 
            float playeFollowPositionY = thisFramePlayerPosition.y;
@@ -89,7 +88,11 @@ namespace GNT
             Vector3 deltaPosition = predictedPosition;
             deltaPosition -= currrentCameraPosition;
             deltaPosition.z = 0.0f;
-            deltaPosition *= cameraFollowPlayerSpeed * Time.deltaTime;
+            //deltaPosition = Vector3.Lerp(deltaPosition * cameraFollowPlayerSpeed * Time.deltaTime, deltaPosition, playerController.GetMoveKeyHoldScale());
+            deltaPosition *=  cameraFollowPlayerSpeed * Time.deltaTime;
+
+            float lookaheadDistanceScaled = directionSmoothed * playerController.GetMoveKeyHoldScale() * maxLookaheadDistanceX * Time.deltaTime * lookaheadBuildupSpeed;
+            deltaPosition.x += lookaheadDistanceScaled;
 
             if (dollyOnHeightChange)
             {
@@ -99,7 +102,7 @@ namespace GNT
                 float dollyDirection = System.Math.Sign(transform.position.y - (playeFollowPositionY + heightDifferenceThreshold));
 
                 // todo: define the default camera z offset in the ground layer data!
-                deltaPosition.z = 0.0f + dollyDirection * dollyAmount * Time.deltaTime * dollySpeed;
+                deltaPosition.z = 0.0f + dollyDirection * dollyAmount * Time.deltaTime * cameraFollowPlayerSpeed;
             }
 
             gameObject.transform.Translate(deltaPosition);
