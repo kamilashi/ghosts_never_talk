@@ -9,8 +9,8 @@ namespace GNT
     {
         [Header("Player following")]
         public Vector2 offsetFromPlayer;
-        public Vector2 playerFollowThreshold; // Camera starts following the player only if the player moves outside of this box
         public float cameraFollowPlayerSpeed = 2.0f;
+        public float defaulDistanceZ = 7.0f;
         [Range(0, 10)]
         public float directionChangeReactionSpeed = 5.0f;
         [Range(0, 5)]
@@ -19,7 +19,8 @@ namespace GNT
 
         [Header("Bottom screen position")]
         public bool constantGroundLevel = false;
-        private float groundLevel = 0.0f;
+       // private float groundLevel = 0.0f;
+        private float fitScreenBottomHookY = 0.0f;
 
         [Header("Height change z-dollying")]
         public bool dollyOnHeightChange = true;
@@ -36,7 +37,6 @@ namespace GNT
         private Camera mainCamera;
 
         private float directionSmoothed = 0.0f;
-        private float defaultFromPlayerOffsetZ;
 
         void Start()
         {
@@ -44,7 +44,7 @@ namespace GNT
 
             mainCamera = this.GetComponent<Camera>();
 
-            defaultFromPlayerOffsetZ = transform.position.z - playerController.gameObject.transform.position.z;
+           // defaultFromPlayerOffsetZ = transform.position.z - playerController.gameObject.transform.position.z;
 
             //playerToGroundHeightDifferenceThreshold = offsetFromPlayer.y;
         }
@@ -70,10 +70,10 @@ namespace GNT
                 GroundLayer activeGroundLayerRef = GlobalData.Instance.ActiveScene.ActiveGroundLayer;
 
                 float referenceExtentY = (activeGroundLayerRef.ScreenBottomHook.transform.position.z - transform.position.z) * (float)System.Math.Tan(mainCamera.fieldOfView * 0.5 * (System.Math.PI / 180.0));
-                groundLevel = activeGroundLayerRef.ScreenBottomHook.transform.position.y + referenceExtentY;
-                predictedPosition.y = groundLevel;
+                fitScreenBottomHookY = activeGroundLayerRef.ScreenBottomHook.transform.position.y + referenceExtentY;
+                predictedPosition.y = fitScreenBottomHookY;
 
-                heightReference = groundLevel;
+                heightReference = fitScreenBottomHookY;
             }
             else // make cameras y position be relative to the player - does not work
             {

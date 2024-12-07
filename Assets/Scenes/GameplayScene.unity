@@ -1005,8 +1005,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsetFromPlayer: {x: 2.05, y: 2.5}
-  playerFollowThreshold: {x: 0, y: 0}
-  cameraFollowPlayerSpeed: 4
+  defaulDistanceZ: 7
+  cameraFollowPlayerSpeedIdle: 2
+  cameraFollowPlayerSpeedMoving: 10
   directionChangeReactionSpeed: 2.71
   maxLookaheadDistanceX: 3
   lookaheadBuildupSpeed: 5

@@ -13,6 +13,16 @@ namespace Library
             output = direction > 0 ? System.Math.Min(output, reference) : System.Math.Max(output, reference);
             return output;
         }
+        
+        public static Vector3 ApproachReferenceLinear(Vector3 input, Vector3 reference, float speed)
+        {
+            return new Vector3 (ApproachReferenceLinear(input.x, reference.x, speed), ApproachReferenceLinear(input.y, reference.y, speed), ApproachReferenceLinear(input.z, reference.z, speed));
+        }
+
+        public static Vector3 ApproachReferenceLinear(Vector3 input, Vector3 reference, Vector3 speeds)
+        {
+            return new Vector3 (ApproachReferenceLinear(input.x, reference.x, speeds.x), ApproachReferenceLinear(input.y, reference.y, speeds.y), ApproachReferenceLinear(input.z, reference.z, speeds.z));
+        }
 
         /// <summary>
         /// Based on magnitude
