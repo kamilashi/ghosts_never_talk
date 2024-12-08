@@ -1005,16 +1005,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsetFromPlayer: {x: 2.05, y: 2.9}
-  cameraFollowPlayerSpeed: 6
+  cameraFollowPlayerDampLambda: 5
   defaultPlayerOffsetZ: -7
   directionChangeReactionSpeed: 5.28
   maxLookaheadDistanceX: 4.17
-  lookaheadBuildupSpeed: 5
-  lookaheadDirectionDampLambda: 1
+  lookaheadDirectionDampLambda: 3
   constantGroundLevel: 1
   dollyOnHeightChange: 1
-  dollySpeed: 5
+  dollyDampLambda: 5
   maxDollyAmount: 7
+  playerToGroundHeightDifferenceThreshold: 2.6
   playerController: {fileID: 1294591926}
   mainCamera: {fileID: 318446024}
   lookaheadDirectionSmooth: 1

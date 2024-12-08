@@ -45,15 +45,13 @@ namespace GNT
     {
         [Header("Player following")]
         public Vector2 offsetFromPlayer;
-        public float cameraFollowPlayerSpeed;
+        public float cameraFollowPlayerDampLambda;
         [Range(-10, 0)]
         public float defaultPlayerOffsetZ = -7.0f;
         [Range(0, 10)]
         public float directionChangeReactionSpeed = 5.0f;
         [Range(0, 5)]
         public float maxLookaheadDistanceX = 2.0f;
-        public float lookaheadBuildupSpeed = 10.0f;
-        [Range(0, 1)]
         public float lookaheadDirectionDampLambda = 0.75f;
 
         [Header("Bottom screen position")]
@@ -63,9 +61,9 @@ namespace GNT
 
         [Header("Height change z-dollying")]
         public bool dollyOnHeightChange = true;
-        public float dollySpeed = 1.0f;
+        public float dollyDampLambda = 0.8f;
         public float maxDollyAmount = 3.0f;
-        private float playerToGroundHeightDifferenceThreshold = 2.6f; // start dollying when the distance from the players y position to the ground level (ground sprites pivot point pos y) if higher than this value
+        public float playerToGroundHeightDifferenceThreshold = 2.6f; // start dollying when the distance from the players y position to the ground level (ground sprites pivot point pos y) if higher than this value
 
         // private
         [SerializeField]
@@ -91,7 +89,7 @@ namespace GNT
             lookaheadDirectionSmooth = Mathf.Clamp(Library.SmoothingFuncitons.Damp(lookaheadDirectionSmooth, playerController.GetMoveKeyHoldScale() * (float)playerController.GetLastDirectionInput(), lookaheadDirectionDampLambda, directionChangeReactionSpeed * Time.deltaTime), -1.0f, 1.0f);
 
             // from 0 (stopped) to -1 or 1
-            float lookaheadDistanceScaled = lookaheadDirectionSmooth * maxLookaheadDistanceX /** lookaheadBuildupSpeed*/;
+            float lookaheadDistanceScaled = lookaheadDirectionSmooth * maxLookaheadDistanceX;
 
             // read it from ground movement or some other interface?
             Vector3 thisFramePlayerPosition = playerController.gameObject.transform.position; 
@@ -134,7 +132,8 @@ namespace GNT
             }
 
             Vector3 currrentCameraPosition = this.gameObject.transform.position;
-            Vector3 deltaPosition = predictedPosition; //Library.SmoothingFuncitons.ApproachReferenceLinear(currrentCameraPosition, predictedPosition, new Vector3(cameraFollowPlayerSpeed * Time.deltaTime, cameraFollowPlayerSpeed * Time.deltaTime, dollySpeed* Time.deltaTime));
+           // Vector3 deltaPosition = predictedPosition; 
+            Vector3 deltaPosition = Library.SmoothingFuncitons.Damp(currrentCameraPosition, predictedPosition, new Vector3(cameraFollowPlayerDampLambda , cameraFollowPlayerDampLambda, dollyDampLambda), Time.deltaTime);
             deltaPosition -= currrentCameraPosition;
 
             //deltaPosition = Vector3.Lerp(deltaPosition * cameraFollowPlayerSpeed * Time.deltaTime, deltaPosition, playerController.GetMoveKeyHoldScale());
