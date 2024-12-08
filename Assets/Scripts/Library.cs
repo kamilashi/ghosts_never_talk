@@ -24,6 +24,21 @@ namespace Library
             return new Vector3 (ApproachReferenceLinear(input.x, reference.x, speeds.x), ApproachReferenceLinear(input.y, reference.y, speeds.y), ApproachReferenceLinear(input.z, reference.z, speeds.z));
         }
 
+        public static float Damp(float a, float b, float lambda, float dt)
+        {
+            return Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt));
+        }
+        
+        public static Vector3 Damp(Vector3 a, Vector3 b, float lambda, float dt)
+        {
+            return new Vector3(Damp(a.x, b.x, lambda, dt), Damp(a.y, b.y, lambda, dt), Damp(a.z, b.z, lambda, dt));
+        }
+        
+        public static Vector3 Damp(Vector3 a, Vector3 b, Vector3 lambdas, float dt)
+        {
+            return new Vector3(Damp(a.x, b.x, lambdas.x, dt), Damp(a.y, b.y, lambdas.y, dt), Damp(a.z, b.z, lambdas.z, dt));
+        }
+
         /// <summary>
         /// Based on magnitude
         /// </summary>

@@ -4,18 +4,57 @@ using UnityEngine;
 
 namespace GNT
 {
+    public struct Speed
+    {
+        float min;
+        float max;
+        float lerpProgress;
+        float current;
+
+        public float EaseOut(float lambda, float dt)
+        {
+            current = Library.SmoothingFuncitons.Damp(max, min, lambda, dt);
+            lerpProgress += dt;
+            return current;
+        }
+
+        public float EaseIn(float dt)
+        {
+            current = Mathf.Lerp(max, min, lerpProgress);
+            lerpProgress += dt;
+            return current;
+        }
+
+        public void Clear()
+        {
+            lerpProgress = 0.0f;
+            current = 0.0f;
+        }
+
+        public Speed(float min, float max)
+        {
+            this.min = min;
+            this.max = max;
+            lerpProgress = 0.0f;
+            current = 0.0f;
+        }
+    }
+
     [RequireComponent(typeof(UnityEngine.Camera))]
     public class CameraMovement : MonoBehaviour
     {
         [Header("Player following")]
         public Vector2 offsetFromPlayer;
-        public float cameraFollowPlayerSpeed = 2.0f;
-        public float defaulDistanceZ = 7.0f;
+        public float cameraFollowPlayerSpeed;
+        [Range(-10, 0)]
+        public float defaultPlayerOffsetZ = -7.0f;
         [Range(0, 10)]
         public float directionChangeReactionSpeed = 5.0f;
         [Range(0, 5)]
         public float maxLookaheadDistanceX = 2.0f;
         public float lookaheadBuildupSpeed = 10.0f;
+        [Range(0, 1)]
+        public float lookaheadDirectionDampLambda = 0.75f;
 
         [Header("Bottom screen position")]
         public bool constantGroundLevel = false;
@@ -35,75 +74,71 @@ namespace GNT
        // private  GroundLayer activeGroundLayerRef;
         [SerializeField]
         private Camera mainCamera;
-
-        private float directionSmoothed = 0.0f;
+        
+        [SerializeField]
+        private float lookaheadDirectionSmooth = 0.0f;
 
         void Start()
         {
             playerController = GlobalData.Instance.GetPlayerController(); // cash out the reference to the player controllers
 
             mainCamera = this.GetComponent<Camera>();
-
-           // defaultFromPlayerOffsetZ = transform.position.z - playerController.gameObject.transform.position.z;
-
-            //playerToGroundHeightDifferenceThreshold = offsetFromPlayer.y;
         }
 
         void Update()
         {
-            // #todo: configurable camera acceleration?
-            directionSmoothed = Library.SmoothingFuncitons.ApproachReferenceLinear(directionSmoothed, (float)playerController.GetLastDirectionInput(), directionChangeReactionSpeed  * Time.deltaTime);
+            // from - 1 to 1
+            lookaheadDirectionSmooth = Mathf.Clamp(Library.SmoothingFuncitons.Damp(lookaheadDirectionSmooth, playerController.GetMoveKeyHoldScale() * (float)playerController.GetLastDirectionInput(), lookaheadDirectionDampLambda, directionChangeReactionSpeed * Time.deltaTime), -1.0f, 1.0f);
+
+            // from 0 (stopped) to -1 or 1
+            float lookaheadDistanceScaled = lookaheadDirectionSmooth * maxLookaheadDistanceX /** lookaheadBuildupSpeed*/;
 
             // read it from ground movement or some other interface?
-            Vector2 thisFramePlayerPosition = new Vector2(playerController.gameObject.transform.position.x, playerController.gameObject.transform.position.y); 
+            Vector3 thisFramePlayerPosition = playerController.gameObject.transform.position; 
 
-             Vector2 predictedPosition = thisFramePlayerPosition;
-            predictedPosition.x += offsetFromPlayer.x * directionSmoothed;
+            Vector3 predictedPosition = thisFramePlayerPosition;
+            predictedPosition.z += defaultPlayerOffsetZ;
+            predictedPosition.x += lookaheadDistanceScaled;
 
-           float playeFollowPositionY = thisFramePlayerPosition.y;
+            float playeFollowPositionY = thisFramePlayerPosition.y;
 
             float heightDifferenceThreshold = playerToGroundHeightDifferenceThreshold;
             float heightReference = 0.0f;
 
+            GroundLayer activeGroundLayerRef = GlobalData.Instance.ActiveScene.ActiveGroundLayer;
             if (constantGroundLevel) // cameras y position relative to ground
             {
-                GroundLayer activeGroundLayerRef = GlobalData.Instance.ActiveScene.ActiveGroundLayer;
-
                 float referenceExtentY = (activeGroundLayerRef.ScreenBottomHook.transform.position.z - transform.position.z) * (float)System.Math.Tan(mainCamera.fieldOfView * 0.5 * (System.Math.PI / 180.0));
                 fitScreenBottomHookY = activeGroundLayerRef.ScreenBottomHook.transform.position.y + referenceExtentY;
                 predictedPosition.y = fitScreenBottomHookY;
 
                 heightReference = fitScreenBottomHookY;
             }
-            else // make cameras y position be relative to the player - does not work
+            else // make cameras y position be relative to the player
             {
-                // should be an instant snap, so y follow to offset from player does not need scaling
                 predictedPosition.y += offsetFromPlayer.y;
-                
-                heightDifferenceThreshold = offsetFromPlayer.y;
-                heightReference = thisFramePlayerPosition.y;
+
+                //heightDifferenceThreshold = offsetFromPlayer.y;
+                heightReference = activeGroundLayerRef.ScreenBottomHook.transform.position.y + playerToGroundHeightDifferenceThreshold + offsetFromPlayer.y;
             }
-
-            Vector3 currrentCameraPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-            Vector3 deltaPosition = predictedPosition;
-            deltaPosition -= currrentCameraPosition;
-            deltaPosition.z = 0.0f;
-            //deltaPosition = Vector3.Lerp(deltaPosition * cameraFollowPlayerSpeed * Time.deltaTime, deltaPosition, playerController.GetMoveKeyHoldScale());
-            deltaPosition *=  cameraFollowPlayerSpeed * Time.deltaTime;
-
-            float lookaheadDistanceScaled = directionSmoothed * playerController.GetMoveKeyHoldScale() * maxLookaheadDistanceX * Time.deltaTime * lookaheadBuildupSpeed;
-            deltaPosition.x += lookaheadDistanceScaled;
 
             if (dollyOnHeightChange)
             {
                 // Hack: should be triggered by the ground movement nodes, and not depend on absolute y position, but for now
                 // dolly the camera back when going up (reference ground y = 0)
-                float dollyAmount = System.Math.Min(System.Math.Abs(playeFollowPositionY + heightDifferenceThreshold - heightReference), maxDollyAmount);
-                float dollyDirection = System.Math.Sign(transform.position.y - (playeFollowPositionY + heightDifferenceThreshold));
+                float dollyAmount = System.Math.Min(System.Math.Abs(heightReference - (playeFollowPositionY + heightDifferenceThreshold)), maxDollyAmount);
+                float dollyDirection = System.Math.Sign(heightReference - (playeFollowPositionY + heightDifferenceThreshold));
 
                 // todo: define the default camera z offset in the ground layer data!
-                deltaPosition.z = 0.0f + dollyDirection * dollyAmount * Time.deltaTime * cameraFollowPlayerSpeed;
+                predictedPosition.z += dollyDirection * dollyAmount;
             }
+
+            Vector3 currrentCameraPosition = this.gameObject.transform.position;
+            Vector3 deltaPosition = predictedPosition; //Library.SmoothingFuncitons.ApproachReferenceLinear(currrentCameraPosition, predictedPosition, new Vector3(cameraFollowPlayerSpeed * Time.deltaTime, cameraFollowPlayerSpeed * Time.deltaTime, dollySpeed* Time.deltaTime));
+            deltaPosition -= currrentCameraPosition;
+
+            //deltaPosition = Vector3.Lerp(deltaPosition * cameraFollowPlayerSpeed * Time.deltaTime, deltaPosition, playerController.GetMoveKeyHoldScale());
+            //deltaPosition *=  cameraFollowPlayerSpeed * Time.deltaTime;
 
             gameObject.transform.Translate(deltaPosition);
         }

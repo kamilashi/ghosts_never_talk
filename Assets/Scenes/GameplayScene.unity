@@ -1004,19 +1004,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d16185032b8344580f01bf6a1da169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetFromPlayer: {x: 2.05, y: 2.5}
-  defaulDistanceZ: 7
-  cameraFollowPlayerSpeedIdle: 2
-  cameraFollowPlayerSpeedMoving: 10
-  directionChangeReactionSpeed: 2.71
-  maxLookaheadDistanceX: 3
+  offsetFromPlayer: {x: 2.05, y: 2.9}
+  cameraFollowPlayerSpeed: 6
+  defaultPlayerOffsetZ: -7
+  directionChangeReactionSpeed: 5.28
+  maxLookaheadDistanceX: 4.17
   lookaheadBuildupSpeed: 5
+  lookaheadDirectionDampLambda: 1
   constantGroundLevel: 1
   dollyOnHeightChange: 1
-  dollySpeed: 3
-  maxDollyAmount: 1
+  dollySpeed: 5
+  maxDollyAmount: 7
   playerController: {fileID: 1294591926}
   mainCamera: {fileID: 318446024}
+  lookaheadDirectionSmooth: 1
 --- !u!114 &318446027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7734,6 +7735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputSensitivity: 1
+  moveKeyHoldTimeScaled: 0
 --- !u!4 &1294591927
 Transform:
   m_ObjectHideFlags: 0

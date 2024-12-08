@@ -17,6 +17,7 @@ namespace GNT
         // later once we have interactables, this will need to move to that component
         private GroundLayerPositionMapper groundLayerPositionMapper;
 
+        [SerializeField]
         private float moveKeyHoldTimeScaled;
         private bool acceptInput = true;
 
