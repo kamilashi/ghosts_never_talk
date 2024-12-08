@@ -9,11 +9,14 @@ namespace GNT
     {
         [Header("Player following")]
         public Vector2 offsetFromPlayer;
-        public float cameraFollowPlayerMovementDampLambda;
-        public bool useMovementDampLambdaOnly = true;
-        public float cameraFollowPlayerTeleportDampLambda;
+        public float cameraFollowPlayerMovementDampLambda = 15.0f;
+        public bool useConstantFollowPlayerDampLambda = true;
+        public float cameraFollowPlayerTeleportDampLambda = 5.0f;
+        public float followPlayerDampLambdaUpdateSpeed = 5.5f;
         [Range(-10, 0)]
         public float defaultPlayerOffsetZ = -7.0f;
+
+        [Header("Horizontal lookahead")]
         [Range(0, 10)]
         public float directionChangeReactionSpeed = 5.0f;
         [Range(0, 5)]
@@ -32,20 +35,20 @@ namespace GNT
 
         // private
         [SerializeField]
-        private float considerTeleportDistaceSquareMin = 0.5f;
-        [SerializeField]
-        private float considerTeleportDistaceSquareMax = 5.0f;
-        [SerializeField]
-        private float teleportingToMovingLerpValue;
+        private float currentFollowPlayerDampLambda;
         private PlayerController playerController;
         private Camera mainCamera;
         private float lookaheadDirectionSmooth = 0.0f;
+        private void Awake()
+        {
+            currentFollowPlayerDampLambda = 0.0f;
+        }
 
         void Start()
         {
             playerController = GlobalData.Instance.GetPlayerController(); // cash out the constant reference to the player controller
 
-            mainCamera = this.GetComponent<Camera>(); // should probably get the active camera from runtime; no guarantee that this reference will stay constant
+            mainCamera = this.GetComponent<Camera>(); 
         }
 
         void Update()
@@ -80,6 +83,7 @@ namespace GNT
                 cameraHeightChangeReference = activeGroundLayerRef.ScreenBottomHook.transform.position.y + playerToGroundHeightDifferenceThreshold + offsetFromPlayer.y;
             }
 
+            float predictedCameraPositionZWithoutDolly = predictedCameraPosition.z;
             if (dollyOnHeightChange)
             {
                 // Hack: should be triggered by the ground movement nodes, and not depend on absolute y position, but for now
@@ -95,19 +99,14 @@ namespace GNT
             Vector3 currrentCameraPosition = this.gameObject.transform.position;
 
             float lerpedCameraFollowPlayerDampLambda;
-            if (useMovementDampLambdaOnly)
+            if (useConstantFollowPlayerDampLambda)
             {
                 lerpedCameraFollowPlayerDampLambda = cameraFollowPlayerMovementDampLambda;
             }
             else
             {
-                Vector3 deltaPositionAbsolute = predictedCameraPosition;
-                deltaPositionAbsolute -= currrentCameraPosition;
-                float distanceSquare = deltaPositionAbsolute.sqrMagnitude;
-                float linearDecay = ((distanceSquare - considerTeleportDistaceSquareMin) / considerTeleportDistaceSquareMax - considerTeleportDistaceSquareMin);
-                teleportingToMovingLerpValue = linearDecay;
-               // teleportingToMovingLerpValue = Library.SmoothingFuncitons.Damp(teleportingToMovingLerpValue, Mathf.Lerp(cameraFollowPlayerMovementDampLambda, cameraFollowPlayerTeleportDampLambda, linearDecay), 0.2f, Time.deltaTime);
-                lerpedCameraFollowPlayerDampLambda = Mathf.Lerp(cameraFollowPlayerMovementDampLambda, cameraFollowPlayerTeleportDampLambda, teleportingToMovingLerpValue);
+                currentFollowPlayerDampLambda = Library.SmoothingFuncitons.ApproachReferenceLinear(currentFollowPlayerDampLambda, cameraFollowPlayerMovementDampLambda, followPlayerDampLambdaUpdateSpeed * Time.deltaTime);
+                lerpedCameraFollowPlayerDampLambda = currentFollowPlayerDampLambda;
             }
 
             Vector3 deltaPosition = Library.SmoothingFuncitons.Damp(currrentCameraPosition, predictedCameraPosition, new Vector3(lerpedCameraFollowPlayerDampLambda, lerpedCameraFollowPlayerDampLambda, dollyDampLambda), Time.deltaTime);
@@ -116,11 +115,14 @@ namespace GNT
             gameObject.transform.Translate(deltaPosition);
         }
 
-        // experimental:
-/*
-       public void SetConsiderTeleportSquareDistanceMax(float distanceSquare)
+        private void SetCurrentPlayerFollowDampLambda(float dampLambdaOverride)
         {
-            considerTeleportDistaceSquareMax = Mathf.Max(distanceSquare, considerTeleportDistaceSquareMin);
-        }*/
+            currentFollowPlayerDampLambda = dampLambdaOverride;
+        }
+        
+        public void SetPlayerFollowTeleportDampLambda()
+        {
+            SetCurrentPlayerFollowDampLambda (cameraFollowPlayerTeleportDampLambda);
+        }
     }
 }

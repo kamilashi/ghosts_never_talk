@@ -1005,21 +1005,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsetFromPlayer: {x: 2.05, y: 2.9}
-  cameraFollowPlayerMovementDampLambda: 10
-  useMovementDampLambdaOnly: 1
-  cameraFollowPlayerTeleportDampLambda: 3
+  cameraFollowPlayerMovementDampLambda: 15
+  useConstantFollowPlayerDampLambda: 0
+  cameraFollowPlayerTeleportDampLambda: 1
+  followPlayerDampLambdaUpdateSpeed: 10
   defaultPlayerOffsetZ: -7
   directionChangeReactionSpeed: 5.28
   maxLookaheadDistanceX: 4.17
-  lookaheadDirectionDampLambda: 3
+  lookaheadDirectionDampLambda: 0.75
   adjustToScreenBottomHook: 1
   dollyOnHeightChange: 1
-  dollyDampLambda: 5
+  dollyDampLambda: 0.8
   maxDollyAmount: 7
   playerToGroundHeightDifferenceThreshold: 2.6
-  considerTeleportDistaceSquareMin: 1
-  considerTeleportDistaceSquareMax: 5
-  teleportingToMovingLerpValue: 0
+  currentFollowPlayerDampLambda: 0
 --- !u!114 &318446027
 MonoBehaviour:
   m_ObjectHideFlags: 0

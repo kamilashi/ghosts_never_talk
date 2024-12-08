@@ -87,8 +87,7 @@ namespace GNT
         {
             float teleportDistanceSquare = 0.0f;
             groundLayerPositionMapper.TeteportToGroundHookPosition(ref teleportDistanceSquare);
-            /*CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().gameObject.GetComponent<CameraMovement>();
-            playerCameraMovement.SetConsiderTeleportSquareDistanceMax(teleportDistanceSquare);*/
+            GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetPlayerFollowTeleportDampLambda();
         }
 
         public int GetLastDirectionInput()

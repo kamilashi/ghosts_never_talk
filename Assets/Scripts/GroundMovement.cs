@@ -34,6 +34,7 @@ namespace GNT
         private bool isTurning = false;
 
         private float currentHorizontalVelocity; // working speed that is used for smooth movement, range from - MaxSpeed to  MaxSpeed
+        private Vector3 teleportDeltaTranslateBuffer;
 
         Collider2D collider2D;
         Animator animator;
@@ -113,6 +114,13 @@ namespace GNT
             transform.Translate(down, Space.World);
         }
 
+        public void TeleportWithAnimation(Vector3 deltaTranslate)
+        {
+            teleportDeltaTranslateBuffer = deltaTranslate;
+            animator.SetBool("triggerTeleport", true);
+            transform.Translate(deltaTranslate, Space.World);
+        }
+
         // hacky, should go once we have path movement
         public static float GetDistanceToGroundCollider( Vector3 startPosition, float rayLength, Collider2D collider2D,  LayerMask groundCollisionMask)
         {
@@ -155,7 +163,6 @@ namespace GNT
             alongNormal.y -= GetDistanceToGroundCollider(groundProbePosition, rayLength, collider2D, GroundCollisionMask);
             transform.Translate(alongNormal, Space.World);
 
-           // SnapToGround();
         }
     }
 }

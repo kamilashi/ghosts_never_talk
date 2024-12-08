@@ -42,7 +42,7 @@ namespace GNT
 
             distanceSquareRef = deltaPositionTranslate.sqrMagnitude;
 
-            transform.Translate(deltaPositionTranslate);
+            groundMovement.TeleportWithAnimation(deltaPositionTranslate /*, animationKey */ );
         }
     }
 }
