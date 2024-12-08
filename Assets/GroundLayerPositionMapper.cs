@@ -25,9 +25,8 @@ namespace GNT
 
         }
 
-        public void TranslateToGroundHookPosition()
+        public void TeteportToGroundHookPosition(ref float distanceSquareRef)
         {
-            spriteRenderer.enabled = false;
             GameObject positionHook = GlobalData.Instance.ActiveScene.ActiveGroundLayer.ScreenBottomHook;
             Vector3 deltaPositionTranslate = GlobalData.Instance.ActiveScene.ActiveGroundLayer.EdgeCollider.transform.position;
             deltaPositionTranslate.x = positionHook.transform.position.x;
@@ -41,8 +40,9 @@ namespace GNT
 
             deltaPositionTranslate -= this.transform.position;
 
+            distanceSquareRef = deltaPositionTranslate.sqrMagnitude;
+
             transform.Translate(deltaPositionTranslate);
-            spriteRenderer.enabled = true;
         }
     }
 }

@@ -4,48 +4,14 @@ using UnityEngine;
 
 namespace GNT
 {
-    public struct Speed
-    {
-        float min;
-        float max;
-        float lerpProgress;
-        float current;
-
-        public float EaseOut(float lambda, float dt)
-        {
-            current = Library.SmoothingFuncitons.Damp(max, min, lambda, dt);
-            lerpProgress += dt;
-            return current;
-        }
-
-        public float EaseIn(float dt)
-        {
-            current = Mathf.Lerp(max, min, lerpProgress);
-            lerpProgress += dt;
-            return current;
-        }
-
-        public void Clear()
-        {
-            lerpProgress = 0.0f;
-            current = 0.0f;
-        }
-
-        public Speed(float min, float max)
-        {
-            this.min = min;
-            this.max = max;
-            lerpProgress = 0.0f;
-            current = 0.0f;
-        }
-    }
-
     [RequireComponent(typeof(UnityEngine.Camera))]
     public class CameraMovement : MonoBehaviour
     {
         [Header("Player following")]
         public Vector2 offsetFromPlayer;
-        public float cameraFollowPlayerDampLambda;
+        public float cameraFollowPlayerMovementDampLambda;
+        public bool useMovementDampLambdaOnly = true;
+        public float cameraFollowPlayerTeleportDampLambda;
         [Range(-10, 0)]
         public float defaultPlayerOffsetZ = -7.0f;
         [Range(0, 10)]
@@ -55,8 +21,7 @@ namespace GNT
         public float lookaheadDirectionDampLambda = 0.75f;
 
         [Header("Bottom screen position")]
-        public bool constantGroundLevel = false;
-       // private float groundLevel = 0.0f;
+        public bool adjustToScreenBottomHook = false;
         private float fitScreenBottomHookY = 0.0f;
 
         [Header("Height change z-dollying")]
@@ -67,79 +32,95 @@ namespace GNT
 
         // private
         [SerializeField]
+        private float considerTeleportDistaceSquareMin = 0.5f;
+        [SerializeField]
+        private float considerTeleportDistaceSquareMax = 5.0f;
+        [SerializeField]
+        private float teleportingToMovingLerpValue;
         private PlayerController playerController;
-       // [SerializeField]
-       // private  GroundLayer activeGroundLayerRef;
-        [SerializeField]
         private Camera mainCamera;
-        
-        [SerializeField]
         private float lookaheadDirectionSmooth = 0.0f;
 
         void Start()
         {
-            playerController = GlobalData.Instance.GetPlayerController(); // cash out the reference to the player controllers
+            playerController = GlobalData.Instance.GetPlayerController(); // cash out the constant reference to the player controller
 
-            mainCamera = this.GetComponent<Camera>();
+            mainCamera = this.GetComponent<Camera>(); // should probably get the active camera from runtime; no guarantee that this reference will stay constant
         }
 
         void Update()
         {
-            // from - 1 to 1
+            // from - 1 to 1, 0 = not moving
             lookaheadDirectionSmooth = Mathf.Clamp(Library.SmoothingFuncitons.Damp(lookaheadDirectionSmooth, playerController.GetMoveKeyHoldScale() * (float)playerController.GetLastDirectionInput(), lookaheadDirectionDampLambda, directionChangeReactionSpeed * Time.deltaTime), -1.0f, 1.0f);
 
-            // from 0 (stopped) to -1 or 1
+            // from -maxLookaheadDistanceX to maxLookaheadDistanceX
             float lookaheadDistanceScaled = lookaheadDirectionSmooth * maxLookaheadDistanceX;
 
-            // read it from ground movement or some other interface?
             Vector3 thisFramePlayerPosition = playerController.gameObject.transform.position; 
+            Vector3 predictedCameraPosition = thisFramePlayerPosition;
+            predictedCameraPosition.z += defaultPlayerOffsetZ;
+            predictedCameraPosition.x += lookaheadDistanceScaled;
 
-            Vector3 predictedPosition = thisFramePlayerPosition;
-            predictedPosition.z += defaultPlayerOffsetZ;
-            predictedPosition.x += lookaheadDistanceScaled;
-
-            float playeFollowPositionY = thisFramePlayerPosition.y;
-
-            float heightDifferenceThreshold = playerToGroundHeightDifferenceThreshold;
-            float heightReference = 0.0f;
+            float cameraHeightChangeThreshold = playerToGroundHeightDifferenceThreshold;
+            float cameraHeightChangeReference = 0.0f;
 
             GroundLayer activeGroundLayerRef = GlobalData.Instance.ActiveScene.ActiveGroundLayer;
-            if (constantGroundLevel) // cameras y position relative to ground
+            if (adjustToScreenBottomHook) // cameras y position relative to ground
             {
                 float referenceExtentY = (activeGroundLayerRef.ScreenBottomHook.transform.position.z - transform.position.z) * (float)System.Math.Tan(mainCamera.fieldOfView * 0.5 * (System.Math.PI / 180.0));
                 fitScreenBottomHookY = activeGroundLayerRef.ScreenBottomHook.transform.position.y + referenceExtentY;
-                predictedPosition.y = fitScreenBottomHookY;
+                predictedCameraPosition.y = fitScreenBottomHookY;
 
-                heightReference = fitScreenBottomHookY;
+                cameraHeightChangeReference = fitScreenBottomHookY;
             }
             else // make cameras y position be relative to the player
             {
-                predictedPosition.y += offsetFromPlayer.y;
+                predictedCameraPosition.y += offsetFromPlayer.y;
 
-                //heightDifferenceThreshold = offsetFromPlayer.y;
-                heightReference = activeGroundLayerRef.ScreenBottomHook.transform.position.y + playerToGroundHeightDifferenceThreshold + offsetFromPlayer.y;
+                cameraHeightChangeReference = activeGroundLayerRef.ScreenBottomHook.transform.position.y + playerToGroundHeightDifferenceThreshold + offsetFromPlayer.y;
             }
 
             if (dollyOnHeightChange)
             {
                 // Hack: should be triggered by the ground movement nodes, and not depend on absolute y position, but for now
                 // dolly the camera back when going up (reference ground y = 0)
-                float dollyAmount = System.Math.Min(System.Math.Abs(heightReference - (playeFollowPositionY + heightDifferenceThreshold)), maxDollyAmount);
-                float dollyDirection = System.Math.Sign(heightReference - (playeFollowPositionY + heightDifferenceThreshold));
+                float playerPosDifferenceY = cameraHeightChangeReference - (thisFramePlayerPosition.y + cameraHeightChangeThreshold);
+                float dollyAmount = System.Math.Min(System.Math.Abs(playerPosDifferenceY), maxDollyAmount);
+                float dollyDirection = System.Math.Sign(playerPosDifferenceY);
 
                 // todo: define the default camera z offset in the ground layer data!
-                predictedPosition.z += dollyDirection * dollyAmount;
+                predictedCameraPosition.z += dollyDirection * dollyAmount;
             }
 
             Vector3 currrentCameraPosition = this.gameObject.transform.position;
-           // Vector3 deltaPosition = predictedPosition; 
-            Vector3 deltaPosition = Library.SmoothingFuncitons.Damp(currrentCameraPosition, predictedPosition, new Vector3(cameraFollowPlayerDampLambda , cameraFollowPlayerDampLambda, dollyDampLambda), Time.deltaTime);
-            deltaPosition -= currrentCameraPosition;
 
-            //deltaPosition = Vector3.Lerp(deltaPosition * cameraFollowPlayerSpeed * Time.deltaTime, deltaPosition, playerController.GetMoveKeyHoldScale());
-            //deltaPosition *=  cameraFollowPlayerSpeed * Time.deltaTime;
+            float lerpedCameraFollowPlayerDampLambda;
+            if (useMovementDampLambdaOnly)
+            {
+                lerpedCameraFollowPlayerDampLambda = cameraFollowPlayerMovementDampLambda;
+            }
+            else
+            {
+                Vector3 deltaPositionAbsolute = predictedCameraPosition;
+                deltaPositionAbsolute -= currrentCameraPosition;
+                float distanceSquare = deltaPositionAbsolute.sqrMagnitude;
+                float linearDecay = ((distanceSquare - considerTeleportDistaceSquareMin) / considerTeleportDistaceSquareMax - considerTeleportDistaceSquareMin);
+                teleportingToMovingLerpValue = linearDecay;
+               // teleportingToMovingLerpValue = Library.SmoothingFuncitons.Damp(teleportingToMovingLerpValue, Mathf.Lerp(cameraFollowPlayerMovementDampLambda, cameraFollowPlayerTeleportDampLambda, linearDecay), 0.2f, Time.deltaTime);
+                lerpedCameraFollowPlayerDampLambda = Mathf.Lerp(cameraFollowPlayerMovementDampLambda, cameraFollowPlayerTeleportDampLambda, teleportingToMovingLerpValue);
+            }
+
+            Vector3 deltaPosition = Library.SmoothingFuncitons.Damp(currrentCameraPosition, predictedCameraPosition, new Vector3(lerpedCameraFollowPlayerDampLambda, lerpedCameraFollowPlayerDampLambda, dollyDampLambda), Time.deltaTime);
+            deltaPosition -= currrentCameraPosition;
 
             gameObject.transform.Translate(deltaPosition);
         }
+
+        // experimental:
+/*
+       public void SetConsiderTeleportSquareDistanceMax(float distanceSquare)
+        {
+            considerTeleportDistaceSquareMax = Mathf.Max(distanceSquare, considerTeleportDistaceSquareMin);
+        }*/
     }
 }

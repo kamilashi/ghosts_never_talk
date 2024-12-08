@@ -85,8 +85,10 @@ namespace GNT
         
         private void hackySnapToGroundLayerHook()
         {
-            groundLayerPositionMapper.TranslateToGroundHookPosition();
-            //groundMovement.SnapToGround();
+            float teleportDistanceSquare = 0.0f;
+            groundLayerPositionMapper.TeteportToGroundHookPosition(ref teleportDistanceSquare);
+            /*CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().gameObject.GetComponent<CameraMovement>();
+            playerCameraMovement.SetConsiderTeleportSquareDistanceMax(teleportDistanceSquare);*/
         }
 
         public int GetLastDirectionInput()
