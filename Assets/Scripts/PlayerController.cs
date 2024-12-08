@@ -17,6 +17,7 @@ namespace GNT
         // later once we have interactables, this will need to move to that component
         private GroundLayerPositionMapper groundLayerPositionMapper;
 
+        [SerializeField]
         private float moveKeyHoldTimeScaled;
         private bool acceptInput = true;
 
@@ -84,8 +85,10 @@ namespace GNT
         
         private void hackySnapToGroundLayerHook()
         {
-            groundLayerPositionMapper.TranslateToGroundHookPosition();
-            //groundMovement.SnapToGround();
+            float teleportDistanceSquare = 0.0f;
+            groundLayerPositionMapper.TeteportToGroundHookPosition(ref teleportDistanceSquare);
+            /*CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().gameObject.GetComponent<CameraMovement>();
+            playerCameraMovement.SetConsiderTeleportSquareDistanceMax(teleportDistanceSquare);*/
         }
 
         public int GetLastDirectionInput()
