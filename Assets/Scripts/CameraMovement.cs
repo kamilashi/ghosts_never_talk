@@ -39,6 +39,7 @@ namespace GNT
         private PlayerController playerController;
         private Camera mainCamera;
         private float lookaheadDirectionSmooth = 0.0f;
+        private bool isCameraMovementEnabled = true;
         private void Awake()
         {
             currentFollowPlayerDampLambda = 0.0f;
@@ -53,6 +54,9 @@ namespace GNT
 
         void Update()
         {
+            if(isCameraMovementEnabled)
+            {
+
             // from - 1 to 1, 0 = not moving
             lookaheadDirectionSmooth = Mathf.Clamp(Library.SmoothingFuncitons.Damp(lookaheadDirectionSmooth, playerController.GetMoveKeyHoldScale() * (float)playerController.GetLastDirectionInput(), lookaheadDirectionDampLambda, directionChangeReactionSpeed * Time.deltaTime), -1.0f, 1.0f);
 
@@ -113,6 +117,8 @@ namespace GNT
             deltaPosition -= currrentCameraPosition;
 
             gameObject.transform.Translate(deltaPosition);
+
+            }
         }
 
         private void SetCurrentPlayerFollowDampLambda(float dampLambdaOverride)
@@ -123,6 +129,10 @@ namespace GNT
         public void SetPlayerFollowTeleportDampLambda()
         {
             SetCurrentPlayerFollowDampLambda (cameraFollowPlayerTeleportDampLambda);
+        }
+        public void SetPlayerFollowEnabled(bool isEnabled)
+        {
+            isCameraMovementEnabled = isEnabled;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Assertions;
 
 namespace ProcessingHelpers
 {
@@ -59,37 +60,47 @@ namespace ProcessingHelpers
 
         public void Run(float timeStep)
         {
-            foreach (TimeDurationAnimationEvent animEvent in timeDurationEventBuffer)
+            List<int> removeEventIndecesQueue = new List<int>();
+
+            for (int idx = 0; idx < timeDurationEventBuffer.Count; idx++)
             {
-               if(animEvent.CountDown(timeStep))
+               TimeDurationAnimationEvent animEvent = timeDurationEventBuffer[idx];
+               if (animEvent.CountDown(timeStep))
                 {
-                    // #todo : handle collection modified case 
+                    UnityEngine.Debug.Log("event end!");
                     animEvent.InvokeDurationEnded();
-                    timeDurationEventBuffer.Remove(animEvent);
-                    if(timeDurationEventBuffer.Count == 0)
-                    {
-                        break;
-                    }
+                    removeEventIndecesQueue.Add(idx);
                 }
             }
-            
-            foreach (FrameDurationAnimationEvent animEvent in frameDurationEventBuffer)
+
+            foreach(int index in removeEventIndecesQueue)
             {
-               if(animEvent.CountDown())
+                timeDurationEventBuffer.RemoveAt(index);
+            }
+
+            removeEventIndecesQueue.Clear();
+
+            for (int idx = 0; idx < frameDurationEventBuffer.Count; idx++)
+            {
+               FrameDurationAnimationEvent animEvent = frameDurationEventBuffer[idx];
+                if (animEvent.CountDown())
                 {
-                    // #todo : handle collection modified case 
                     animEvent.InvokeDurationEnded();
-                    frameDurationEventBuffer.Remove(animEvent);
-                    if (timeDurationEventBuffer.Count == 0)
-                    {
-                        break;
-                    }
+                    removeEventIndecesQueue.Add(idx);
                 }
+            }
+
+            foreach (int index in removeEventIndecesQueue)
+            {
+                frameDurationEventBuffer.RemoveAt(index);
             }
         }
 
         public void RegisterDurationEvent(float durationInSeconds, OnFinishedCallbackDelegate eventHandlerDelegate)
         {
+#if UNITY_EDITOR
+            Assert.IsTrue(durationInSeconds > 0.0f, "Duration events must have a non-zero duration!");
+#endif
             TimeDurationAnimationEvent animationEvent = new TimeDurationAnimationEvent(durationInSeconds, eventHandlerDelegate);
             timeDurationEventBuffer.Add(animationEvent);
         }

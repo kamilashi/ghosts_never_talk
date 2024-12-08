@@ -36,6 +36,8 @@ namespace GNT
 
         void Update()
         {
+            if(acceptInput)
+            { 
                 // #Todo: get this data from control map
                 KeyCode moveLeftMappedKey = KeyCode.A;
                 KeyCode moveRightMappedKey = KeyCode.D;
@@ -75,6 +77,7 @@ namespace GNT
                     GlobalData.Instance.ActiveScene.SwitchOut();
                     hackySnapToGroundLayerHook();
                 }
+            }
         }
 
        private void processMoveInput(float sign)
@@ -87,6 +90,8 @@ namespace GNT
         {
             float teleportDistanceSquare = 0.0f;
             groundLayerPositionMapper.TeteportToGroundHookPosition(ref teleportDistanceSquare);
+            setCameraPlayerFollowEnabled(false);
+            groundMovement.SetFreezeMovement(true);
             GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetPlayerFollowTeleportDampLambda();
         }
 
@@ -99,31 +104,40 @@ namespace GNT
         {
             return moveKeyHoldTimeScaled;
         }
-
-        public void BlockInputAnimationEvent(float duration)
-        {
-            if (duration > 0)
-            {
-                // Create event handler delegate and pass it to the duration event constructor
-                ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = onBlockInputDurationEnd;
-                GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration, eventHandlerDelegate);
-                setAcceptInput(false);
-            }
-            else
-            {
-                Assert.IsTrue(true, "Duration events must have a duration!");
-                // #todo: exception?
-            }
-        }
-
         private void setAcceptInput(bool isEnabled)
         {
             acceptInput = isEnabled;
         }
 
-        private void onBlockInputDurationEnd()
+        public void BlockInputAnimationEvent(float duration)
+        {
+            // Create event handler delegate and pass it to the duration event constructor
+            ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = OnBlockInputDurationEnd;
+            GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration, eventHandlerDelegate);
+            setAcceptInput(false);
+        }
+
+        public void OnBlockInputDurationEnd()
         {
             setAcceptInput(true);
+        }
+
+        public void DisableCameraFollowAnimationEvent(float duration)
+        {
+            // Create event handler delegate and pass it to the duration event constructor
+            ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = OnDisableCameraFollowDurationEnd;
+            GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration, eventHandlerDelegate);
+            setCameraPlayerFollowEnabled(false);
+        }
+
+        public void OnDisableCameraFollowDurationEnd()
+        {
+            setCameraPlayerFollowEnabled(true);
+        }
+
+        private void setCameraPlayerFollowEnabled(bool isEnabled)
+        {
+            GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetPlayerFollowEnabled(isEnabled);
         }
     }
 

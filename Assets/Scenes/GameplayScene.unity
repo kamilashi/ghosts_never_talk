@@ -1007,7 +1007,7 @@ MonoBehaviour:
   offsetFromPlayer: {x: 2.05, y: 2.9}
   cameraFollowPlayerMovementDampLambda: 15
   useConstantFollowPlayerDampLambda: 0
-  cameraFollowPlayerTeleportDampLambda: 1
+  cameraFollowPlayerTeleportDampLambda: 5
   followPlayerDampLambdaUpdateSpeed: 10
   defaultPlayerOffsetZ: -7
   directionChangeReactionSpeed: 5.28
