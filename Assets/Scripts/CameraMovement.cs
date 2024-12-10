@@ -33,12 +33,15 @@ namespace GNT
         public float maxDollyAmount = 3.0f;
         public float playerToGroundHeightDifferenceThreshold = 2.6f; // start dollying when the distance from the players y position to the ground level (ground sprites pivot point pos y) if higher than this value
 
+        private float dollyAmountExternal = 0.0f;
+
         // private
         [SerializeField]
         private float currentFollowPlayerDampLambda;
         private PlayerController playerController;
         private Camera mainCamera;
         private float lookaheadDirectionSmooth = 0.0f;
+        private bool isCameraMovementEnabled = true;
         private void Awake()
         {
             currentFollowPlayerDampLambda = 0.0f;
@@ -53,6 +56,9 @@ namespace GNT
 
         void Update()
         {
+            if(isCameraMovementEnabled)
+            {
+
             // from - 1 to 1, 0 = not moving
             lookaheadDirectionSmooth = Mathf.Clamp(Library.SmoothingFuncitons.Damp(lookaheadDirectionSmooth, playerController.GetMoveKeyHoldScale() * (float)playerController.GetLastDirectionInput(), lookaheadDirectionDampLambda, directionChangeReactionSpeed * Time.deltaTime), -1.0f, 1.0f);
 
@@ -96,7 +102,10 @@ namespace GNT
                 predictedCameraPosition.z += dollyDirection * dollyAmount;
             }
 
-            Vector3 currrentCameraPosition = this.gameObject.transform.position;
+                // external dolly requests:
+                predictedCameraPosition.z += dollyAmountExternal;
+
+                Vector3 currrentCameraPosition = this.gameObject.transform.position;
 
             float lerpedCameraFollowPlayerDampLambda;
             if (useConstantFollowPlayerDampLambda)
@@ -113,6 +122,8 @@ namespace GNT
             deltaPosition -= currrentCameraPosition;
 
             gameObject.transform.Translate(deltaPosition);
+
+            }
         }
 
         private void SetCurrentPlayerFollowDampLambda(float dampLambdaOverride)
@@ -123,6 +134,21 @@ namespace GNT
         public void SetPlayerFollowTeleportDampLambda()
         {
             SetCurrentPlayerFollowDampLambda (cameraFollowPlayerTeleportDampLambda);
+        }
+
+        public void SetPlayerFollowEnabled(bool isEnabled)
+        {
+            isCameraMovementEnabled = isEnabled;
+        }
+        
+        public void Dolly(float dollyAmount /*In: + Out: -*/)
+        {
+            dollyAmountExternal = dollyAmount;
+        }
+        
+        public void ResetDolly()
+        {
+            dollyAmountExternal = 0.0f;
         }
     }
 }

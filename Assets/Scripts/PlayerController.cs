@@ -20,6 +20,7 @@ namespace GNT
         [SerializeField]
         private float moveKeyHoldTimeScaled;
         private bool acceptInput = true;
+        private LayerSwitchDirection bufferedLayerSwitchDirection;
 
         void Awake()
         {
@@ -36,6 +37,8 @@ namespace GNT
 
         void Update()
         {
+            if(acceptInput)
+            { 
                 // #Todo: get this data from control map
                 KeyCode moveLeftMappedKey = KeyCode.A;
                 KeyCode moveRightMappedKey = KeyCode.D;
@@ -67,14 +70,15 @@ namespace GNT
 
                 if (Input.GetKeyDown(switchGroundLayerIn))
                 {
-                    GlobalData.Instance.ActiveScene.SwitchIn();
-                    hackySnapToGroundLayerHook();
+                    bufferedLayerSwitchDirection = LayerSwitchDirection.In;
+                    initiatePlayerTeleport();
                 }
-                else if(Input.GetKeyDown(switchGroundLayerOut))
+                else if (Input.GetKeyDown(switchGroundLayerOut))
                 {
-                    GlobalData.Instance.ActiveScene.SwitchOut();
-                    hackySnapToGroundLayerHook();
+                    bufferedLayerSwitchDirection = LayerSwitchDirection.Out;
+                    initiatePlayerTeleport();
                 }
+            }
         }
 
        private void processMoveInput(float sign)
@@ -83,47 +87,64 @@ namespace GNT
             moveKeyHoldTimeScaled = Mathf.Clamp01(moveKeyHoldTimeScaled);
         }
         
-        private void hackySnapToGroundLayerHook()
+        private void initiatePlayerTeleport()
         {
-            float teleportDistanceSquare = 0.0f;
-            groundLayerPositionMapper.TeteportToGroundHookPosition(ref teleportDistanceSquare);
-            GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetPlayerFollowTeleportDampLambda();
+            // the animation should come from the teleporting interactable!
+            groundMovement.InitiateTeleportWithAnimation(groundMovement.teleportAnimation);
+            CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();
+            playerCameraMovement.SetPlayerFollowTeleportDampLambda();
+            playerCameraMovement.Dolly(2.0f);
+        }
+
+        public void OnPlayerTeleportTranslateAnimationEvent()
+        {
+            // the switch direction (more like the target layer link) should come from the teleporting interactable instead!
+            if (bufferedLayerSwitchDirection == LayerSwitchDirection.In)
+            {
+                GlobalData.Instance.ActiveScene.SwitchIn();
+            }
+            else
+            {
+                GlobalData.Instance.ActiveScene.SwitchOut();
+            }
+
+            Vector3 teleportDelta = Vector3.zero;
+            groundLayerPositionMapper.TeteportToGroundHookPosition(ref teleportDelta, groundMovement.GroundCollisionMask, groundMovement.GetCollider());
+            groundMovement.TeleportTranslateToLayer(teleportDelta, GlobalData.Instance.ActiveScene.ActiveGroundLayer.SpriteLayerOrder);
+            CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();
+            playerCameraMovement.ResetDolly();
         }
 
         public int GetLastDirectionInput()
         {
             return (int)lastMoveDirection;
         }
-
         public float GetMoveKeyHoldScale()
         {
             return moveKeyHoldTimeScaled;
         }
-
-        public void BlockInputAnimationEvent(float duration)
-        {
-            if (duration > 0)
-            {
-                // Create event handler delegate and pass it to the duration event constructor
-                ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = onBlockInputDurationEnd;
-                GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration, eventHandlerDelegate);
-                setAcceptInput(false);
-            }
-            else
-            {
-                Assert.IsTrue(true, "Duration events must have a duration!");
-                // #todo: exception?
-            }
-        }
-
         private void setAcceptInput(bool isEnabled)
         {
             acceptInput = isEnabled;
         }
 
-        private void onBlockInputDurationEnd()
+        public void BlockInputAnimationEvent(float duration)
+        {
+            // Create event handler delegate and pass it to the duration event constructor
+            ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = OnBlockInputDurationEnd;
+            GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration, eventHandlerDelegate);
+            setAcceptInput(false);
+            moveKeyHoldTimeScaled = 0.0f;
+        }
+
+        public void OnBlockInputDurationEnd()
         {
             setAcceptInput(true);
+        }
+
+        private void setCameraPlayerFollowEnabled(bool isEnabled)
+        {
+            GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetPlayerFollowEnabled(isEnabled);
         }
     }
 

@@ -29,14 +29,17 @@ namespace GNT
 
         public LayerMask GroundCollisionMask;
 
+        public AnimationClip teleportAnimation;
+
         private int inputDirection = 1;   // input speed received from controller
         private int inputSpeed = 0;   // input speed received from controller
         private bool isTurning = false;
+        private bool freezeMovement = false;
 
         private float currentHorizontalVelocity; // working speed that is used for smooth movement, range from - MaxSpeed to  MaxSpeed
-        private Vector3 teleportDeltaTranslateBuffer;
 
         Collider2D collider2D;
+        SpriteRenderer spriteRenderer;
         Animator animator;
 
         void Awake()
@@ -49,6 +52,7 @@ namespace GNT
 #endif
             collider2D = gameObject.GetComponentInChildren<Collider2D>();
             animator = gameObject.GetComponentInChildren<Animator>();
+            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         }
 
         void Start()
@@ -61,19 +65,22 @@ namespace GNT
 
         void Update()
         {
-            float newHorizontalVelocity = SmoothingFuncitons.ApproachReferenceLinear(currentHorizontalVelocity, inputDirection*inputSpeed, Acceleration * Time.deltaTime);
-
-            currentHorizontalVelocity = newHorizontalVelocity;
-
-            if (currentHorizontalVelocity != 0.0f)
+            if(!freezeMovement)
             {
-                moveAlongGroundCollisionNormal(currentHorizontalVelocity * Time.deltaTime);
-            }
+                float newHorizontalVelocity = SmoothingFuncitons.ApproachReferenceLinear(currentHorizontalVelocity, inputDirection * inputSpeed, Acceleration * Time.deltaTime);
 
-            float speedBlendAnimationInput = getNormalizedSpeedBlend(SpeedValues[(int)MoveSpeed.Walk]);
-            int directionAninmationInput = getDirectionInt();
-            animator.SetFloat("idleToWalkSpeedBlend", speedBlendAnimationInput);
-            animator.SetInteger("directionInt", directionAninmationInput);
+                currentHorizontalVelocity = newHorizontalVelocity;
+
+                if (currentHorizontalVelocity != 0.0f)
+                {
+                    moveAlongGroundCollisionTangent(currentHorizontalVelocity * Time.deltaTime);
+                }
+
+                float speedBlendAnimationInput = getNormalizedSpeedBlend(SpeedValues[(int)MoveSpeed.Walk]);
+                int directionAninmationInput = getDirectionInt();
+                animator.SetFloat("idleToWalkSpeedBlend", speedBlendAnimationInput);
+                animator.SetInteger("directionInt", directionAninmationInput);
+            }
         }
 
         public void SetMovementInput(MoveDirection direction, MoveSpeed speed)
@@ -114,11 +121,16 @@ namespace GNT
             transform.Translate(down, Space.World);
         }
 
-        public void TeleportWithAnimation(Vector3 deltaTranslate)
+        public void InitiateTeleportWithAnimation(AnimationClip animation)
         {
-            teleportDeltaTranslateBuffer = deltaTranslate;
-            animator.SetBool("triggerTeleport", true);
-            transform.Translate(deltaTranslate, Space.World);
+            ResetMovement();
+            playAnimation(animation);
+        }
+
+        public void TeleportTranslateToLayer( Vector3 translateDelta, int SpriteLayerOrder)
+        {
+            spriteRenderer.sortingOrder = SpriteLayerOrder;
+            transform.Translate(translateDelta, Space.World);
         }
 
         // hacky, should go once we have path movement
@@ -138,7 +150,7 @@ namespace GNT
             return inputDirection;
         }
 
-        private void moveAlongGroundCollisionNormal(float horizontalVelocitzPerTimeStep)
+        private void moveAlongGroundCollisionTangent(float horizontalVelocitzPerTimeStep)
         {
             float rayLength = 10.0f;
             float stepDistance = 2.0f;
@@ -162,7 +174,25 @@ namespace GNT
 
             alongNormal.y -= GetDistanceToGroundCollider(groundProbePosition, rayLength, collider2D, GroundCollisionMask);
             transform.Translate(alongNormal, Space.World);
+        }
+        private void playAnimation(AnimationClip animationClip)
+        {
+            string teleportAnimationClipName = animationClip.name;
+            animator.CrossFade(teleportAnimationClipName, 0.5f);
+        }
 
+        public void SetFreezeMovement(bool isEnabled)
+        {
+            freezeMovement = isEnabled;
+        }
+        public void ResetMovement()
+        {
+            SetMovementInput((GNT.MoveDirection) inputDirection, MoveSpeed.Stand);
+        }
+        
+        public Collider2D GetCollider()
+        {
+            return collider2D;
         }
     }
 }
