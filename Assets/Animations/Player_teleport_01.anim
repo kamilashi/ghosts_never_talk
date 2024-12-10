@@ -122,28 +122,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: DisableCameraFollowAnimationEvent
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 1
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.016666668
     functionName: BlockInputAnimationEvent
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 2
     intParameter: 0
     messageOptions: 0
-  - time: 0.033333335
-    functionName: OnTeleportStartAnimationEvent
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 2
-    intParameter: 0
-    messageOptions: 0
   - time: 1.0833334
-    functionName: OnTeleportTranslateAnimationEvent
+    functionName: OnPlayerTeleportTranslateAnimationEvent
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

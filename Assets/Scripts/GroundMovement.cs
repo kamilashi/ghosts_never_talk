@@ -29,13 +29,14 @@ namespace GNT
 
         public LayerMask GroundCollisionMask;
 
+        public AnimationClip teleportAnimation;
+
         private int inputDirection = 1;   // input speed received from controller
         private int inputSpeed = 0;   // input speed received from controller
         private bool isTurning = false;
         private bool freezeMovement = false;
 
         private float currentHorizontalVelocity; // working speed that is used for smooth movement, range from - MaxSpeed to  MaxSpeed
-        private Vector3 teleportDeltaTranslateBuffer;
 
         Collider2D collider2D;
         SpriteRenderer spriteRenderer;
@@ -72,7 +73,7 @@ namespace GNT
 
                 if (currentHorizontalVelocity != 0.0f)
                 {
-                    moveAlongGroundCollisionNormal(currentHorizontalVelocity * Time.deltaTime);
+                    moveAlongGroundCollisionTangent(currentHorizontalVelocity * Time.deltaTime);
                 }
 
                 float speedBlendAnimationInput = getNormalizedSpeedBlend(SpeedValues[(int)MoveSpeed.Walk]);
@@ -120,23 +121,16 @@ namespace GNT
             transform.Translate(down, Space.World);
         }
 
-        public void TeleportWithAnimation(Vector3 deltaTranslate)
+        public void InitiateTeleportWithAnimation(AnimationClip animation)
         {
-            teleportDeltaTranslateBuffer = deltaTranslate;
-            animator.SetBool("triggerTeleport", true);
+            ResetMovement();
+            playAnimation(animation);
         }
 
-        public void OnTeleportTranslateAnimationEvent()
+        public void TeleportTranslateToLayer( Vector3 translateDelta, int SpriteLayerOrder)
         {
-            spriteRenderer.sortingOrder = GlobalData.Instance.ActiveScene.ActiveGroundLayer.SpriteLayerOrder;
-            transform.Translate(teleportDeltaTranslateBuffer, Space.World);
-            teleportDeltaTranslateBuffer = Vector3.zero;
-            SetFreezeMovement(false);
-        }
-
-        public void OnTeleportStartAnimationEvent()
-        {
-            animator.SetBool("triggerTeleport", false);
+            spriteRenderer.sortingOrder = SpriteLayerOrder;
+            transform.Translate(translateDelta, Space.World);
         }
 
         // hacky, should go once we have path movement
@@ -156,7 +150,7 @@ namespace GNT
             return inputDirection;
         }
 
-        private void moveAlongGroundCollisionNormal(float horizontalVelocitzPerTimeStep)
+        private void moveAlongGroundCollisionTangent(float horizontalVelocitzPerTimeStep)
         {
             float rayLength = 10.0f;
             float stepDistance = 2.0f;
@@ -181,10 +175,24 @@ namespace GNT
             alongNormal.y -= GetDistanceToGroundCollider(groundProbePosition, rayLength, collider2D, GroundCollisionMask);
             transform.Translate(alongNormal, Space.World);
         }
+        private void playAnimation(AnimationClip animationClip)
+        {
+            string teleportAnimationClipName = animationClip.name;
+            animator.CrossFade(teleportAnimationClipName, 0.5f);
+        }
 
         public void SetFreezeMovement(bool isEnabled)
         {
             freezeMovement = isEnabled;
+        }
+        public void ResetMovement()
+        {
+            SetMovementInput((GNT.MoveDirection) inputDirection, MoveSpeed.Stand);
+        }
+        
+        public Collider2D GetCollider()
+        {
+            return collider2D;
         }
     }
 }

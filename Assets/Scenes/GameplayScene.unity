@@ -7804,6 +7804,7 @@ MonoBehaviour:
   GroundCollisionMask:
     serializedVersion: 2
     m_Bits: 64
+  teleportAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
 --- !u!50 &1294591930
 Rigidbody2D:
   serializedVersion: 4

@@ -33,6 +33,8 @@ namespace GNT
         public float maxDollyAmount = 3.0f;
         public float playerToGroundHeightDifferenceThreshold = 2.6f; // start dollying when the distance from the players y position to the ground level (ground sprites pivot point pos y) if higher than this value
 
+        private float dollyAmountExternal = 0.0f;
+
         // private
         [SerializeField]
         private float currentFollowPlayerDampLambda;
@@ -100,7 +102,10 @@ namespace GNT
                 predictedCameraPosition.z += dollyDirection * dollyAmount;
             }
 
-            Vector3 currrentCameraPosition = this.gameObject.transform.position;
+                // external dolly requests:
+                predictedCameraPosition.z += dollyAmountExternal;
+
+                Vector3 currrentCameraPosition = this.gameObject.transform.position;
 
             float lerpedCameraFollowPlayerDampLambda;
             if (useConstantFollowPlayerDampLambda)
@@ -130,9 +135,20 @@ namespace GNT
         {
             SetCurrentPlayerFollowDampLambda (cameraFollowPlayerTeleportDampLambda);
         }
+
         public void SetPlayerFollowEnabled(bool isEnabled)
         {
             isCameraMovementEnabled = isEnabled;
+        }
+        
+        public void Dolly(float dollyAmount /*In: + Out: -*/)
+        {
+            dollyAmountExternal = dollyAmount;
+        }
+        
+        public void ResetDolly()
+        {
+            dollyAmountExternal = 0.0f;
         }
     }
 }

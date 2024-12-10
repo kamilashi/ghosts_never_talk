@@ -11,6 +11,12 @@ namespace GNT
         public int startLayerIdx;
     }
 
+    public enum LayerSwitchDirection
+    {
+        In,
+        Out
+    }
+
     public class SceneInterface : MonoBehaviour
     {
         public GroundLayer ActiveGroundLayer; // for now set inspector - later should be loaded + managed during the switch

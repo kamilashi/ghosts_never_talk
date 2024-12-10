@@ -20,6 +20,7 @@ namespace GNT
         [SerializeField]
         private float moveKeyHoldTimeScaled;
         private bool acceptInput = true;
+        private LayerSwitchDirection bufferedLayerSwitchDirection;
 
         void Awake()
         {
@@ -69,13 +70,13 @@ namespace GNT
 
                 if (Input.GetKeyDown(switchGroundLayerIn))
                 {
-                    GlobalData.Instance.ActiveScene.SwitchIn();
-                    hackySnapToGroundLayerHook();
+                    bufferedLayerSwitchDirection = LayerSwitchDirection.In;
+                    initiatePlayerTeleport();
                 }
-                else if(Input.GetKeyDown(switchGroundLayerOut))
+                else if (Input.GetKeyDown(switchGroundLayerOut))
                 {
-                    GlobalData.Instance.ActiveScene.SwitchOut();
-                    hackySnapToGroundLayerHook();
+                    bufferedLayerSwitchDirection = LayerSwitchDirection.Out;
+                    initiatePlayerTeleport();
                 }
             }
         }
@@ -86,20 +87,38 @@ namespace GNT
             moveKeyHoldTimeScaled = Mathf.Clamp01(moveKeyHoldTimeScaled);
         }
         
-        private void hackySnapToGroundLayerHook()
+        private void initiatePlayerTeleport()
         {
-            float teleportDistanceSquare = 0.0f;
-            groundLayerPositionMapper.TeteportToGroundHookPosition(ref teleportDistanceSquare);
-            setCameraPlayerFollowEnabled(false);
-            groundMovement.SetFreezeMovement(true);
-            GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetPlayerFollowTeleportDampLambda();
+            // the animation should come from the teleporting interactable!
+            groundMovement.InitiateTeleportWithAnimation(groundMovement.teleportAnimation);
+            CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();
+            playerCameraMovement.SetPlayerFollowTeleportDampLambda();
+            playerCameraMovement.Dolly(2.0f);
+        }
+
+        public void OnPlayerTeleportTranslateAnimationEvent()
+        {
+            // the switch direction (more like the target layer link) should come from the teleporting interactable instead!
+            if (bufferedLayerSwitchDirection == LayerSwitchDirection.In)
+            {
+                GlobalData.Instance.ActiveScene.SwitchIn();
+            }
+            else
+            {
+                GlobalData.Instance.ActiveScene.SwitchOut();
+            }
+
+            Vector3 teleportDelta = Vector3.zero;
+            groundLayerPositionMapper.TeteportToGroundHookPosition(ref teleportDelta, groundMovement.GroundCollisionMask, groundMovement.GetCollider());
+            groundMovement.TeleportTranslateToLayer(teleportDelta, GlobalData.Instance.ActiveScene.ActiveGroundLayer.SpriteLayerOrder);
+            CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();
+            playerCameraMovement.ResetDolly();
         }
 
         public int GetLastDirectionInput()
         {
             return (int)lastMoveDirection;
         }
-
         public float GetMoveKeyHoldScale()
         {
             return moveKeyHoldTimeScaled;
@@ -107,6 +126,7 @@ namespace GNT
         private void setAcceptInput(bool isEnabled)
         {
             acceptInput = isEnabled;
+            moveKeyHoldTimeScaled = 0.0f;
         }
 
         public void BlockInputAnimationEvent(float duration)
@@ -120,19 +140,6 @@ namespace GNT
         public void OnBlockInputDurationEnd()
         {
             setAcceptInput(true);
-        }
-
-        public void DisableCameraFollowAnimationEvent(float duration)
-        {
-            // Create event handler delegate and pass it to the duration event constructor
-            ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = OnDisableCameraFollowDurationEnd;
-            GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration, eventHandlerDelegate);
-            setCameraPlayerFollowEnabled(false);
-        }
-
-        public void OnDisableCameraFollowDurationEnd()
-        {
-            setCameraPlayerFollowEnabled(true);
         }
 
         private void setCameraPlayerFollowEnabled(bool isEnabled)
