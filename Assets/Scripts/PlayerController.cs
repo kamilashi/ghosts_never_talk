@@ -126,7 +126,6 @@ namespace GNT
         private void setAcceptInput(bool isEnabled)
         {
             acceptInput = isEnabled;
-            moveKeyHoldTimeScaled = 0.0f;
         }
 
         public void BlockInputAnimationEvent(float duration)
@@ -135,6 +134,7 @@ namespace GNT
             ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = OnBlockInputDurationEnd;
             GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration, eventHandlerDelegate);
             setAcceptInput(false);
+            moveKeyHoldTimeScaled = 0.0f;
         }
 
         public void OnBlockInputDurationEnd()
