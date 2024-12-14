@@ -13,11 +13,16 @@ namespace GNT
         public GameObject LayerAssetsContainer;
         public GameObject ScreenBottomHook;
         public int SpriteLayerOrder;
+        public int GroundLayerIndex = -1;
 
         public EdgeCollider2D EdgeCollider;
 
-        void Start()
+        void Awake()
         {
+            if(ContainerScene == null)
+            {
+                ContainerScene = this.transform.GetComponentInParent<SceneInterface>();
+            }
         }
 
         void Update()

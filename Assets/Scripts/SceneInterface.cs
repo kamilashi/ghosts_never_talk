@@ -26,12 +26,14 @@ namespace GNT
 
         [SerializeField]
         private List<GroundLayer> groundLayers;
+        [SerializeField]
+        private List<InteractableTeleporter> playerVisibleTeleporters;
 
         private int currentLayerIdx;
 
-        void Start()
+        void Awake()
         {
-            
+            playerVisibleTeleporters = new List<InteractableTeleporter>();
         }
 
         void Update()
@@ -77,11 +79,32 @@ namespace GNT
 
             return false;
         }
+        public List<InteractableTeleporter> GetPlayerVisibleTeleporters()
+        {
+            return playerVisibleTeleporters;
+        }
+        public void AddPlayerVisibleTeleporter(InteractableTeleporter teleporter)
+        {
+            playerVisibleTeleporters.Add(teleporter);
+        }
+        public void RemovePlayerVisibleTeleporter(InteractableTeleporter teleporter)
+        {
+            playerVisibleTeleporters.Remove(teleporter);
+        }
 
         public void OnLoadInitialize()
         {
             // delegate to load funcitonality and move to globalData
-            
+            for (int index = 0; index < groundLayers.Count; index++)
+            {
+                groundLayers[index].GroundLayerIndex = index;
+            }
+
+            SwitchToLayer(sceneStartData.startLayerIdx);
+        }
+        
+        public void OnUnload()
+        {
             SwitchToLayer(sceneStartData.startLayerIdx);
         }
     }

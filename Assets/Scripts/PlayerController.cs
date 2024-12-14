@@ -7,12 +7,15 @@ namespace GNT
 {
     public class PlayerController : MonoBehaviour
     {
+        public int AvailableActionUIKey = -1;
+
         [SerializeField]
         [Range(0, 1000)]
         private float inputSensitivity;
 
         private GroundMovement groundMovement;
         private MoveDirection lastMoveDirection;
+        private SpriteRenderer spriteRenderer;
 
         // later once we have interactables, this will need to move to that component
         private GroundLayerPositionMapper groundLayerPositionMapper;
@@ -20,7 +23,7 @@ namespace GNT
         [SerializeField]
         private float moveKeyHoldTimeScaled;
         private bool acceptInput = true;
-        private LayerSwitchDirection bufferedLayerSwitchDirection;
+        private InteractableTeleporter bufferedInteractableTeleporter;
 
         void Awake()
         {
@@ -28,6 +31,8 @@ namespace GNT
             moveKeyHoldTimeScaled = 0.0f;
             groundMovement = gameObject.GetComponentInChildren<GroundMovement>();
             groundLayerPositionMapper = gameObject.GetComponentInChildren<GroundLayerPositionMapper>();
+            spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+            bufferedInteractableTeleporter = null;
         }   
         
         void Start()
@@ -45,6 +50,8 @@ namespace GNT
 
                 KeyCode switchGroundLayerIn = KeyCode.W;
                 KeyCode switchGroundLayerOut = KeyCode.S;
+               
+                KeyCode interactKey = KeyCode.F;
 
                 if (Input.GetKey(moveLeftMappedKey))
                 {
@@ -66,8 +73,10 @@ namespace GNT
                 else
                 {
                     processMoveInput(-1.0f);
+                    groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
                 }
 
+/*
                 if (Input.GetKeyDown(switchGroundLayerIn))
                 {
                     bufferedLayerSwitchDirection = LayerSwitchDirection.In;
@@ -77,6 +86,17 @@ namespace GNT
                 {
                     bufferedLayerSwitchDirection = LayerSwitchDirection.Out;
                     initiatePlayerTeleport();
+                }*/
+
+                InteractableTeleporter availableTeleporter = getClosestTeleporter();
+                if(availableTeleporter != null)
+                {
+                    if(Input.GetKeyDown(interactKey))
+                    {
+                        availableTeleporter.Interact(this.transform, groundMovement);
+                        bufferedInteractableTeleporter = availableTeleporter;
+                        OnTeleportCamera();
+                    }
                 }
             }
         }
@@ -86,11 +106,23 @@ namespace GNT
             moveKeyHoldTimeScaled += sign * Time.deltaTime * inputSensitivity; // replace with smoothing curves? 
             moveKeyHoldTimeScaled = Mathf.Clamp01(moveKeyHoldTimeScaled);
         }
-        
-        private void initiatePlayerTeleport()
+
+        private InteractableTeleporter getClosestTeleporter()
+        {
+            // we assume that there will not be closely placed teleporters in levels!
+            foreach (InteractableTeleporter teleporter in GlobalData.Instance.ActiveScene.GetPlayerVisibleTeleporters())
+            {
+                if (teleporter.IsInRange(this.transform.position))
+                {
+                    return teleporter;
+                }
+            }
+
+            return null;
+        }
+        private void OnTeleportCamera()
         {
             // the animation should come from the teleporting interactable!
-            groundMovement.InitiateTeleportWithAnimation(groundMovement.teleportAnimation);
             CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();
             playerCameraMovement.SetPlayerFollowTeleportDampLambda();
             playerCameraMovement.Dolly(2.0f);
@@ -98,19 +130,11 @@ namespace GNT
 
         public void OnPlayerTeleportTranslateAnimationEvent()
         {
-            // the switch direction (more like the target layer link) should come from the teleporting interactable instead!
-            if (bufferedLayerSwitchDirection == LayerSwitchDirection.In)
-            {
-                GlobalData.Instance.ActiveScene.SwitchIn();
-            }
-            else
-            {
-                GlobalData.Instance.ActiveScene.SwitchOut();
-            }
+            GlobalData.Instance.ActiveScene.SwitchToLayer(bufferedInteractableTeleporter.TargetTeleporter.ContainingGroundLayer.GroundLayerIndex);
+            Vector3 deltaTeleport = bufferedInteractableTeleporter.TeteportToTargetPosition(transform, groundMovement.GroundCollisionMask, groundMovement.GetCollider(), spriteRenderer);
+            transform.Translate(deltaTeleport, Space.World);
+            bufferedInteractableTeleporter = null;
 
-            Vector3 teleportDelta = Vector3.zero;
-            groundLayerPositionMapper.TeteportToGroundHookPosition(ref teleportDelta, groundMovement.GroundCollisionMask, groundMovement.GetCollider());
-            groundMovement.TeleportTranslateToLayer(teleportDelta, GlobalData.Instance.ActiveScene.ActiveGroundLayer.SpriteLayerOrder);
             CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();
             playerCameraMovement.ResetDolly();
         }
