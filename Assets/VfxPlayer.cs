@@ -15,7 +15,6 @@ namespace GNT
 
         private SpriteRenderer cashedVfxSpriteRenderer;
         private GameObject cashedVfxInstance;
-        [SerializeField]
         private float vfxProgressFraction = 0.0f;
         private Coroutine animationCoroutine;
 
@@ -44,15 +43,15 @@ namespace GNT
         {
             float elapsedTime = duration * Mathf.Abs((float)inputMode - vfxProgressFraction);
             vfxProgressFraction = Mathf.Abs(((float)inputMode) - (elapsedTime / duration));
-            do
+            
+            while (elapsedTime < duration) 
             {
-                cashedVfxSpriteRenderer.material.SetFloat("_ProgressFraction", vfxProgressFraction);
-                elapsedTime += speed*Time.deltaTime;
-                vfxProgressFraction = Mathf.Abs(((float)inputMode) - (elapsedTime / duration));
-                vfxProgressFraction = Mathf.Clamp(vfxProgressFraction, 0.0f, 1.0f);
-                yield return null;
+               cashedVfxSpriteRenderer.material.SetFloat("_ProgressFraction", vfxProgressFraction);
+               elapsedTime += speed * Time.deltaTime;
+               vfxProgressFraction = Mathf.Abs(((float)inputMode) - (elapsedTime / duration));
+               vfxProgressFraction = Mathf.Clamp(vfxProgressFraction, 0.0f, 1.0f);
+               yield return null;
             }
-            while (elapsedTime < duration);
 
             cashedVfxSpriteRenderer.material.SetFloat("_ProgressFraction", vfxProgressFraction);
 

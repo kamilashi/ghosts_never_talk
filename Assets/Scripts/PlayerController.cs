@@ -23,6 +23,10 @@ namespace GNT
         [SerializeField]
         private float moveKeyHoldTimeScaled;
         private bool acceptInput = true;
+
+        [SerializeField]
+        private InteractableTeleporter availableInteractableTeleporter;
+        [SerializeField]
         private InteractableTeleporter bufferedInteractableTeleporter;
 
         void Awake()
@@ -47,9 +51,6 @@ namespace GNT
                 // #Todo: get this data from control map
                 KeyCode moveLeftMappedKey = KeyCode.A;
                 KeyCode moveRightMappedKey = KeyCode.D;
-
-                KeyCode switchGroundLayerIn = KeyCode.W;
-                KeyCode switchGroundLayerOut = KeyCode.S;
                
                 KeyCode interactKey = KeyCode.F;
 
@@ -76,17 +77,33 @@ namespace GNT
                     groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
                 }
 
-                InteractableTeleporter availableTeleporter = getClosestTeleporter();
-                if(availableTeleporter != null)
+                processAvailableInteractions(interactKey);
+            }
+        }
+
+        private void processAvailableInteractions(KeyCode interactKey)
+        {
+            InteractableTeleporter availableTeleporter = getClosestTeleporter();
+            if (availableTeleporter != null)
+            {
+                if (Input.GetKeyDown(interactKey))
                 {
-                    if(Input.GetKeyDown(interactKey))
-                    {
-                        availableTeleporter.Interact(this.transform, groundMovement);
-                        bufferedInteractableTeleporter = availableTeleporter;
-                        OnTeleportCamera();
-                    }
+                    availableTeleporter.Interact(this.transform, groundMovement);
+                    bufferedInteractableTeleporter = availableTeleporter;
+                    OnTeleportCamera();
+                }
+
+                if (availableInteractableTeleporter != availableTeleporter)
+                {
+                    availableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxStart(availableTeleporter.ContainingGroundLayer.SpriteLayerOrder);
                 }
             }
+            else if (availableInteractableTeleporter != null)
+            {
+                availableInteractableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxFinish();
+            }
+
+            availableInteractableTeleporter = availableTeleporter;
         }
 
        private void processMoveInput(float sign)
@@ -121,6 +138,8 @@ namespace GNT
             GlobalData.Instance.ActiveScene.SwitchToLayer(bufferedInteractableTeleporter.TargetTeleporter.ContainingGroundLayer.GroundLayerIndex);
             Vector3 deltaTeleport = bufferedInteractableTeleporter.TeteportToTargetPosition(transform, groundMovement.GroundCollisionMask, groundMovement.GetCollider(), spriteRenderer);
             transform.Translate(deltaTeleport, Space.World);
+
+            bufferedInteractableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxFinish();
             bufferedInteractableTeleporter = null;
 
             CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();

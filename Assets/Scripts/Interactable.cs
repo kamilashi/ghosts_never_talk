@@ -24,7 +24,6 @@ namespace GNT
         //private bool isEnabled = true;
         [SerializeField]
         VfxPlayer vfxPlayer;
-        bool wasInRange = false;
 
         void Awake()
         {
@@ -46,20 +45,6 @@ namespace GNT
                 toInteractor -= this.transform.position;
                 
                 isInRange = toInteractor.sqrMagnitude <= InteractRadius * InteractRadius;
-            }
-
-            if(wasInRange != isInRange)
-            {
-                if(isInRange)
-                {
-                    this.vfxPlayer.PlayVfxStart(ContainingGroundLayer.SpriteLayerOrder);
-                }
-                else
-                {
-                    this.vfxPlayer.PlayVfxFinish();
-                }
-
-                wasInRange = isInRange;
             }
 
             return isInRange;
