@@ -9,12 +9,13 @@ namespace GNT
         //public string MaterialAnimationInputName;
         public float StartSpeed = 1.0f;
         public float EndSpeed = 1.0f;
-        public float StartEndScaledDuration = 1.0f;
+        public float StartEndDuration = 1.0f;
         public float RunDuration = -1.0f;
 
 
         private SpriteRenderer cashedVfxSpriteRenderer;
         private GameObject cashedVfxInstance;
+        [SerializeField]
         private float vfxProgressFraction = 0.0f;
         private Coroutine animationCoroutine;
 
@@ -39,19 +40,23 @@ namespace GNT
             }
         }
 
-        private IEnumerator OnVfxPlayCoroutine(float scaledDuration, float speed, AnimationInputMode inputMode = AnimationInputMode.NonInverse, bool destroyOnFinish = false)
+        private IEnumerator OnVfxPlayCoroutine(float duration, float speed, AnimationInputMode inputMode = AnimationInputMode.NonInverse, bool destroyOnFinish = false)
         {
-            float elapsedTime = scaledDuration * Mathf.Abs((float)inputMode - vfxProgressFraction);
+            float elapsedTime = duration * Mathf.Abs((float)inputMode - vfxProgressFraction);
+            vfxProgressFraction = Mathf.Abs(((float)inputMode) - (elapsedTime / duration));
             do
             {
                 cashedVfxSpriteRenderer.material.SetFloat("_ProgressFraction", vfxProgressFraction);
-                vfxProgressFraction = Mathf.Abs(((float)inputMode) - (elapsedTime / scaledDuration));
                 elapsedTime += speed*Time.deltaTime;
+                vfxProgressFraction = Mathf.Abs(((float)inputMode) - (elapsedTime / duration));
+                vfxProgressFraction = Mathf.Clamp(vfxProgressFraction, 0.0f, 1.0f);
                 yield return null;
             }
-            while (elapsedTime < scaledDuration);
+            while (elapsedTime < duration);
 
-            if(destroyOnFinish)
+            cashedVfxSpriteRenderer.material.SetFloat("_ProgressFraction", vfxProgressFraction);
+
+            if (destroyOnFinish)
             {
                 Destroy(cashedVfxInstance);
                 cashedVfxSpriteRenderer = null;
@@ -71,7 +76,7 @@ namespace GNT
             cashedVfxSpriteRenderer = cashedVfxInstance.GetComponent<SpriteRenderer>();
             cashedVfxSpriteRenderer.sortingOrder = spriteLayerOrder;
 
-            animationCoroutine = StartCoroutine(OnVfxPlayCoroutine(StartEndScaledDuration, StartSpeed));
+            animationCoroutine = StartCoroutine(OnVfxPlayCoroutine(StartEndDuration, StartSpeed));
         }
 
         public void PlayVfxFinish()
@@ -80,7 +85,7 @@ namespace GNT
             {
                 StopCoroutine(animationCoroutine);
             }
-            animationCoroutine = StartCoroutine(OnVfxPlayCoroutine(StartEndScaledDuration, EndSpeed, AnimationInputMode.Inverse, true));
+            animationCoroutine = StartCoroutine(OnVfxPlayCoroutine(StartEndDuration, EndSpeed, AnimationInputMode.Inverse, true));
         }
     }
 }

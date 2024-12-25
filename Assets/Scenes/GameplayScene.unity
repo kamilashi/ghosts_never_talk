@@ -1282,7 +1282,7 @@ Transform:
   m_GameObject: {fileID: 410870890}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.02, y: -3.54, z: 7}
+  m_LocalPosition: {x: 3.87, y: -3.54, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1337,10 +1337,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VfxPrefab: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
-  StartSpeed: 1.5
-  EndSpeed: 1.5
-  StartEndScaledDuration: 1
+  StartSpeed: 10
+  EndSpeed: 10
+  StartEndDuration: 1
   RunDuration: -1
+  vfxProgressFraction: 0
 --- !u!1 &415658729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,8 +1427,9 @@ MonoBehaviour:
   VfxPrefab: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
   StartSpeed: 1
   EndSpeed: 1
-  StartEndScaledDuration: 1
+  StartEndDuration: 1
   RunDuration: -1
+  vfxProgressFraction: 0
 --- !u!1 &418369241
 GameObject:
   m_ObjectHideFlags: 0
@@ -8375,8 +8377,9 @@ MonoBehaviour:
   VfxPrefab: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
   StartSpeed: 1
   EndSpeed: 1
-  StartEndScaledDuration: 1
+  StartEndDuration: 1
   RunDuration: -1
+  vfxProgressFraction: 0
 --- !u!1 &1377079876
 GameObject:
   m_ObjectHideFlags: 0
@@ -8929,8 +8932,9 @@ MonoBehaviour:
   VfxPrefab: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
   StartSpeed: 1
   EndSpeed: 1
-  StartEndScaledDuration: 1
+  StartEndDuration: 1
   RunDuration: -1
+  vfxProgressFraction: 0
 --- !u!1 &1728121132
 GameObject:
   m_ObjectHideFlags: 0
