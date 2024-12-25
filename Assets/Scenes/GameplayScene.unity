@@ -1265,6 +1265,7 @@ GameObject:
   - component: {fileID: 410870891}
   - component: {fileID: 410870893}
   - component: {fileID: 410870892}
+  - component: {fileID: 410870894}
   m_Layer: 0
   m_Name: Layer1TeleporterSewers
   m_TagString: Untagged
@@ -1281,7 +1282,7 @@ Transform:
   m_GameObject: {fileID: 410870890}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.02, y: -3.54, z: 6.08}
+  m_LocalPosition: {x: 4.02, y: -3.54, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1306,6 +1307,7 @@ MonoBehaviour:
   LocalOffset: {x: 0, y: 0}
   SnapSpeed: 1
   SnapToLocalOffset: 1
+  vfxPlayer: {fileID: 0}
   TargetTeleporter: {fileID: 415658731}
   IsReceiverOnly: 0
 --- !u!114 &410870893
@@ -1322,6 +1324,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 3
+--- !u!114 &410870894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410870890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c033eab1924cc2045886c534954d9c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VfxPrefab: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
+  StartSpeed: 1.5
+  EndSpeed: 1.5
+  StartEndScaledDuration: 1
+  RunDuration: -1
 --- !u!1 &415658729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,6 +1352,7 @@ GameObject:
   - component: {fileID: 415658730}
   - component: {fileID: 415658732}
   - component: {fileID: 415658731}
+  - component: {fileID: 415658733}
   m_Layer: 0
   m_Name: Layer2TeleporterSewers
   m_TagString: Untagged
@@ -1349,7 +1369,7 @@ Transform:
   m_GameObject: {fileID: 415658729}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.78, y: -0.56, z: 10.34}
+  m_LocalPosition: {x: -5.62, y: -0.56, z: 12.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1374,6 +1394,7 @@ MonoBehaviour:
   LocalOffset: {x: 0, y: 0}
   SnapSpeed: 1
   SnapToLocalOffset: 1
+  vfxPlayer: {fileID: 0}
   TargetTeleporter: {fileID: 410870892}
   IsReceiverOnly: 0
 --- !u!114 &415658732
@@ -1390,6 +1411,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 3
+--- !u!114 &415658733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415658729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c033eab1924cc2045886c534954d9c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VfxPrefab: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
+  StartSpeed: 1
+  EndSpeed: 1
+  StartEndScaledDuration: 1
+  RunDuration: -1
 --- !u!1 &418369241
 GameObject:
   m_ObjectHideFlags: 0
@@ -8263,6 +8301,7 @@ GameObject:
   - component: {fileID: 1349472665}
   - component: {fileID: 1349472667}
   - component: {fileID: 1349472666}
+  - component: {fileID: 1349472668}
   m_Layer: 0
   m_Name: Layer2TeleporterPipe
   m_TagString: Untagged
@@ -8279,7 +8318,7 @@ Transform:
   m_GameObject: {fileID: 1349472664}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.42, y: -0.56, z: 10.34}
+  m_LocalPosition: {x: 4.42, y: -0.56, z: 12.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8304,6 +8343,7 @@ MonoBehaviour:
   LocalOffset: {x: 0, y: 0}
   SnapSpeed: 1
   SnapToLocalOffset: 1
+  vfxPlayer: {fileID: 0}
   TargetTeleporter: {fileID: 1659033200}
   IsReceiverOnly: 0
 --- !u!114 &1349472667
@@ -8320,6 +8360,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 3
+--- !u!114 &1349472668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349472664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c033eab1924cc2045886c534954d9c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VfxPrefab: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
+  StartSpeed: 1
+  EndSpeed: 1
+  StartEndScaledDuration: 1
+  RunDuration: -1
 --- !u!1 &1377079876
 GameObject:
   m_ObjectHideFlags: 0
@@ -8798,6 +8855,7 @@ GameObject:
   - component: {fileID: 1659033198}
   - component: {fileID: 1659033199}
   - component: {fileID: 1659033200}
+  - component: {fileID: 1659033201}
   m_Layer: 0
   m_Name: Layer3TeleporterPipe
   m_TagString: Untagged
@@ -8814,7 +8872,7 @@ Transform:
   m_GameObject: {fileID: 1659033197}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.13, y: 11.79, z: 12}
+  m_LocalPosition: {x: 8.13, y: 11.79, z: 12.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8853,8 +8911,26 @@ MonoBehaviour:
   LocalOffset: {x: 0, y: 0}
   SnapSpeed: 1
   SnapToLocalOffset: 1
+  vfxPlayer: {fileID: 0}
   TargetTeleporter: {fileID: 1349472666}
   IsReceiverOnly: 0
+--- !u!114 &1659033201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659033197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c033eab1924cc2045886c534954d9c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VfxPrefab: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
+  StartSpeed: 1
+  EndSpeed: 1
+  StartEndScaledDuration: 1
+  RunDuration: -1
 --- !u!1 &1728121132
 GameObject:
   m_ObjectHideFlags: 0

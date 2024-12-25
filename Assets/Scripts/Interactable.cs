@@ -22,30 +22,53 @@ namespace GNT
         public bool SnapToLocalOffset = true;
 
         //private bool isEnabled = true;
+        [SerializeField]
+        VfxPlayer vfxPlayer;
+        bool wasInRange = false;
 
-        private void Awake()
+        void Awake()
         {
             if (ContainingGroundLayer == null)
             {
                 ContainingGroundLayer = this.transform.GetComponentInParent<GroundLayer>();
             }
+
+            vfxPlayer = gameObject.GetComponent<VfxPlayer>();
         }
 
         public bool IsInRange(Vector3 interactorPos/*, ref float squareDistance*/)
-        {
+        { 
+            bool isInRange = false;
+
             if (ContainingGroundLayer == GlobalData.Instance.ActiveScene.ActiveGroundLayer)
             {
                 Vector3 toInteractor = interactorPos;
                 toInteractor -= this.transform.position;
-                //squareDistance = toInteractor.sqrMagnitude;
-                return toInteractor.sqrMagnitude <= InteractRadius * InteractRadius;
+                
+                isInRange = toInteractor.sqrMagnitude <= InteractRadius * InteractRadius;
             }
 
-            else return false;
+            if(wasInRange != isInRange)
+            {
+                if(isInRange)
+                {
+                    this.vfxPlayer.PlayVfxStart(ContainingGroundLayer.SpriteLayerOrder);
+                }
+                else
+                {
+                    this.vfxPlayer.PlayVfxFinish();
+                }
+
+                wasInRange = isInRange;
+            }
+
+            return isInRange;
         }
 
         private IEnumerator MoveToInteractionX(Transform interactorTransform, GroundMovement interactorGroundMovement = null)
         {
+            Debug.Log("Interact coroutine started");
+
             Vector3 targetWorldPosition = this.transform.position;
             targetWorldPosition.x += LocalOffset.x;
             float currentDistance = -1.0f;
@@ -68,20 +91,25 @@ namespace GNT
                 interactorTransform.Translate(translate);
                 yield return null;
             }
-            while (currentDistance < epsilon); 
+            while (currentDistance > epsilon); 
             
             if (interactorGroundMovement != null)
             {
                 interactorGroundMovement.StopAndPlayAnimation(InteractAnimation);
             }
 
+            Debug.Log("Interact coroutine ended");
+
+            yield return null;
         }
+
         public void Interact(Transform interactorTransform, GroundMovement groundMovement = null)
         {
             if (groundMovement != null)
             {
                 groundMovement.StopAndPlayAnimation(InteractAnimation);
             }
+
             //StartCoroutine(MoveToInteractionX(interactorTransform, groundMovement));
         }
     }

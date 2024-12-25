@@ -8,12 +8,15 @@ namespace GNT
         [Header("Teleporter")]
         public InteractableTeleporter TargetTeleporter;
         public bool IsReceiverOnly;
+
+
         private void Start()
         {
-            if (!IsReceiverOnly)
+            /*if (!IsReceiverOnly)
             {
                 GlobalData.Instance.ActiveScene.AddPlayerVisibleTeleporter(this);
-            }
+            }*/
+            OnBecameVisible();
         }
 
         public Vector3 TeteportToTargetPosition(Transform teleporteeTransform, LayerMask teleporteeGroundCollisionMask, Collider2D teleporteeCollider, SpriteRenderer teleporteeSpriteRenderer)

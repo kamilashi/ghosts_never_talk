@@ -76,18 +76,6 @@ namespace GNT
                     groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
                 }
 
-/*
-                if (Input.GetKeyDown(switchGroundLayerIn))
-                {
-                    bufferedLayerSwitchDirection = LayerSwitchDirection.In;
-                    initiatePlayerTeleport();
-                }
-                else if (Input.GetKeyDown(switchGroundLayerOut))
-                {
-                    bufferedLayerSwitchDirection = LayerSwitchDirection.Out;
-                    initiatePlayerTeleport();
-                }*/
-
                 InteractableTeleporter availableTeleporter = getClosestTeleporter();
                 if(availableTeleporter != null)
                 {

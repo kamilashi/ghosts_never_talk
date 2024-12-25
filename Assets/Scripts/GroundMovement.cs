@@ -50,8 +50,8 @@ namespace GNT
             Assert.AreNotEqual(0,  SpeedValues[(int)GNT.MoveSpeed.Count-2]);
             Assert.AreNotEqual(0, Acceleration);
 #endif
-            collider2D = gameObject.GetComponentInChildren<Collider2D>();
-            animator = gameObject.GetComponentInChildren<Animator>();
+            collider2D = gameObject.GetComponent<Collider2D>();
+            animator = gameObject.GetComponent<Animator>();
             spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         }
 

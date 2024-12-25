@@ -107,6 +107,7 @@ Material:
     - _Noise_scale: 2.42
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _ProgressFraction: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Radius: 2.2
