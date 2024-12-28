@@ -20,14 +20,13 @@ namespace GNT
         // later once we have interactables, this will need to move to that component
         private GroundLayerPositionMapper groundLayerPositionMapper;
 
-        [SerializeField]
         private float moveKeyHoldTimeScaled;
         private bool acceptInput = true;
 
-        [SerializeField]
         private InteractableTeleporter availableInteractableTeleporter;
-        [SerializeField]
         private InteractableTeleporter bufferedInteractableTeleporter;
+
+        private InteractableTrigger availableInteractableTrigger;
 
         void Awake()
         {
@@ -78,6 +77,30 @@ namespace GNT
                 }
 
                 processAvailableInteractions(interactKey);
+
+                if(availableInteractableTeleporter == null)
+                {
+                    InteractableTrigger availableTrigger = getClosestInteractableTrigger();
+                    if (availableTrigger != null)
+                    {
+                        if (Input.GetKeyDown(interactKey))
+                        {
+                            availableInteractableTrigger.Interact(this.transform, groundMovement);
+                        }
+
+                        if (availableInteractableTrigger != availableTrigger)
+                        {
+                            availableTrigger.TransformAnimateEnter();
+                            availableTrigger.gameObject.GetComponent<VfxPlayer>().PlayVfxEnter(availableTrigger.ContainingGroundLayer.SpriteLayerOrder, availableTrigger.InteractRadius * 2.0f);
+                        }
+                    }
+                    else if (availableInteractableTrigger != null)
+                    {
+                        availableInteractableTrigger.TransformAnimateExit();
+                        availableInteractableTrigger.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
+                    }
+                    availableInteractableTrigger = availableTrigger;
+                }
             }
         }
 
@@ -95,12 +118,12 @@ namespace GNT
 
                 if (availableInteractableTeleporter != availableTeleporter)
                 {
-                    availableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxStart(availableTeleporter.ContainingGroundLayer.SpriteLayerOrder);
+                    availableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxEnter(availableTeleporter.ContainingGroundLayer.SpriteLayerOrder, availableTeleporter.InteractRadius * 2.0f);
                 }
             }
             else if (availableInteractableTeleporter != null)
             {
-                availableInteractableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxFinish();
+                availableInteractableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
             }
 
             availableInteractableTeleporter = availableTeleporter;
@@ -125,6 +148,21 @@ namespace GNT
 
             return null;
         }
+        
+        private InteractableTrigger getClosestInteractableTrigger()
+        {
+            // we assume that there will not be closely placed teleporters in levels!
+            foreach (InteractableTrigger interactableTrigger in GlobalData.Instance.ActiveScene.GetPlayerVisibleInteractableTriggers())
+            {
+                if (interactableTrigger.IsInRange(this.transform.position))
+                {
+                    return interactableTrigger;
+                }
+            }
+
+            return null;
+        }
+
         private void OnTeleportCamera()
         {
             // the animation should come from the teleporting interactable!
@@ -139,7 +177,7 @@ namespace GNT
             Vector3 deltaTeleport = bufferedInteractableTeleporter.TeteportToTargetPosition(transform, groundMovement.GroundCollisionMask, groundMovement.GetCollider(), spriteRenderer);
             transform.Translate(deltaTeleport, Space.World);
 
-            bufferedInteractableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxFinish();
+            bufferedInteractableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
             bufferedInteractableTeleporter = null;
 
             CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();

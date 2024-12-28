@@ -4,11 +4,18 @@ using UnityEngine;
 
 namespace GNT
 {
-/*
-    public interface I_Interactable
+    /*
+        public interface I_Interactable
+        {
+            public void Interact(Collider2D teleporteeCollider = null);
+        }*/
+    enum AnimationState
     {
-        public void Interact(Collider2D teleporteeCollider = null);
-    }*/
+        Inactive,
+        Enter,
+        Loop,
+        Exit
+    }
 
     public abstract class Interactable : MonoBehaviour
     {
@@ -22,7 +29,6 @@ namespace GNT
         public bool SnapToLocalOffset = true;
 
         //private bool isEnabled = true;
-        [SerializeField]
         VfxPlayer vfxPlayer;
 
         void Awake()

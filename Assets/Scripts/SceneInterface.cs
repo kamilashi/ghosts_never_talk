@@ -28,12 +28,14 @@ namespace GNT
         private List<GroundLayer> groundLayers;
         [SerializeField]
         private List<InteractableTeleporter> playerVisibleTeleporters;
+        private List<InteractableTrigger> playerVisibleInteractableTriggers;
 
         private int currentLayerIdx;
 
         void Awake()
         {
             playerVisibleTeleporters = new List<InteractableTeleporter>();
+            playerVisibleInteractableTriggers = new List<InteractableTrigger>();
         }
 
         void Update()
@@ -83,6 +85,10 @@ namespace GNT
         {
             return playerVisibleTeleporters;
         }
+        public List<InteractableTrigger> GetPlayerVisibleInteractableTriggers()
+        {
+            return playerVisibleInteractableTriggers;
+        }
         public void AddPlayerVisibleTeleporter(InteractableTeleporter teleporter)
         {
             playerVisibleTeleporters.Add(teleporter);
@@ -90,6 +96,14 @@ namespace GNT
         public void RemovePlayerVisibleTeleporter(InteractableTeleporter teleporter)
         {
             playerVisibleTeleporters.Remove(teleporter);
+        }
+        public void AddPlayerVisibleInteractableTrigger(InteractableTrigger interactableTrigger)
+        {
+            playerVisibleInteractableTriggers.Add(interactableTrigger);
+        }
+        public void RemovePlayerVisibleInteractableTrigger(InteractableTrigger interactableTrigger)
+        {
+            playerVisibleInteractableTriggers.Add(interactableTrigger);
         }
 
         public void OnLoadInitialize()
