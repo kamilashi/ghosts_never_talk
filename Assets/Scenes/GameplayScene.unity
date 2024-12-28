@@ -8004,7 +8004,7 @@ MonoBehaviour:
   SnapSpeed: 1
   SnapToLocalOffset: 0
   AnimatedTransform: {fileID: 896297661}
-  EnterExitHeightDelta: 2
+  EnterExitHeightDelta: 1
   EnterExitSpeed: 2
   LoopSpeed: 1.5
   LoopSwingAmplitude: 0.25

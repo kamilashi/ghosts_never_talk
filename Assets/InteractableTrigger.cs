@@ -17,8 +17,11 @@ namespace GNT
 
         [SerializeField]
         AnimationState currentState;
-        Coroutine animationCoroutine;
+        [SerializeField]
         Quaternion initialRotation;
+        [SerializeField]
+        Vector3 initialRotationEuler;
+        Coroutine animationCoroutine;
         float timer;
         float initialPosY;
 
@@ -29,7 +32,8 @@ namespace GNT
             currentState = AnimationState.Inactive;
             timer = 0.0f;
             initialPosY = AnimatedTransform.position.y;
-            initialRotation = AnimatedTransform.localRotation;
+            initialRotation = AnimatedTransform.rotation;
+            initialRotationEuler = initialRotation.eulerAngles;
         }
         void Start()
         {
@@ -57,7 +61,7 @@ namespace GNT
         {
             float error = 0.0f;
             float targetYPos = direction > 0.0f ? initialPosY + EnterExitHeightDelta : initialPosY;
-            Quaternion startRotation = AnimatedTransform.localRotation;
+            Quaternion startRotation = AnimatedTransform.rotation;
 
             float posDiffY = Mathf.Abs(targetYPos - AnimatedTransform.position.y);
             do
@@ -67,14 +71,16 @@ namespace GNT
                 AnimatedTransform.Translate(0.0f, velocityY, 0.0f);
                 posDiffY = Mathf.Abs(targetYPos - AnimatedTransform.position.y);
 
-                Quaternion rotation;
-                rotation = Quaternion.Slerp(startRotation, initialRotation, progress);
-                AnimatedTransform.rotation = rotation;
+                float eulerY = Mathf.LerpAngle(startRotation.eulerAngles.y, initialRotation.eulerAngles.y, progress);
+                float deltaY = Mathf.DeltaAngle(transform.rotation.eulerAngles.y, eulerY);
+                AnimatedTransform.Rotate(Vector3.up , deltaY < 0.0f ? (deltaY * Mathf.Deg2Rad) : (180.0f + deltaY) * Mathf.Deg2Rad);
+                //AnimatedTransform.Rotate(Vector3.up , deltaY * Mathf.Deg2Rad);
+                Debug.Log("eulerY " + eulerY);
+                Debug.Log("deltaY " + deltaY);
 
                 yield return null;
             }
             while (posDiffY > error);
-
 
             currentState = (currentState == AnimationState.Enter) ? AnimationState.Loop : AnimationState.Inactive;
         }
