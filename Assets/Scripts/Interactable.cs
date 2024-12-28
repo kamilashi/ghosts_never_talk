@@ -17,7 +17,7 @@ namespace GNT
         Exit
     }
 
-    public abstract class Interactable : MonoBehaviour
+    public class Interactable : MonoBehaviour
     {
         [Header("Interactable")]
         public int UIPromptKey;

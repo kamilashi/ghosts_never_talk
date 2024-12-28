@@ -271,6 +271,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractionAvailableVfxPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8306178359863933971, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.55200005

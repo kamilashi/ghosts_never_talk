@@ -28,6 +28,12 @@ namespace GNT
 
         private InteractableTrigger availableInteractableTrigger;
 
+        // #Todo: get this data from control map
+        KeyCode moveLeftMappedKey = KeyCode.A;
+        KeyCode moveRightMappedKey = KeyCode.D;
+
+        KeyCode interactKey = KeyCode.F;
+
         void Awake()
         {
             lastMoveDirection = MoveDirection.Right;
@@ -47,12 +53,6 @@ namespace GNT
         {
             if(acceptInput)
             { 
-                // #Todo: get this data from control map
-                KeyCode moveLeftMappedKey = KeyCode.A;
-                KeyCode moveRightMappedKey = KeyCode.D;
-               
-                KeyCode interactKey = KeyCode.F;
-
                 if (Input.GetKey(moveLeftMappedKey))
                 {
                     processMoveInput(1.0f);
@@ -78,6 +78,7 @@ namespace GNT
 
                 processAvailableInteractions(interactKey);
 
+                //#ToDo: refactor this
                 if(availableInteractableTeleporter == null)
                 {
                     InteractableTrigger availableTrigger = getClosestInteractableTrigger();
@@ -100,6 +101,12 @@ namespace GNT
                         availableInteractableTrigger.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
                     }
                     availableInteractableTrigger = availableTrigger;
+                }
+                else if(availableInteractableTrigger != null)
+                {
+                    availableInteractableTrigger.TransformAnimateExit();
+                    availableInteractableTrigger.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
+                    availableInteractableTrigger = null;
                 }
             }
         }
@@ -211,9 +218,19 @@ namespace GNT
             setAcceptInput(true);
         }
 
+        public Interactable GetAvailableInteractable()
+        {
+            return availableInteractableTeleporter != null ? availableInteractableTeleporter : availableInteractableTrigger;
+        }
+
         private void setCameraPlayerFollowEnabled(bool isEnabled)
         {
             GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetPlayerFollowEnabled(isEnabled);
+        }
+
+        public string GetInteractKey()
+        {
+            return interactKey.ToString();
         }
     }
 
