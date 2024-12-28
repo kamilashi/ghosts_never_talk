@@ -15,8 +15,10 @@ namespace GNT
         public float LoopSwingAmplitude = 1.0f;
         public float LoopRotateRadPerSecond = 1.0f;
 
+        [SerializeField]
         AnimationState currentState;
         Coroutine animationCoroutine;
+        Quaternion initialRotation;
         float timer;
         float initialPosY;
 
@@ -27,6 +29,7 @@ namespace GNT
             currentState = AnimationState.Inactive;
             timer = 0.0f;
             initialPosY = AnimatedTransform.position.y;
+            initialRotation = AnimatedTransform.localRotation;
         }
         void Start()
         {
@@ -54,16 +57,24 @@ namespace GNT
         {
             float error = 0.0f;
             float targetYPos = direction > 0.0f ? initialPosY + EnterExitHeightDelta : initialPosY;
+            Quaternion startRotation = AnimatedTransform.localRotation;
 
             float posDiffY = Mathf.Abs(targetYPos - AnimatedTransform.position.y);
             do
             {
-                float velocityY = (float)direction * Mathf.Min(EnterExitHeightDelta * Time.deltaTime * Mathf.SmoothStep(0.2f, 0.8f, posDiffY/ EnterExitHeightDelta),  posDiffY);
+                float progress = posDiffY / EnterExitHeightDelta;
+                float velocityY = (float)direction * Mathf.Min(EnterExitHeightDelta * Time.deltaTime * Mathf.SmoothStep(0.2f, 0.8f, progress),  posDiffY);
                 AnimatedTransform.Translate(0.0f, velocityY, 0.0f);
                 posDiffY = Mathf.Abs(targetYPos - AnimatedTransform.position.y);
+
+                Quaternion rotation;
+                rotation = Quaternion.Slerp(startRotation, initialRotation, progress);
+                AnimatedTransform.rotation = rotation;
+
                 yield return null;
             }
             while (posDiffY > error);
+
 
             currentState = (currentState == AnimationState.Enter) ? AnimationState.Loop : AnimationState.Inactive;
         }
