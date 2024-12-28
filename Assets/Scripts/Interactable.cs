@@ -49,7 +49,8 @@ namespace GNT
             {
                 Vector3 toInteractor = interactorPos;
                 toInteractor -= this.transform.position;
-                
+                toInteractor.z = 0.0f;
+
                 isInRange = toInteractor.sqrMagnitude <= InteractRadius * InteractRadius;
             }
 

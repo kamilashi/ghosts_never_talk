@@ -7,11 +7,13 @@ namespace GNT
     public class InteractableTrigger : Interactable
     {
         [Header("Transform Animation - Interactable Trigger")]
+        public Transform AnimatedTransform;
         public float EnterExitHeightDelta = 1.0f;
         public float EnterExitSpeed = 1.0f;
 
         public float LoopSpeed = 1.0f;
         public float LoopSwingAmplitude = 1.0f;
+        public float LoopRotateRadPerSecond = 1.0f;
 
         AnimationState currentState;
         Coroutine animationCoroutine;
@@ -20,9 +22,11 @@ namespace GNT
 
         private void Awake()
         {
+            Debug.Assert(AnimatedTransform != null, "Please specify the animated transform for this script, even if it belongs to the same gameObject!");
+
             currentState = AnimationState.Inactive;
-            initialPosY = transform.position.y;
             timer = 0.0f;
+            initialPosY = AnimatedTransform.position.y;
         }
         void Start()
         {
@@ -51,12 +55,12 @@ namespace GNT
             float error = 0.0f;
             float targetYPos = direction > 0.0f ? initialPosY + EnterExitHeightDelta : initialPosY;
 
-            float posDiffY = Mathf.Abs(targetYPos - transform.position.y);
+            float posDiffY = Mathf.Abs(targetYPos - AnimatedTransform.position.y);
             do
             {
                 float velocityY = (float)direction * Mathf.Min(EnterExitHeightDelta * Time.deltaTime * Mathf.SmoothStep(0.2f, 0.8f, posDiffY/ EnterExitHeightDelta),  posDiffY);
-                transform.Translate(0.0f, velocityY, 0.0f);
-                posDiffY = Mathf.Abs(targetYPos - transform.position.y);
+                AnimatedTransform.Translate(0.0f, velocityY, 0.0f);
+                posDiffY = Mathf.Abs(targetYPos - AnimatedTransform.position.y);
                 yield return null;
             }
             while (posDiffY > error);
@@ -82,10 +86,10 @@ namespace GNT
         public void TransformAnimateLoop()
         {
             float yOffset = Mathf.Sin(timer) * LoopSwingAmplitude;
-            float translateDeltaY = initialPosY + EnterExitHeightDelta + yOffset - transform.position.y;
-            transform.Translate(0.0f, translateDeltaY, 0.0f);
+            float translateDeltaY = initialPosY + EnterExitHeightDelta + yOffset - AnimatedTransform.position.y;
+            AnimatedTransform.Translate(0.0f, translateDeltaY, 0.0f);
 
-            //transform.Rotate(Vector3.up, Time.deltaTime * LoopSpeed);
+            AnimatedTransform.Rotate(Vector3.up, Time.deltaTime * LoopRotateRadPerSecond);
 
             timer += Time.deltaTime * LoopSpeed;
         }

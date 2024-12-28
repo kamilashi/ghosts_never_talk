@@ -7267,8 +7267,8 @@ Transform:
   m_GameObject: {fileID: 896297660}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 1.98, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1229356652}
@@ -7822,7 +7822,7 @@ Transform:
   m_GameObject: {fileID: 1229356651}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.52, y: 12.71, z: 12.13}
+  m_LocalPosition: {x: 27.52, y: 10.95, z: 12.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7879,10 +7879,12 @@ MonoBehaviour:
   LocalOffset: {x: 0, y: 0}
   SnapSpeed: 1
   SnapToLocalOffset: 0
-  EnterExitHeightDelta: 1.5
+  AnimatedTransform: {fileID: 896297661}
+  EnterExitHeightDelta: 2
   EnterExitSpeed: 2
   LoopSpeed: 1.5
   LoopSwingAmplitude: 0.25
+  LoopRotateRadPerSecond: 100
 --- !u!1 &1238936647
 GameObject:
   m_ObjectHideFlags: 0
