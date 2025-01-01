@@ -45,7 +45,7 @@ namespace GNT
         { 
             bool isInRange = false;
 
-            if (ContainingGroundLayer == GlobalData.Instance.ActiveScene.ActiveGroundLayer)
+            if (ContainingGroundLayer == GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer)
             {
                 Vector3 toInteractor = interactorPos;
                 toInteractor -= this.transform.position;
@@ -95,7 +95,7 @@ namespace GNT
             yield return null;
         }
 
-        public void Interact(Transform interactorTransform, GroundMovement groundMovement = null)
+        public virtual void Interact(Transform interactorTransform, GroundMovement groundMovement = null)
         {
             if (groundMovement != null)
             {

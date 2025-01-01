@@ -50,13 +50,21 @@ namespace GNT
 
         void OnBecameVisible()
         {
-            GlobalData.Instance.ActiveScene.AddPlayerVisibleInteractableTrigger(this);
+            GlobalData.Instance.ActiveSceneDynamicRef.AddPlayerVisibleInteractableTrigger(this);
         }
 
         void OnBecameInvisible()
         {
-            GlobalData.Instance.ActiveScene.RemovePlayerVisibleInteractableTrigger(this);
+            GlobalData.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleInteractableTrigger(this);
         }
+
+/*
+        public override void Interact()
+        {
+            base.Interact();
+
+        }*/
+
         private IEnumerator OnTransformAnimateCoroutine(int direction /* +1 = Up, -1 = down*/)
         {
             float error = 0.0f;
@@ -75,8 +83,8 @@ namespace GNT
                 float deltaY = Mathf.DeltaAngle(transform.rotation.eulerAngles.y, eulerY);
                 AnimatedTransform.Rotate(Vector3.up , deltaY < 0.0f ? (deltaY * Mathf.Deg2Rad) : (180.0f + deltaY) * Mathf.Deg2Rad);
                 //AnimatedTransform.Rotate(Vector3.up , deltaY * Mathf.Deg2Rad);
-                Debug.Log("eulerY " + eulerY);
-                Debug.Log("deltaY " + deltaY);
+                //Debug.Log("eulerY " + eulerY);
+                //Debug.Log("deltaY " + deltaY);
 
                 yield return null;
             }

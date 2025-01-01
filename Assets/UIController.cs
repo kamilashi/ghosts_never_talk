@@ -24,8 +24,8 @@ namespace GNT
             Interactable availableInteractable = PlayerRuntimeController.GetAvailableInteractable();
             if (availableInteractable != null)
             {
-                Vector2 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(PlayerRuntimeController.transform.position);
-                PlayerPrompt.transform.position = (screenSpacePos + offsetInPixels);
+                //Vector2 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(PlayerRuntimeController.transform.position);
+                //PlayerPrompt.transform.position = (screenSpacePos + offsetInPixels);
                 PlayerPrompt.Set("Interact", PlayerRuntimeController.GetInteractKey());
                 PlayerPrompt.gameObject.SetActive(true);
             }

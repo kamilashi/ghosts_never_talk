@@ -31,6 +31,8 @@ namespace GNT
         // #Todo: get this data from control map
         KeyCode moveLeftMappedKey = KeyCode.A;
         KeyCode moveRightMappedKey = KeyCode.D;
+        
+        KeyCode progressDialogueMappedKey = KeyCode.Space;
 
         KeyCode interactKey = KeyCode.F;
 
@@ -74,6 +76,11 @@ namespace GNT
                 {
                     processMoveInput(-1.0f);
                     groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
+                }
+
+                if(Input.GetKey(progressDialogueMappedKey))
+                {
+                    GlobalData.Instance.DialogueViewStaticRef.UserRequestedViewAdvancement();
                 }
 
                 processAvailableInteractions(interactKey);
@@ -145,7 +152,7 @@ namespace GNT
         private InteractableTeleporter getClosestTeleporter()
         {
             // we assume that there will not be closely placed teleporters in levels!
-            foreach (InteractableTeleporter teleporter in GlobalData.Instance.ActiveScene.GetPlayerVisibleTeleporters())
+            foreach (InteractableTeleporter teleporter in GlobalData.Instance.ActiveSceneDynamicRef.GetPlayerVisibleTeleporters())
             {
                 if (teleporter.IsInRange(this.transform.position))
                 {
@@ -159,7 +166,7 @@ namespace GNT
         private InteractableTrigger getClosestInteractableTrigger()
         {
             // we assume that there will not be closely placed teleporters in levels!
-            foreach (InteractableTrigger interactableTrigger in GlobalData.Instance.ActiveScene.GetPlayerVisibleInteractableTriggers())
+            foreach (InteractableTrigger interactableTrigger in GlobalData.Instance.ActiveSceneDynamicRef.GetPlayerVisibleInteractableTriggers())
             {
                 if (interactableTrigger.IsInRange(this.transform.position))
                 {
@@ -180,7 +187,7 @@ namespace GNT
 
         public void OnPlayerTeleportTranslateAnimationEvent()
         {
-            GlobalData.Instance.ActiveScene.SwitchToLayer(bufferedInteractableTeleporter.TargetTeleporter.ContainingGroundLayer.GroundLayerIndex);
+            GlobalData.Instance.ActiveSceneDynamicRef.SwitchToLayer(bufferedInteractableTeleporter.TargetTeleporter.ContainingGroundLayer.GroundLayerIndex);
             Vector3 deltaTeleport = bufferedInteractableTeleporter.TeteportToTargetPosition(transform, groundMovement.GroundCollisionMask, groundMovement.GetCollider(), spriteRenderer);
             transform.Translate(deltaTeleport, Space.World);
 
@@ -208,7 +215,7 @@ namespace GNT
         {
             // Create event handler delegate and pass it to the duration event constructor
             ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = OnBlockInputDurationEnd;
-            GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration, eventHandlerDelegate);
+            GlobalData.Instance.AnimationEventProcessorInstance.RegisterDurationEvent(duration, eventHandlerDelegate);
             setAcceptInput(false);
             moveKeyHoldTimeScaled = 0.0f;
         }

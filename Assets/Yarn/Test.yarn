@@ -1,81 +1,13 @@
 
-title: Party
+title: SpinningCatInfo
 color: red
 group: main
 position: -237,-259
 ---
-<<declare $hatsCount = 0>>
 
-Narrator: Party time! You want a hat?
-    -> Yes!
-        Narrator: Have one!
-        <<set $hatsCount = $hatsCount + 1>>
-    -> No
-        Narrator: Okay
-Narrator: Where to?
-    -> Over here!
-        Narrator: Okay here
-        <<jump OverHere>>
-    -> Over there!
-        Narrator: Okay there
-        <<jump OverThere>>
-===
-
-title: OverHere
-color: green
-group: other_places
-position: -226,282
----
-<<declare $drunk = false>>
-
-Mae: Hi!
-Mae: You want a hat?
-    -> Yes!
-        <<set $hatsCount = $hatsCount + 1>>
-    -> No
-        Mae: Okay
-Mae: want a drink?
-    -> yes
-        <<set $drunk to true>>
-        Mae: here you go, grab one!
-    -> no
-        Mae: boring!
-Mae: Lets go over there 
-<<jump OverThere>>
-===
-
-title: OverThere
-color: purple
-group: other_places
-position: 335,50
----
-<<if visited("OverHere")>>
-    Bea: i've seen you talking to Mae!
-<<endif>>
-
-Bea: Hi! Do you like the party?
-    -> Ahsdhsjdakskd <<if $drunk == true>>
-        Bea: I'll take it as a yes!
-        Bea: Here, have another party hat.
-        <<if $hatsCount > 0>>
-            Bea: I see you have some already!
-        <<endif>>
-        <<set $hatsCount = $hatsCount + 1>>
-    -> Yay!
-        Bea: Cool!
-    -> Nay...
-        Bea: Maybe it's time to go home!
-<<jump End>>
-===
-
-
-title: End
-position: 790,63
-color: yellow
----
-Bea: Bye!
-<<if visited("OverHere")>>
-    Mae: Bye!
-<<endif>>
-Narrator: You've collected {$hatsCount} hats out of 3!
+Ghost: What a weird creature!
+Ghost: Tell me, what are you?
+Cat: U I I A I
+Ghost: What?
+Cat: U U I I I A I
 ===

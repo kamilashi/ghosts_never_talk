@@ -73,7 +73,7 @@ namespace GNT
             float cameraHeightChangeThreshold = playerToGroundHeightDifferenceThreshold;
             float cameraHeightChangeReference = 0.0f;
 
-            GroundLayer activeGroundLayerRef = GlobalData.Instance.ActiveScene.ActiveGroundLayer;
+            GroundLayer activeGroundLayerRef = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer;
             if (adjustToScreenBottomHook) // cameras y position relative to ground
             {
                 float referenceExtentY = (activeGroundLayerRef.ScreenBottomHook.transform.position.z - transform.position.z) * (float)System.Math.Tan(mainCamera.fieldOfView * 0.5 * (System.Math.PI / 180.0));

@@ -37,12 +37,12 @@ namespace GNT
         {
             if (!IsReceiverOnly)
             {
-                GlobalData.Instance.ActiveScene.AddPlayerVisibleTeleporter(this);
+                GlobalData.Instance.ActiveSceneDynamicRef.AddPlayerVisibleTeleporter(this);
             }
         }
         void OnBecameInvisible()
         {
-            GlobalData.Instance.ActiveScene.RemovePlayerVisibleTeleporter(this);
+            GlobalData.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleTeleporter(this);
         }
 
     }
