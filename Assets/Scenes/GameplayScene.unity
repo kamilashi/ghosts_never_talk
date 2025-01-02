@@ -1441,6 +1441,7 @@ MonoBehaviour:
   LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
+  WaitForCameraStop: 0
   TargetTeleporter: {fileID: 415658731}
   IsReceiverOnly: 0
 --- !u!114 &410870893
@@ -1527,6 +1528,7 @@ MonoBehaviour:
   LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
+  WaitForCameraStop: 0
   TargetTeleporter: {fileID: 410870892}
   IsReceiverOnly: 0
 --- !u!114 &415658732
@@ -8320,9 +8322,10 @@ MonoBehaviour:
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 712069334}
   InteractAnimation: {fileID: 7400000, guid: e3e01b9d72492344fb73e4e21494c528, type: 2}
-  LocalOffsetX: 3
+  LocalOffsetX: 2.8
   SnapSpeed: 10
   SnapToLocalOffset: 1
+  WaitForCameraStop: 1
   TriggerAction:
     m_PersistentCalls:
       m_Calls:
@@ -9160,6 +9163,7 @@ MonoBehaviour:
   LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
+  WaitForCameraStop: 0
   TargetTeleporter: {fileID: 1659033200}
   IsReceiverOnly: 0
 --- !u!114 &1349472667
@@ -9861,6 +9865,7 @@ MonoBehaviour:
   LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
+  WaitForCameraStop: 0
   TargetTeleporter: {fileID: 1349472666}
   IsReceiverOnly: 0
 --- !u!114 &1659033201

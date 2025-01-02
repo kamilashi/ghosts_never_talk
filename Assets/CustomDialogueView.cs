@@ -69,14 +69,13 @@ namespace GNT
             GlobalCharacterReference charRef = GlobalData.Instance.GetGlobalCharacterByReference(dialogueLine.CharacterName);
             Vector2 worldSpaceOffset = charRef.GameObjectStaticReference.GetComponent<DialogueObject>().DialoguePanelOffset;
             Vector3 worldPosition = charRef.GameObjectStaticReference.transform.position;
-            Debug.Log("RUNLINE " + worldPosition);
             worldPosition.x += worldSpaceOffset.x;
             worldPosition.y += worldSpaceOffset.y;
 
-            Vector2 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(worldPosition);
+            Vector3 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(worldPosition);
+            screenSpacePos.z = 0.0f;
 
-            screenSpacePos += charRef.GameObjectStaticReference.GetComponent<DialogueObject>().DialoguePanelOffset;
-            this.transform.position = screenSpacePos;
+            container.position = screenSpacePos;
 
             characterNameText.text = charRef.Name;
 
@@ -252,9 +251,8 @@ namespace GNT
         // frame.
         public static Coroutine Tween<T>(this MonoBehaviour behaviour, T from, T to, float time, TweenFunction<T> handler, System.Action onComplete = null)
         {
-
             // Coroutines run on specific MonoBehaviours, so we'll tell the
-            // 'behaviour' to start running it our HandleTween coroutine.
+            // 'behaviour' to start running our HandleTween coroutine.
             return behaviour.StartCoroutine(HandleTween(from, to, time, handler, onComplete));
         }
 

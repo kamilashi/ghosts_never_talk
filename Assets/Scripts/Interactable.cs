@@ -27,6 +27,7 @@ namespace GNT
         public float LocalOffsetX;
         public float SnapSpeed = 1.0f;
         public bool SnapToLocalOffset = true;
+        public bool WaitForCameraStop = false;
 
         //private bool isEnabled = true;
         VfxPlayer vfxPlayer;
@@ -88,6 +89,12 @@ namespace GNT
             if (interactorGroundMovement != null)
             {
                 interactorGroundMovement.StopAndPlayAnimation(InteractAnimation);
+            }
+
+            CameraMovement activeCameraMovement = GlobalData.Instance.GetActiveCamera().gameObject.GetComponent<CameraMovement>();
+            while(WaitForCameraStop && !activeCameraMovement.IsCameraMoving())
+            {
+                yield return null;
             }
 
             onCoroutineFinishedInteractAction?.Invoke();
