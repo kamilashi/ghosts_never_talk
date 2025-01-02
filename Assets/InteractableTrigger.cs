@@ -6,7 +6,10 @@ namespace GNT
 {
     public class InteractableTrigger : Interactable
     {
-        [Header("Transform Animation - Interactable Trigger")]
+        [Header("Interactable Trigger")]
+        public string DialogueStartNodeName;
+
+        [Header("Transform Animation - needs to move into a separate component")]
         public Transform AnimatedTransform;
         public float EnterExitHeightDelta = 1.0f;
         public float EnterExitSpeed = 1.0f;
@@ -25,6 +28,8 @@ namespace GNT
         float timer;
         float initialPosY;
 
+        private Yarn.Unity.DialogueRunner dialogueRunnerStaticRef;
+
         private void Awake()
         {
             Debug.Assert(AnimatedTransform != null, "Please specify the animated transform for this script, even if it belongs to the same gameObject!");
@@ -37,6 +42,8 @@ namespace GNT
         }
         void Start()
         {
+            dialogueRunnerStaticRef = GlobalData.Instance.DialogueRunnerStaticRef;
+
             OnBecameVisible();
         }
 
@@ -58,13 +65,9 @@ namespace GNT
             GlobalData.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleInteractableTrigger(this);
         }
 
-        public override void Interact(Transform interactorTransform, GroundMovement groundMovement = null)
+        protected override void onInteractCoroutineFinished()
         {
-            base.Interact(interactorTransform, groundMovement);
-
-            // #todo: supply an onCoroutineFinished Action!
-
-
+            dialogueRunnerStaticRef.StartDialogue(DialogueStartNodeName);
         }
 
         private IEnumerator OnTransformAnimateCoroutine(int direction /* +1 = Up, -1 = down*/)

@@ -6,32 +6,41 @@ namespace GNT
 {
     public class UIController : MonoBehaviour
     {
-
         [Header("Player Prompt")]
-        public UIPlayerPrompt PlayerPrompt;
+        public UIPlayerPrompt PlayerPromptStaticRef;
         public Vector2 offsetInPixels;
+
+        private Yarn.Unity.DialogueRunner dialogueRunnerStaticRef;
+        private PlayerController playerConrtollerStaticRef;
 
         // Start is called before the first frame update
         void Start()
         {
-            PlayerPrompt.gameObject.SetActive(false);
+            playerConrtollerStaticRef = GlobalData.Instance.GetPlayerController();
+            dialogueRunnerStaticRef = GlobalData.Instance.DialogueRunnerStaticRef;
+
+            PlayerPromptStaticRef.gameObject.SetActive(false);
         }
 
         // Update is called once per frame
         void Update()
         {
-            PlayerController PlayerRuntimeController = GlobalData.Instance.GetPlayerController();
-            Interactable availableInteractable = PlayerRuntimeController.GetAvailableInteractable();
+            Interactable availableInteractable = playerConrtollerStaticRef.GetAvailableInteractable();
             if (availableInteractable != null)
             {
                 //Vector2 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(PlayerRuntimeController.transform.position);
                 //PlayerPrompt.transform.position = (screenSpacePos + offsetInPixels);
-                PlayerPrompt.Set("Interact", PlayerRuntimeController.GetInteractKey());
-                PlayerPrompt.gameObject.SetActive(true);
+                PlayerPromptStaticRef.Set("Interact", playerConrtollerStaticRef.GetInteractKey());
+                PlayerPromptStaticRef.gameObject.SetActive(true);
+            }
+            else if(dialogueRunnerStaticRef.IsDialogueRunning)
+            {
+                PlayerPromptStaticRef.Set("Next", playerConrtollerStaticRef.GetAdvanceDialogueKey());
+                PlayerPromptStaticRef.gameObject.SetActive(true);
             }
             else
             {
-                PlayerPrompt.gameObject.SetActive(false);
+                PlayerPromptStaticRef.gameObject.SetActive(false);
             }
         }
     }

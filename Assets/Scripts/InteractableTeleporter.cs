@@ -9,13 +9,9 @@ namespace GNT
         public InteractableTeleporter TargetTeleporter;
         public bool IsReceiverOnly;
 
-
         private void Start()
         {
-            /*if (!IsReceiverOnly)
-            {
-                GlobalData.Instance.ActiveScene.AddPlayerVisibleTeleporter(this);
-            }*/
+            // #todo: Put the call to this method into the base class and override OnVIsible and OnInvisible in the child classes!
             OnBecameVisible();
         }
 
@@ -25,11 +21,9 @@ namespace GNT
 
             Vector3 deltaPositionTranslate = TargetTeleporter.transform.position;
             float testHeight = 10.0f;
-            //deltaPositionTranslate.y += testHeight;
             deltaPositionTranslate.y -= GroundMovement.GetDistanceToGroundCollider(deltaPositionTranslate, testHeight, teleporteeCollider, teleporteeGroundCollisionMask);
             deltaPositionTranslate -= teleporteeTransform.transform.position;
 
-            //teleporteeTransform.Translate(deltaPositionTranslate);
             return deltaPositionTranslate;
         }
 

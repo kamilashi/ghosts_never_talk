@@ -1159,6 +1159,8 @@ GameObject:
   - component: {fileID: 341731463}
   - component: {fileID: 341731462}
   - component: {fileID: 341731464}
+  - component: {fileID: 341731466}
+  - component: {fileID: 341731467}
   m_Layer: 5
   m_Name: PlayerPromptPanel
   m_TagString: Untagged
@@ -1185,7 +1187,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 100, y: -50}
-  m_SizeDelta: {x: 100, y: 30}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &341731462
 MonoBehaviour:
@@ -1239,6 +1241,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PromptActionText: {fileID: 1998891925}
   PromptActionIcon: {fileID: 1487403477}
+--- !u!114 &341731466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341731460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
+--- !u!114 &341731467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341731460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 10
+    m_Right: 10
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &396855187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,7 +1438,7 @@ MonoBehaviour:
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
-  LocalOffset: {x: 0, y: 0}
+  LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
   TargetTeleporter: {fileID: 415658731}
@@ -1482,7 +1524,7 @@ MonoBehaviour:
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
-  LocalOffset: {x: 0, y: 0}
+  LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
   TargetTeleporter: {fileID: 410870892}
@@ -6998,8 +7040,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7116,6 +7158,7 @@ MonoBehaviour:
   MainCameraStaticRef: {fileID: 318446024}
   PlayerControllerStaticRef: {fileID: 1294591926}
   DialogueViewStaticRef: {fileID: 1233174499}
+  DialogueRunnerStaticRef: {fileID: 3579681405842511146}
   ActiveSceneDynamicRef: {fileID: 0}
 --- !u!4 &644905460
 Transform:
@@ -7324,8 +7367,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7788,7 +7831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946edf33edba4dd4890a3c7bba4f5cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrompt: {fileID: 341731464}
+  PlayerPromptStaticRef: {fileID: 341731464}
   offsetInPixels: {x: 0, y: 151}
 --- !u!223 &976146429
 Canvas:
@@ -8274,9 +8317,10 @@ MonoBehaviour:
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 712069334}
   InteractAnimation: {fileID: 7400000, guid: e3e01b9d72492344fb73e4e21494c528, type: 2}
-  LocalOffset: {x: 0, y: 0}
+  LocalOffsetX: 0
   SnapSpeed: 1
   SnapToLocalOffset: 0
+  DialogueStartNodeName: SpinningCatInfo
   AnimatedTransform: {fileID: 896297661}
   EnterExitHeightDelta: 1
   EnterExitSpeed: 2
@@ -8326,7 +8370,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 567, y: -379.5}
+  m_AnchoredPosition: {x: 650, y: -200}
   m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1233174494
@@ -9063,7 +9107,7 @@ MonoBehaviour:
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
-  LocalOffset: {x: 0, y: 0}
+  LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
   TargetTeleporter: {fileID: 1659033200}
@@ -9397,10 +9441,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 341731461}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 70, y: 0}
-  m_SizeDelta: {x: 100, y: 30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1487403477
 MonoBehaviour:
@@ -9431,8 +9475,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294639360
-  m_fontColor: {r: 0, g: 1, b: 0.9806142, a: 1}
+    rgba: 4294310400
+  m_fontColor: {r: 0, g: 0.9811321, b: 0.9618943, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9465,7 +9509,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -9764,7 +9808,7 @@ MonoBehaviour:
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
-  LocalOffset: {x: 0, y: 0}
+  LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
   TargetTeleporter: {fileID: 1349472666}
@@ -9983,9 +10027,9 @@ RectTransform:
   m_Father: {fileID: 341731461}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1998891925
 MonoBehaviour:
@@ -10050,7 +10094,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -11362,8 +11406,6 @@ MonoBehaviour:
   dialogueViews:
   - {fileID: 1233174499}
   - {fileID: 3292657647210566794}
-  startNode: SpinningCatInfo
-  startAutomatically: 1
   runSelectedOptionAsLine: 0
   lineProvider: {fileID: 0}
   verboseLogging: 1

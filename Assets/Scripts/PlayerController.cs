@@ -32,9 +32,9 @@ namespace GNT
         KeyCode moveLeftMappedKey = KeyCode.A;
         KeyCode moveRightMappedKey = KeyCode.D;
         
-        KeyCode progressDialogueMappedKey = KeyCode.Space;
+        KeyCode advanceDialogueMappedKey = KeyCode.Space;
 
-        KeyCode interactKey = KeyCode.F;
+        KeyCode interactMappedKey = KeyCode.F;
 
         void Awake()
         {
@@ -53,7 +53,7 @@ namespace GNT
 
         void Update()
         {
-            if(acceptInput)
+            if(acceptInput && !GlobalData.Instance.DialogueRunnerStaticRef.IsDialogueRunning)
             { 
                 if (Input.GetKey(moveLeftMappedKey))
                 {
@@ -77,21 +77,23 @@ namespace GNT
                     processMoveInput(-1.0f);
                     groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
                 }
+            }
+            else
+            {
+                resetInput();
+            }
 
-                if(Input.GetKeyDown(progressDialogueMappedKey))
-                {
-                    GlobalData.Instance.DialogueViewStaticRef.UserRequestedViewAdvancement();
-                }
-
-                processAvailableInteractions(interactKey);
+            if(acceptInput)
+            {
+                processAvailableInteractions(interactMappedKey);
 
                 //#ToDo: refactor this
-                if(availableInteractableTeleporter == null)
+                if (availableInteractableTeleporter == null && !GlobalData.Instance.DialogueRunnerStaticRef.IsDialogueRunning)
                 {
                     InteractableTrigger availableTrigger = getClosestInteractableTrigger();
                     if (availableTrigger != null)
                     {
-                        if (Input.GetKeyDown(interactKey))
+                        if (Input.GetKeyDown(interactMappedKey))
                         {
                             availableInteractableTrigger.Interact(this.transform, groundMovement);
                         }
@@ -109,18 +111,24 @@ namespace GNT
                     }
                     availableInteractableTrigger = availableTrigger;
                 }
-                else if(availableInteractableTrigger != null)
+                else if (availableInteractableTrigger != null)
                 {
                     availableInteractableTrigger.TransformAnimateExit();
                     availableInteractableTrigger.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
                     availableInteractableTrigger = null;
+                }
+
+                if (Input.GetKeyDown(advanceDialogueMappedKey))
+                {
+                    GlobalData.Instance.DialogueViewStaticRef.UserRequestedViewAdvancement();
                 }
             }
         }
 
         private void processAvailableInteractions(KeyCode interactKey)
         {
-            InteractableTeleporter availableTeleporter = getClosestTeleporter();
+            InteractableTeleporter availableTeleporter = GlobalData.Instance.DialogueRunnerStaticRef.IsDialogueRunning ? null : getClosestTeleporter();
+
             if (availableTeleporter != null)
             {
                 if (Input.GetKeyDown(interactKey))
@@ -210,6 +218,12 @@ namespace GNT
         {
             acceptInput = isEnabled;
         }
+        private void resetInput()
+        {
+            moveKeyHoldTimeScaled = 0.0f;
+            availableInteractableTeleporter = null;
+            availableInteractableTrigger = null;
+        }
 
         public void BlockInputAnimationEvent(float duration)
         {
@@ -217,7 +231,6 @@ namespace GNT
             ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = OnBlockInputDurationEnd;
             GlobalData.Instance.AnimationEventProcessorInstance.RegisterDurationEvent(duration, eventHandlerDelegate);
             setAcceptInput(false);
-            moveKeyHoldTimeScaled = 0.0f;
         }
 
         public void OnBlockInputDurationEnd()
@@ -237,7 +250,11 @@ namespace GNT
 
         public string GetInteractKey()
         {
-            return interactKey.ToString();
+            return interactMappedKey.ToString();
+        }
+        public string GetAdvanceDialogueKey()
+        {
+            return advanceDialogueMappedKey.ToString();
         }
     }
 

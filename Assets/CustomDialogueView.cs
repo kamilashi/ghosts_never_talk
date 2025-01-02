@@ -202,11 +202,6 @@ namespace GNT
         // {
         // }
 
-        // UserRequestedViewAdvancement is called by other parts of your game to
-        // indicate that the user wants to proceed to the 'next' step of seeing the
-        // line. What 'next' means is up to your view - in this view, it means to
-        // either skip the current animation, or if no animation is happening,
-        // interrupt the line.
         public override void UserRequestedViewAdvancement()
         {
             // Invoke our 'advance line' handler, which (depending on what we're

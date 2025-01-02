@@ -15,6 +15,7 @@ namespace GNT
         public Camera MainCameraStaticRef; // read only, set in the inspector only, invisible to other scripts
         public PlayerController PlayerControllerStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
         public CustomDialogueView DialogueViewStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
+        public Yarn.Unity.DialogueRunner DialogueRunnerStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
 
 
         public SceneInterface ActiveSceneDynamicRef; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
