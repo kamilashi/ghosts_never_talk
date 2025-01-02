@@ -58,12 +58,14 @@ namespace GNT
             GlobalData.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleInteractableTrigger(this);
         }
 
-/*
-        public override void Interact()
+        public override void Interact(Transform interactorTransform, GroundMovement groundMovement = null)
         {
-            base.Interact();
+            base.Interact(interactorTransform, groundMovement);
 
-        }*/
+            // #todo: supply an onCoroutineFinished Action!
+
+
+        }
 
         private IEnumerator OnTransformAnimateCoroutine(int direction /* +1 = Up, -1 = down*/)
         {

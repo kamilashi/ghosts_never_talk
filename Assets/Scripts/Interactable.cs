@@ -24,7 +24,7 @@ namespace GNT
         public float InteractRadius;
         public GroundLayer ContainingGroundLayer;
         public AnimationClip InteractAnimation;
-        public Vector2 LocalOffset;
+        public float LocalOffsetX;
         public float SnapSpeed = 1.0f;
         public bool SnapToLocalOffset = true;
 
@@ -57,27 +57,26 @@ namespace GNT
             return isInRange;
         }
 
-        private IEnumerator MoveToInteractionX(Transform interactorTransform, GroundMovement interactorGroundMovement = null)
+        private IEnumerator MoveToInteractionX(Transform interactorTransform, System.Action onCoroutineFinishedInteractAction, GroundMovement interactorGroundMovement = null)
         {
             Debug.Log("Interact coroutine started");
 
             Vector3 targetWorldPosition = this.transform.position;
-            targetWorldPosition.x += LocalOffset.x;
+            targetWorldPosition.x += LocalOffsetX;
             float currentDistance = -1.0f;
             float initialDistanceX = Mathf.Abs(interactorTransform.position.x - transform.position.x);
             float epsilon = 0.01f;
 
             do
             {
-                Vector3 toInteractable = interactorTransform.position;
-                toInteractable -= targetWorldPosition;
+                Vector3 toInteractable = targetWorldPosition;
+                toInteractable -= interactorTransform.position;
 
                 currentDistance = Mathf.Abs(toInteractable.x);
 
                 float travelProgressLinear = currentDistance / initialDistanceX;
-                Debug.Log(travelProgressLinear);
 
-                float velocityX = Mathf.Sign(toInteractable.x) * Mathf.Min(SnapSpeed * Time.deltaTime, currentDistance);
+                float velocityX = Mathf.Sign(toInteractable.x) * Mathf.Min(SnapSpeed * Time.deltaTime * Mathf.SmoothStep(0.2f, 0.8f, travelProgressLinear), currentDistance);
                 Vector3 translate = Vector3.zero;
                 translate.x = velocityX;
                 interactorTransform.Translate(translate);
@@ -90,19 +89,23 @@ namespace GNT
                 interactorGroundMovement.StopAndPlayAnimation(InteractAnimation);
             }
 
-            Debug.Log("Interact coroutine ended");
+            onCoroutineFinishedInteractAction?.Invoke();
 
-            yield return null;
+            Debug.Log("Interact coroutine ended");
         }
+
+        public virtual void onInteractCoroutineFinished()
+        {}
 
         public virtual void Interact(Transform interactorTransform, GroundMovement groundMovement = null)
         {
-            if (groundMovement != null)
+            /*if (groundMovement != null)
             {
                 groundMovement.StopAndPlayAnimation(InteractAnimation);
-            }
+            }*/
 
-            //StartCoroutine(MoveToInteractionX(interactorTransform, groundMovement));
+            StartCoroutine(MoveToInteractionX(interactorTransform, onInteractCoroutineFinished, groundMovement));
         }
+
     }
 }

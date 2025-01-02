@@ -78,7 +78,7 @@ namespace GNT
                     groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
                 }
 
-                if(Input.GetKey(progressDialogueMappedKey))
+                if(Input.GetKeyDown(progressDialogueMappedKey))
                 {
                     GlobalData.Instance.DialogueViewStaticRef.UserRequestedViewAdvancement();
                 }

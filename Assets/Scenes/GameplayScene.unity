@@ -1397,7 +1397,7 @@ MonoBehaviour:
   ContainingGroundLayer: {fileID: 0}
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffset: {x: 0, y: 0}
-  SnapSpeed: 1
+  SnapSpeed: 10
   SnapToLocalOffset: 1
   TargetTeleporter: {fileID: 415658731}
   IsReceiverOnly: 0
@@ -1483,7 +1483,7 @@ MonoBehaviour:
   ContainingGroundLayer: {fileID: 0}
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffset: {x: 0, y: 0}
-  SnapSpeed: 1
+  SnapSpeed: 10
   SnapToLocalOffset: 1
   TargetTeleporter: {fileID: 410870892}
   IsReceiverOnly: 0
@@ -9064,7 +9064,7 @@ MonoBehaviour:
   ContainingGroundLayer: {fileID: 0}
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffset: {x: 0, y: 0}
-  SnapSpeed: 1
+  SnapSpeed: 10
   SnapToLocalOffset: 1
   TargetTeleporter: {fileID: 1659033200}
   IsReceiverOnly: 0
@@ -9765,7 +9765,7 @@ MonoBehaviour:
   ContainingGroundLayer: {fileID: 0}
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffset: {x: 0, y: 0}
-  SnapSpeed: 1
+  SnapSpeed: 10
   SnapToLocalOffset: 1
   TargetTeleporter: {fileID: 1349472666}
   IsReceiverOnly: 0
