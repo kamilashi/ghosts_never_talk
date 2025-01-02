@@ -36,19 +36,17 @@ namespace GNT
         // the line.
         Action advanceHandler = null;
 
+        private float lineAnimateProgress;
+
         // Sets the scale of the container view.
-        private float Scale
+        private float LineAnimateProgress
         {
-            // Take the value, which is a single number, and make it scale the
-            // 'container' object by that amount on all three axes.
-            set => container.localScale = new Vector3(value, value, value);
+            set => lineAnimateProgress = value;
         }
 
-        // Called on the first frame that this object is active.
         public void Start()
         {
-            // On start, we'll hide the line view by setting the scale to zero
-            Scale = 0;
+            LineAnimateProgress = 0;
         }
 
         // RunLine receives a localized line, and is in charge of displaying it to
@@ -71,17 +69,18 @@ namespace GNT
 
             Debug.Log($"{this.name} running line {dialogueLine.TextID}");
 
-            Scale = 0;
+            //Scale = 0;
             text.text = dialogueLine.Text.Text;
             characterNameText.text = dialogueLine.CharacterName;
 
             advanceHandler = requestInterrupt;
 
+            
             // Animate from zero to full scale, over the course of appearanceTime.
             currentAnimation = this.Tween(
                 0f, 1f,
                 appearanceTime,
-                (from, to, t) => Scale = Mathf.Lerp(from, to, t),
+                (from, to, t) => LineAnimateProgress = Mathf.Lerp(from, to, t),
                 () => // on complete Action
                 {
                     // We're done animating!
@@ -128,7 +127,7 @@ namespace GNT
             }
 
             // Skip to the end of the presentation by setting our scale to 100%.
-            Scale = 1f;
+            LineAnimateProgress = 1f;
 
             // Indicate that we've finished presenting the line.
             onDialogueLineFinished();
@@ -170,7 +169,7 @@ namespace GNT
                 }
                 advanceHandler = null;
                 onDismissalComplete();
-                Scale = 0f;
+                LineAnimateProgress = 0f;
             };
 
             // Animate the box's scale from full to zero, and when we're done,
@@ -178,7 +177,7 @@ namespace GNT
             currentAnimation = this.Tween(
                 1f, 0f,
                 disappearanceTime,
-                (from, to, t) => Scale = Mathf.Lerp(from, to, t),
+                (from, to, t) => LineAnimateProgress = Mathf.Lerp(from, to, t),
                 () =>
                 {
                     // We're done animating! Signal that we're done.
@@ -186,7 +185,8 @@ namespace GNT
                     Debug.Log($"{this.name} finished dismissing line");
                     currentAnimation = null;
                     onDismissalComplete();
-                });
+                }
+            );
         }
 
         // RunOptions is called when the Dialogue Runner needs to show options. It
