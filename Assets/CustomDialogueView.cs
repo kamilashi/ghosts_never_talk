@@ -37,6 +37,7 @@ namespace GNT
         Action advanceHandler = null;
 
         private float lineAnimateProgress;
+        private string fullLineText;
 
         // Sets the scale of the container view.
         private float LineAnimateProgress
@@ -70,7 +71,8 @@ namespace GNT
             Debug.Log($"{this.name} running line {dialogueLine.TextID}");
 
             //Scale = 0;
-            text.text = dialogueLine.Text.Text;
+            fullLineText = dialogueLine.Text.Text;
+            text.text = " ";
             characterNameText.text = dialogueLine.CharacterName;
 
             advanceHandler = requestInterrupt;
@@ -80,7 +82,8 @@ namespace GNT
             currentAnimation = this.Tween(
                 0f, 1f,
                 appearanceTime,
-                (from, to, t) => LineAnimateProgress = Mathf.Lerp(from, to, t),
+               // (from, to, t) => LineAnimateProgress = Mathf.Lerp(from, to, t),
+                (from, to, t) => animateText(Mathf.Lerp(from, to, t)),
                 () => // on complete Action
                 {
                     // We're done animating!
@@ -128,6 +131,7 @@ namespace GNT
 
             // Skip to the end of the presentation by setting our scale to 100%.
             LineAnimateProgress = 1f;
+            animateText(1.0f);
 
             // Indicate that we've finished presenting the line.
             onDialogueLineFinished();
@@ -177,7 +181,8 @@ namespace GNT
             currentAnimation = this.Tween(
                 1f, 0f,
                 disappearanceTime,
-                (from, to, t) => LineAnimateProgress = Mathf.Lerp(from, to, t),
+               //(from, to, t) => LineAnimateProgress = Mathf.Lerp(from, to, t),
+               (from, to, t) => animateText(Mathf.Lerp(from, to, t)),
                 () =>
                 {
                     // We're done animating! Signal that we're done.
@@ -209,7 +214,15 @@ namespace GNT
             // current animation, or do nothing.
             advanceHandler?.Invoke();
         }
+
+        private void animateText(float progress)
+        {
+            int charactersCount = Mathf.RoundToInt(progress * fullLineText.Length);
+            string currentLineText = charactersCount == 0 ? " " : fullLineText.Substring(0, charactersCount);
+            text.text = currentLineText;
+        }
     }
+
 
     // A class that adds extension methods to MonoBehaviour that allows for
     // animating a property over time.
