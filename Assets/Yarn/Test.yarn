@@ -4,10 +4,9 @@ color: red
 group: main
 position: -237,-259
 ---
-
-Ghost: What a weird creature!
-Ghost: Tell me, what are you?
-Cat: U I I A I
-Ghost: What?
-Cat: U U I I I A I
+Player: What a weird creature!
+Player: Tell me, what are you?
+SpinningCat: U I I A I
+Player: What?
+SpinningCat: U U I I I A I
 ===

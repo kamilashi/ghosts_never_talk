@@ -20,8 +20,8 @@ namespace GNT
 
         public SceneInterface ActiveSceneDynamicRef; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
 
+        public Dictionary<string, GlobalCharacterReference> GlobalCharacterRefDictionary;
         public AnimationEventProcessor AnimationEventProcessorInstance;
-
 
         public static event Action OnSceneLoadFinishEvent;
 
@@ -44,6 +44,8 @@ namespace GNT
             // Hack, this should be in the project settings:
             Physics2D.queriesStartInColliders = false;
             AnimationEventProcessorInstance = new AnimationEventProcessor();
+
+            GlobalCharacterRefDictionary = new Dictionary<string, GlobalCharacterReference>();
 
             // until we have loading and save data:
             ActiveSceneDynamicRef = StartSceneStaticRef;
@@ -69,6 +71,23 @@ namespace GNT
         public PlayerController GetPlayerController()
         {
             return PlayerControllerStaticRef;
+        }
+
+        public void RegisterGlobalCharacterReference(string key, GlobalCharacterReference value)
+        {
+            if(!GlobalCharacterRefDictionary.ContainsKey(key))
+            {
+                GlobalCharacterRefDictionary.Add(key, value);
+            }
+            else
+            {
+                Debug.LogError("Failed to register GCR with key, value = " + key + "," + value + " \nThe key already exists");
+            }
+        }
+
+        public GlobalCharacterReference GetGlobalCharacterByReference(string key)
+        {
+            return GlobalCharacterRefDictionary[key];
         }
     }
 }

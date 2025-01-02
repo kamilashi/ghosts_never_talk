@@ -66,8 +66,7 @@ namespace GNT
 
                 progress = (currentAnimatedValue - startAnimatedValue) / (endAnimatedValue - startAnimatedValue);
 
-                Debug.Log(progress);
-
+                Debug.Log("Animating");
                 yield return null;
             }
         }

@@ -7040,8 +7040,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7367,8 +7367,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8249,6 +8249,7 @@ GameObject:
   - component: {fileID: 1229356655}
   - component: {fileID: 1229356653}
   - component: {fileID: 1229356656}
+  - component: {fileID: 1229356657}
   m_Layer: 0
   m_Name: Layer3OIIAI
   m_TagString: Untagged
@@ -8319,10 +8320,24 @@ MonoBehaviour:
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 712069334}
   InteractAnimation: {fileID: 7400000, guid: e3e01b9d72492344fb73e4e21494c528, type: 2}
-  LocalOffsetX: 0
-  SnapSpeed: 1
-  SnapToLocalOffset: 0
-  DialogueStartNodeName: SpinningCatInfo
+  LocalOffsetX: 3
+  SnapSpeed: 10
+  SnapToLocalOffset: 1
+  TriggerAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1229356657}
+        m_TargetAssemblyTypeName: GNT.DialogueObject, Assembly-CSharp
+        m_MethodName: StartDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   AnimatedTransform: {fileID: 896297661}
   EnterExitHeightDelta: 0
   EnterExitSpeed: 2
@@ -8332,6 +8347,22 @@ MonoBehaviour:
   currentState: 0
   initialRotation: {x: 0, y: 0, z: 0, w: 0}
   initialRotationEuler: {x: 0, y: 0, z: 0}
+--- !u!114 &1229356657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229356651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ebfece4c14c0544b60cb40c47eea72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalCharacterReferenceKey: SpinningCat
+  GlobalCharacterReferenceName: The Spinning Cat
+  DialoguePanelOffset: {x: 0, y: 5.5}
+  ActiveNodeName: SpinningCatInfo
 --- !u!1 &1233174492
 GameObject:
   m_ObjectHideFlags: 0
@@ -8370,10 +8401,10 @@ RectTransform:
   - {fileID: 696814652}
   m_Father: {fileID: 976146427}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -200}
-  m_SizeDelta: {x: 400, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 579.8, y: 310.6}
+  m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1233174494
 MonoBehaviour:
@@ -8404,10 +8435,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 20
     m_Right: 20
-    m_Top: 30
-    m_Bottom: 30
+    m_Top: 20
+    m_Bottom: 20
   m_ChildAlignment: 4
-  m_Spacing: 20
+  m_Spacing: 15
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -8658,6 +8689,7 @@ GameObject:
   - component: {fileID: 1294591930}
   - component: {fileID: 1294591931}
   - component: {fileID: 1294591932}
+  - component: {fileID: 1294591933}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -8859,6 +8891,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03236189ecc5ee449a03d30147f24021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1294591933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294591924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ebfece4c14c0544b60cb40c47eea72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalCharacterReferenceKey: Player
+  GlobalCharacterReferenceName: Ghost
+  DialoguePanelOffset: {x: 0, y: 3}
+  ActiveNodeName: 
 --- !u!1 &1318752994
 GameObject:
   m_ObjectHideFlags: 0

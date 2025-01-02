@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GNT
 {
     public class InteractableTrigger : Interactable
     {
         [Header("Interactable Trigger")]
-        public string DialogueStartNodeName;
+        public UnityEvent TriggerAction;
 
         [Header("Transform Animation - needs to move into a separate component")]
         public Transform AnimatedTransform;
@@ -28,11 +29,10 @@ namespace GNT
         float timer;
         float initialPosY;
 
-        private Yarn.Unity.DialogueRunner dialogueRunnerStaticRef;
-
         private void Awake()
         {
             Debug.Assert(AnimatedTransform != null, "Please specify the animated transform for this script, even if it belongs to the same gameObject!");
+            Debug.Assert(TriggerAction != null);
 
             currentState = AnimationState.Inactive;
             timer = 0.0f;
@@ -42,8 +42,6 @@ namespace GNT
         }
         void Start()
         {
-            dialogueRunnerStaticRef = GlobalData.Instance.DialogueRunnerStaticRef;
-
             OnBecameVisible();
         }
 
@@ -67,7 +65,8 @@ namespace GNT
 
         protected override void onInteractCoroutineFinished()
         {
-            dialogueRunnerStaticRef.StartDialogue(DialogueStartNodeName);
+            //dialogueRunnerStaticRef.StartDialogue(DialogueStartNodeName);
+            TriggerAction?.Invoke();
         }
 
         private IEnumerator OnTransformAnimateCoroutine(int direction /* +1 = Up, -1 = down*/)

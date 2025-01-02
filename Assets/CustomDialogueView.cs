@@ -36,18 +36,10 @@ namespace GNT
         // the line.
         Action advanceHandler = null;
 
-        private float lineAnimateProgress;
         private string fullLineText;
-
-        // Sets the scale of the container view.
-        private float LineAnimateProgress
-        {
-            set => lineAnimateProgress = value;
-        }
 
         public void Start()
         {
-            LineAnimateProgress = 0;
         }
 
         // RunLine receives a localized line, and is in charge of displaying it to
@@ -71,18 +63,29 @@ namespace GNT
             Debug.Log($"{this.name} running line {dialogueLine.TextID}");
 
             //Scale = 0;
-            fullLineText = dialogueLine.Text.Text;
+            fullLineText = dialogueLine.TextWithoutCharacterName.Text;
             text.text = " ";
-            characterNameText.text = dialogueLine.CharacterName;
+
+            GlobalCharacterReference charRef = GlobalData.Instance.GetGlobalCharacterByReference(dialogueLine.CharacterName);
+            Vector2 worldSpaceOffset = charRef.GameObjectStaticReference.GetComponent<DialogueObject>().DialoguePanelOffset;
+            Vector3 worldPosition = charRef.GameObjectStaticReference.transform.position;
+            Debug.Log("RUNLINE " + worldPosition);
+            worldPosition.x += worldSpaceOffset.x;
+            worldPosition.y += worldSpaceOffset.y;
+
+            Vector2 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(worldPosition);
+
+            screenSpacePos += charRef.GameObjectStaticReference.GetComponent<DialogueObject>().DialoguePanelOffset;
+            this.transform.position = screenSpacePos;
+
+            characterNameText.text = charRef.Name;
 
             advanceHandler = requestInterrupt;
-
             
             // Animate from zero to full scale, over the course of appearanceTime.
             currentAnimation = this.Tween(
                 0f, 1f,
                 appearanceTime,
-               // (from, to, t) => LineAnimateProgress = Mathf.Lerp(from, to, t),
                 (from, to, t) => animateText(Mathf.Lerp(from, to, t)),
                 () => // on complete Action
                 {
@@ -120,8 +123,6 @@ namespace GNT
             // there's nothing we can do to be faster, so we'll do nothing here.
             advanceHandler = null;
 
-            Debug.Log($"{this.name} was interrupted while presenting {dialogueLine.TextID}");
-
             // If we're in the middle of an animation, stop it.
             if (currentAnimation != null)
             {
@@ -129,9 +130,9 @@ namespace GNT
                 currentAnimation = null;
             }
 
-            // Skip to the end of the presentation by setting our scale to 100%.
-            LineAnimateProgress = 1f;
             animateText(1.0f);
+
+            Debug.Log($"{this.name} was interrupted while presenting {dialogueLine.TextID}");
 
             // Indicate that we've finished presenting the line.
             onDialogueLineFinished();
@@ -173,7 +174,7 @@ namespace GNT
                 }
                 advanceHandler = null;
                 onDismissalComplete();
-                LineAnimateProgress = 0f;
+                animateText(0.0f);
             };
 
             // Animate the box's scale from full to zero, and when we're done,
@@ -181,7 +182,6 @@ namespace GNT
             currentAnimation = this.Tween(
                 1f, 0f,
                 disappearanceTime,
-               //(from, to, t) => LineAnimateProgress = Mathf.Lerp(from, to, t),
                (from, to, t) => animateText(Mathf.Lerp(from, to, t)),
                 () =>
                 {
