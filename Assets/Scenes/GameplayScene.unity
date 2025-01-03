@@ -8513,8 +8513,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WorldSpacePosition: {x: 0, y: 0, z: 0}
-  characterAppearanceDelay: 0.01
-  characterDisappearanceDelay: 0.001
+  characterAppearanceDelay: 0.03
+  characterDisappearanceDelay: 0.005
   text: {fileID: 696814653}
   characterNameText: {fileID: 533100710}
   waitForInput: 1
