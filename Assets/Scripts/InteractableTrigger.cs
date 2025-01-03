@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GNT
 {
     public class InteractableTrigger : Interactable
     {
-        [Header("Transform Animation - Interactable Trigger")]
+        [Header("Interactable Trigger")]
+        public UnityEvent TriggerAction;
+
+        [Header("Transform Animation - needs to move into a separate component")]
         public Transform AnimatedTransform;
         public float EnterExitHeightDelta = 1.0f;
         public float EnterExitSpeed = 1.0f;
@@ -27,7 +31,10 @@ namespace GNT
 
         private void Awake()
         {
+            BaseAwake();
+
             Debug.Assert(AnimatedTransform != null, "Please specify the animated transform for this script, even if it belongs to the same gameObject!");
+            Debug.Assert(TriggerAction != null);
 
             currentState = AnimationState.Inactive;
             timer = 0.0f;
@@ -37,7 +44,7 @@ namespace GNT
         }
         void Start()
         {
-            OnBecameVisible();
+            OnBecomeVisible();
         }
 
         void Update()
@@ -48,15 +55,32 @@ namespace GNT
             }
         }
 
-        void OnBecameVisible()
+        void OnBecomeVisible()
         {
-            GlobalData.Instance.ActiveScene.AddPlayerVisibleInteractableTrigger(this);
+            GlobalData.Instance.ActiveSceneDynamicRef.AddPlayerVisibleInteractableTrigger(this);
         }
 
-        void OnBecameInvisible()
+        void OnBecomeInvisible()
         {
-            GlobalData.Instance.ActiveScene.RemovePlayerVisibleInteractableTrigger(this);
+            GlobalData.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleInteractableTrigger(this);
         }
+
+        protected override void onInteractCoroutineFinished()
+        {
+            TriggerAction?.Invoke();
+        }
+        public override void OnBecomeAvailable()
+        {
+            base.OnBecomeAvailable();
+            TransformAnimateEnter();
+        }
+
+        public override void OnBecomeUnavailable()
+        {
+            base.OnBecomeUnavailable();
+            TransformAnimateExit();
+        }
+
         private IEnumerator OnTransformAnimateCoroutine(int direction /* +1 = Up, -1 = down*/)
         {
             float error = 0.0f;
@@ -67,7 +91,7 @@ namespace GNT
             do
             {
                 float progress = posDiffY / EnterExitHeightDelta;
-                float velocityY = (float)direction * Mathf.Min(EnterExitHeightDelta * Time.deltaTime * Mathf.SmoothStep(0.2f, 0.8f, progress),  posDiffY);
+                float velocityY = (float)direction * Mathf.Min(EnterExitHeightDelta * Time.deltaTime * Mathf.SmoothStep(0.2f, 0.8f, progress), posDiffY);
                 AnimatedTransform.Translate(0.0f, velocityY, 0.0f);
                 posDiffY = Mathf.Abs(targetYPos - AnimatedTransform.position.y);
 
@@ -75,12 +99,13 @@ namespace GNT
                 float deltaY = Mathf.DeltaAngle(transform.rotation.eulerAngles.y, eulerY);
                 AnimatedTransform.Rotate(Vector3.up , deltaY < 0.0f ? (deltaY * Mathf.Deg2Rad) : (180.0f + deltaY) * Mathf.Deg2Rad);
                 //AnimatedTransform.Rotate(Vector3.up , deltaY * Mathf.Deg2Rad);
-                Debug.Log("eulerY " + eulerY);
-                Debug.Log("deltaY " + deltaY);
+                //Debug.Log("eulerY " + eulerY);
+                //Debug.Log("deltaY " + deltaY);
+                //Debug.Log("SPIN COROUTINE");
 
                 yield return null;
             }
-            while (posDiffY > error);
+            while (posDiffY != 0.0f);
 
             currentState = (currentState == AnimationState.Enter) ? AnimationState.Loop : AnimationState.Inactive;
         }

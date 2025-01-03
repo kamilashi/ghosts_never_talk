@@ -11,18 +11,17 @@ namespace GNT
     {
         private static GlobalData globalDataInstance; // singleton
 
-        [SerializeField]
-        private SceneInterface startScene; // read only, set in the inspector only, invisible to other scripts
-        [SerializeField]
-        private Camera mainCamera; // read only, set in the inspector only, invisible to other scripts
-        [SerializeField] // store reference to game object instead?
-        private PlayerController playerController; // read only, reference needs to be set in the inspector, visible too other scripts
+        public SceneInterface StartSceneStaticRef; // read only, set in the inspector only, invisible to other scripts
+        public Camera MainCameraStaticRef; // read only, set in the inspector only, invisible to other scripts
+        public PlayerController PlayerControllerStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
+        public CustomDialogueView DialogueViewStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
+        public Yarn.Unity.DialogueRunner DialogueRunnerStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
 
 
-        public SceneInterface ActiveScene; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
+        public SceneInterface ActiveSceneDynamicRef; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
 
-        public AnimationEventProcessor animationEventProcessor;
-
+        public Dictionary<string, GlobalCharacterReference> GlobalCharacterRefDictionary;
+        public AnimationEventProcessor AnimationEventProcessorInstance;
 
         public static event Action OnSceneLoadFinishEvent;
 
@@ -44,11 +43,13 @@ namespace GNT
 
             // Hack, this should be in the project settings:
             Physics2D.queriesStartInColliders = false;
-            animationEventProcessor = new AnimationEventProcessor();
+            AnimationEventProcessorInstance = new AnimationEventProcessor();
+
+            GlobalCharacterRefDictionary = new Dictionary<string, GlobalCharacterReference>();
 
             // until we have loading and save data:
-            ActiveScene = startScene;
-            ActiveScene.OnLoadInitialize();
+            ActiveSceneDynamicRef = StartSceneStaticRef;
+            ActiveSceneDynamicRef.OnLoadInitialize();
         }
 
         void Start()
@@ -59,17 +60,34 @@ namespace GNT
         void Update()
         {
             // #todo: move to some game processor/simulation script?
-            animationEventProcessor.Run(Time.deltaTime);
+            AnimationEventProcessorInstance.Run(Time.deltaTime);
         }
 
         public Camera GetActiveCamera()
         {
-            return mainCamera;
+            return MainCameraStaticRef;
         }
 
         public PlayerController GetPlayerController()
         {
-            return playerController;
+            return PlayerControllerStaticRef;
+        }
+
+        public void RegisterGlobalCharacterReference(string key, GlobalCharacterReference value)
+        {
+            if(!GlobalCharacterRefDictionary.ContainsKey(key))
+            {
+                GlobalCharacterRefDictionary.Add(key, value);
+            }
+            else
+            {
+                Debug.LogError("Failed to register GCR with key, value = " + key + "," + value + " \nThe key already exists");
+            }
+        }
+
+        public GlobalCharacterReference GetGlobalCharacterByReference(string key)
+        {
+            return GlobalCharacterRefDictionary[key];
         }
     }
 }

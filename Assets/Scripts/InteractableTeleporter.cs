@@ -9,13 +9,14 @@ namespace GNT
         public InteractableTeleporter TargetTeleporter;
         public bool IsReceiverOnly;
 
+        private void Awake()
+        {
+            BaseAwake();
+        }
 
         private void Start()
         {
-            /*if (!IsReceiverOnly)
-            {
-                GlobalData.Instance.ActiveScene.AddPlayerVisibleTeleporter(this);
-            }*/
+            // #todo: Put the call to this method into the base class and override OnVIsible and OnInvisible in the child classes!
             OnBecameVisible();
         }
 
@@ -25,11 +26,9 @@ namespace GNT
 
             Vector3 deltaPositionTranslate = TargetTeleporter.transform.position;
             float testHeight = 10.0f;
-            //deltaPositionTranslate.y += testHeight;
             deltaPositionTranslate.y -= GroundMovement.GetDistanceToGroundCollider(deltaPositionTranslate, testHeight, teleporteeCollider, teleporteeGroundCollisionMask);
             deltaPositionTranslate -= teleporteeTransform.transform.position;
 
-            //teleporteeTransform.Translate(deltaPositionTranslate);
             return deltaPositionTranslate;
         }
 
@@ -37,12 +36,23 @@ namespace GNT
         {
             if (!IsReceiverOnly)
             {
-                GlobalData.Instance.ActiveScene.AddPlayerVisibleTeleporter(this);
+                GlobalData.Instance.ActiveSceneDynamicRef.AddPlayerVisibleTeleporter(this);
             }
         }
         void OnBecameInvisible()
         {
-            GlobalData.Instance.ActiveScene.RemovePlayerVisibleTeleporter(this);
+            GlobalData.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleTeleporter(this);
+        }
+
+        public override void OnBecomeAvailable()
+        {
+            Debug.Log("Teleport available");
+            base.OnBecomeAvailable();
+        }
+        public override void OnBecomeUnavailable()
+        {
+            Debug.Log("Teleport unavailable");
+            base.OnBecomeUnavailable();
         }
 
     }

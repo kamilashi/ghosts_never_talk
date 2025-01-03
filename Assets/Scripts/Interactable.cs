@@ -24,85 +24,101 @@ namespace GNT
         public float InteractRadius;
         public GroundLayer ContainingGroundLayer;
         public AnimationClip InteractAnimation;
-        public Vector2 LocalOffset;
+        public float LocalOffsetX;
         public float SnapSpeed = 1.0f;
         public bool SnapToLocalOffset = true;
+        //public bool WaitForCameraStop = false;
 
-        //private bool isEnabled = true;
-        VfxPlayer vfxPlayer;
+        [SerializeField]
+        protected VfxPlayer vfxPlayerStaticRef;
 
         void Awake()
+        {
+            BaseAwake();
+        }
+
+        protected void BaseAwake()
         {
             if (ContainingGroundLayer == null)
             {
                 ContainingGroundLayer = this.transform.GetComponentInParent<GroundLayer>();
             }
 
-            vfxPlayer = gameObject.GetComponent<VfxPlayer>();
+            vfxPlayerStaticRef = gameObject.GetComponent<VfxPlayer>();
         }
 
         public bool IsInRange(Vector3 interactorPos/*, ref float squareDistance*/)
         { 
             bool isInRange = false;
 
-            if (ContainingGroundLayer == GlobalData.Instance.ActiveScene.ActiveGroundLayer)
+            if (ContainingGroundLayer == GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer)
             {
                 Vector3 toInteractor = interactorPos;
                 toInteractor -= this.transform.position;
-                toInteractor.z = 0.0f;
 
-                isInRange = toInteractor.sqrMagnitude <= InteractRadius * InteractRadius;
+                isInRange = Mathf.Abs(toInteractor.x) <= InteractRadius;
             }
 
             return isInRange;
         }
 
-        private IEnumerator MoveToInteractionX(Transform interactorTransform, GroundMovement interactorGroundMovement = null)
+        private IEnumerator MoveToInteractionX(Transform interactorTransform, System.Action onCoroutineFinishedInteractAction, GroundMovement interactorGroundMovement = null)
         {
-            Debug.Log("Interact coroutine started");
-
-            Vector3 targetWorldPosition = this.transform.position;
-            targetWorldPosition.x += LocalOffset.x;
-            float currentDistance = -1.0f;
-            float initialDistanceX = Mathf.Abs(interactorTransform.position.x - transform.position.x);
-            float epsilon = 0.01f;
-
-            do
+            if(SnapToLocalOffset)
             {
-                Vector3 toInteractable = interactorTransform.position;
-                toInteractable -= targetWorldPosition;
+                Vector3 targetWorldPosition = this.transform.position;
+                targetWorldPosition.x += LocalOffsetX;
+                float currentDistance = -1.0f;
+                float initialDistanceX = Mathf.Abs(interactorTransform.position.x - transform.position.x);
+                float epsilon = 0.01f;
 
-                currentDistance = Mathf.Abs(toInteractable.x);
+                do
+                {
+                    Vector3 toInteractable = targetWorldPosition;
+                    toInteractable -= interactorTransform.position;
 
-                float travelProgressLinear = currentDistance / initialDistanceX;
-                Debug.Log(travelProgressLinear);
+                    currentDistance = Mathf.Abs(toInteractable.x);
 
-                float velocityX = Mathf.Sign(toInteractable.x) * Mathf.Min(SnapSpeed * Time.deltaTime, currentDistance);
-                Vector3 translate = Vector3.zero;
-                translate.x = velocityX;
-                interactorTransform.Translate(translate);
-                yield return null;
+                    float travelProgressLinear = currentDistance / initialDistanceX;
+
+                    float velocityX = Mathf.Sign(toInteractable.x) * Mathf.Min(SnapSpeed * Time.deltaTime * Mathf.SmoothStep(0.2f, 0.8f, travelProgressLinear), currentDistance);
+                    Vector3 translate = Vector3.zero;
+                    translate.x = velocityX;
+                    interactorTransform.Translate(translate);
+                    yield return null;
+                }
+                while (currentDistance > epsilon);
             }
-            while (currentDistance > epsilon); 
             
             if (interactorGroundMovement != null)
             {
                 interactorGroundMovement.StopAndPlayAnimation(InteractAnimation);
             }
 
-            Debug.Log("Interact coroutine ended");
+            /*CameraMovement activeCameraMovement = GlobalData.Instance.GetActiveCamera().gameObject.GetComponent<CameraMovement>();
+            while(WaitForCameraStop && !activeCameraMovement.IsCameraMoving())
+            {
+                yield return null;
+            }*/
 
-            yield return null;
+            onCoroutineFinishedInteractAction?.Invoke();
+        }
+
+        protected virtual void onInteractCoroutineFinished()
+        { }
+        public virtual void OnBecomeAvailable()
+        {
+            vfxPlayerStaticRef.PlayVfxEnter(ContainingGroundLayer.SpriteLayerOrder, InteractRadius * 2.0f);
+        }
+        public virtual void OnBecomeUnavailable()
+        {
+            vfxPlayerStaticRef.PlayVfxExit();
         }
 
         public void Interact(Transform interactorTransform, GroundMovement groundMovement = null)
         {
-            if (groundMovement != null)
-            {
-                groundMovement.StopAndPlayAnimation(InteractAnimation);
-            }
-
-            //StartCoroutine(MoveToInteractionX(interactorTransform, groundMovement));
+            StartCoroutine(MoveToInteractionX(interactorTransform, onInteractCoroutineFinished, groundMovement));
         }
+
     }
 }

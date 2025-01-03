@@ -9,8 +9,8 @@ namespace GNT
     {
         public void TeteportToGroundHookPosition(ref Vector3 deltaPositionTranslate, LayerMask teleporteeGroundCollisionMask, Collider2D teleporteeCollider)
         {
-            GameObject positionHook = GlobalData.Instance.ActiveScene.ActiveGroundLayer.ScreenBottomHook;
-            deltaPositionTranslate = GlobalData.Instance.ActiveScene.ActiveGroundLayer.EdgeCollider.transform.position;
+            GameObject positionHook = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer.ScreenBottomHook;
+            deltaPositionTranslate = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer.EdgeCollider.transform.position;
             deltaPositionTranslate.x = positionHook.transform.position.x;
             float testHeight = 20.0f;
             deltaPositionTranslate.y += testHeight;

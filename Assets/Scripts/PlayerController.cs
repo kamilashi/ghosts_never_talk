@@ -7,8 +7,6 @@ namespace GNT
 {
     public class PlayerController : MonoBehaviour
     {
-        public int AvailableActionUIKey = -1;
-
         [SerializeField]
         [Range(0, 1000)]
         private float inputSensitivity;
@@ -20,19 +18,23 @@ namespace GNT
         // later once we have interactables, this will need to move to that component
         private GroundLayerPositionMapper groundLayerPositionMapper;
 
-        private float moveKeyHoldTimeScaled;
+        [SerializeField] private float moveKeyHoldTimeScaled;
         private bool acceptInput = true;
 
-        private InteractableTeleporter availableInteractableTeleporter;
-        private InteractableTeleporter bufferedInteractableTeleporter;
 
-        private InteractableTrigger availableInteractableTrigger;
+        [SerializeField] private InteractableTeleporter currentAvailableTeleporter;
+        private InteractableTeleporter bufferedTeleporter;
+
+
+        [SerializeField] private InteractableTrigger currentAvailableTrigger;
 
         // #Todo: get this data from control map
         KeyCode moveLeftMappedKey = KeyCode.A;
         KeyCode moveRightMappedKey = KeyCode.D;
+        
+        KeyCode advanceDialogueMappedKey = KeyCode.Space;
 
-        KeyCode interactKey = KeyCode.F;
+        KeyCode interactMappedKey = KeyCode.F;
 
         void Awake()
         {
@@ -41,7 +43,7 @@ namespace GNT
             groundMovement = gameObject.GetComponentInChildren<GroundMovement>();
             groundLayerPositionMapper = gameObject.GetComponentInChildren<GroundLayerPositionMapper>();
             spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
-            bufferedInteractableTeleporter = null;
+            bufferedTeleporter = null;
         }   
         
         void Start()
@@ -51,7 +53,7 @@ namespace GNT
 
         void Update()
         {
-            if(acceptInput)
+            if(acceptInput && !GlobalData.Instance.DialogueRunnerStaticRef.IsDialogueRunning)
             { 
                 if (Input.GetKey(moveLeftMappedKey))
                 {
@@ -65,75 +67,85 @@ namespace GNT
                     lastMoveDirection = groundMovement.IsTurning() ? lastMoveDirection : MoveDirection.Right;
                 groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
                 }
-                else if (Input.GetKeyUp(moveLeftMappedKey) || Input.GetKeyUp(moveRightMappedKey))
+                /*else if (Input.GetKeyUp(moveLeftMappedKey) || Input.GetKeyUp(moveRightMappedKey))
                 {
                     processMoveInput(-1.0f);
                     groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
-                }
+                }*/
                 else
                 {
                     processMoveInput(-1.0f);
                     groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
                 }
 
-                processAvailableInteractions(interactKey);
-
-                //#ToDo: refactor this
-                if(availableInteractableTeleporter == null)
+                if (currentAvailableTeleporter != null &&  Input.GetKeyDown(interactMappedKey))
                 {
-                    InteractableTrigger availableTrigger = getClosestInteractableTrigger();
-                    if (availableTrigger != null)
-                    {
-                        if (Input.GetKeyDown(interactKey))
-                        {
-                            availableInteractableTrigger.Interact(this.transform, groundMovement);
-                        }
-
-                        if (availableInteractableTrigger != availableTrigger)
-                        {
-                            availableTrigger.TransformAnimateEnter();
-                            availableTrigger.gameObject.GetComponent<VfxPlayer>().PlayVfxEnter(availableTrigger.ContainingGroundLayer.SpriteLayerOrder, availableTrigger.InteractRadius * 2.0f);
-                        }
-                    }
-                    else if (availableInteractableTrigger != null)
-                    {
-                        availableInteractableTrigger.TransformAnimateExit();
-                        availableInteractableTrigger.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
-                    }
-                    availableInteractableTrigger = availableTrigger;
+                    resetMovementInput();
+                    currentAvailableTeleporter.Interact(this.transform, groundMovement);
+                    bufferedTeleporter = currentAvailableTeleporter;
+                    OnTeleportCamera();
                 }
-                else if(availableInteractableTrigger != null)
+                else if (currentAvailableTrigger != null && Input.GetKeyDown(interactMappedKey))
                 {
-                    availableInteractableTrigger.TransformAnimateExit();
-                    availableInteractableTrigger.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
-                    availableInteractableTrigger = null;
+                    resetMovementInput();
+                    currentAvailableTrigger.Interact(this.transform, groundMovement);
                 }
+            }
+            else
+            {
+                resetMovementInput();
+            }
+
+            if (acceptInput && Input.GetKeyDown(advanceDialogueMappedKey))
+            {
+                GlobalData.Instance.DialogueViewStaticRef.UserRequestedViewAdvancement();
+            }
+
+            {
+                processAvailableTeleporters();
+
+                processAvailableInteractions();
             }
         }
 
-        private void processAvailableInteractions(KeyCode interactKey)
+        private void processAvailableTeleporters()
         {
             InteractableTeleporter availableTeleporter = getClosestTeleporter();
+
             if (availableTeleporter != null)
             {
-                if (Input.GetKeyDown(interactKey))
+                if (currentAvailableTeleporter != availableTeleporter)
                 {
-                    availableTeleporter.Interact(this.transform, groundMovement);
-                    bufferedInteractableTeleporter = availableTeleporter;
-                    OnTeleportCamera();
-                }
-
-                if (availableInteractableTeleporter != availableTeleporter)
-                {
-                    availableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxEnter(availableTeleporter.ContainingGroundLayer.SpriteLayerOrder, availableTeleporter.InteractRadius * 2.0f);
+                    availableTeleporter.OnBecomeAvailable();
+                    currentAvailableTeleporter = availableTeleporter;
                 }
             }
-            else if (availableInteractableTeleporter != null)
+            else if (currentAvailableTeleporter != null)
             {
-                availableInteractableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
+                currentAvailableTeleporter.OnBecomeUnavailable();
+                currentAvailableTeleporter = null;
             }
 
-            availableInteractableTeleporter = availableTeleporter;
+        }
+        
+        private void processAvailableInteractions()
+        {
+            InteractableTrigger availableTrigger = getClosestInteractableTrigger();
+            if (availableTrigger != null)
+            {
+                if (currentAvailableTrigger != availableTrigger)
+                {
+                    Debug.Log("Trigger available");
+                    availableTrigger.OnBecomeAvailable();
+                    currentAvailableTrigger = availableTrigger;
+                }
+            }
+            else if (currentAvailableTrigger != null)
+            {
+                Debug.Log("Trigger UNavailable");
+                currentAvailableTrigger.OnBecomeUnavailable();
+                currentAvailableTrigger = null;
+            }
         }
 
        private void processMoveInput(float sign)
@@ -145,7 +157,7 @@ namespace GNT
         private InteractableTeleporter getClosestTeleporter()
         {
             // we assume that there will not be closely placed teleporters in levels!
-            foreach (InteractableTeleporter teleporter in GlobalData.Instance.ActiveScene.GetPlayerVisibleTeleporters())
+            foreach (InteractableTeleporter teleporter in GlobalData.Instance.ActiveSceneDynamicRef.GetPlayerVisibleTeleporters())
             {
                 if (teleporter.IsInRange(this.transform.position))
                 {
@@ -159,7 +171,7 @@ namespace GNT
         private InteractableTrigger getClosestInteractableTrigger()
         {
             // we assume that there will not be closely placed teleporters in levels!
-            foreach (InteractableTrigger interactableTrigger in GlobalData.Instance.ActiveScene.GetPlayerVisibleInteractableTriggers())
+            foreach (InteractableTrigger interactableTrigger in GlobalData.Instance.ActiveSceneDynamicRef.GetPlayerVisibleInteractableTriggers())
             {
                 if (interactableTrigger.IsInRange(this.transform.position))
                 {
@@ -180,12 +192,12 @@ namespace GNT
 
         public void OnPlayerTeleportTranslateAnimationEvent()
         {
-            GlobalData.Instance.ActiveScene.SwitchToLayer(bufferedInteractableTeleporter.TargetTeleporter.ContainingGroundLayer.GroundLayerIndex);
-            Vector3 deltaTeleport = bufferedInteractableTeleporter.TeteportToTargetPosition(transform, groundMovement.GroundCollisionMask, groundMovement.GetCollider(), spriteRenderer);
+            GlobalData.Instance.ActiveSceneDynamicRef.SwitchToLayer(bufferedTeleporter.TargetTeleporter.ContainingGroundLayer.GroundLayerIndex);
+            Vector3 deltaTeleport = bufferedTeleporter.TeteportToTargetPosition(transform, groundMovement.GroundCollisionMask, groundMovement.GetCollider(), spriteRenderer);
             transform.Translate(deltaTeleport, Space.World);
 
-            bufferedInteractableTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
-            bufferedInteractableTeleporter = null;
+            bufferedTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
+            bufferedTeleporter = null;
 
             CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();
             playerCameraMovement.ResetDolly();
@@ -203,14 +215,17 @@ namespace GNT
         {
             acceptInput = isEnabled;
         }
+        private void resetMovementInput()
+        {
+            moveKeyHoldTimeScaled = 0.0f;
+        }
 
         public void BlockInputAnimationEvent(float duration)
         {
             // Create event handler delegate and pass it to the duration event constructor
             ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = OnBlockInputDurationEnd;
-            GlobalData.Instance.animationEventProcessor.RegisterDurationEvent(duration, eventHandlerDelegate);
+            GlobalData.Instance.AnimationEventProcessorInstance.RegisterDurationEvent(duration, eventHandlerDelegate);
             setAcceptInput(false);
-            moveKeyHoldTimeScaled = 0.0f;
         }
 
         public void OnBlockInputDurationEnd()
@@ -220,7 +235,7 @@ namespace GNT
 
         public Interactable GetAvailableInteractable()
         {
-            return availableInteractableTeleporter != null ? availableInteractableTeleporter : availableInteractableTrigger;
+            return currentAvailableTeleporter != null ? currentAvailableTeleporter : currentAvailableTrigger;
         }
 
         private void setCameraPlayerFollowEnabled(bool isEnabled)
@@ -230,7 +245,11 @@ namespace GNT
 
         public string GetInteractKey()
         {
-            return interactKey.ToString();
+            return interactMappedKey.ToString();
+        }
+        public string GetAdvanceDialogueKey()
+        {
+            return advanceDialogueMappedKey.ToString();
         }
     }
 
