@@ -26,12 +26,16 @@ namespace GNT
 
         [SerializeField]
         private List<GroundLayer> groundLayers;
+        [SerializeField]
+        private List<InteractableTeleporter> playerVisibleTeleporters;
+        private List<InteractableTrigger> playerVisibleInteractableTriggers;
 
         private int currentLayerIdx;
 
-        void Start()
+        void Awake()
         {
-            
+            playerVisibleTeleporters = new List<InteractableTeleporter>();
+            playerVisibleInteractableTriggers = new List<InteractableTrigger>();
         }
 
         void Update()
@@ -77,11 +81,44 @@ namespace GNT
 
             return false;
         }
+        public List<InteractableTeleporter> GetPlayerVisibleTeleporters()
+        {
+            return playerVisibleTeleporters;
+        }
+        public List<InteractableTrigger> GetPlayerVisibleInteractableTriggers()
+        {
+            return playerVisibleInteractableTriggers;
+        }
+        public void AddPlayerVisibleTeleporter(InteractableTeleporter teleporter)
+        {
+            playerVisibleTeleporters.Add(teleporter);
+        }
+        public void RemovePlayerVisibleTeleporter(InteractableTeleporter teleporter)
+        {
+            playerVisibleTeleporters.Remove(teleporter);
+        }
+        public void AddPlayerVisibleInteractableTrigger(InteractableTrigger interactableTrigger)
+        {
+            playerVisibleInteractableTriggers.Add(interactableTrigger);
+        }
+        public void RemovePlayerVisibleInteractableTrigger(InteractableTrigger interactableTrigger)
+        {
+            playerVisibleInteractableTriggers.Add(interactableTrigger);
+        }
 
         public void OnLoadInitialize()
         {
             // delegate to load funcitonality and move to globalData
-            
+            for (int index = 0; index < groundLayers.Count; index++)
+            {
+                groundLayers[index].GroundLayerIndex = index;
+            }
+
+            SwitchToLayer(sceneStartData.startLayerIdx);
+        }
+        
+        public void OnUnload()
+        {
             SwitchToLayer(sceneStartData.startLayerIdx);
         }
     }

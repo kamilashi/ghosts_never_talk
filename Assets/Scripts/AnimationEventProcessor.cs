@@ -67,7 +67,7 @@ namespace ProcessingHelpers
                TimeDurationAnimationEvent animEvent = timeDurationEventBuffer[idx];
                if (animEvent.CountDown(timeStep))
                 {
-                    UnityEngine.Debug.Log("event end!");
+                    //UnityEngine.Debug.Log("event end!");
                     animEvent.InvokeDurationEnded();
                     removeEventIndecesQueue.Add(idx);
                 }

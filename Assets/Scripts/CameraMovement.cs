@@ -7,6 +7,8 @@ namespace GNT
     [RequireComponent(typeof(UnityEngine.Camera))]
     public class CameraMovement : MonoBehaviour
     {
+        [Header("General Movement")]
+        public float cameraStoppedError;
         [Header("Player following")]
         public Vector2 offsetFromPlayer;
         public float cameraFollowPlayerMovementDampLambda = 15.0f;
@@ -38,10 +40,12 @@ namespace GNT
         // private
         [SerializeField]
         private float currentFollowPlayerDampLambda;
-        private PlayerController playerController;
+        private PlayerController playerControllerStaticReference;
         private Camera mainCamera;
         private float lookaheadDirectionSmooth = 0.0f;
         private bool isCameraMovementEnabled = true;
+        private bool isCameraMoving = false;
+
         private void Awake()
         {
             currentFollowPlayerDampLambda = 0.0f;
@@ -49,23 +53,25 @@ namespace GNT
 
         void Start()
         {
-            playerController = GlobalData.Instance.GetPlayerController(); // cash out the constant reference to the player controller
+            playerControllerStaticReference = GlobalData.Instance.GetPlayerController(); // cash out the constant reference to the player controller
 
             mainCamera = this.GetComponent<Camera>(); 
         }
 
         void Update()
         {
+            isCameraMoving = false;
+
             if(isCameraMovementEnabled)
             {
 
             // from - 1 to 1, 0 = not moving
-            lookaheadDirectionSmooth = Mathf.Clamp(Library.SmoothingFuncitons.Damp(lookaheadDirectionSmooth, playerController.GetMoveKeyHoldScale() * (float)playerController.GetLastDirectionInput(), lookaheadDirectionDampLambda, directionChangeReactionSpeed * Time.deltaTime), -1.0f, 1.0f);
+            lookaheadDirectionSmooth = Mathf.Clamp(Library.SmoothingFuncitons.Damp(lookaheadDirectionSmooth, playerControllerStaticReference.GetMoveKeyHoldScale() * (float)playerControllerStaticReference.GetLastDirectionInput(), lookaheadDirectionDampLambda, directionChangeReactionSpeed * Time.deltaTime), -1.0f, 1.0f);
 
             // from -maxLookaheadDistanceX to maxLookaheadDistanceX
             float lookaheadDistanceScaled = lookaheadDirectionSmooth * maxLookaheadDistanceX;
 
-            Vector3 thisFramePlayerPosition = playerController.gameObject.transform.position; 
+            Vector3 thisFramePlayerPosition = playerControllerStaticReference.gameObject.transform.position; 
             Vector3 predictedCameraPosition = thisFramePlayerPosition;
             predictedCameraPosition.z += defaultPlayerOffsetZ;
             predictedCameraPosition.x += lookaheadDistanceScaled;
@@ -73,7 +79,7 @@ namespace GNT
             float cameraHeightChangeThreshold = playerToGroundHeightDifferenceThreshold;
             float cameraHeightChangeReference = 0.0f;
 
-            GroundLayer activeGroundLayerRef = GlobalData.Instance.ActiveScene.ActiveGroundLayer;
+            GroundLayer activeGroundLayerRef = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer;
             if (adjustToScreenBottomHook) // cameras y position relative to ground
             {
                 float referenceExtentY = (activeGroundLayerRef.ScreenBottomHook.transform.position.z - transform.position.z) * (float)System.Math.Tan(mainCamera.fieldOfView * 0.5 * (System.Math.PI / 180.0));
@@ -118,11 +124,14 @@ namespace GNT
                 lerpedCameraFollowPlayerDampLambda = currentFollowPlayerDampLambda;
             }
 
-            Vector3 deltaPosition = Library.SmoothingFuncitons.Damp(currrentCameraPosition, predictedCameraPosition, new Vector3(lerpedCameraFollowPlayerDampLambda, lerpedCameraFollowPlayerDampLambda, dollyDampLambda), Time.deltaTime);
+
+                Vector3 deltaPosition = Library.SmoothingFuncitons.Damp(currrentCameraPosition, predictedCameraPosition, new Vector3(lerpedCameraFollowPlayerDampLambda, lerpedCameraFollowPlayerDampLambda, dollyDampLambda), Time.deltaTime);
             deltaPosition -= currrentCameraPosition;
+
 
             gameObject.transform.Translate(deltaPosition);
 
+            isCameraMoving = (deltaPosition.sqrMagnitude) <= cameraStoppedError * cameraStoppedError;
             }
         }
 
@@ -149,6 +158,10 @@ namespace GNT
         public void ResetDolly()
         {
             dollyAmountExternal = 0.0f;
+        }
+        public bool IsCameraMoving()
+        {
+            return isCameraMoving;
         }
     }
 }

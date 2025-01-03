@@ -50,8 +50,8 @@ namespace GNT
             Assert.AreNotEqual(0,  SpeedValues[(int)GNT.MoveSpeed.Count-2]);
             Assert.AreNotEqual(0, Acceleration);
 #endif
-            collider2D = gameObject.GetComponentInChildren<Collider2D>();
-            animator = gameObject.GetComponentInChildren<Animator>();
+            collider2D = gameObject.GetComponent<Collider2D>();
+            animator = gameObject.GetComponent<Animator>();
             spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         }
 
@@ -121,17 +121,18 @@ namespace GNT
             transform.Translate(down, Space.World);
         }
 
-        public void InitiateTeleportWithAnimation(AnimationClip animation)
+        public void StopAndPlayAnimation(AnimationClip animation)
         {
             ResetMovement();
             playAnimation(animation);
         }
 
+/*
         public void TeleportTranslateToLayer( Vector3 translateDelta, int SpriteLayerOrder)
         {
             spriteRenderer.sortingOrder = SpriteLayerOrder;
             transform.Translate(translateDelta, Space.World);
-        }
+        }*/
 
         // hacky, should go once we have path movement
         public static float GetDistanceToGroundCollider( Vector3 startPosition, float rayLength, Collider2D collider2D,  LayerMask groundCollisionMask)
