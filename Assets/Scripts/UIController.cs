@@ -7,6 +7,7 @@ namespace GNT
     public class UIController : MonoBehaviour
     {
         [Header("Dialogue Panel")]
+        public CustomDialogueView DialoguePanelStaticRef;
         public RectTransform DialoguePanelRectTransformStaticRef;
         public float StartEndAnimateSpeed;
         
@@ -23,7 +24,7 @@ namespace GNT
             playerConrtollerStaticRef = GlobalData.Instance.GetPlayerController();
             dialogueRunnerStaticRef = GlobalData.Instance.DialogueRunnerStaticRef;
 
-            DialoguePanelRectTransformStaticRef.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+            (DialoguePanelStaticRef.transform as RectTransform).localScale = new Vector3(0.0f, 0.0f, 0.0f);
 
             PlayerPromptStaticRef.gameObject.SetActive(false);
         }
@@ -34,13 +35,14 @@ namespace GNT
             Interactable availableInteractable = playerConrtollerStaticRef.GetAvailableInteractable();
             if (availableInteractable != null)
             {
-                //Vector2 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(PlayerRuntimeController.transform.position);
-                //PlayerPrompt.transform.position = (screenSpacePos + offsetInPixels);
                 PlayerPromptStaticRef.Set("Interact", playerConrtollerStaticRef.GetInteractKey());
                 PlayerPromptStaticRef.gameObject.SetActive(true);
             }
             else if(dialogueRunnerStaticRef.IsDialogueRunning)
             {
+                Vector3 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(DialoguePanelStaticRef.WorldSpacePosition);
+                (DialoguePanelStaticRef.transform as RectTransform).position = new Vector2(screenSpacePos.x, screenSpacePos.y);
+
                 PlayerPromptStaticRef.Set("Next", playerConrtollerStaticRef.GetAdvanceDialogueKey());
                 PlayerPromptStaticRef.gameObject.SetActive(true);
             }
@@ -65,20 +67,18 @@ namespace GNT
                 animatedTransform.localScale = new Vector3(currentAnimatedValue, currentAnimatedValue, currentAnimatedValue);
 
                 progress = (currentAnimatedValue - startAnimatedValue) / (endAnimatedValue - startAnimatedValue);
-
-                //Debug.Log("Animating");
                 yield return null;
             }
         }
 
         public void OnDialogueStart()
         {
-            StartCoroutine(DialoguePanelAnimateCoroutine(DialoguePanelRectTransformStaticRef, 0.0f, 1.0f));
+            StartCoroutine(DialoguePanelAnimateCoroutine(DialoguePanelStaticRef.transform as RectTransform, 0.0f, 1.0f));
         }
         
         public void OnDialogueEnd()
         {
-            StartCoroutine(DialoguePanelAnimateCoroutine(DialoguePanelRectTransformStaticRef, 1.0f, 0.0f));
+            StartCoroutine(DialoguePanelAnimateCoroutine(DialoguePanelStaticRef.transform as RectTransform, 1.0f, 0.0f));
         }
     }
 }

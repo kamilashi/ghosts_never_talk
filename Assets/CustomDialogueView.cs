@@ -9,6 +9,7 @@ namespace GNT
 {
     public class CustomDialogueView : DialogueViewBase
     {
+        public Vector3 WorldSpacePosition;
         // The amount of time that lines will take to appear.
         [SerializeField] private float appearanceTime = 0.5f;
 
@@ -19,9 +20,6 @@ namespace GNT
         [SerializeField] TMPro.TextMeshProUGUI text;
         
         [SerializeField] TMPro.TextMeshProUGUI characterNameText;
-
-        // The game object that should animate in and out.
-        [SerializeField] RectTransform container;
 
         // If this is true, then the line view will not automatically report that
         // it's done showing a line, and will instead wait for InterruptLine to be
@@ -62,7 +60,6 @@ namespace GNT
 
             Debug.Log($"{this.name} running line {dialogueLine.TextID}");
 
-            //Scale = 0;
             fullLineText = dialogueLine.TextWithoutCharacterName.Text;
             text.text = " ";
 
@@ -71,11 +68,7 @@ namespace GNT
             Vector3 worldPosition = charRef.GameObjectStaticReference.transform.position;
             worldPosition.x += worldSpaceOffset.x;
             worldPosition.y += worldSpaceOffset.y;
-
-            Vector3 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(worldPosition);
-            screenSpacePos.z = 0.0f;
-
-            container.position = screenSpacePos;
+            WorldSpacePosition = worldPosition;
 
             characterNameText.text = charRef.Name;
 

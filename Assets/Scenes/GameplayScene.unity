@@ -7833,6 +7833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946edf33edba4dd4890a3c7bba4f5cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DialoguePanelStaticRef: {fileID: 1233174499}
   DialoguePanelRectTransformStaticRef: {fileID: 1233174493}
   StartEndAnimateSpeed: 5
   PlayerPromptStaticRef: {fileID: 341731464}
@@ -8511,6 +8512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b84fe3c1bac78f844837cf11652bfde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WorldSpacePosition: {x: 0, y: 0, z: 0}
   appearanceTime: 0.5
   disappearanceTime: 0.5
   text: {fileID: 696814653}
