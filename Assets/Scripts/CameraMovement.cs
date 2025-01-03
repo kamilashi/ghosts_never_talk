@@ -7,6 +7,8 @@ namespace GNT
     [RequireComponent(typeof(UnityEngine.Camera))]
     public class CameraMovement : MonoBehaviour
     {
+        [Header("General Movement")]
+        public float cameraStoppedError;
         [Header("Player following")]
         public Vector2 offsetFromPlayer;
         public float cameraFollowPlayerMovementDampLambda = 15.0f;
@@ -122,7 +124,6 @@ namespace GNT
                 lerpedCameraFollowPlayerDampLambda = currentFollowPlayerDampLambda;
             }
 
-            float cameraStopError = 0.01f;
 
                 Vector3 deltaPosition = Library.SmoothingFuncitons.Damp(currrentCameraPosition, predictedCameraPosition, new Vector3(lerpedCameraFollowPlayerDampLambda, lerpedCameraFollowPlayerDampLambda, dollyDampLambda), Time.deltaTime);
             deltaPosition -= currrentCameraPosition;
@@ -130,7 +131,7 @@ namespace GNT
 
             gameObject.transform.Translate(deltaPosition);
 
-            isCameraMoving = (deltaPosition.sqrMagnitude) <= cameraStopError* cameraStopError;
+            isCameraMoving = (deltaPosition.sqrMagnitude) <= cameraStoppedError * cameraStoppedError;
             }
         }
 

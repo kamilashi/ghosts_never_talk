@@ -31,6 +31,8 @@ namespace GNT
 
         private void Awake()
         {
+            BaseAwake();
+
             Debug.Assert(AnimatedTransform != null, "Please specify the animated transform for this script, even if it belongs to the same gameObject!");
             Debug.Assert(TriggerAction != null);
 
@@ -42,7 +44,7 @@ namespace GNT
         }
         void Start()
         {
-            OnBecameVisible();
+            OnBecomeVisible();
         }
 
         void Update()
@@ -53,20 +55,30 @@ namespace GNT
             }
         }
 
-        void OnBecameVisible()
+        void OnBecomeVisible()
         {
             GlobalData.Instance.ActiveSceneDynamicRef.AddPlayerVisibleInteractableTrigger(this);
         }
 
-        void OnBecameInvisible()
+        void OnBecomeInvisible()
         {
             GlobalData.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleInteractableTrigger(this);
         }
 
         protected override void onInteractCoroutineFinished()
         {
-            //dialogueRunnerStaticRef.StartDialogue(DialogueStartNodeName);
             TriggerAction?.Invoke();
+        }
+        public override void OnBecomeAvailable()
+        {
+            base.OnBecomeAvailable();
+            TransformAnimateEnter();
+        }
+
+        public override void OnBecomeUnavailable()
+        {
+            base.OnBecomeUnavailable();
+            TransformAnimateExit();
         }
 
         private IEnumerator OnTransformAnimateCoroutine(int direction /* +1 = Up, -1 = down*/)
@@ -79,7 +91,7 @@ namespace GNT
             do
             {
                 float progress = posDiffY / EnterExitHeightDelta;
-                float velocityY = (float)direction * Mathf.Min(EnterExitHeightDelta * Time.deltaTime * Mathf.SmoothStep(0.2f, 0.8f, progress),  posDiffY);
+                float velocityY = (float)direction * Mathf.Min(EnterExitHeightDelta * Time.deltaTime * Mathf.SmoothStep(0.2f, 0.8f, progress), posDiffY);
                 AnimatedTransform.Translate(0.0f, velocityY, 0.0f);
                 posDiffY = Mathf.Abs(targetYPos - AnimatedTransform.position.y);
 
@@ -89,10 +101,11 @@ namespace GNT
                 //AnimatedTransform.Rotate(Vector3.up , deltaY * Mathf.Deg2Rad);
                 //Debug.Log("eulerY " + eulerY);
                 //Debug.Log("deltaY " + deltaY);
+                //Debug.Log("SPIN COROUTINE");
 
                 yield return null;
             }
-            while (posDiffY > error);
+            while (posDiffY != 0.0f);
 
             currentState = (currentState == AnimationState.Enter) ? AnimationState.Loop : AnimationState.Inactive;
         }

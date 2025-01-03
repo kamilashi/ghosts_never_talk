@@ -210,7 +210,7 @@ namespace GNT
 
         private IEnumerator appearTextCoroutine(float charDelay, string fullText, bool decrement, Action onCompleteAction)
         {
-            for (int i = 0; i < fullText.Length; i++)
+            for (int i = 0; i <= fullText.Length; i++)
             {
                 int charCount = decrement ? fullText.Length - i : i;
 
@@ -218,7 +218,7 @@ namespace GNT
                 string currentLineText = charCount == 0 ? " " : fullLineText.Substring(0, charCount);
                 text.text = currentLineText;
 
-                while(time < charDelay)
+                while (time < charDelay)
                 {
                     time += Time.deltaTime;
                     yield return null;

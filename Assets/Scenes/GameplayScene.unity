@@ -1004,13 +1004,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d16185032b8344580f01bf6a1da169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraStoppedError: 0
   offsetFromPlayer: {x: 2.05, y: 2.9}
   cameraFollowPlayerMovementDampLambda: 15
   useConstantFollowPlayerDampLambda: 0
   cameraFollowPlayerTeleportDampLambda: 5
   followPlayerDampLambdaUpdateSpeed: 10
   defaultPlayerOffsetZ: -7
-  directionChangeReactionSpeed: 5.28
+  directionChangeReactionSpeed: 2
   maxLookaheadDistanceX: 4.17
   lookaheadDirectionDampLambda: 0.75
   adjustToScreenBottomHook: 1
@@ -1441,7 +1442,7 @@ MonoBehaviour:
   LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
-  WaitForCameraStop: 0
+  vfxPlayerStaticRef: {fileID: 0}
   TargetTeleporter: {fileID: 415658731}
   IsReceiverOnly: 0
 --- !u!114 &410870893
@@ -1528,7 +1529,7 @@ MonoBehaviour:
   LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
-  WaitForCameraStop: 0
+  vfxPlayerStaticRef: {fileID: 0}
   TargetTeleporter: {fileID: 410870892}
   IsReceiverOnly: 0
 --- !u!114 &415658732
@@ -7452,7 +7453,6 @@ Transform:
   - {fileID: 2027566996}
   - {fileID: 1345482918}
   - {fileID: 410870891}
-  - {fileID: 1229356652}
   m_Father: {fileID: 1728121133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &712069334
@@ -8269,12 +8269,12 @@ Transform:
   m_GameObject: {fileID: 1229356651}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.21, y: -3.11, z: 7}
+  m_LocalPosition: {x: 27.46, y: 10.79, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 896297661}
-  m_Father: {fileID: 712069333}
+  m_Father: {fileID: 1436780623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1229356653
 MonoBehaviour:
@@ -8321,12 +8321,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIPromptKey: 0
   InteractRadius: 3
-  ContainingGroundLayer: {fileID: 712069334}
+  ContainingGroundLayer: {fileID: 1436780624}
   InteractAnimation: {fileID: 7400000, guid: e3e01b9d72492344fb73e4e21494c528, type: 2}
-  LocalOffsetX: 2.8
+  LocalOffsetX: -2.7
   SnapSpeed: 10
   SnapToLocalOffset: 1
-  WaitForCameraStop: 1
+  vfxPlayerStaticRef: {fileID: 0}
   TriggerAction:
     m_PersistentCalls:
       m_Calls:
@@ -8343,7 +8343,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   AnimatedTransform: {fileID: 896297661}
-  EnterExitHeightDelta: 0
+  EnterExitHeightDelta: 1
   EnterExitSpeed: 2
   LoopSpeed: 1.5
   LoopSwingAmplitude: 0.25
@@ -8365,7 +8365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalCharacterReferenceKey: SpinningCat
   GlobalCharacterReferenceName: The Spinning Cat
-  DialoguePanelOffset: {x: 0, y: 5.5}
+  DialoguePanelOffset: {x: 0, y: 6.5}
   ActiveNodeName: SpinningCatInfo
 --- !u!1 &1233174492
 GameObject:
@@ -8513,11 +8513,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WorldSpacePosition: {x: 0, y: 0, z: 0}
-  appearanceTime: 0.5
-  disappearanceTime: 0.5
+  characterAppearanceDelay: 0.01
+  characterDisappearanceDelay: 0.001
   text: {fileID: 696814653}
   characterNameText: {fileID: 533100710}
-  container: {fileID: 1233174493}
   waitForInput: 1
 --- !u!1 &1238936647
 GameObject:
@@ -8766,8 +8765,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea0b3b64d5c1fd45b2454110400d06f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AvailableActionUIKey: 0
   inputSensitivity: 1
+  moveKeyHoldTimeScaled: 0
+  currentAvailableTeleporter: {fileID: 0}
+  currentAvailableTrigger: {fileID: 0}
 --- !u!4 &1294591927
 Transform:
   m_ObjectHideFlags: 0
@@ -8910,7 +8911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalCharacterReferenceKey: Player
   GlobalCharacterReferenceName: Ghost
-  DialoguePanelOffset: {x: 0, y: 3}
+  DialoguePanelOffset: {x: 0, y: 3.5}
   ActiveNodeName: 
 --- !u!1 &1318752994
 GameObject:
@@ -9165,7 +9166,7 @@ MonoBehaviour:
   LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
-  WaitForCameraStop: 0
+  vfxPlayerStaticRef: {fileID: 0}
   TargetTeleporter: {fileID: 1659033200}
   IsReceiverOnly: 0
 --- !u!114 &1349472667
@@ -9399,6 +9400,7 @@ Transform:
   - {fileID: 1469329729}
   - {fileID: 87240160}
   - {fileID: 1659033198}
+  - {fileID: 1229356652}
   m_Father: {fileID: 1728121133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1436780624
@@ -9867,7 +9869,7 @@ MonoBehaviour:
   LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
-  WaitForCameraStop: 0
+  vfxPlayerStaticRef: {fileID: 0}
   TargetTeleporter: {fileID: 1349472666}
   IsReceiverOnly: 0
 --- !u!114 &1659033201

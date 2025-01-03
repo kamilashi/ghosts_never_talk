@@ -9,6 +9,11 @@ namespace GNT
         public InteractableTeleporter TargetTeleporter;
         public bool IsReceiverOnly;
 
+        private void Awake()
+        {
+            BaseAwake();
+        }
+
         private void Start()
         {
             // #todo: Put the call to this method into the base class and override OnVIsible and OnInvisible in the child classes!
@@ -37,6 +42,17 @@ namespace GNT
         void OnBecameInvisible()
         {
             GlobalData.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleTeleporter(this);
+        }
+
+        public override void OnBecomeAvailable()
+        {
+            Debug.Log("Teleport available");
+            base.OnBecomeAvailable();
+        }
+        public override void OnBecomeUnavailable()
+        {
+            Debug.Log("Teleport unavailable");
+            base.OnBecomeUnavailable();
         }
 
     }

@@ -32,13 +32,7 @@ namespace GNT
         // Update is called once per frame
         void Update()
         {
-            Interactable availableInteractable = playerConrtollerStaticRef.GetAvailableInteractable();
-            if (availableInteractable != null)
-            {
-                PlayerPromptStaticRef.Set("Interact", playerConrtollerStaticRef.GetInteractKey());
-                PlayerPromptStaticRef.gameObject.SetActive(true);
-            }
-            else if(dialogueRunnerStaticRef.IsDialogueRunning)
+            if (dialogueRunnerStaticRef.IsDialogueRunning)
             {
                 Vector3 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(DialoguePanelStaticRef.WorldSpacePosition);
                 (DialoguePanelStaticRef.transform as RectTransform).position = new Vector2(screenSpacePos.x, screenSpacePos.y);
@@ -48,7 +42,16 @@ namespace GNT
             }
             else
             {
-                PlayerPromptStaticRef.gameObject.SetActive(false);
+                Interactable availableInteractable = playerConrtollerStaticRef.GetAvailableInteractable();
+                if (availableInteractable != null)
+                {
+                    PlayerPromptStaticRef.Set("Interact", playerConrtollerStaticRef.GetInteractKey());
+                    PlayerPromptStaticRef.gameObject.SetActive(true);
+                }
+                else
+                {
+                    PlayerPromptStaticRef.gameObject.SetActive(false);
+                }
             }
         }
 

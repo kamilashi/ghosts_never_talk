@@ -26,8 +26,7 @@ namespace Library
 
         public static float Damp(float a, float b, float lambda, float dt)
         {
-           // float diff = Mathf.Abs(b-a);
-            return /*diff > 0.001f ? b :*/ Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt));
+            return Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt));
         }
         
         public static Vector3 Damp(Vector3 a, Vector3 b, float lambda, float dt)

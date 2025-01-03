@@ -27,19 +27,24 @@ namespace GNT
         public float LocalOffsetX;
         public float SnapSpeed = 1.0f;
         public bool SnapToLocalOffset = true;
-        public bool WaitForCameraStop = false;
+        //public bool WaitForCameraStop = false;
 
-        //private bool isEnabled = true;
-        VfxPlayer vfxPlayer;
+        [SerializeField]
+        protected VfxPlayer vfxPlayerStaticRef;
 
         void Awake()
+        {
+            BaseAwake();
+        }
+
+        protected void BaseAwake()
         {
             if (ContainingGroundLayer == null)
             {
                 ContainingGroundLayer = this.transform.GetComponentInParent<GroundLayer>();
             }
 
-            vfxPlayer = gameObject.GetComponent<VfxPlayer>();
+            vfxPlayerStaticRef = gameObject.GetComponent<VfxPlayer>();
         }
 
         public bool IsInRange(Vector3 interactorPos/*, ref float squareDistance*/)
@@ -50,9 +55,8 @@ namespace GNT
             {
                 Vector3 toInteractor = interactorPos;
                 toInteractor -= this.transform.position;
-                toInteractor.z = 0.0f;
 
-                isInRange = toInteractor.sqrMagnitude <= InteractRadius * InteractRadius;
+                isInRange = Mathf.Abs(toInteractor.x) <= InteractRadius;
             }
 
             return isInRange;
@@ -91,17 +95,25 @@ namespace GNT
                 interactorGroundMovement.StopAndPlayAnimation(InteractAnimation);
             }
 
-            CameraMovement activeCameraMovement = GlobalData.Instance.GetActiveCamera().gameObject.GetComponent<CameraMovement>();
+            /*CameraMovement activeCameraMovement = GlobalData.Instance.GetActiveCamera().gameObject.GetComponent<CameraMovement>();
             while(WaitForCameraStop && !activeCameraMovement.IsCameraMoving())
             {
                 yield return null;
-            }
+            }*/
 
             onCoroutineFinishedInteractAction?.Invoke();
         }
 
         protected virtual void onInteractCoroutineFinished()
         { }
+        public virtual void OnBecomeAvailable()
+        {
+            vfxPlayerStaticRef.PlayVfxEnter(ContainingGroundLayer.SpriteLayerOrder, InteractRadius * 2.0f);
+        }
+        public virtual void OnBecomeUnavailable()
+        {
+            vfxPlayerStaticRef.PlayVfxExit();
+        }
 
         public void Interact(Transform interactorTransform, GroundMovement groundMovement = null)
         {
