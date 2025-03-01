@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Library;
+using System;
 
 namespace GNT
 {
@@ -20,25 +21,33 @@ namespace GNT
         Count
     };
 
+    [Serializable]
+    struct SplineMovementData
+    {
+        public float positionOnSpline;
+    }
+
     public class GroundMovement : MonoBehaviour
     {
-        [SerializeField] // only settable in the inspector
-        private int[] SpeedValues = new int[(int) GNT.MoveSpeed.Count];
-        [SerializeField]
-        private float Acceleration = 0.0f; // only settable in the inspector
+        public int[] SpeedValues = new int[(int) GNT.MoveSpeed.Count];
+        public float Acceleration = 0.0f; // only settable in the inspector
+        
 
         public LayerMask GroundCollisionMask;
 
-        public AnimationClip teleportAnimation;
+        public AnimationClip TeleportAnimation; // this should move to some animation mapper
 
-        private int inputDirection = 1;   // input speed received from controller
-        private int inputSpeed = 0;   // input speed received from controller
-        private bool isTurning = false;
-        private bool freezeMovement = false;
+        public float offsetFromGroundToPivot;
+        [SerializeField] SplineMovementData splineMovementData;
 
-        private float currentHorizontalVelocity; // working speed that is used for smooth movement, range from - MaxSpeed to  MaxSpeed
+        int inputDirection = 1;   // input (horizontal) direction received from controller
+        int inputSpeed = 0;   // input speed received from controller
+        bool isTurning = false;
+        bool freezeMovement = false;
 
-        Collider2D collider2D;
+        float currentHorizontalVelocity; // working speed that is used for smooth movement, range from - MaxSpeed to  MaxSpeed
+
+        //Collider2D collider2D;
         SpriteRenderer spriteRenderer;
         Animator animator;
 
@@ -50,9 +59,11 @@ namespace GNT
             Assert.AreNotEqual(0,  SpeedValues[(int)GNT.MoveSpeed.Count-2]);
             Assert.AreNotEqual(0, Acceleration);
 #endif
-            collider2D = gameObject.GetComponent<Collider2D>();
+           // collider2D = gameObject.GetComponent<Collider2D>();
             animator = gameObject.GetComponent<Animator>();
             spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+            splineMovementData.positionOnSpline = 0.5f; // to be loaded from save data probably
         }
 
         void Start()
@@ -60,7 +71,8 @@ namespace GNT
             currentHorizontalVelocity = SpeedValues[(int)GNT.MoveSpeed.Stand];
 
             // play spawn animation and hop from the sky?
-            SnapToGround();
+            //SnapToGround();
+            moveAlongSpline(0.0f);
         }
 
         void Update()
@@ -73,7 +85,7 @@ namespace GNT
 
                 if (currentHorizontalVelocity != 0.0f)
                 {
-                    moveAlongGroundCollisionTangent(currentHorizontalVelocity * Time.deltaTime);
+                    moveAlongSpline(currentHorizontalVelocity * Time.deltaTime);
                 }
 
                 float speedBlendAnimationInput = getNormalizedSpeedBlend(SpeedValues[(int)MoveSpeed.Walk]);
@@ -111,35 +123,10 @@ namespace GNT
             return isTurning;
         }
 
-        // hacky, should go once we have path movement
-        public void SnapToGround()
-        {
-            float rayLength = 10.0f;
-
-            Vector3 down = Vector3.zero;
-            down.y = - GetDistanceToGroundCollider(transform.position, rayLength, collider2D, GroundCollisionMask);
-            transform.Translate(down, Space.World);
-        }
-
         public void StopAndPlayAnimation(AnimationClip animation)
         {
             ResetMovement();
             playAnimation(animation);
-        }
-
-/*
-        public void TeleportTranslateToLayer( Vector3 translateDelta, int SpriteLayerOrder)
-        {
-            spriteRenderer.sortingOrder = SpriteLayerOrder;
-            transform.Translate(translateDelta, Space.World);
-        }*/
-
-        // hacky, should go once we have path movement
-        public static float GetDistanceToGroundCollider( Vector3 startPosition, float rayLength, Collider2D collider2D,  LayerMask groundCollisionMask)
-        {
-            RaycastHit2D downHit = Physics2D.Raycast(startPosition, Vector2.down, rayLength, groundCollisionMask);
-
-            return (downHit.distance - (collider2D.bounds.center.y - collider2D.bounds.min.y)); // snap to the ground.
         }
 
         private float getNormalizedSpeedBlend(float maxSpeed)
@@ -151,31 +138,16 @@ namespace GNT
             return inputDirection;
         }
 
-        private void moveAlongGroundCollisionTangent(float horizontalVelocitzPerTimeStep)
+        private void moveAlongSpline(float horizontalVelocityPerTimeStep)
         {
-            float rayLength = 10.0f;
-            float stepDistance = 2.0f;
-            Vector3 rayStart = transform.position;
-            RaycastHit2D downHit =  Physics2D.Raycast(rayStart, Vector2.down, rayLength, GroundCollisionMask);
-
-            Vector3 horizontalDirection = new Vector3(Mathf.Sign(horizontalVelocitzPerTimeStep), 0.0f, 0.0f);
-            Vector3 groundNormal = downHit.normal;
-            Vector3 alongNormal = Vector3.Cross(groundNormal, new Vector3(0.0f,0.0f,1.0f));
-            alongNormal *= horizontalVelocitzPerTimeStep;
-
-            alongNormal.y += stepDistance;
-
-#if UNITY_EDITOR
-            // Vector3 endPosition = transform.position;
-            //endPosition += alongNormal;
-            //Debug.DrawLine(transform.position, endPosition, Color.magenta, Time.deltaTime, false);
-#endif
-            Vector3 groundProbePosition = transform.position;
-            groundProbePosition += alongNormal;
-
-            alongNormal.y -= GetDistanceToGroundCollider(groundProbePosition, rayLength, collider2D, GroundCollisionMask);
-            transform.Translate(alongNormal, Space.World);
+            CatmullRomSpline currentSpline = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer.MovementSpline;
+            Vector3 newPosition = currentSpline.getPositionOnSpline(ref splineMovementData.positionOnSpline, horizontalVelocityPerTimeStep);
+            newPosition.y += offsetFromGroundToPivot;
+            Vector3 toNewPosition = newPosition - transform.position;
+            transform.Translate(toNewPosition, Space.World);
         }
+
+       
         private void playAnimation(AnimationClip animationClip)
         {
             string teleportAnimationClipName = animationClip.name;
@@ -190,10 +162,52 @@ namespace GNT
         {
             SetMovementInput((GNT.MoveDirection) inputDirection, MoveSpeed.Stand);
         }
+
         
+/*
+        public static float GetDistanceToGroundCollider(Vector3 startPosition, float rayLength, Collider2D collider2D, LayerMask groundCollisionMask)
+        {
+            RaycastHit2D downHit = Physics2D.Raycast(startPosition, Vector2.down, rayLength, groundCollisionMask);
+
+            return (downHit.distance - (collider2D.bounds.center.y - collider2D.bounds.min.y)); // snap to the ground.
+        }
+        public void SnapToGround()
+        {
+            float rayLength = 10.0f;
+
+            Vector3 down = Vector3.zero;
+            down.y = -GetDistanceToGroundCollider(transform.position, rayLength, collider2D, GroundCollisionMask);
+            transform.Translate(down, Space.World);
+        }
+        private void moveAlongGroundCollisionTangent(float horizontalVelocityPerTimeStep)
+        {
+            float rayLength = 10.0f;
+            float stepDistance = 2.0f;
+            Vector3 rayStart = transform.position;
+            RaycastHit2D downHit = Physics2D.Raycast(rayStart, Vector2.down, rayLength, GroundCollisionMask);
+
+            Vector3 horizontalDirection = new Vector3(Mathf.Sign(horizontalVelocityPerTimeStep), 0.0f, 0.0f);
+            Vector3 groundNormal = downHit.normal;
+            Vector3 alongNormal = Vector3.Cross(groundNormal, new Vector3(0.0f, 0.0f, 1.0f));
+            alongNormal *= horizontalVelocityPerTimeStep;
+
+            alongNormal.y += stepDistance;
+
+#if UNITY_EDITOR
+            // Vector3 endPosition = transform.position;
+            //endPosition += alongNormal;
+            //Debug.DrawLine(transform.position, endPosition, Color.magenta, Time.deltaTime, false);
+#endif
+            Vector3 groundProbePosition = transform.position;
+            groundProbePosition += alongNormal;
+
+            alongNormal.y -= GetDistanceToGroundCollider(groundProbePosition, rayLength, collider2D, GroundCollisionMask);
+            transform.Translate(alongNormal, Space.World);
+        }
+
         public Collider2D GetCollider()
         {
             return collider2D;
-        }
+        }*/
     }
 }

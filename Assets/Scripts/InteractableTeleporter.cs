@@ -46,12 +46,12 @@ namespace GNT
 
         public override void OnBecomeAvailable()
         {
-            Debug.Log("Teleport available");
+           // Debug.Log("Teleport available");
             base.OnBecomeAvailable();
         }
         public override void OnBecomeUnavailable()
         {
-            Debug.Log("Teleport unavailable");
+           // Debug.Log("Teleport unavailable");
             base.OnBecomeUnavailable();
         }
 

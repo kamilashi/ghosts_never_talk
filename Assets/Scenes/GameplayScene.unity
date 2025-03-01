@@ -7474,6 +7474,7 @@ MonoBehaviour:
   SpriteLayerOrder: 91
   GroundLayerIndex: -1
   EdgeCollider: {fileID: 1345482917}
+  MovementSpline: {fileID: 714906962}
 --- !u!1 &714374341
 GameObject:
   m_ObjectHideFlags: 0
@@ -7622,7 +7623,7 @@ Transform:
   m_GameObject: {fileID: 714906960}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.42, y: -3.99, z: 7}
+  m_LocalPosition: {x: -1.87, y: -3.99, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7642,29 +7643,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlPoints:
   - transform: {fileID: 0}
-    position: {x: -6.42, y: -3.99, z: 7}
+    position: {x: -1.87, y: -3.99, z: 7}
+    localPos: 0
   - transform: {fileID: 0}
-    position: {x: -5.42, y: -3.99, z: 7}
+    position: {x: -0.87, y: -3.99, z: 7}
+    localPos: 26
   - transform: {fileID: 0}
-    position: {x: -4.42, y: -3.99, z: 7}
+    position: {x: 0.13, y: -3.99, z: 7}
+    localPos: 27
   - transform: {fileID: 0}
-    position: {x: -3.42, y: -3.99, z: 7}
+    position: {x: 1.13, y: -3.99, z: 7}
+    localPos: 28
   - transform: {fileID: 0}
-    position: {x: -2.42, y: -3.99, z: 7}
+    position: {x: 2.13, y: -3.99, z: 7}
+    localPos: 29
   - transform: {fileID: 0}
-    position: {x: -1.4200001, y: -3.99, z: 7}
+    position: {x: 3.13, y: -3.99, z: 7}
+    localPos: 30
   - transform: {fileID: 0}
-    position: {x: -0.42000008, y: -3.99, z: 7}
+    position: {x: 4.13, y: -3.99, z: 7}
+    localPos: 31
   - transform: {fileID: 0}
-    position: {x: 0.5799999, y: -3.99, z: 7}
+    position: {x: 5.13, y: -3.99, z: 7}
+    localPos: 32
   - transform: {fileID: 0}
-    position: {x: 1.5799999, y: -1.35, z: 7}
+    position: {x: 6.13, y: -3.99, z: 7}
+    localPos: 33
   - transform: {fileID: 0}
-    position: {x: 8.61, y: -3.99, z: 7}
-  isLooping: 0
+    position: {x: 9.05, y: -3.27, z: 7}
+    localPos: 34
   initializeSettings:
     distanceBetwPoints: 1
-    numControlPoints: 20
+    numControlPoints: 10
+  resolution: 10
 --- !u!1 &818394513
 GameObject:
   m_ObjectHideFlags: 0
@@ -8310,6 +8321,7 @@ MonoBehaviour:
   SpriteLayerOrder: 10
   GroundLayerIndex: -1
   EdgeCollider: {fileID: 298525315}
+  MovementSpline: {fileID: 0}
 --- !u!1 &1229356651
 GameObject:
   m_ObjectHideFlags: 0
@@ -8906,7 +8918,7 @@ MonoBehaviour:
   GroundCollisionMask:
     serializedVersion: 2
     m_Bits: 64
-  teleportAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
+  TeleportAnimation: {fileID: 0}
 --- !u!50 &1294591930
 Rigidbody2D:
   serializedVersion: 4
@@ -9491,6 +9503,7 @@ MonoBehaviour:
   SpriteLayerOrder: 8
   GroundLayerIndex: -1
   EdgeCollider: {fileID: 87240161}
+  MovementSpline: {fileID: 0}
 --- !u!1 &1469329728
 GameObject:
   m_ObjectHideFlags: 0
