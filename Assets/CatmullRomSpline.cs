@@ -3,26 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * 
- * CatmullRomSpline scprit is a variation of the CatmullRomSpline implementation
- *  provided by Erik Nordeus under the following license:
- *  
- *  
-MIT License
-
-Copyright (c) 2020 Erik Nordeus
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.*/
-
 [Serializable]
 public struct InitializeSettings
 {
@@ -34,6 +14,7 @@ public struct InitializeSettings
 public class ControlPoint
 {
     public Transform transform;
+    public GNT.SplinePointObject objectAtPoint;
     public Vector3 position;
     public float localPos;
 
@@ -96,6 +77,46 @@ public class CatmullRomSpline : MonoBehaviour
             controlPoints.Add(point);
         }
     }
+    
+    [ContextMenu("AddPointsRight")]
+    void AddPointsRight()
+    {
+        uint numPoints = initializeSettings.numControlPoints;
+        int prevCount = controlPoints.Count;
+
+        for (int i = 0; i < numPoints; i++)
+        {
+            totalLength += initializeSettings.distanceBetwPoints;
+            ControlPoint point = new ControlPoint(controlPoints[prevCount + i - 1].getPosition(), totalLength);
+            point.position.x += initializeSettings.distanceBetwPoints;
+            controlPoints.Add(point);
+        }
+    }    
+
+
+    [ContextMenu("AddPointsLeft")]
+    void AddPointsLeft()
+    {
+        uint numPoints = initializeSettings.numControlPoints;
+
+        List<ControlPoint> newControlPoints = new List<ControlPoint>();
+        float newTotalLength = 0.0f;
+
+        ControlPoint startPoint = new ControlPoint(controlPoints[0].position, 0.0f);
+        startPoint.position.x -= numPoints * initializeSettings.distanceBetwPoints;
+        newControlPoints.Add(startPoint);
+
+        for (int i = 1; i < numPoints; i++)
+        {
+            newTotalLength += initializeSettings.distanceBetwPoints;
+            ControlPoint point = new ControlPoint(newControlPoints[i-1].getPosition(), newTotalLength);
+            point.position.x += initializeSettings.distanceBetwPoints;
+            newControlPoints.Add(point);
+        }
+
+        totalLength += newTotalLength;
+        controlPoints.InsertRange(0, newControlPoints);
+    }
 
     public Vector3 GetPositionOnSpline(ref float localPosRef, float increment)
     {
@@ -141,9 +162,17 @@ public class CatmullRomSpline : MonoBehaviour
 
     private void OnValidate()
     {
-        //Vector3 startToEnd = controlPoints[controlPoints.Count-1].getPosition() - controlPoints[0].getPosition();
-        //totalDistance = startToEnd.magnitude;
+        if (controlPoints == null || controlPoints.Count == 0)
+        {
+            return;
+        }
+
         totalLength = 0.0f;
+
+        if (controlPoints[0].objectAtPoint != null)
+        {
+            controlPoints[0].objectAtPoint.splinePointIdx = 0;
+        }
 
         for (int i = 1; i < controlPoints.Count; i++)
         {
@@ -151,25 +180,30 @@ public class CatmullRomSpline : MonoBehaviour
             float distance = prevToThis.magnitude;
             totalLength += distance;
             controlPoints[i].setLocalPos(totalLength);
+
+            if(controlPoints[i].objectAtPoint != null)
+            {
+                controlPoints[i].objectAtPoint.splinePointIdx = i;
+            }
         }
     }
 
     void OnDrawGizmos()
     {
-        if(controlPoints.Count == 0)
+        if(controlPoints == null || controlPoints.Count == 0)
         {
             return;
         }
 
         Gizmos.color = Color.white;
 
-        Gizmos.DrawIcon(controlPoints[0].getPosition(), "Solid_circle_red.png");
-        Gizmos.DrawIcon(controlPoints[controlPoints.Count - 1].getPosition(), "Solid_circle_red.png");
-
         //Draw the Catmull-Rom spline between the points
         for (int i = 0; i < controlPoints.Count; i++)
         {
             Gizmos.DrawIcon(controlPoints[i].getPosition(), "Solid_circle_red.png");
+            Vector3 textPosigion = controlPoints[i].getPosition();
+            textPosigion.y += 0.5f;
+            UnityEditor.Handles.Label(textPosigion, "p " + i);
 
             DisplayCatmullRomSpline(i);
         }
@@ -212,6 +246,21 @@ public class CatmullRomSpline : MonoBehaviour
 
         return pointIdx;
     }
+
+    /*
+    MIT License
+
+    Copyright (c) 2020 Erik Nordeus
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.*/
 
     //Returns a position between 4 Vector3 with Catmull-Rom spline algorithm
     //http://www.iquilezles.org/www/articles/minispline/minispline.htm

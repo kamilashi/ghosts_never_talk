@@ -55,11 +55,11 @@ namespace GNT
             return deltaPositionTranslate;
         }*/
         
-        public void Teleport(ref SpriteRenderer teleporteeSpriteRenderer, ref GroundMovement teleporteeGroundMovement)
+        public void Teleport(SpriteRenderer teleporteeSpriteRenderer, GroundMovement teleporteeGroundMovement)
         {
             teleporteeSpriteRenderer.sortingOrder = TargetTeleporter.ContainingGroundLayer.SpriteLayerOrder;
 
-            teleporteeGroundMovement.TeleportToSplinePoint(MAPPED_SPLINE_NODE_INDEX);
+            teleporteeGroundMovement.TeleportToSplinePoint(TargetTeleporter.splinePointIdx);
         }
     }
 }

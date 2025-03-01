@@ -195,7 +195,7 @@ namespace GNT
             GlobalData.Instance.ActiveSceneDynamicRef.SwitchToLayer(bufferedTeleporter.TargetTeleporter.ContainingGroundLayer.GroundLayerIndex);
 
             //important: run this function AFTER changing the current layer. Perhabs it's better to keep track of the current active layer in the controller instead of the global data. This way enemies could make use of their own at some point.
-            bufferedTeleporter.Teleport(ref spriteRenderer, ref groundMovement);
+            bufferedTeleporter.Teleport(spriteRenderer, groundMovement);
 
             bufferedTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
             bufferedTeleporter = null;

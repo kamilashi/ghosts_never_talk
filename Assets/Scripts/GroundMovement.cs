@@ -37,7 +37,7 @@ namespace GNT
 
         public AnimationClip TeleportAnimation; // this should move to some animation mapper
 
-        public float offsetFromGroundToPivot;
+        [SerializeField] float offsetFromGroundToPivot;
         [SerializeField] SplineMovementData splineMovementData;
 
         int inputDirection = 1;   // input (horizontal) direction received from controller
@@ -105,6 +105,11 @@ namespace GNT
 
             inputDirection = (int)direction;
             inputSpeed = SpeedValues[(int)speed];
+        }
+
+        public void AddSplineLocalOffset(float delta)
+        {
+            splineMovementData.positionOnSpline += delta;
         }
 
         public void OnTurnFinishedAnimationEvent()

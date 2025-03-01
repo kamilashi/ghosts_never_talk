@@ -24,6 +24,11 @@ namespace GNT
             {
                 ContainerScene = this.transform.GetComponentInParent<SceneInterface>();
             }
+
+            if (MovementSpline == null)
+            {
+                MovementSpline = this.GetComponentInChildren<CatmullRomSpline>();
+            }
         }
 
         void Update()

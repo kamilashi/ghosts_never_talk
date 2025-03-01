@@ -327,7 +327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &87240160
 Transform:
   m_ObjectHideFlags: 0
@@ -841,7 +841,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &298525313
 Transform:
   m_ObjectHideFlags: 0
@@ -1435,10 +1435,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  splinePointIdx: 1
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
-  MAPPED_SPLINE_NODE_INDEX: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -1523,10 +1523,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  splinePointIdx: 2
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
-  MAPPED_SPLINE_NODE_INDEX: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -7180,6 +7180,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1016157394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &681233481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 681233482}
+  - component: {fileID: 681233483}
+  m_Layer: 6
+  m_Name: Layer2MovementSpline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &681233482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681233481}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.6, y: -2.15, z: 11.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1219938347}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &681233483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681233481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a198d4f6e251b004a97f92eb9ecfea8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlPoints:
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: -17.6, y: -4.25, z: 11.38}
+    localPos: 6
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: -11.9, y: -4.25, z: 11.38}
+    localPos: 5.700001
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 415658731}
+    position: {x: -5.6, y: -4.25, z: 11.38}
+    localPos: 12
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 1349472666}
+    position: {x: 4.15, y: -4.25, z: 11.38}
+    localPos: 21.75
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: 12.4, y: -4.25, z: 11.38}
+    localPos: 30
+  initializeSettings:
+    distanceBetwPoints: 6
+    numControlPoints: 2
+  resolution: 10
+  totalLength: 30
 --- !u!1 &692316361
 GameObject:
   m_ObjectHideFlags: 0
@@ -7645,55 +7715,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlPoints:
   - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
     position: {x: -10.37, y: -3.99, z: 7}
     localPos: 0
   - transform: {fileID: 0}
-    position: {x: -5.37, y: -3.99, z: 7}
-    localPos: 5
+    objectAtPoint: {fileID: 410870892}
+    position: {x: 3.85, y: -3.99, z: 7}
+    localPos: 14.219999
   - transform: {fileID: 0}
-    position: {x: -0.3699999, y: -3.99, z: 7}
-    localPos: 10
+    objectAtPoint: {fileID: 0}
+    position: {x: 7.63, y: -3.99, z: 7}
+    localPos: 18
   - transform: {fileID: 0}
-    position: {x: 4.63, y: -3.99, z: 7}
-    localPos: 15
+    objectAtPoint: {fileID: 0}
+    position: {x: 10.63, y: -3.27, z: 7}
+    localPos: 21.08519
   - transform: {fileID: 0}
-    position: {x: 9.63, y: -3.99, z: 7}
-    localPos: 20
+    objectAtPoint: {fileID: 0}
+    position: {x: 13.63, y: -0.84, z: 7}
+    localPos: 24.945877
   - transform: {fileID: 0}
-    position: {x: 14.63, y: -3.99, z: 7}
-    localPos: 25
+    objectAtPoint: {fileID: 0}
+    position: {x: 16.630001, y: 1.99, z: 7}
+    localPos: 29.070063
   - transform: {fileID: 0}
-    position: {x: 19.630001, y: -3.99, z: 7}
-    localPos: 30
+    objectAtPoint: {fileID: 0}
+    position: {x: 19.630001, y: 3.66, z: 7}
+    localPos: 32.50356
   - transform: {fileID: 0}
-    position: {x: 24.630001, y: -3.99, z: 7}
-    localPos: 35
+    objectAtPoint: {fileID: 0}
+    position: {x: 22.630001, y: 4.07, z: 7}
+    localPos: 35.531445
   - transform: {fileID: 0}
-    position: {x: 29.630001, y: -3.99, z: 7}
-    localPos: 40
+    objectAtPoint: {fileID: 0}
+    position: {x: 25.630001, y: 4.03, z: 7}
+    localPos: 38.53171
   - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: 28.630001, y: 3, z: 7}
+    localPos: 41.703606
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: 31.630001, y: 0.7, z: 7}
+    localPos: 45.483818
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
     position: {x: 34.63, y: -3.99, z: 7}
-    localPos: 45
-  - transform: {fileID: 0}
-    position: {x: 39.63, y: -3.99, z: 7}
-    localPos: 50
-  - transform: {fileID: 0}
-    position: {x: 44.63, y: -3.99, z: 7}
-    localPos: 55
-  - transform: {fileID: 0}
-    position: {x: 49.63, y: -3.99, z: 7}
-    localPos: 60
-  - transform: {fileID: 0}
-    position: {x: 54.63, y: -3.99, z: 7}
-    localPos: 65
-  - transform: {fileID: 0}
-    position: {x: 59.63, y: -3.99, z: 7}
-    localPos: 70
+    localPos: 51.05123
   initializeSettings:
-    distanceBetwPoints: 5
-    numControlPoints: 10
+    distanceBetwPoints: 3
+    numControlPoints: 16
   resolution: 10
-  totalLength: 70
+  totalLength: 51.05123
 --- !u!1 &818394513
 GameObject:
   m_ObjectHideFlags: 0
@@ -8210,6 +8283,92 @@ Transform:
   m_Children: []
   m_Father: {fileID: 577948973}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -14.9}
+--- !u!1 &1148784269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1148784270}
+  - component: {fileID: 1148784271}
+  m_Layer: 0
+  m_Name: Layer3MovementSpline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1148784270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148784269}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17.91, y: 0.94, z: 12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1436780623}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1148784271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148784269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a198d4f6e251b004a97f92eb9ecfea8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlPoints:
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: -17.91, y: 0.94, z: 12}
+    localPos: 0
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: -10.12, y: 0.94, z: 12}
+    localPos: 7.79
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: -2.9099998, y: 1.66, z: 12}
+    localPos: 15.035861
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: 2.0900002, y: 6.71, z: 12}
+    localPos: 22.142372
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: 5.72, y: 10.23, z: 12}
+    localPos: 27.198784
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 1659033200}
+    position: {x: 8.24, y: 10.83, z: 12}
+    localPos: 29.789228
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: 12.3, y: 10.94, z: 12}
+    localPos: 33.85072
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 1229356656}
+    position: {x: 27.5, y: 10.94, z: 12}
+    localPos: 49.05072
+  - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: 34.7, y: 10.94, z: 12}
+    localPos: 56.25072
+  initializeSettings:
+    distanceBetwPoints: 5
+    numControlPoints: 3
+  resolution: 10
+  totalLength: 56.25072
 --- !u!1 &1182053126
 GameObject:
   m_ObjectHideFlags: 0
@@ -8319,6 +8478,7 @@ Transform:
   - {fileID: 298525313}
   - {fileID: 1349472665}
   - {fileID: 415658730}
+  - {fileID: 681233482}
   m_Father: {fileID: 1728121133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1219938348
@@ -8339,7 +8499,7 @@ MonoBehaviour:
   SpriteLayerOrder: 10
   GroundLayerIndex: -1
   EdgeCollider: {fileID: 298525315}
-  MovementSpline: {fileID: 0}
+  MovementSpline: {fileID: 681233483}
 --- !u!1 &1229356651
 GameObject:
   m_ObjectHideFlags: 0
@@ -8419,10 +8579,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6461fc7576f8d3345895bfc91f09d7c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  splinePointIdx: 7
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 1436780624}
-  MAPPED_SPLINE_NODE_INDEX: 0
   InteractAnimation: {fileID: 7400000, guid: e3e01b9d72492344fb73e4e21494c528, type: 2}
   LocalOffsetX: -2.7
   SnapSpeed: 10
@@ -8938,7 +9098,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   TeleportAnimation: {fileID: 0}
-  offsetFromGroundToPivot: 0
+  offsetFromGroundToPivot: 2
   splineMovementData:
     positionOnSpline: 0
 --- !u!50 &1294591930
@@ -9150,7 +9310,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!68 &1345482917
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -9263,10 +9423,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  splinePointIdx: 3
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
-  MAPPED_SPLINE_NODE_INDEX: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -9506,6 +9666,7 @@ Transform:
   - {fileID: 87240160}
   - {fileID: 1659033198}
   - {fileID: 1229356652}
+  - {fileID: 1148784270}
   m_Father: {fileID: 1728121133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1436780624
@@ -9968,10 +10129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  splinePointIdx: 5
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
-  MAPPED_SPLINE_NODE_INDEX: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -11570,8 +11731,7 @@ MonoBehaviour:
   yarnProject: {fileID: 7545569452688597077, guid: db00c123da1c1f34da3f8430af10827d, type: 3}
   _variableStorage: {fileID: 3831113771051439421}
   dialogueViews:
-  - {fileID: 0}
-  - {fileID: 3292657647210566794}
+  - {fileID: 1233174499}
   runSelectedOptionAsLine: 0
   lineProvider: {fileID: 0}
   verboseLogging: 1

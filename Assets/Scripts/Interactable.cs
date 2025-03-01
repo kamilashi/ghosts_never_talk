@@ -17,13 +17,18 @@ namespace GNT
         Exit
     }
 
-    public class Interactable : MonoBehaviour
+    public class SplinePointObject : MonoBehaviour
+    {
+        public int splinePointIdx;
+        // here can be the parent spline
+    }
+
+    public class Interactable : SplinePointObject
     {
         [Header("Interactable")]
         public int UIPromptKey;
         public float InteractRadius;
         public GroundLayer ContainingGroundLayer;
-        public int MAPPED_SPLINE_NODE_INDEX;
         public AnimationClip InteractAnimation;
         public float LocalOffsetX;
         public float SnapSpeed = 1.0f;
@@ -86,6 +91,12 @@ namespace GNT
                     Vector3 translate = Vector3.zero;
                     translate.x = velocityX;
                     interactorTransform.Translate(translate);
+
+                    if (interactorGroundMovement != null)
+                    {
+                        interactorGroundMovement.AddSplineLocalOffset(velocityX);
+                    }
+
                     yield return null;
                 }
                 while (currentDistance > epsilon);
