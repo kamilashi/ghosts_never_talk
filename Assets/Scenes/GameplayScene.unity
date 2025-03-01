@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splinePointIdx: 1
+  splinePointIdx: 2
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
@@ -7719,9 +7719,13 @@ MonoBehaviour:
     position: {x: -10.37, y: -3.99, z: 7}
     localPos: 0
   - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: -0.23, y: -3.99, z: 7}
+    localPos: 10.14
+  - transform: {fileID: 0}
     objectAtPoint: {fileID: 410870892}
     position: {x: 3.85, y: -3.99, z: 7}
-    localPos: 14.219999
+    localPos: 14.22
   - transform: {fileID: 0}
     objectAtPoint: {fileID: 0}
     position: {x: 7.63, y: -3.99, z: 7}
@@ -8357,6 +8361,10 @@ MonoBehaviour:
     position: {x: 12.3, y: 10.94, z: 12}
     localPos: 33.85072
   - transform: {fileID: 0}
+    objectAtPoint: {fileID: 0}
+    position: {x: 19.4, y: 10.94, z: 12}
+    localPos: 40.950718
+  - transform: {fileID: 0}
     objectAtPoint: {fileID: 1229356656}
     position: {x: 27.5, y: 10.94, z: 12}
     localPos: 49.05072
@@ -8579,7 +8587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6461fc7576f8d3345895bfc91f09d7c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splinePointIdx: 7
+  splinePointIdx: 8
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 1436780624}
