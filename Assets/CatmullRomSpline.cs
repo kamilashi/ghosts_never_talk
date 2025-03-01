@@ -31,11 +31,11 @@ public struct InitializeSettings
 }
 
 [Serializable]
-public struct ControlPoint
+public class ControlPoint
 {
     public Transform transform;
     public Vector3 position;
-    [SerializeField] private float localPos;
+    public float localPos;
 
     public ControlPoint(Transform transform, float localPos)
     {
@@ -75,13 +75,13 @@ public class CatmullRomSpline : MonoBehaviour
 
     [Range(1, 100)] public float resolution = 10;
 
-    [SerializeField] private float totalDistance;
+    [SerializeField] private float totalLength;
 
     [ContextMenu("Initialize")]
     void Initialize()
     {
         controlPoints.Clear();
-        totalDistance = 0.0f;
+        totalLength = 0.0f;
 
         uint numPoints = System.Math.Max(4u, initializeSettings.numControlPoints);
 
@@ -90,14 +90,14 @@ public class CatmullRomSpline : MonoBehaviour
 
         for (int i = 1; i < numPoints; i++)
         {
-            totalDistance += initializeSettings.distanceBetwPoints;
-            ControlPoint point = new ControlPoint(controlPoints[i - 1].getPosition(), totalDistance);
+            totalLength += initializeSettings.distanceBetwPoints;
+            ControlPoint point = new ControlPoint(controlPoints[i - 1].getPosition(), totalLength);
             point.position.x += initializeSettings.distanceBetwPoints;
             controlPoints.Add(point);
         }
     }
 
-    public Vector3 getPositionOnSpline(ref float localPosRef, float increment)
+    public Vector3 GetPositionOnSpline(ref float localPosRef, float increment)
     {
         float newLocalPos = localPosRef + increment;
 
@@ -108,7 +108,7 @@ public class CatmullRomSpline : MonoBehaviour
             {
                 point1Index = i;
 
-                if (newLocalPos >= 0 && newLocalPos <= totalDistance)
+                if (newLocalPos >= 0 && newLocalPos <= totalLength)
                 {
                     localPosRef = newLocalPos;
                 }
@@ -117,6 +117,13 @@ public class CatmullRomSpline : MonoBehaviour
             }
         }
 
+        float t = (localPosRef - controlPoints[point1Index].getLocalPos()) / (controlPoints[point1Index + 1].getLocalPos() - controlPoints[point1Index].getLocalPos());
+
+        return getPositionOnSplineSegment(point1Index, t);
+    }
+
+   private Vector3 getPositionOnSplineSegment(int point1Index, float t)
+    {
         int startIdx = ClampListPos(point1Index - 1);
         int endIdx = ClampListPos(point1Index + 2);
         Vector3 p0 = controlPoints[startIdx].getPosition();
@@ -124,29 +131,26 @@ public class CatmullRomSpline : MonoBehaviour
         Vector3 p2 = controlPoints[point1Index + 1].getPosition();
         Vector3 p3 = controlPoints[endIdx].getPosition();
 
-        float t = (localPosRef - controlPoints[point1Index].getLocalPos()) / (controlPoints[point1Index + 1].getLocalPos() - controlPoints[point1Index].getLocalPos());
-        //float t = localPosRef / totalDistance;
-
-        if (increment > 0.0f)
-        {
-            Debug.Log("" + point1Index + "" + p1 + " " + localPosRef + " " + t);
-        }
-
         return GetCatmullRomPosition(t, p0, p1, p2, p3);
+    }
+
+    public float GetLocalPositionOnSpline(int pointIndex)
+    {
+        return controlPoints[pointIndex].getLocalPos();
     }
 
     private void OnValidate()
     {
         //Vector3 startToEnd = controlPoints[controlPoints.Count-1].getPosition() - controlPoints[0].getPosition();
         //totalDistance = startToEnd.magnitude;
-        totalDistance = 0.0f;
+        totalLength = 0.0f;
 
         for (int i = 1; i < controlPoints.Count; i++)
         {
             Vector3 prevToThis = controlPoints[i].getPosition() - controlPoints[i-1].getPosition();
             float distance = prevToThis.magnitude;
-            totalDistance += distance;
-            controlPoints[i].setLocalPos(totalDistance);
+            totalLength += distance;
+            controlPoints[i].setLocalPos(totalLength);
         }
     }
 

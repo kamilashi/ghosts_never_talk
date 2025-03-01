@@ -1438,6 +1438,7 @@ MonoBehaviour:
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
+  MAPPED_SPLINE_NODE_INDEX: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -1525,6 +1526,7 @@ MonoBehaviour:
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
+  MAPPED_SPLINE_NODE_INDEX: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -7623,7 +7625,7 @@ Transform:
   m_GameObject: {fileID: 714906960}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.87, y: -3.99, z: 7}
+  m_LocalPosition: {x: -10.37, y: -3.99, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7643,39 +7645,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlPoints:
   - transform: {fileID: 0}
-    position: {x: -1.87, y: -3.99, z: 7}
+    position: {x: -10.37, y: -3.99, z: 7}
     localPos: 0
   - transform: {fileID: 0}
-    position: {x: -0.87, y: -3.99, z: 7}
-    localPos: 26
+    position: {x: -5.37, y: -3.99, z: 7}
+    localPos: 5
   - transform: {fileID: 0}
-    position: {x: 0.13, y: -3.99, z: 7}
-    localPos: 27
+    position: {x: -0.3699999, y: -3.99, z: 7}
+    localPos: 10
   - transform: {fileID: 0}
-    position: {x: 1.13, y: -3.99, z: 7}
-    localPos: 28
+    position: {x: 4.63, y: -3.99, z: 7}
+    localPos: 15
   - transform: {fileID: 0}
-    position: {x: 2.13, y: -3.99, z: 7}
-    localPos: 29
+    position: {x: 9.63, y: -3.99, z: 7}
+    localPos: 20
   - transform: {fileID: 0}
-    position: {x: 3.13, y: -3.99, z: 7}
+    position: {x: 14.63, y: -3.99, z: 7}
+    localPos: 25
+  - transform: {fileID: 0}
+    position: {x: 19.630001, y: -3.99, z: 7}
     localPos: 30
   - transform: {fileID: 0}
-    position: {x: 4.13, y: -3.99, z: 7}
-    localPos: 31
+    position: {x: 24.630001, y: -3.99, z: 7}
+    localPos: 35
   - transform: {fileID: 0}
-    position: {x: 5.13, y: -3.99, z: 7}
-    localPos: 32
+    position: {x: 29.630001, y: -3.99, z: 7}
+    localPos: 40
   - transform: {fileID: 0}
-    position: {x: 6.13, y: -3.99, z: 7}
-    localPos: 33
+    position: {x: 34.63, y: -3.99, z: 7}
+    localPos: 45
   - transform: {fileID: 0}
-    position: {x: 9.05, y: -3.27, z: 7}
-    localPos: 34
+    position: {x: 39.63, y: -3.99, z: 7}
+    localPos: 50
+  - transform: {fileID: 0}
+    position: {x: 44.63, y: -3.99, z: 7}
+    localPos: 55
+  - transform: {fileID: 0}
+    position: {x: 49.63, y: -3.99, z: 7}
+    localPos: 60
+  - transform: {fileID: 0}
+    position: {x: 54.63, y: -3.99, z: 7}
+    localPos: 65
+  - transform: {fileID: 0}
+    position: {x: 59.63, y: -3.99, z: 7}
+    localPos: 70
   initializeSettings:
-    distanceBetwPoints: 1
+    distanceBetwPoints: 5
     numControlPoints: 10
   resolution: 10
+  totalLength: 70
 --- !u!1 &818394513
 GameObject:
   m_ObjectHideFlags: 0
@@ -8404,6 +8422,7 @@ MonoBehaviour:
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 1436780624}
+  MAPPED_SPLINE_NODE_INDEX: 0
   InteractAnimation: {fileID: 7400000, guid: e3e01b9d72492344fb73e4e21494c528, type: 2}
   LocalOffsetX: -2.7
   SnapSpeed: 10
@@ -8919,6 +8938,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   TeleportAnimation: {fileID: 0}
+  offsetFromGroundToPivot: 0
+  splineMovementData:
+    positionOnSpline: 0
 --- !u!50 &1294591930
 Rigidbody2D:
   serializedVersion: 4
@@ -9244,6 +9266,7 @@ MonoBehaviour:
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
+  MAPPED_SPLINE_NODE_INDEX: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -9948,6 +9971,7 @@ MonoBehaviour:
   UIPromptKey: 0
   InteractRadius: 3
   ContainingGroundLayer: {fileID: 0}
+  MAPPED_SPLINE_NODE_INDEX: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -11546,7 +11570,7 @@ MonoBehaviour:
   yarnProject: {fileID: 7545569452688597077, guid: db00c123da1c1f34da3f8430af10827d, type: 3}
   _variableStorage: {fileID: 3831113771051439421}
   dialogueViews:
-  - {fileID: 1233174499}
+  - {fileID: 0}
   - {fileID: 3292657647210566794}
   runSelectedOptionAsLine: 0
   lineProvider: {fileID: 0}

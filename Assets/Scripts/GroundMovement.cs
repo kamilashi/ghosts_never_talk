@@ -140,14 +140,22 @@ namespace GNT
 
         private void moveAlongSpline(float horizontalVelocityPerTimeStep)
         {
+            //#TODO this might have to change if we have multiple splines per ground layer
             CatmullRomSpline currentSpline = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer.MovementSpline;
-            Vector3 newPosition = currentSpline.getPositionOnSpline(ref splineMovementData.positionOnSpline, horizontalVelocityPerTimeStep);
+            Vector3 newPosition = currentSpline.GetPositionOnSpline(ref splineMovementData.positionOnSpline, horizontalVelocityPerTimeStep);
             newPosition.y += offsetFromGroundToPivot;
             Vector3 toNewPosition = newPosition - transform.position;
             transform.Translate(toNewPosition, Space.World);
         }
 
-       
+        public void TeleportToSplinePoint(int pointIndex)
+        {
+            //#TODO this might have to change if we have multiple splines per ground layer
+            CatmullRomSpline currentSpline = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer.MovementSpline;
+            splineMovementData.positionOnSpline = currentSpline.GetLocalPositionOnSpline(pointIndex);
+            moveAlongSpline(0.0f);
+        }
+
         private void playAnimation(AnimationClip animationClip)
         {
             string teleportAnimationClipName = animationClip.name;

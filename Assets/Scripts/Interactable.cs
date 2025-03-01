@@ -23,6 +23,7 @@ namespace GNT
         public int UIPromptKey;
         public float InteractRadius;
         public GroundLayer ContainingGroundLayer;
+        public int MAPPED_SPLINE_NODE_INDEX;
         public AnimationClip InteractAnimation;
         public float LocalOffsetX;
         public float SnapSpeed = 1.0f;
@@ -47,7 +48,7 @@ namespace GNT
             vfxPlayerStaticRef = gameObject.GetComponent<VfxPlayer>();
         }
 
-        public bool IsInRange(Vector3 interactorPos/*, ref float squareDistance*/)
+        public bool IsInRangeX(Vector3 interactorPos/*, ref float squareDistance*/)
         { 
             bool isInRange = false;
 
@@ -94,12 +95,6 @@ namespace GNT
             {
                 interactorGroundMovement.StopAndPlayAnimation(InteractAnimation);
             }
-
-            /*CameraMovement activeCameraMovement = GlobalData.Instance.GetActiveCamera().gameObject.GetComponent<CameraMovement>();
-            while(WaitForCameraStop && !activeCameraMovement.IsCameraMoving())
-            {
-                yield return null;
-            }*/
 
             onCoroutineFinishedInteractAction?.Invoke();
         }

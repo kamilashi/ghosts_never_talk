@@ -135,14 +135,14 @@ namespace GNT
             {
                 if (currentAvailableTrigger != availableTrigger)
                 {
-                    Debug.Log("Trigger available");
+                    //Debug.Log("Trigger available");
                     availableTrigger.OnBecomeAvailable();
                     currentAvailableTrigger = availableTrigger;
                 }
             }
             else if (currentAvailableTrigger != null)
             {
-                Debug.Log("Trigger UNavailable");
+                //Debug.Log("Trigger UNavailable");
                 currentAvailableTrigger.OnBecomeUnavailable();
                 currentAvailableTrigger = null;
             }
@@ -159,7 +159,7 @@ namespace GNT
             // we assume that there will not be closely placed teleporters in levels!
             foreach (InteractableTeleporter teleporter in GlobalData.Instance.ActiveSceneDynamicRef.GetPlayerVisibleTeleporters())
             {
-                if (teleporter.IsInRange(this.transform.position))
+                if (teleporter.IsInRangeX(this.transform.position))
                 {
                     return teleporter;
                 }
@@ -173,7 +173,7 @@ namespace GNT
             // we assume that there will not be closely placed teleporters in levels!
             foreach (InteractableTrigger interactableTrigger in GlobalData.Instance.ActiveSceneDynamicRef.GetPlayerVisibleInteractableTriggers())
             {
-                if (interactableTrigger.IsInRange(this.transform.position))
+                if (interactableTrigger.IsInRangeX(this.transform.position))
                 {
                     return interactableTrigger;
                 }
@@ -193,8 +193,9 @@ namespace GNT
         public void OnPlayerTeleportTranslateAnimationEvent()
         {
             GlobalData.Instance.ActiveSceneDynamicRef.SwitchToLayer(bufferedTeleporter.TargetTeleporter.ContainingGroundLayer.GroundLayerIndex);
-            Vector3 deltaTeleport = bufferedTeleporter.TeteportToTargetPosition(transform, groundMovement.GroundCollisionMask, groundMovement.GetCollider(), spriteRenderer);
-            transform.Translate(deltaTeleport, Space.World);
+
+            //important: run this function AFTER changing the current layer. Perhabs it's better to keep track of the current active layer in the controller instead of the global data. This way enemies could make use of their own at some point.
+            bufferedTeleporter.Teleport(ref spriteRenderer, ref groundMovement);
 
             bufferedTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
             bufferedTeleporter = null;
