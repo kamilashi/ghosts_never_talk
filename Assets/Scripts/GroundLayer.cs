@@ -16,12 +16,18 @@ namespace GNT
         public int GroundLayerIndex = -1;
 
         public EdgeCollider2D EdgeCollider;
+        public CatmullRomSpline MovementSpline;
 
         void Awake()
         {
             if(ContainerScene == null)
             {
                 ContainerScene = this.transform.GetComponentInParent<SceneInterface>();
+            }
+
+            if (MovementSpline == null)
+            {
+                MovementSpline = this.GetComponentInChildren<CatmullRomSpline>();
             }
         }
 

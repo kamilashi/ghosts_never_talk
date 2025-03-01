@@ -7,6 +7,8 @@ namespace GNT
     [ExecuteAlways]
     public class CodeAssetDebugRender : MonoBehaviour
     {
+        static bool isEnabled;
+
         public enum RenderShape
         {
             LineX,
@@ -21,9 +23,20 @@ namespace GNT
 
         }
 
+        [ContextMenu("ToggleVisibility")]
+        void ToggleVisibility()
+        {
+            isEnabled = !isEnabled;
+        }
+
         [ExecuteAlways]
         void Update()
         {
+            if(!isEnabled)
+            { 
+                return; 
+            }
+
             switch(Shape)
             {
                 case RenderShape.LineX:

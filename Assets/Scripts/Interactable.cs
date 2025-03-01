@@ -17,7 +17,13 @@ namespace GNT
         Exit
     }
 
-    public class Interactable : MonoBehaviour
+    public class SplinePointObject : MonoBehaviour
+    {
+        public int splinePointIdx;
+        // here can be the parent spline
+    }
+
+    public class Interactable : SplinePointObject
     {
         [Header("Interactable")]
         public int UIPromptKey;
@@ -47,7 +53,7 @@ namespace GNT
             vfxPlayerStaticRef = gameObject.GetComponent<VfxPlayer>();
         }
 
-        public bool IsInRange(Vector3 interactorPos/*, ref float squareDistance*/)
+        public bool IsInRangeX(Vector3 interactorPos/*, ref float squareDistance*/)
         { 
             bool isInRange = false;
 
@@ -85,6 +91,12 @@ namespace GNT
                     Vector3 translate = Vector3.zero;
                     translate.x = velocityX;
                     interactorTransform.Translate(translate);
+
+                    if (interactorGroundMovement != null)
+                    {
+                        interactorGroundMovement.AddSplineLocalOffset(velocityX);
+                    }
+
                     yield return null;
                 }
                 while (currentDistance > epsilon);
@@ -94,12 +106,6 @@ namespace GNT
             {
                 interactorGroundMovement.StopAndPlayAnimation(InteractAnimation);
             }
-
-            /*CameraMovement activeCameraMovement = GlobalData.Instance.GetActiveCamera().gameObject.GetComponent<CameraMovement>();
-            while(WaitForCameraStop && !activeCameraMovement.IsCameraMoving())
-            {
-                yield return null;
-            }*/
 
             onCoroutineFinishedInteractAction?.Invoke();
         }

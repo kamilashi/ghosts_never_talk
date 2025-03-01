@@ -20,18 +20,6 @@ namespace GNT
             OnBecameVisible();
         }
 
-        public Vector3 TeteportToTargetPosition(Transform teleporteeTransform, LayerMask teleporteeGroundCollisionMask, Collider2D teleporteeCollider, SpriteRenderer teleporteeSpriteRenderer)
-        {
-            teleporteeSpriteRenderer.sortingOrder = TargetTeleporter.ContainingGroundLayer.SpriteLayerOrder;
-
-            Vector3 deltaPositionTranslate = TargetTeleporter.transform.position;
-            float testHeight = 10.0f;
-            deltaPositionTranslate.y -= GroundMovement.GetDistanceToGroundCollider(deltaPositionTranslate, testHeight, teleporteeCollider, teleporteeGroundCollisionMask);
-            deltaPositionTranslate -= teleporteeTransform.transform.position;
-
-            return deltaPositionTranslate;
-        }
-
         void OnBecameVisible()
         {
             if (!IsReceiverOnly)
@@ -46,14 +34,32 @@ namespace GNT
 
         public override void OnBecomeAvailable()
         {
-            Debug.Log("Teleport available");
+           // Debug.Log("Teleport available");
             base.OnBecomeAvailable();
         }
         public override void OnBecomeUnavailable()
         {
-            Debug.Log("Teleport unavailable");
+           // Debug.Log("Teleport unavailable");
             base.OnBecomeUnavailable();
         }
 
+        /*public Vector3 TeleportToTargetPosition(Transform teleporteeTransform, LayerMask teleporteeGroundCollisionMask, Collider2D teleporteeCollider, SpriteRenderer teleporteeSpriteRenderer)
+        {
+            teleporteeSpriteRenderer.sortingOrder = TargetTeleporter.ContainingGroundLayer.SpriteLayerOrder;
+
+            Vector3 deltaPositionTranslate = TargetTeleporter.transform.position;
+            float testHeight = 10.0f;
+            deltaPositionTranslate.y -= GroundMovement.GetDistanceToGroundCollider(deltaPositionTranslate, testHeight, teleporteeCollider, teleporteeGroundCollisionMask);
+            deltaPositionTranslate -= teleporteeTransform.transform.position;
+
+            return deltaPositionTranslate;
+        }*/
+        
+        public void Teleport(SpriteRenderer teleporteeSpriteRenderer, GroundMovement teleporteeGroundMovement)
+        {
+            teleporteeSpriteRenderer.sortingOrder = TargetTeleporter.ContainingGroundLayer.SpriteLayerOrder;
+
+            teleporteeGroundMovement.TeleportToSplinePoint(TargetTeleporter.splinePointIdx);
+        }
     }
 }
