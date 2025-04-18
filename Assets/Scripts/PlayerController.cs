@@ -25,8 +25,8 @@ namespace GNT
         [SerializeField] private InteractableTeleporter currentAvailableTeleporter;
         private InteractableTeleporter bufferedTeleporter;
 
-
         [SerializeField] private InteractableTrigger currentAvailableTrigger;
+        [SerializeField] private CheckPoint currentAvailableCheckPoint;
 
         // #Todo: get this data from control map
         KeyCode moveLeftMappedKey = KeyCode.A;
@@ -44,6 +44,8 @@ namespace GNT
             groundLayerPositionMapper = gameObject.GetComponentInChildren<GroundLayerPositionMapper>();
             spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
             bufferedTeleporter = null;
+            currentAvailableTrigger = null;
+            currentAvailableCheckPoint = null;
         }   
         
         void Start()
@@ -105,6 +107,8 @@ namespace GNT
                 processAvailableTeleporters();
 
                 processAvailableInteractions();
+
+                processAvailableSplinePointObject();
             }
         }
 
@@ -135,16 +139,32 @@ namespace GNT
             {
                 if (currentAvailableTrigger != availableTrigger)
                 {
-                    //Debug.Log("Trigger available");
                     availableTrigger.OnBecomeAvailable();
                     currentAvailableTrigger = availableTrigger;
                 }
             }
             else if (currentAvailableTrigger != null)
             {
-                //Debug.Log("Trigger UNavailable");
                 currentAvailableTrigger.OnBecomeUnavailable();
                 currentAvailableTrigger = null;
+            }
+        }
+        
+        private void processAvailableSplinePointObject()
+        {
+            SplinePointObject availableObject = getAvailableSplinePointObject();
+            if (availableObject != null && availableObject.TriggerType == SplinePointObjectTriggerType.AutoTriggerPlayer && availableObject.CanExecuteSplineObject())
+            {
+                if (availableObject.IsOfType(SplinePointObjectType.CheckPoint))
+                {
+                    if (currentAvailableCheckPoint != null) 
+                    {
+                        currentAvailableCheckPoint.OnBecomeUnavailable();
+                    }
+
+                    currentAvailableCheckPoint = (CheckPoint) availableObject;
+                    currentAvailableCheckPoint.OnBecomeAvailable();
+                }
             }
         }
 
@@ -180,6 +200,10 @@ namespace GNT
             }
 
             return null;
+        }
+        private SplinePointObject getAvailableSplinePointObject()
+        {
+            return groundMovement.GetAvailableSplinePointObject();
         }
 
         private void OnTeleportCamera()
@@ -220,6 +244,10 @@ namespace GNT
         {
             moveKeyHoldTimeScaled = 0.0f;
         }
+        public void SetBlockInput(bool blockInputEnabled)
+        {
+            setAcceptInput(!blockInputEnabled);
+        }
 
         public void BlockInputAnimationEvent(float duration)
         {
@@ -238,6 +266,15 @@ namespace GNT
         {
             return currentAvailableTeleporter != null ? currentAvailableTeleporter : currentAvailableTrigger;
         }
+        public void SetAvailableCheckPoint(CheckPoint checkPoint)
+        {
+            currentAvailableCheckPoint = checkPoint;
+        }
+
+        public CheckPoint GetAvailableCheckPoint()
+        {
+            return currentAvailableCheckPoint;
+        }
 
         private void setCameraPlayerFollowEnabled(bool isEnabled)
         {
@@ -252,6 +289,15 @@ namespace GNT
         {
             return advanceDialogueMappedKey.ToString();
         }
-    }
 
+
+        [ContextMenu("RespawnTest")]
+        void RespawnTest()
+        {
+            if (currentAvailableTeleporter != null) 
+            {
+                currentAvailableCheckPoint.Respawn(this, groundMovement);
+            }
+        }
+    }
 }

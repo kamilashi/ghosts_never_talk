@@ -11,7 +11,8 @@ namespace GNT
 
         private void Awake()
         {
-            BaseAwake();
+            BaseAwakeInteractable();
+            splinePointObjectType = SplinePointObjectType.InteractableTeleporter;
         }
 
         private void Start()

@@ -4,11 +4,6 @@ using UnityEngine;
 
 namespace GNT
 {
-    /*
-        public interface I_Interactable
-        {
-            public void Interact(Collider2D teleporteeCollider = null);
-        }*/
     enum AnimationState
     {
         Inactive,
@@ -17,39 +12,22 @@ namespace GNT
         Exit
     }
 
-    public class SplinePointObject : MonoBehaviour
-    {
-        public int splinePointIdx;
-        // here can be the parent spline
-    }
-
     public class Interactable : SplinePointObject
     {
         [Header("Interactable")]
         public int UIPromptKey;
         public float InteractRadius;
-        public GroundLayer ContainingGroundLayer;
         public AnimationClip InteractAnimation;
         public float LocalOffsetX;
         public float SnapSpeed = 1.0f;
         public bool SnapToLocalOffset = true;
-        //public bool WaitForCameraStop = false;
 
         [SerializeField]
         protected VfxPlayer vfxPlayerStaticRef;
 
-        void Awake()
+        protected void BaseAwakeInteractable()
         {
-            BaseAwake();
-        }
-
-        protected void BaseAwake()
-        {
-            if (ContainingGroundLayer == null)
-            {
-                ContainingGroundLayer = this.transform.GetComponentInParent<GroundLayer>();
-            }
-
+            base.BaseAwakeSplinePointObject();
             vfxPlayerStaticRef = gameObject.GetComponent<VfxPlayer>();
         }
 

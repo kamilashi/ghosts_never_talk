@@ -31,7 +31,7 @@ namespace GNT
 
         private void Awake()
         {
-            BaseAwake();
+            BaseAwakeInteractable();
 
             Debug.Assert(AnimatedTransform != null, "Please specify the animated transform for this script, even if it belongs to the same gameObject!");
             Debug.Assert(TriggerAction != null);
@@ -41,6 +41,8 @@ namespace GNT
             initialPosY = AnimatedTransform.position.y;
             initialRotation = AnimatedTransform.rotation;
             initialRotationEuler = initialRotation.eulerAngles;
+
+            splinePointObjectType = SplinePointObjectType.InteractableTrigger;
         }
         void Start()
         {
