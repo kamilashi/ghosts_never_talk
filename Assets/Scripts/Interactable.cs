@@ -4,20 +4,12 @@ using UnityEngine;
 
 namespace GNT
 {
-    enum AnimationState
-    {
-        Inactive,
-        Enter,
-        Loop,
-        Exit
-    }
-
     public class Interactable : SplinePointObject
     {
         [Header("Interactable")]
         public int UIPromptKey;
         public float InteractRadius;
-        public AnimationClip InteractAnimation;
+        public AnimationClip InteractAnimation; //#TODO: this should be a name reference, and not the animation itself
         public float LocalOffsetX;
         public float SnapSpeed = 1.0f;
         public bool SnapToLocalOffset = true;

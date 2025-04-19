@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -34,8 +34,6 @@ namespace GNT
         public int[] SpeedValues = new int[(int) GNT.MoveSpeed.Count];
         public float Acceleration = 0.0f; // only settable in the inspector
 
-        //public LayerMask GroundCollisionMask;
-
         //#TODO this should move to some animation mapper
         public AnimationClip TeleportAnimation;
         public AnimationClip RespawnAnimation; 
@@ -51,8 +49,9 @@ namespace GNT
 
         float currentHorizontalVelocity; // working speed that is used for smooth movement, range from - MaxSpeed to  MaxSpeed
 
-        SpriteRenderer spriteRenderer;
-        Animator animator;
+        SpriteRenderer spriteRendererStaticRef;
+        Animator animatorStaticRef;
+        AnimationPlayer animationPlayerStaticRef;
 
         void Awake()
         {
@@ -62,11 +61,11 @@ namespace GNT
             Assert.AreNotEqual(0,  SpeedValues[(int)GNT.MoveSpeed.Count-2]);
             Assert.AreNotEqual(0, Acceleration);
 #endif
-           // collider2D = gameObject.GetComponent<Collider2D>();
-            animator = gameObject.GetComponent<Animator>();
-            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            animatorStaticRef = gameObject.GetComponent<Animator>();
+            spriteRendererStaticRef = gameObject.GetComponent<SpriteRenderer>();
+            animationPlayerStaticRef = gameObject.GetComponent<AnimationPlayer>();
 
-            splineMovementData.positionOnSpline = 0.5f; // to be loaded from save data probably
+            splineMovementData.positionOnSpline = 0.0f; //#TODO to be loaded from save data probably, or from the spawn component
         }
 
         void Start()
@@ -74,7 +73,7 @@ namespace GNT
             currentHorizontalVelocity = SpeedValues[(int)GNT.MoveSpeed.Stand];
 
 
-            MoveAlongSpline(0.0f);
+            MoveAlongSpline(splineMovementData.positionOnSpline);
         }
 
         void Update()
@@ -92,8 +91,8 @@ namespace GNT
 
                 float speedBlendAnimationInput = getNormalizedSpeedBlend(SpeedValues[(int)MoveSpeed.Walk]);
                 int directionAninmationInput = getDirectionInt();
-                animator.SetFloat("idleToWalkSpeedBlend", speedBlendAnimationInput);
-                animator.SetInteger("directionInt", directionAninmationInput);
+                animatorStaticRef.SetFloat("idleToWalkSpeedBlend", speedBlendAnimationInput);
+                animatorStaticRef.SetInteger("directionInt", directionAninmationInput);
             }
         }
 
@@ -101,7 +100,7 @@ namespace GNT
         {
             if((int)direction * inputDirection < 0.0f && !isTurning)
             {
-                animator.SetBool("triggerTurning",true );
+                animatorStaticRef.SetBool("triggerTurning",true );
                 isTurning = true;
             }
 
@@ -116,7 +115,7 @@ namespace GNT
 
         public void OnTurnFinishedAnimationEvent()
         {
-            animator.SetBool("triggerTurning", false);
+            animatorStaticRef.SetBool("triggerTurning", false);
 
             Vector3 Lscale = transform.localScale;
             Lscale.x *= -1.0f;
@@ -135,6 +134,13 @@ namespace GNT
             ResetMovement();
             playAnimation(animation);
         }
+        
+/*
+        public void StopAndPlayAnimation(string animationStateName)
+        {
+            ResetMovement();
+            playAnimation(animationStateName);
+        }*/
 
         private float getNormalizedSpeedBlend(float maxSpeed)
         {
@@ -165,8 +171,8 @@ namespace GNT
 
         private void playAnimation(AnimationClip animationClip)
         {
-            string teleportAnimationClipName = animationClip.name;
-            animator.CrossFade(teleportAnimationClipName, 0.5f);
+            string animationClipName = animationClip.name;
+            animatorStaticRef.CrossFade(animationClipName, 0.0f);
         }
 
         public void SetFreezeMovement(bool isEnabled)
@@ -184,10 +190,9 @@ namespace GNT
 
         public bool IsAtSplinePoint(int pointIndex, float error = 0.01f)
         {
-            //#TODO this might have to change if we have multiple splines per ground layer. Also active walking layer SHOULD live on the entity 
-            CatmullRomSpline currentSpline = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer.MovementSpline;
-            return Mathf.Abs(currentSpline.GetLocalPositionOnSpline(pointIndex) - splineMovementData.positionOnSpline) <= error;
+            return Mathf.Abs(GetAbsoluteDistanceToSplinePoint(pointIndex)) <= error;
         }
+
         public float GetAbsoluteDistanceToSplinePoint(int pointIndex)
         {
             //#TODO this might have to change if we have multiple splines per ground layer. Also active walking layer SHOULD live on the entity 
@@ -199,9 +204,10 @@ namespace GNT
         // #TODO: Move this to an animationPlayer component!!!!
         public bool IsAnimationFinished(AnimationClip animation)
         {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0); // 0 = Base Layer
+            AnimatorStateInfo stateInfo = animatorStaticRef.GetCurrentAnimatorStateInfo(0);
+            int animationHash = Animator.StringToHash(animation.name);
 
-            return !stateInfo.IsName(animation.name) || stateInfo.normalizedTime >= 1f;
+            return animationPlayerStaticRef.HasAnimationFinished(animationHash);
         }
 
 

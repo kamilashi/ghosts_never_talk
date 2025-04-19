@@ -71,7 +71,7 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
                     {
                         float absoluteDistance = respawneeGroundMovementDynamicRef.GetAbsoluteDistanceToSplinePoint(splinePointIdx);
                         float direction = Mathf.Sign(absoluteDistance);
-                        currentVeclocity += direction * Mathf.Max(Acceleration * Time.deltaTime, Mathf.Abs(absoluteDistance));
+                        currentVeclocity += direction * Mathf.Min(Acceleration * Time.deltaTime, Mathf.Abs(absoluteDistance));
                         respawneeGroundMovementDynamicRef.MoveAlongSpline(currentVeclocity);
                     }
                     break;
@@ -85,6 +85,7 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
                         currentVeclocity = 0.0f;
                         respawneePlayerControllerDynamicRef = null;
                         respawneeGroundMovementDynamicRef = null;
+                        currentState = RespawnStateMachine.Inactive;
                     }
                     break;
                 }
@@ -118,11 +119,4 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
         isLocked = false;
         vfxPlayerStaticRef.PlayVfxExit();
     }
-
-    // inherited - needs to be unified with the interacitions and the teleporters somehow
-
-//     public override void ExecuteSplineObject(PlayerController playerController, GroundMovement groundMovement)
-//     {
-//         playerController.SetAvailableCheckPoint(this);
-//     }
 }

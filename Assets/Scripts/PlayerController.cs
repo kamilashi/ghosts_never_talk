@@ -294,7 +294,7 @@ namespace GNT
         [ContextMenu("RespawnTest")]
         void RespawnTest()
         {
-            if (currentAvailableTeleporter != null) 
+            if (currentAvailableCheckPoint != null) 
             {
                 currentAvailableCheckPoint.Respawn(this, groundMovement);
             }

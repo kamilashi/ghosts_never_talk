@@ -134,11 +134,19 @@ public class CatmullRomSpline : MonoBehaviour
             if(localPosRef >= controlPoints[i].getLocalPos() && localPosRef < controlPoints[i+1].getLocalPos())
             {
                 point1Index = i;
-
-                if (newLocalPos >= 0 && newLocalPos <= totalLength)
+                float safetyError = 0.001f;
+                // clamp to end points:
+                if(newLocalPos < 0.0f)
                 {
-                    localPosRef = newLocalPos;
+                    newLocalPos = 0.0f + safetyError;
                 }
+
+                if (newLocalPos > totalLength)
+                {
+                    newLocalPos = totalLength - safetyError;
+                }
+
+                localPosRef = newLocalPos;
 
                 break;
             }

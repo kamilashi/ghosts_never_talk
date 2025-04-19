@@ -5,6 +5,14 @@ using UnityEngine.Events;
 
 namespace GNT
 {
+    enum AnimationState
+    {
+        Inactive,
+        Enter,
+        Loop,
+        Exit
+    }
+
     public class InteractableTrigger : Interactable
     {
         [Header("Interactable Trigger")]
