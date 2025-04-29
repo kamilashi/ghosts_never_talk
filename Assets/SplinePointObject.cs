@@ -7,31 +7,32 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace GNT
 {
-    public enum SplinePointObjectTriggerType
+    public enum SplinePointObjectFaction
     {
-        Custom,
-        AutoTriggerPlayer,
-        AutoTriggerNPC,
-        AutoTriggerAll,
+        Player,
+        NPC,
+        All,
     }
     
     public enum SplinePointObjectType
     {
         CheckPoint,
         InteractableTeleporter,
-        InteractableTrigger
+        InteractableTrigger,
+       // AutoTrigger
     }
 
     public abstract class SplinePointObject : MonoBehaviour
     {
-        public SplinePointObjectTriggerType TriggerType = SplinePointObjectTriggerType.Custom;
+        public SplinePointObjectFaction Faction = SplinePointObjectFaction.Player;
         public GroundLayer ContainingGroundLayer;
-        public float DetectionRadius;
+        public float DetectionRadius = -1;
 
         [SerializeField] protected SplinePointObjectType splinePointObjectType;
 
         protected int splinePointIdx;
         protected bool isLocked;
+        protected bool isHidden;
         // here can be the parent spline
 
         protected void BaseAwakeSplinePointObject()
@@ -42,6 +43,9 @@ namespace GNT
             }
 
             isLocked = false;
+            isHidden = false;
+
+            Debug.Assert(DetectionRadius > 0.0f, "DetectionRadius is not set!");
         }
 
         public void SetSplinePoint(int pointIndex)
@@ -58,14 +62,14 @@ namespace GNT
 #endif
         }
 
-        public int GetSplinePoint()
+        public int GetSplinePointIndex()
         {
             return splinePointIdx;
         }
 
         public bool IsInDetectionRange(float currentDistance)
         {
-            return currentDistance <= DetectionRadius;
+            return !isHidden && currentDistance <= DetectionRadius;
         }
 
         public bool CanExecuteSplineObject()
@@ -73,7 +77,8 @@ namespace GNT
             return !isLocked;
         }
 
-        public virtual void ExecuteSplineObject(PlayerController playerControllerRef = null, GroundMovement groundMovementRef = null)
+        // either auto trigger/apply something or prepare for interaction (like become available)
+        public virtual void ExecuteSplineObject(PlayerController playerControllerRef = null, CharacterMovement groundMovementRef = null)
         { 
 
         }

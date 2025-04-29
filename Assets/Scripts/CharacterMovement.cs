@@ -29,7 +29,14 @@ namespace GNT
         public SplinePointObject availableSplinePointObject;
     }
 
-    public class GroundMovement : MonoBehaviour
+    [Serializable]
+    struct GroundLayerData
+    {
+       // public int indexInScene;
+        public GroundLayer currentGorundLayer;
+    }
+
+    public class CharacterMovement : MonoBehaviour
     {
         public int[] SpeedValues = new int[(int) GNT.MoveSpeed.Count];
         public float Acceleration = 0.0f; // only settable in the inspector
@@ -41,6 +48,7 @@ namespace GNT
 
         [SerializeField] float offsetFromGroundToPivot;
         [SerializeField] SplineMovementData splineMovementData;
+        [SerializeField] GroundLayerData groundLayerData; // for now set inspector - later should be loaded + managed during the switch
 
         int inputDirection = 1;   // input (horizontal) direction received from controller
         int inputSpeed = 0;   // input speed received from controller
@@ -73,7 +81,7 @@ namespace GNT
             currentHorizontalVelocity = SpeedValues[(int)GNT.MoveSpeed.Stand];
 
 
-            MoveAlongSpline(splineMovementData.positionOnSpline);
+            MoveAlongSpline(0.0f);
         }
 
         void Update()
@@ -154,7 +162,7 @@ namespace GNT
         public void MoveAlongSpline(float horizontalVelocityPerTimeStep)
         {
             //#TODO this might have to change if we have multiple splines per ground layer
-            CatmullRomSpline currentSpline = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer.MovementSpline;
+            CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
             Vector3 newPosition = currentSpline.GetPositionOnSpline(ref splineMovementData.positionOnSpline, ref splineMovementData.availableSplinePointObject, horizontalVelocityPerTimeStep);
             newPosition.y += offsetFromGroundToPivot;
             Vector3 toNewPosition = newPosition - transform.position;
@@ -163,10 +171,27 @@ namespace GNT
 
         public void TeleportToSplinePoint(int pointIndex)
         {
-            //#TODO this might have to change if we have multiple splines per ground layer. Also active walking layer SHOULD live on the entity 
-            CatmullRomSpline currentSpline = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer.MovementSpline;
+            CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
+
             splineMovementData.positionOnSpline = currentSpline.GetLocalPositionOnSpline(pointIndex);
             MoveAlongSpline(0.0f);
+        }
+        
+        public void TeleportToSplinePoint(int pointIndex, GroundLayer targteLayer)
+        {
+            CatmullRomSpline currentSpline = targteLayer.MovementSpline;
+
+            if (targteLayer != groundLayerData.currentGorundLayer)
+            {
+                SwitchToLayer(targteLayer, currentSpline.GetLocalPositionOnSpline(pointIndex));
+                spriteRendererStaticRef.sortingOrder = targteLayer.SpriteLayerOrder;
+            }
+            else
+            {
+
+                splineMovementData.positionOnSpline = currentSpline.GetLocalPositionOnSpline(pointIndex);
+                MoveAlongSpline(0.0f);
+            }
         }
 
         private void playAnimation(AnimationClip animationClip)
@@ -187,6 +212,10 @@ namespace GNT
         {
             return splineMovementData.availableSplinePointObject;
         }
+        public GroundLayer GetCurrentGroundLayer()
+        {
+            return groundLayerData.currentGorundLayer;
+        }
 
         public bool IsAtSplinePoint(int pointIndex, float error = 0.01f)
         {
@@ -196,7 +225,7 @@ namespace GNT
         public float GetAbsoluteDistanceToSplinePoint(int pointIndex)
         {
             //#TODO this might have to change if we have multiple splines per ground layer. Also active walking layer SHOULD live on the entity 
-            CatmullRomSpline currentSpline = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer.MovementSpline;
+            CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
             return currentSpline.GetLocalPositionOnSpline(pointIndex) - splineMovementData.positionOnSpline;
         }
 
@@ -209,52 +238,43 @@ namespace GNT
 
             return animationPlayerStaticRef.HasAnimationFinished(animationHash);
         }
+        public void SwitchToLayer(GroundLayer targetGroundLayer, float positionOnLayer = -1.0f)
+        {
+            groundLayerData.currentGorundLayer = targetGroundLayer;
 
+            if(positionOnLayer >= 0.0)
+            {
+                splineMovementData.positionOnSpline = positionOnLayer;
+                MoveAlongSpline(0.0f);
+            }
 
-        /*
-                public static float GetDistanceToGroundCollider(Vector3 startPosition, float rayLength, Collider2D collider2D, LayerMask groundCollisionMask)
-                {
-                    RaycastHit2D downHit = Physics2D.Raycast(startPosition, Vector2.down, rayLength, groundCollisionMask);
+            Debug.Log("switched to layerIdx " + targetGroundLayer.GroundLayerIndex);
+        }
 
-                    return (downHit.distance - (collider2D.bounds.center.y - collider2D.bounds.min.y)); // snap to the ground.
-                }
-                public void SnapToGround()
-                {
-                    float rayLength = 10.0f;
+        public bool SwitchIn()
+        {
+            GroundLayer targetGroundLayer = GameManager.Instance.ActiveSceneDynamicRef.GetFartherOrThisGroundLayer(groundLayerData.currentGorundLayer.GroundLayerIndex);
 
-                    Vector3 down = Vector3.zero;
-                    down.y = -GetDistanceToGroundCollider(transform.position, rayLength, collider2D, GroundCollisionMask);
-                    transform.Translate(down, Space.World);
-                }
-                private void moveAlongGroundCollisionTangent(float horizontalVelocityPerTimeStep)
-                {
-                    float rayLength = 10.0f;
-                    float stepDistance = 2.0f;
-                    Vector3 rayStart = transform.position;
-                    RaycastHit2D downHit = Physics2D.Raycast(rayStart, Vector2.down, rayLength, GroundCollisionMask);
+            if(targetGroundLayer != groundLayerData.currentGorundLayer)
+            {
+                SwitchToLayer(targetGroundLayer);
+                return true;
+            }
 
-                    Vector3 horizontalDirection = new Vector3(Mathf.Sign(horizontalVelocityPerTimeStep), 0.0f, 0.0f);
-                    Vector3 groundNormal = downHit.normal;
-                    Vector3 alongNormal = Vector3.Cross(groundNormal, new Vector3(0.0f, 0.0f, 1.0f));
-                    alongNormal *= horizontalVelocityPerTimeStep;
+            return false;
+        }
 
-                    alongNormal.y += stepDistance;
+        public bool SwitchOut()
+        {
+            GroundLayer targetGroundLayer = GameManager.Instance.ActiveSceneDynamicRef.GetCloserOrThisGroundLayer(groundLayerData.currentGorundLayer.GroundLayerIndex);
 
-        #if UNITY_EDITOR
-                    // Vector3 endPosition = transform.position;
-                    //endPosition += alongNormal;
-                    //Debug.DrawLine(transform.position, endPosition, Color.magenta, Time.deltaTime, false);
-        #endif
-                    Vector3 groundProbePosition = transform.position;
-                    groundProbePosition += alongNormal;
+            if (targetGroundLayer != groundLayerData.currentGorundLayer)
+            {
+                SwitchToLayer(targetGroundLayer);
+                return true;
+            }
 
-                    alongNormal.y -= GetDistanceToGroundCollider(groundProbePosition, rayLength, collider2D, GroundCollisionMask);
-                    transform.Translate(alongNormal, Space.World);
-                }
-
-                public Collider2D GetCollider()
-                {
-                    return collider2D;
-                }*/
+            return false;
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace GNT
         }
         void Start()
         {
-            OnBecomeVisible();
+            //OnBecomeVisible();
         }
 
         void Update()
@@ -65,15 +65,16 @@ namespace GNT
             }
         }
 
+/*
         void OnBecomeVisible()
         {
-            GlobalData.Instance.ActiveSceneDynamicRef.AddPlayerVisibleInteractableTrigger(this);
+            GameManager.Instance.ActiveSceneDynamicRef.AddPlayerVisibleInteractableTrigger(this);
         }
 
         void OnBecomeInvisible()
         {
-            GlobalData.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleInteractableTrigger(this);
-        }
+            GameManager.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleInteractableTrigger(this);
+        }*/
 
         protected override void onInteractCoroutineFinished()
         {

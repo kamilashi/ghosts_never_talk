@@ -28,7 +28,7 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
     [SerializeField] private float currentVeclocity;
 
     [SerializeField] private RespawnStateMachine currentState;
-    [SerializeField] private GroundMovement respawneeGroundMovementDynamicRef;
+    [SerializeField] private CharacterMovement respawneeGroundMovementDynamicRef;
     [SerializeField] private PlayerController respawneePlayerControllerDynamicRef;
 
     [SerializeField] protected VfxPlayer vfxPlayerStaticRef; // maybe move to the SplinePointObject too
@@ -92,14 +92,8 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
         }
     }
 
-    public void Respawn(PlayerController playerController, GroundMovement groundMovement)
+    public void Respawn(PlayerController playerController, CharacterMovement groundMovement)
     {
-        //#TODO::
-        /*if (groundMovement.currentLayer != ContainingGroundLayer)
-        {
-            // error!!
-        }*/
-
         currentState = RespawnStateMachine.PlayingRespawnAnimation;
         respawneeGroundMovementDynamicRef = groundMovement;
         respawneePlayerControllerDynamicRef = playerController;
@@ -111,12 +105,13 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
     // needs to be unified with interactable
     public void OnBecomeAvailable()
     {
-        isLocked = true;
+        isHidden = true;
         vfxPlayerStaticRef.PlayVfxEnter(ContainingGroundLayer.SpriteLayerOrder, DetectionRadius * 3.0f);
     }
     public void OnBecomeUnavailable()
     {
-        isLocked = false;
+        isHidden = false;
         vfxPlayerStaticRef.PlayVfxExit();
     }
+
 }

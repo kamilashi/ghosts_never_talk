@@ -41,6 +41,7 @@ namespace GNT
         [SerializeField]
         private float currentFollowPlayerDampLambda;
         private PlayerController playerControllerStaticReference;
+        private CharacterMovement playerMovementStaticReference;
         private Camera mainCamera;
         private float lookaheadDirectionSmooth = 0.0f;
         private bool isCameraMovementEnabled = true;
@@ -53,7 +54,8 @@ namespace GNT
 
         void Start()
         {
-            playerControllerStaticReference = GlobalData.Instance.GetPlayerController(); // cash out the constant reference to the player controller
+            playerControllerStaticReference = GameManager.Instance.GetPlayerController(); // cash out the constant reference to the player controller
+            playerMovementStaticReference = GameManager.Instance.GerPlayerMovement(); // cash out the constant reference to the player controller
 
             mainCamera = this.GetComponent<Camera>(); 
         }
@@ -79,7 +81,7 @@ namespace GNT
             float cameraHeightChangeThreshold = playerToGroundHeightDifferenceThreshold;
             float cameraHeightChangeReference = 0.0f;
 
-            GroundLayer activeGroundLayerRef = GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer;
+            GroundLayer activeGroundLayerRef = playerMovementStaticReference.GetCurrentGroundLayer();
             if (adjustToScreenBottomHook) // cameras y position relative to ground
             {
                 float referenceExtentY = (activeGroundLayerRef.ScreenBottomHook.transform.position.z - transform.position.z) * (float)System.Math.Tan(mainCamera.fieldOfView * 0.5 * (System.Math.PI / 180.0));

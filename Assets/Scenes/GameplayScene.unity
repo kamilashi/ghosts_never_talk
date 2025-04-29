@@ -1435,9 +1435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 0
+  Faction: 0
   ContainingGroundLayer: {fileID: 0}
-  DetectionRadius: 0
+  DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
   InteractRadius: 3
@@ -1525,9 +1525,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 0
+  Faction: 0
   ContainingGroundLayer: {fileID: 0}
-  DetectionRadius: 0
+  DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
   InteractRadius: 3
@@ -7212,9 +7212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a651ae6e74f8a42adb6dceece926fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 1
+  Faction: 0
   ContainingGroundLayer: {fileID: 712069334}
-  DetectionRadius: 3
+  DetectionRadius: 5
   splinePointObjectType: 0
   Acceleration: 3
   currentVeclocity: 0
@@ -7306,6 +7306,7 @@ MonoBehaviour:
   StartSceneStaticRef: {fileID: 1728121134}
   MainCameraStaticRef: {fileID: 318446024}
   PlayerControllerStaticRef: {fileID: 1294591926}
+  PlayerMovementStaticRef: {fileID: 1294591929}
   DialogueViewStaticRef: {fileID: 1233174499}
   DialogueRunnerStaticRef: {fileID: 3579681405842511146}
   ActiveSceneDynamicRef: {fileID: 0}
@@ -8735,9 +8736,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6461fc7576f8d3345895bfc91f09d7c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 0
+  Faction: 0
   ContainingGroundLayer: {fileID: 1436780624}
-  DetectionRadius: 0
+  DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
   InteractRadius: 3
@@ -9260,6 +9261,8 @@ MonoBehaviour:
   splineMovementData:
     positionOnSpline: 0
     availableSplinePointObject: {fileID: 0}
+  groundLayerData:
+    currentGorundLayer: {fileID: 0}
 --- !u!50 &1294591930
 Rigidbody2D:
   serializedVersion: 4
@@ -9582,9 +9585,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 0
+  Faction: 0
   ContainingGroundLayer: {fileID: 0}
-  DetectionRadius: 0
+  DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
   InteractRadius: 3
@@ -10290,9 +10293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 0
+  Faction: 0
   ContainingGroundLayer: {fileID: 0}
-  DetectionRadius: 0
+  DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
   InteractRadius: 3
@@ -10370,14 +10373,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df1356a066e4764685fd29329571bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveGroundLayer: {fileID: 0}
   sceneStartData:
     startLayerIdx: 0
+    positionOnLayer: 5
   groundLayers:
   - {fileID: 712069334}
   - {fileID: 1219938348}
   - {fileID: 1436780624}
-  playerVisibleTeleporters: []
 --- !u!1 &1819789678
 GameObject:
   m_ObjectHideFlags: 0
