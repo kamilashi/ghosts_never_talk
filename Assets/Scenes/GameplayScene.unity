@@ -1440,7 +1440,6 @@ MonoBehaviour:
   DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
-  InteractRadius: 3
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -1530,7 +1529,6 @@ MonoBehaviour:
   DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
-  InteractRadius: 3
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -8741,7 +8739,6 @@ MonoBehaviour:
   DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
-  InteractRadius: 3
   InteractAnimation: {fileID: 7400000, guid: e3e01b9d72492344fb73e4e21494c528, type: 2}
   LocalOffsetX: -2.7
   SnapSpeed: 10
@@ -9114,6 +9111,7 @@ GameObject:
   - component: {fileID: 1294591931}
   - component: {fileID: 1294591932}
   - component: {fileID: 1294591933}
+  - component: {fileID: 1294591934}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -9339,6 +9337,18 @@ MonoBehaviour:
   GlobalCharacterReferenceName: Ghost
   DialoguePanelOffset: {x: 0, y: 3.5}
   ActiveNodeName: 
+--- !u!114 &1294591934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294591924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ab4354444990d48a33c361898814ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1318752994
 GameObject:
   m_ObjectHideFlags: 0
@@ -9590,7 +9600,6 @@ MonoBehaviour:
   DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
-  InteractRadius: 3
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -10298,7 +10307,6 @@ MonoBehaviour:
   DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
-  InteractRadius: 3
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -10375,7 +10383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneStartData:
     startLayerIdx: 0
-    positionOnLayer: 5
+    positionOnLayer: 10
   groundLayers:
   - {fileID: 712069334}
   - {fileID: 1219938348}

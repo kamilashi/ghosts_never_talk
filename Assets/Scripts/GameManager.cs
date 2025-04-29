@@ -51,14 +51,14 @@ namespace GNT
             // until we have loading and save data:
             ActiveSceneDynamicRef = StartSceneStaticRef;
             ActiveSceneDynamicRef.OnLoadInitialize();
-
-            SceneStartData sceneStartData = StartSceneStaticRef.GetSceneStartData();
-            PlayerMovementStaticRef.SwitchToLayer(StartSceneStaticRef.GetGroundLayer(sceneStartData.startLayerIdx),sceneStartData.positionOnLayer);
         }
 
         void Start()
         {
             OnSceneLoadFinishEvent?.Invoke();
+
+            SceneStartData sceneStartData = StartSceneStaticRef.GetSceneStartData();
+            PlayerMovementStaticRef.SwitchToLayer(StartSceneStaticRef.GetGroundLayer(sceneStartData.startLayerIdx), sceneStartData.positionOnLayer);
         }
 
         void Update()

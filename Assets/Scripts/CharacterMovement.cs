@@ -72,16 +72,11 @@ namespace GNT
             animatorStaticRef = gameObject.GetComponent<Animator>();
             spriteRendererStaticRef = gameObject.GetComponent<SpriteRenderer>();
             animationPlayerStaticRef = gameObject.GetComponent<AnimationPlayer>();
-
-            splineMovementData.positionOnSpline = 0.0f; //#TODO to be loaded from save data probably, or from the spawn component
         }
 
         void Start()
         {
             currentHorizontalVelocity = SpeedValues[(int)GNT.MoveSpeed.Stand];
-
-
-            MoveAlongSpline(0.0f);
         }
 
         void Update()
@@ -143,12 +138,6 @@ namespace GNT
             playAnimation(animation);
         }
         
-/*
-        public void StopAndPlayAnimation(string animationStateName)
-        {
-            ResetMovement();
-            playAnimation(animationStateName);
-        }*/
 
         private float getNormalizedSpeedBlend(float maxSpeed)
         {
@@ -173,25 +162,17 @@ namespace GNT
         {
             CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
 
-            splineMovementData.positionOnSpline = currentSpline.GetLocalPositionOnSpline(pointIndex);
-            MoveAlongSpline(0.0f);
+            SetLocalPositionOnSpline(currentSpline.GetLocalPositionOnSpline(pointIndex));
         }
         
         public void TeleportToSplinePoint(int pointIndex, GroundLayer targteLayer)
         {
-            CatmullRomSpline currentSpline = targteLayer.MovementSpline;
-
             if (targteLayer != groundLayerData.currentGorundLayer)
             {
-                SwitchToLayer(targteLayer, currentSpline.GetLocalPositionOnSpline(pointIndex));
-                spriteRendererStaticRef.sortingOrder = targteLayer.SpriteLayerOrder;
+                SwitchToLayer(targteLayer);
             }
-            else
-            {
 
-                splineMovementData.positionOnSpline = currentSpline.GetLocalPositionOnSpline(pointIndex);
-                MoveAlongSpline(0.0f);
-            }
+            TeleportToSplinePoint(pointIndex);
         }
 
         private void playAnimation(AnimationClip animationClip)
@@ -241,14 +222,23 @@ namespace GNT
         public void SwitchToLayer(GroundLayer targetGroundLayer, float positionOnLayer = -1.0f)
         {
             groundLayerData.currentGorundLayer = targetGroundLayer;
+            spriteRendererStaticRef.sortingOrder = targetGroundLayer.SpriteLayerOrder;
 
-            if(positionOnLayer >= 0.0)
+            if (positionOnLayer >= 0.0)
             {
-                splineMovementData.positionOnSpline = positionOnLayer;
-                MoveAlongSpline(0.0f);
+                SetLocalPositionOnSpline(positionOnLayer);
+            }
+            else if(splineMovementData.positionOnSpline > groundLayerData.currentGorundLayer.MovementSpline.GetTotalLength())
+            {
+                SetLocalPositionOnSpline(groundLayerData.currentGorundLayer.MovementSpline.GetTotalLength());
             }
 
-            Debug.Log("switched to layerIdx " + targetGroundLayer.GroundLayerIndex);
+           Debug.Log("switched to layerIdx " + targetGroundLayer.GroundLayerIndex);
+        }
+        public void SetLocalPositionOnSpline(float positionOnLayer)
+        {
+            splineMovementData.positionOnSpline = positionOnLayer;
+            MoveAlongSpline(0.0f);
         }
 
         public bool SwitchIn()

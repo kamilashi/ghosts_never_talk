@@ -116,9 +116,9 @@ namespace GNT
             if (splineObject != null && splineObject.IsOfType(SplinePointObjectType.CheckPoint))
             {
                 CheckPoint newCheckPoint = (CheckPoint)splineObject;
-                if (currentAvailableCheckPoint != newCheckPoint)
+                if (newCheckPoint != currentAvailableCheckPoint)
                 {
-                    currentAvailableCheckPoint?.OnBecomeUnavailable();
+                    //currentAvailableCheckPoint?.OnBecomeUnavailable();
                     newCheckPoint.OnBecomeAvailable();
                     currentAvailableCheckPoint = newCheckPoint;
                 }
@@ -268,10 +268,10 @@ namespace GNT
         [ContextMenu("RespawnTest")]
         void RespawnTest()
         {
-            if (currentAvailableCheckPoint != null) 
+            if (currentAvailableCheckPoint != null)
             {
+                groundMovement.SwitchToLayer(currentAvailableCheckPoint.ContainingGroundLayer);
                 currentAvailableCheckPoint.Respawn(this, groundMovement);
-                groundMovement.TeleportToSplinePoint(currentAvailableCheckPoint.GetSplinePointIndex());
             }
         }
     }

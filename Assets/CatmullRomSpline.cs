@@ -177,6 +177,10 @@ public class CatmullRomSpline : MonoBehaviour
     {
         return controlPoints[pointIndex].getLocalPos();
     }
+    public float GetTotalLength()
+    {
+        return totalLength;
+    }
 
     //[ExecuteInEditMode]
     private void OnValidate()
