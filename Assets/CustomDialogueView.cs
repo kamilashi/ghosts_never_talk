@@ -63,7 +63,7 @@ namespace GNT
             fullLineText = dialogueLine.TextWithoutCharacterName.Text;
             text.text = " ";
 
-            GlobalCharacterReference charRef = GlobalData.Instance.GetGlobalCharacterByReference(dialogueLine.CharacterName);
+            GlobalCharacterReference charRef = GameManager.Instance.GetGlobalCharacterByReference(dialogueLine.CharacterName);
             Vector2 worldSpaceOffset = charRef.GameObjectStaticReference.GetComponent<DialogueObject>().DialoguePanelOffset;
             Vector3 worldPosition = charRef.GameObjectStaticReference.transform.position;
             worldPosition.x += worldSpaceOffset.x;

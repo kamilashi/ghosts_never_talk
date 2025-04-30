@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8306178359863933971}
   - component: {fileID: 4640652579240586278}
   m_Layer: 0
-  m_Name: InteractionAvailableVfxPrefab
+  m_Name: CheckPointAvailableVfxPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_Sprite: {fileID: 7482667652216324306, guid: 5cffdc91685ac2746b32fdb29d786234, type: 3}
-  m_Color: {r: 0.81761736, g: 0.5809897, b: 0.9056604, a: 1}
+  m_Color: {r: 0.50088996, g: 0.7924528, b: 0.74542654, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

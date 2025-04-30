@@ -32,9 +32,9 @@ namespace GNT
         private void Start()
         {
             globalCharacterReference = new GlobalCharacterReference(GlobalCharacterReferenceKey, GlobalCharacterReferenceName, this.gameObject);
-            dialogueRunnerStaticRef = GlobalData.Instance.DialogueRunnerStaticRef;
+            dialogueRunnerStaticRef = GameManager.Instance.DialogueRunnerStaticRef;
 
-            GlobalData.Instance.RegisterGlobalCharacterReference(globalCharacterReference.Key, globalCharacterReference);
+            GameManager.Instance.RegisterGlobalCharacterReference(globalCharacterReference.Key, globalCharacterReference);
         }
 
         public void StartDialogue()

@@ -5,6 +5,14 @@ using UnityEngine.Events;
 
 namespace GNT
 {
+    enum AnimationState
+    {
+        Inactive,
+        Enter,
+        Loop,
+        Exit
+    }
+
     public class InteractableTrigger : Interactable
     {
         [Header("Interactable Trigger")]
@@ -31,7 +39,7 @@ namespace GNT
 
         private void Awake()
         {
-            BaseAwake();
+            BaseAwakeInteractable();
 
             Debug.Assert(AnimatedTransform != null, "Please specify the animated transform for this script, even if it belongs to the same gameObject!");
             Debug.Assert(TriggerAction != null);
@@ -41,10 +49,12 @@ namespace GNT
             initialPosY = AnimatedTransform.position.y;
             initialRotation = AnimatedTransform.rotation;
             initialRotationEuler = initialRotation.eulerAngles;
+
+            splinePointObjectType = SplinePointObjectType.InteractableTrigger;
         }
         void Start()
         {
-            OnBecomeVisible();
+            //OnBecomeVisible();
         }
 
         void Update()
@@ -55,15 +65,16 @@ namespace GNT
             }
         }
 
+/*
         void OnBecomeVisible()
         {
-            GlobalData.Instance.ActiveSceneDynamicRef.AddPlayerVisibleInteractableTrigger(this);
+            GameManager.Instance.ActiveSceneDynamicRef.AddPlayerVisibleInteractableTrigger(this);
         }
 
         void OnBecomeInvisible()
         {
-            GlobalData.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleInteractableTrigger(this);
-        }
+            GameManager.Instance.ActiveSceneDynamicRef.RemovePlayerVisibleInteractableTrigger(this);
+        }*/
 
         protected override void onInteractCoroutineFinished()
         {
@@ -83,7 +94,6 @@ namespace GNT
 
         private IEnumerator OnTransformAnimateCoroutine(int direction /* +1 = Up, -1 = down*/)
         {
-            float error = 0.0f;
             float targetYPos = direction > 0.0f ? initialPosY + EnterExitHeightDelta : initialPosY;
             Quaternion startRotation = AnimatedTransform.rotation;
 
@@ -98,10 +108,6 @@ namespace GNT
                 float eulerY = Mathf.LerpAngle(startRotation.eulerAngles.y, initialRotation.eulerAngles.y, progress);
                 float deltaY = Mathf.DeltaAngle(transform.rotation.eulerAngles.y, eulerY);
                 AnimatedTransform.Rotate(Vector3.up , deltaY < 0.0f ? (deltaY * Mathf.Deg2Rad) : (180.0f + deltaY) * Mathf.Deg2Rad);
-                //AnimatedTransform.Rotate(Vector3.up , deltaY * Mathf.Deg2Rad);
-                //Debug.Log("eulerY " + eulerY);
-                //Debug.Log("deltaY " + deltaY);
-                //Debug.Log("SPIN COROUTINE");
 
                 yield return null;
             }

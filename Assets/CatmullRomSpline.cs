@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.U2D;
 
 [Serializable]
 public struct InitializeSettings
@@ -53,6 +57,8 @@ public class CatmullRomSpline : MonoBehaviour
 {
     public List<ControlPoint> controlPoints;
     public InitializeSettings initializeSettings;
+
+    public float ObjectScanDistance = -1;
 
     [Range(1, 100)] public float resolution = 10;
 
@@ -118,7 +124,7 @@ public class CatmullRomSpline : MonoBehaviour
         controlPoints.InsertRange(0, newControlPoints);
     }
 
-    public Vector3 GetPositionOnSpline(ref float localPosRef, float increment)
+    public Vector3 GetPositionOnSpline(ref float localPosRef, ref GNT.SplinePointObject detectedObject, float increment)
     {
         float newLocalPos = localPosRef + increment;
 
@@ -128,17 +134,29 @@ public class CatmullRomSpline : MonoBehaviour
             if(localPosRef >= controlPoints[i].getLocalPos() && localPosRef < controlPoints[i+1].getLocalPos())
             {
                 point1Index = i;
-
-                if (newLocalPos >= 0 && newLocalPos <= totalLength)
+                float safetyError = 0.001f;
+                // clamp to end points:
+                if(newLocalPos < 0.0f)
                 {
-                    localPosRef = newLocalPos;
+                    newLocalPos = 0.0f + safetyError;
                 }
+
+                if (newLocalPos > totalLength)
+                {
+                    newLocalPos = totalLength - safetyError;
+                }
+
+                localPosRef = newLocalPos;
 
                 break;
             }
         }
 
         float t = (localPosRef - controlPoints[point1Index].getLocalPos()) / (controlPoints[point1Index + 1].getLocalPos() - controlPoints[point1Index].getLocalPos());
+
+        {
+            detectedObject = scanForSplinePointObjects(point1Index, newLocalPos);
+        }
 
         return getPositionOnSplineSegment(point1Index, t);
     }
@@ -159,7 +177,12 @@ public class CatmullRomSpline : MonoBehaviour
     {
         return controlPoints[pointIndex].getLocalPos();
     }
+    public float GetTotalLength()
+    {
+        return totalLength;
+    }
 
+    //[ExecuteInEditMode]
     private void OnValidate()
     {
         if (controlPoints == null || controlPoints.Count == 0)
@@ -169,23 +192,86 @@ public class CatmullRomSpline : MonoBehaviour
 
         totalLength = 0.0f;
 
+        controlPoints[0].setLocalPos(0.0f);
         if (controlPoints[0].objectAtPoint != null)
         {
-            controlPoints[0].objectAtPoint.splinePointIdx = 0;
+            controlPoints[0].objectAtPoint.SetSplinePoint(0);
+            controlPoints[0].objectAtPoint.SetPosition(controlPoints[0].getPosition());
+
+            if (ObjectScanDistance > 0.0f && controlPoints[0].objectAtPoint.DetectionRadius > ObjectScanDistance)
+            {
+                Debug.LogWarning("Please increase the ObjectScanDistance of spline " + this.name + "!");
+            }
         }
 
         for (int i = 1; i < controlPoints.Count; i++)
         {
-            Vector3 prevToThis = controlPoints[i].getPosition() - controlPoints[i-1].getPosition();
+            Vector3 prevToThis = controlPoints[i].getPosition() - controlPoints[i - 1].getPosition();
             float distance = prevToThis.magnitude;
             totalLength += distance;
             controlPoints[i].setLocalPos(totalLength);
 
-            if(controlPoints[i].objectAtPoint != null)
+            if (controlPoints[i].objectAtPoint != null)
             {
-                controlPoints[i].objectAtPoint.splinePointIdx = i;
+                controlPoints[i].objectAtPoint.SetSplinePoint(i);
+                controlPoints[i].objectAtPoint.SetPosition(controlPoints[i].getPosition());
+
+                if (ObjectScanDistance > 0.0f && controlPoints[i].objectAtPoint.DetectionRadius > ObjectScanDistance)
+                {
+                    Debug.LogWarning("Please increase the ObjectScanDistance of spline " + this.name + "!");
+                }
             }
         }
+    }
+
+    private GNT.SplinePointObject scanForSplinePointObjects(int leftPointIdx, float positionOnSpline)
+    {
+        GNT.SplinePointObject nearestObject = null;
+
+        int pointIdx = leftPointIdx;
+        float scanDistance = ObjectScanDistance < 0 ? totalLength : ObjectScanDistance;
+        float scannedDistance = 0.0f;
+
+        // scan left
+        while (pointIdx >= 0 && scannedDistance <= scanDistance)
+        {
+            scannedDistance = Math.Abs(controlPoints[pointIdx].getLocalPos() - positionOnSpline);
+
+            if (controlPoints[pointIdx].objectAtPoint != null && controlPoints[pointIdx].objectAtPoint.IsInDetectionRange(scannedDistance))
+            {
+                Debug.Log("found spline obj left of char at dist. " + scannedDistance);
+                nearestObject = controlPoints[pointIdx].objectAtPoint;
+                break;
+            }
+
+            pointIdx--;
+        }
+
+        if (leftPointIdx == controlPoints.Count - 1)
+        { 
+            return nearestObject;
+        }
+
+        float closestDistance = nearestObject == null ? float.MaxValue : Math.Abs(controlPoints[pointIdx].getLocalPos() - positionOnSpline);
+        scannedDistance = 0.0f;
+        pointIdx = leftPointIdx + 1;
+
+        // scan right
+        while (pointIdx < controlPoints.Count && scannedDistance <= scanDistance && closestDistance > scannedDistance)
+        {
+            scannedDistance = Math.Abs(controlPoints[pointIdx].getLocalPos() - positionOnSpline);
+
+            if (controlPoints[pointIdx].objectAtPoint != null && controlPoints[pointIdx].objectAtPoint.IsInDetectionRange(scannedDistance) && Math.Abs(controlPoints[pointIdx].getLocalPos() - positionOnSpline) < closestDistance)
+            {
+                nearestObject = controlPoints[pointIdx].objectAtPoint;
+                Debug.Log("found spline obj right of char at dist. " + scannedDistance);
+                break;
+            }
+
+            pointIdx ++;
+        }
+
+        return nearestObject;
     }
 
     void OnDrawGizmos()

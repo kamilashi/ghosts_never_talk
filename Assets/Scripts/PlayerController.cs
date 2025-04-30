@@ -11,7 +11,7 @@ namespace GNT
         [Range(0, 1000)]
         private float inputSensitivity;
 
-        private GroundMovement groundMovement;
+        private CharacterMovement groundMovement;
         private MoveDirection lastMoveDirection;
         private SpriteRenderer spriteRenderer;
 
@@ -25,8 +25,8 @@ namespace GNT
         [SerializeField] private InteractableTeleporter currentAvailableTeleporter;
         private InteractableTeleporter bufferedTeleporter;
 
-
         [SerializeField] private InteractableTrigger currentAvailableTrigger;
+        [SerializeField] private CheckPoint currentAvailableCheckPoint;
 
         // #Todo: get this data from control map
         KeyCode moveLeftMappedKey = KeyCode.A;
@@ -40,10 +40,12 @@ namespace GNT
         {
             lastMoveDirection = MoveDirection.Right;
             moveKeyHoldTimeScaled = 0.0f;
-            groundMovement = gameObject.GetComponentInChildren<GroundMovement>();
+            groundMovement = gameObject.GetComponentInChildren<CharacterMovement>();
             groundLayerPositionMapper = gameObject.GetComponentInChildren<GroundLayerPositionMapper>();
             spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
             bufferedTeleporter = null;
+            currentAvailableTrigger = null;
+            currentAvailableCheckPoint = null;
         }   
         
         void Start()
@@ -53,7 +55,7 @@ namespace GNT
 
         void Update()
         {
-            if(acceptInput && !GlobalData.Instance.DialogueRunnerStaticRef.IsDialogueRunning)
+            if(acceptInput && !GameManager.Instance.DialogueRunnerStaticRef.IsDialogueRunning)
             { 
                 if (Input.GetKey(moveLeftMappedKey))
                 {
@@ -67,11 +69,6 @@ namespace GNT
                     lastMoveDirection = groundMovement.IsTurning() ? lastMoveDirection : MoveDirection.Right;
                 groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
                 }
-                /*else if (Input.GetKeyUp(moveLeftMappedKey) || Input.GetKeyUp(moveRightMappedKey))
-                {
-                    processMoveInput(-1.0f);
-                    groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
-                }*/
                 else
                 {
                     processMoveInput(-1.0f);
@@ -82,6 +79,8 @@ namespace GNT
                 {
                     resetMovementInput();
                     currentAvailableTeleporter.Interact(this.transform, groundMovement);
+
+                    // player specific:
                     bufferedTeleporter = currentAvailableTeleporter;
                     OnTeleportCamera();
                 }
@@ -98,26 +97,70 @@ namespace GNT
 
             if (acceptInput && Input.GetKeyDown(advanceDialogueMappedKey))
             {
-                GlobalData.Instance.DialogueViewStaticRef.UserRequestedViewAdvancement();
+                GameManager.Instance.DialogueViewStaticRef.UserRequestedViewAdvancement();
             }
 
             {
-                processAvailableTeleporters();
+                SplinePointObject availableObject = getAvailableSplinePointObject();
 
-                processAvailableInteractions();
+                processAvailableCheckpoint(availableObject);
+
+                processAvailableTeleporter(availableObject);
+
+                processAvailableTrigger(availableObject);
             }
         }
 
-        private void processAvailableTeleporters()
+        private void processAvailableCheckpoint(SplinePointObject splineObject)
         {
-            InteractableTeleporter availableTeleporter = getClosestTeleporter();
-
-            if (availableTeleporter != null)
+            if (splineObject != null && splineObject.IsOfType(SplinePointObjectType.CheckPoint))
             {
-                if (currentAvailableTeleporter != availableTeleporter)
+                CheckPoint newCheckPoint = (CheckPoint)splineObject;
+                if (newCheckPoint != currentAvailableCheckPoint)
                 {
-                    availableTeleporter.OnBecomeAvailable();
-                    currentAvailableTeleporter = availableTeleporter;
+                    //currentAvailableCheckPoint?.OnBecomeUnavailable();
+                    newCheckPoint.OnBecomeAvailable();
+                    currentAvailableCheckPoint = newCheckPoint;
+                }
+            }
+        }
+
+        private void processAvailableTrigger(SplinePointObject splineObject)
+        {
+            if (splineObject != null && splineObject.IsOfType(SplinePointObjectType.InteractableTrigger))
+            {
+                InteractableTrigger newTrigger = (InteractableTrigger) splineObject;
+                if (currentAvailableTrigger != newTrigger)
+                {
+                    currentAvailableTrigger?.OnBecomeUnavailable();
+
+                    newTrigger.OnBecomeAvailable();
+                    currentAvailableTrigger = newTrigger;
+                }
+            }
+            else if (currentAvailableTrigger != null)
+            {
+                currentAvailableTrigger.OnBecomeUnavailable();
+                currentAvailableTrigger = null;
+            }
+        }
+
+        private void processAvailableTeleporter(SplinePointObject splineObject)
+        {
+            if (splineObject != null && splineObject.IsOfType(SplinePointObjectType.InteractableTeleporter))
+            {
+                InteractableTeleporter newTeleporter = (InteractableTeleporter)splineObject;
+                if (currentAvailableTeleporter != newTeleporter)
+                {
+                    currentAvailableTeleporter?.OnBecomeUnavailable();
+                    newTeleporter.OnBecomeAvailable();
+                    currentAvailableTeleporter = newTeleporter;
+
+                    if (currentAvailableTrigger != null)
+                    {
+                        currentAvailableTrigger.OnBecomeUnavailable();
+                        currentAvailableTrigger = null;
+                    }
                 }
             }
             else if (currentAvailableTeleporter != null)
@@ -125,82 +168,36 @@ namespace GNT
                 currentAvailableTeleporter.OnBecomeUnavailable();
                 currentAvailableTeleporter = null;
             }
-
-        }
-        
-        private void processAvailableInteractions()
-        {
-            InteractableTrigger availableTrigger = getClosestInteractableTrigger();
-            if (availableTrigger != null)
-            {
-                if (currentAvailableTrigger != availableTrigger)
-                {
-                    //Debug.Log("Trigger available");
-                    availableTrigger.OnBecomeAvailable();
-                    currentAvailableTrigger = availableTrigger;
-                }
-            }
-            else if (currentAvailableTrigger != null)
-            {
-                //Debug.Log("Trigger UNavailable");
-                currentAvailableTrigger.OnBecomeUnavailable();
-                currentAvailableTrigger = null;
-            }
         }
 
-       private void processMoveInput(float sign)
+
+        private void processMoveInput(float sign)
         {
             moveKeyHoldTimeScaled += sign * Time.deltaTime * inputSensitivity; // replace with smoothing curves? 
             moveKeyHoldTimeScaled = Mathf.Clamp01(moveKeyHoldTimeScaled);
         }
 
-        private InteractableTeleporter getClosestTeleporter()
+        private SplinePointObject getAvailableSplinePointObject()
         {
-            // we assume that there will not be closely placed teleporters in levels!
-            foreach (InteractableTeleporter teleporter in GlobalData.Instance.ActiveSceneDynamicRef.GetPlayerVisibleTeleporters())
-            {
-                if (teleporter.IsInRangeX(this.transform.position))
-                {
-                    return teleporter;
-                }
-            }
-
-            return null;
-        }
-        
-        private InteractableTrigger getClosestInteractableTrigger()
-        {
-            // we assume that there will not be closely placed teleporters in levels!
-            foreach (InteractableTrigger interactableTrigger in GlobalData.Instance.ActiveSceneDynamicRef.GetPlayerVisibleInteractableTriggers())
-            {
-                if (interactableTrigger.IsInRangeX(this.transform.position))
-                {
-                    return interactableTrigger;
-                }
-            }
-
-            return null;
+            return groundMovement.GetAvailableSplinePointObject();
         }
 
         private void OnTeleportCamera()
         {
             // the animation should come from the teleporting interactable!
-            CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();
+            CameraMovement playerCameraMovement = GameManager.Instance.GetActiveCamera().GetComponent<CameraMovement>();
             playerCameraMovement.SetPlayerFollowTeleportDampLambda();
             playerCameraMovement.Dolly(2.0f);
         }
 
         public void OnPlayerTeleportTranslateAnimationEvent()
         {
-            GlobalData.Instance.ActiveSceneDynamicRef.SwitchToLayer(bufferedTeleporter.TargetTeleporter.ContainingGroundLayer.GroundLayerIndex);
+            bufferedTeleporter.Teleport(groundMovement); // is basically just calling groundMovement.teleportToPoint(idx, groundLayer)
 
-            //important: run this function AFTER changing the current layer. Perhabs it's better to keep track of the current active layer in the controller instead of the global data. This way enemies could make use of their own at some point.
-            bufferedTeleporter.Teleport(spriteRenderer, groundMovement);
-
-            bufferedTeleporter.gameObject.GetComponent<VfxPlayer>().PlayVfxExit();
+            bufferedTeleporter.OnBecomeUnavailable();
             bufferedTeleporter = null;
 
-            CameraMovement playerCameraMovement = GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>();
+            CameraMovement playerCameraMovement = GameManager.Instance.GetActiveCamera().GetComponent<CameraMovement>();
             playerCameraMovement.ResetDolly();
         }
 
@@ -220,12 +217,16 @@ namespace GNT
         {
             moveKeyHoldTimeScaled = 0.0f;
         }
+        public void SetBlockInput(bool blockInputEnabled)
+        {
+            setAcceptInput(!blockInputEnabled);
+        }
 
         public void BlockInputAnimationEvent(float duration)
         {
             // Create event handler delegate and pass it to the duration event constructor
             ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = OnBlockInputDurationEnd;
-            GlobalData.Instance.AnimationEventProcessorInstance.RegisterDurationEvent(duration, eventHandlerDelegate);
+            GameManager.Instance.AnimationEventProcessorInstance.RegisterDurationEvent(duration, eventHandlerDelegate);
             setAcceptInput(false);
         }
 
@@ -239,9 +240,19 @@ namespace GNT
             return currentAvailableTeleporter != null ? currentAvailableTeleporter : currentAvailableTrigger;
         }
 
+        public void SetAvailableCheckPoint(CheckPoint checkPoint)
+        {
+            currentAvailableCheckPoint = checkPoint;
+        }
+
+        public CheckPoint GetAvailableCheckPoint()
+        {
+            return currentAvailableCheckPoint;
+        }
+
         private void setCameraPlayerFollowEnabled(bool isEnabled)
         {
-            GlobalData.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetPlayerFollowEnabled(isEnabled);
+            GameManager.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetPlayerFollowEnabled(isEnabled);
         }
 
         public string GetInteractKey()
@@ -252,6 +263,16 @@ namespace GNT
         {
             return advanceDialogueMappedKey.ToString();
         }
-    }
 
+
+        [ContextMenu("RespawnTest")]
+        void RespawnTest()
+        {
+            if (currentAvailableCheckPoint != null)
+            {
+                groundMovement.SwitchToLayer(currentAvailableCheckPoint.ContainingGroundLayer);
+                currentAvailableCheckPoint.Respawn(this, groundMovement);
+            }
+        }
+    }
 }

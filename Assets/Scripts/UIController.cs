@@ -21,8 +21,8 @@ namespace GNT
         // Start is called before the first frame update
         void Start()
         {
-            playerConrtollerStaticRef = GlobalData.Instance.GetPlayerController();
-            dialogueRunnerStaticRef = GlobalData.Instance.DialogueRunnerStaticRef;
+            playerConrtollerStaticRef = GameManager.Instance.GetPlayerController();
+            dialogueRunnerStaticRef = GameManager.Instance.DialogueRunnerStaticRef;
 
             (DialoguePanelStaticRef.transform as RectTransform).localScale = new Vector3(0.0f, 0.0f, 0.0f);
 
@@ -34,7 +34,7 @@ namespace GNT
         {
             if (dialogueRunnerStaticRef.IsDialogueRunning)
             {
-                Vector3 screenSpacePos = GlobalData.Instance.GetActiveCamera().WorldToScreenPoint(DialoguePanelStaticRef.WorldSpacePosition);
+                Vector3 screenSpacePos = GameManager.Instance.GetActiveCamera().WorldToScreenPoint(DialoguePanelStaticRef.WorldSpacePosition);
                 (DialoguePanelStaticRef.transform as RectTransform).position = new Vector2(screenSpacePos.x, screenSpacePos.y);
 
                 PlayerPromptStaticRef.Set("Next", playerConrtollerStaticRef.GetAdvanceDialogueKey());

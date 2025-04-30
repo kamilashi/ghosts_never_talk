@@ -9,6 +9,7 @@ namespace GNT
     public struct SceneStartData
     {
         public int startLayerIdx;
+        public float positionOnLayer;
     }
 
     public enum LayerSwitchDirection
@@ -19,23 +20,15 @@ namespace GNT
 
     public class SceneInterface : MonoBehaviour
     {
-        public GroundLayer ActiveGroundLayer; // for now set inspector - later should be loaded + managed during the switch
 
         [SerializeField]
         private SceneStartData sceneStartData; // set in the inspector only
 
         [SerializeField]
         private List<GroundLayer> groundLayers;
-        [SerializeField]
-        private List<InteractableTeleporter> playerVisibleTeleporters;
-        private List<InteractableTrigger> playerVisibleInteractableTriggers;
-
-        private int currentLayerIdx;
 
         void Awake()
         {
-            playerVisibleTeleporters = new List<InteractableTeleporter>();
-            playerVisibleInteractableTriggers = new List<InteractableTrigger>();
         }
 
         void Update()
@@ -43,67 +36,9 @@ namespace GNT
 
         }
 
-        public void SwitchToLayer(int targetLayerIdx)
+        public SceneStartData GetSceneStartData()
         {
-            // as soon as colliders are replaced with a waling path, this needs to change. Currently any other collider users besides the plazer will break, as all ground colliders that are unused by the player will be disabled.
-            foreach( GroundLayer layer in groundLayers)
-            {
-                layer.EdgeCollider.enabled = false;
-            }
-
-            currentLayerIdx = targetLayerIdx;
-            ActiveGroundLayer = groundLayers[targetLayerIdx];
-
-
-            ActiveGroundLayer.EdgeCollider.enabled = true;
-
-            Debug.Log("targetLayerIdx " + targetLayerIdx);
-        }
-
-        public bool SwitchIn()
-        {
-            if (currentLayerIdx < groundLayers.Count-1)
-            {
-                SwitchToLayer(currentLayerIdx + 1);
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool SwitchOut()
-        {
-            if (currentLayerIdx > 0)
-            {
-                SwitchToLayer(currentLayerIdx - 1);
-                return true;
-            }
-
-            return false;
-        }
-        public List<InteractableTeleporter> GetPlayerVisibleTeleporters()
-        {
-            return playerVisibleTeleporters;
-        }
-        public List<InteractableTrigger> GetPlayerVisibleInteractableTriggers()
-        {
-            return playerVisibleInteractableTriggers;
-        }
-        public void AddPlayerVisibleTeleporter(InteractableTeleporter teleporter)
-        {
-            playerVisibleTeleporters.Add(teleporter);
-        }
-        public void RemovePlayerVisibleTeleporter(InteractableTeleporter teleporter)
-        {
-            playerVisibleTeleporters.Remove(teleporter);
-        }
-        public void AddPlayerVisibleInteractableTrigger(InteractableTrigger interactableTrigger)
-        {
-            playerVisibleInteractableTriggers.Add(interactableTrigger);
-        }
-        public void RemovePlayerVisibleInteractableTrigger(InteractableTrigger interactableTrigger)
-        {
-            playerVisibleInteractableTriggers.Add(interactableTrigger);
+            return sceneStartData;
         }
 
         public void OnLoadInitialize()
@@ -113,13 +48,31 @@ namespace GNT
             {
                 groundLayers[index].GroundLayerIndex = index;
             }
-
-            SwitchToLayer(sceneStartData.startLayerIdx);
         }
         
-        public void OnUnload()
+        public GroundLayer GetGroundLayer(int targetIndex)
         {
-            SwitchToLayer(sceneStartData.startLayerIdx);
+            return groundLayers[targetIndex];
+        }
+
+        public GroundLayer GetFartherOrThisGroundLayer(int currentIndex)
+        {
+            if (currentIndex < groundLayers.Count - 1)
+            {
+                return groundLayers[currentIndex + 1];
+            }
+
+            return groundLayers[groundLayers.Count - 1];
+        }
+
+        public GroundLayer GetCloserOrThisGroundLayer(int currentIndex)
+        {
+            if (currentIndex > 0)
+            {
+                return groundLayers[currentIndex - 1];
+            }
+
+            return groundLayers[0];
         }
     }
 }

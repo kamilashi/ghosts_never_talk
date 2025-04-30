@@ -4,71 +4,39 @@ using UnityEngine;
 
 namespace GNT
 {
-    /*
-        public interface I_Interactable
-        {
-            public void Interact(Collider2D teleporteeCollider = null);
-        }*/
-    enum AnimationState
-    {
-        Inactive,
-        Enter,
-        Loop,
-        Exit
-    }
-
-    public class SplinePointObject : MonoBehaviour
-    {
-        public int splinePointIdx;
-        // here can be the parent spline
-    }
-
     public class Interactable : SplinePointObject
     {
         [Header("Interactable")]
         public int UIPromptKey;
-        public float InteractRadius;
-        public GroundLayer ContainingGroundLayer;
-        public AnimationClip InteractAnimation;
+       // public float InteractRadius;
+        public AnimationClip InteractAnimation; //#TODO: this should be a name reference, and not the animation itself
         public float LocalOffsetX;
         public float SnapSpeed = 1.0f;
         public bool SnapToLocalOffset = true;
-        //public bool WaitForCameraStop = false;
 
         [SerializeField]
         protected VfxPlayer vfxPlayerStaticRef;
 
-        void Awake()
+        protected void BaseAwakeInteractable()
         {
-            BaseAwake();
-        }
-
-        protected void BaseAwake()
-        {
-            if (ContainingGroundLayer == null)
-            {
-                ContainingGroundLayer = this.transform.GetComponentInParent<GroundLayer>();
-            }
-
+            base.BaseAwakeSplinePointObject();
             vfxPlayerStaticRef = gameObject.GetComponent<VfxPlayer>();
         }
 
-        public bool IsInRangeX(Vector3 interactorPos/*, ref float squareDistance*/)
+/*
+        public bool IsInRangeX(Vector3 interactorPos/ *, ref float squareDistance* /)
         { 
             bool isInRange = false;
 
-            if (ContainingGroundLayer == GlobalData.Instance.ActiveSceneDynamicRef.ActiveGroundLayer)
-            {
-                Vector3 toInteractor = interactorPos;
-                toInteractor -= this.transform.position;
+            Vector3 toInteractor = interactorPos;
+            toInteractor -= this.transform.position;
 
-                isInRange = Mathf.Abs(toInteractor.x) <= InteractRadius;
-            }
+            isInRange = Mathf.Abs(toInteractor.x) <= InteractRadius;
 
             return isInRange;
-        }
+        }*/
 
-        private IEnumerator MoveToInteractionX(Transform interactorTransform, System.Action onCoroutineFinishedInteractAction, GroundMovement interactorGroundMovement = null)
+        private IEnumerator MoveToInteractionX(Transform interactorTransform, System.Action onCoroutineFinishedInteractAction, CharacterMovement interactorGroundMovement = null)
         {
             if(SnapToLocalOffset)
             {
@@ -114,14 +82,14 @@ namespace GNT
         { }
         public virtual void OnBecomeAvailable()
         {
-            vfxPlayerStaticRef.PlayVfxEnter(ContainingGroundLayer.SpriteLayerOrder, InteractRadius * 2.0f);
+            vfxPlayerStaticRef.PlayVfxEnter(ContainingGroundLayer.SpriteLayerOrder, DetectionRadius * 2.0f);
         }
         public virtual void OnBecomeUnavailable()
         {
             vfxPlayerStaticRef.PlayVfxExit();
         }
 
-        public void Interact(Transform interactorTransform, GroundMovement groundMovement = null)
+        public void Interact(Transform interactorTransform, CharacterMovement groundMovement = null)
         {
             StartCoroutine(MoveToInteractionX(interactorTransform, onInteractCoroutineFinished, groundMovement));
         }
