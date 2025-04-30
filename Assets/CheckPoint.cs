@@ -3,15 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-public interface IAutoTrigger
-{
-    public bool CanExecute() { return false; }
 
-    public void Execute() { }
-}*/
-
-public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
+public class CheckPoint : SplinePointObject
 {
     public enum RespawnStateMachine
     {
@@ -22,7 +15,7 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
     }
 
     [Header("CheckPoint")]
-    public float Acceleration = 10.0f;
+    public float Acceleration = 10.0f; //#TODO: should be on the player entity!!!
 
     //#TODO: move the actual respawning into the respawn or spawn component of the entity!!!
     [SerializeField] private float currentVeclocity;
