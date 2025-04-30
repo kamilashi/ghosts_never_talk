@@ -7214,7 +7214,7 @@ MonoBehaviour:
   ContainingGroundLayer: {fileID: 712069334}
   DetectionRadius: 5
   splinePointObjectType: 0
-  Acceleration: 3
+  Acceleration: 1
   currentVeclocity: 0
   currentState: 0
   respawneeGroundMovementDynamicRef: {fileID: 0}
@@ -7914,7 +7914,7 @@ MonoBehaviour:
   initializeSettings:
     distanceBetwPoints: 3
     numControlPoints: 16
-  ObjectScanDistance: 4
+  ObjectScanDistance: -1
   resolution: 10
   totalLength: 51.73123
 --- !u!1 &818394513

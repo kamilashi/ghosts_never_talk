@@ -106,7 +106,7 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
     public void OnBecomeAvailable()
     {
         isHidden = true;
-        vfxPlayerStaticRef.PlayVfxEnter(ContainingGroundLayer.SpriteLayerOrder, DetectionRadius * 3.0f);
+        vfxPlayerStaticRef.PlayVfxEnter(ContainingGroundLayer.SpriteLayerOrder, DetectionRadius * 2.0f);
     }
     public void OnBecomeUnavailable()
     {
