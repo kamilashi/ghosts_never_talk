@@ -1435,12 +1435,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 0
+  Faction: 0
   ContainingGroundLayer: {fileID: 0}
-  DetectionRadius: 0
+  DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
-  InteractRadius: 3
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -1525,12 +1524,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 0
+  Faction: 0
   ContainingGroundLayer: {fileID: 0}
-  DetectionRadius: 0
+  DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
-  InteractRadius: 3
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -7212,11 +7210,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a651ae6e74f8a42adb6dceece926fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 1
+  Faction: 0
   ContainingGroundLayer: {fileID: 712069334}
-  DetectionRadius: 3
+  DetectionRadius: 5
   splinePointObjectType: 0
-  Acceleration: 3
+  Acceleration: 1
   currentVeclocity: 0
   currentState: 0
   respawneeGroundMovementDynamicRef: {fileID: 0}
@@ -7306,6 +7304,7 @@ MonoBehaviour:
   StartSceneStaticRef: {fileID: 1728121134}
   MainCameraStaticRef: {fileID: 318446024}
   PlayerControllerStaticRef: {fileID: 1294591926}
+  PlayerMovementStaticRef: {fileID: 1294591929}
   DialogueViewStaticRef: {fileID: 1233174499}
   DialogueRunnerStaticRef: {fileID: 3579681405842511146}
   ActiveSceneDynamicRef: {fileID: 0}
@@ -7915,7 +7914,7 @@ MonoBehaviour:
   initializeSettings:
     distanceBetwPoints: 3
     numControlPoints: 16
-  ObjectScanDistance: 4
+  ObjectScanDistance: -1
   resolution: 10
   totalLength: 51.73123
 --- !u!1 &818394513
@@ -8735,12 +8734,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6461fc7576f8d3345895bfc91f09d7c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 0
+  Faction: 0
   ContainingGroundLayer: {fileID: 1436780624}
-  DetectionRadius: 0
+  DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
-  InteractRadius: 3
   InteractAnimation: {fileID: 7400000, guid: e3e01b9d72492344fb73e4e21494c528, type: 2}
   LocalOffsetX: -2.7
   SnapSpeed: 10
@@ -9113,6 +9111,7 @@ GameObject:
   - component: {fileID: 1294591931}
   - component: {fileID: 1294591932}
   - component: {fileID: 1294591933}
+  - component: {fileID: 1294591934}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -9260,6 +9259,8 @@ MonoBehaviour:
   splineMovementData:
     positionOnSpline: 0
     availableSplinePointObject: {fileID: 0}
+  groundLayerData:
+    currentGorundLayer: {fileID: 0}
 --- !u!50 &1294591930
 Rigidbody2D:
   serializedVersion: 4
@@ -9336,6 +9337,18 @@ MonoBehaviour:
   GlobalCharacterReferenceName: Ghost
   DialoguePanelOffset: {x: 0, y: 3.5}
   ActiveNodeName: 
+--- !u!114 &1294591934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294591924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ab4354444990d48a33c361898814ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1318752994
 GameObject:
   m_ObjectHideFlags: 0
@@ -9582,12 +9595,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 0
+  Faction: 0
   ContainingGroundLayer: {fileID: 0}
-  DetectionRadius: 0
+  DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
-  InteractRadius: 3
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -10290,12 +10302,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerType: 0
+  Faction: 0
   ContainingGroundLayer: {fileID: 0}
-  DetectionRadius: 0
+  DetectionRadius: 3
   splinePointObjectType: 0
   UIPromptKey: 0
-  InteractRadius: 3
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
@@ -10370,14 +10381,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df1356a066e4764685fd29329571bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveGroundLayer: {fileID: 0}
   sceneStartData:
     startLayerIdx: 0
+    positionOnLayer: 10
   groundLayers:
   - {fileID: 712069334}
   - {fileID: 1219938348}
   - {fileID: 1436780624}
-  playerVisibleTeleporters: []
 --- !u!1 &1819789678
 GameObject:
   m_ObjectHideFlags: 0

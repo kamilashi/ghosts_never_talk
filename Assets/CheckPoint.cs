@@ -3,15 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-public interface IAutoTrigger
-{
-    public bool CanExecute() { return false; }
 
-    public void Execute() { }
-}*/
-
-public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
+public class CheckPoint : SplinePointObject
 {
     public enum RespawnStateMachine
     {
@@ -22,13 +15,13 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
     }
 
     [Header("CheckPoint")]
-    public float Acceleration = 10.0f;
+    public float Acceleration = 10.0f; //#TODO: should be on the player entity!!!
 
     //#TODO: move the actual respawning into the respawn or spawn component of the entity!!!
     [SerializeField] private float currentVeclocity;
 
     [SerializeField] private RespawnStateMachine currentState;
-    [SerializeField] private GroundMovement respawneeGroundMovementDynamicRef;
+    [SerializeField] private CharacterMovement respawneeGroundMovementDynamicRef;
     [SerializeField] private PlayerController respawneePlayerControllerDynamicRef;
 
     [SerializeField] protected VfxPlayer vfxPlayerStaticRef; // maybe move to the SplinePointObject too
@@ -92,14 +85,8 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
         }
     }
 
-    public void Respawn(PlayerController playerController, GroundMovement groundMovement)
+    public void Respawn(PlayerController playerController, CharacterMovement groundMovement)
     {
-        //#TODO::
-        /*if (groundMovement.currentLayer != ContainingGroundLayer)
-        {
-            // error!!
-        }*/
-
         currentState = RespawnStateMachine.PlayingRespawnAnimation;
         respawneeGroundMovementDynamicRef = groundMovement;
         respawneePlayerControllerDynamicRef = playerController;
@@ -111,12 +98,13 @@ public class CheckPoint : SplinePointObject/*, IAutoTrigger*/
     // needs to be unified with interactable
     public void OnBecomeAvailable()
     {
-        isLocked = true;
-        vfxPlayerStaticRef.PlayVfxEnter(ContainingGroundLayer.SpriteLayerOrder, DetectionRadius * 3.0f);
+        isHidden = true;
+        vfxPlayerStaticRef.PlayVfxEnter(ContainingGroundLayer.SpriteLayerOrder, DetectionRadius * 2.0f);
     }
     public void OnBecomeUnavailable()
     {
-        isLocked = false;
+        isHidden = false;
         vfxPlayerStaticRef.PlayVfxExit();
     }
+
 }

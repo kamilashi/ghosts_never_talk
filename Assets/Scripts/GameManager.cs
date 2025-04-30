@@ -7,13 +7,14 @@ using ProcessingHelpers;
 
 namespace GNT
 {
-    public class GlobalData : MonoBehaviour
+    public class GameManager : MonoBehaviour
     {
-        private static GlobalData globalDataInstance; // singleton
+        private static GameManager globalDataInstance; // singleton
 
         public SceneInterface StartSceneStaticRef; // read only, set in the inspector only, invisible to other scripts
         public Camera MainCameraStaticRef; // read only, set in the inspector only, invisible to other scripts
         public PlayerController PlayerControllerStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
+        public CharacterMovement PlayerMovementStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
         public CustomDialogueView DialogueViewStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
         public Yarn.Unity.DialogueRunner DialogueRunnerStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
 
@@ -25,7 +26,7 @@ namespace GNT
 
         public static event Action OnSceneLoadFinishEvent;
 
-        public static GlobalData Instance
+        public static GameManager Instance
         {
             get
             {
@@ -38,7 +39,7 @@ namespace GNT
         {
             if (globalDataInstance == null)
             {
-                globalDataInstance = gameObject.GetComponent<GlobalData>();
+                globalDataInstance = gameObject.GetComponent<GameManager>();
             }
 
             // Hack, this should be in the project settings:
@@ -55,6 +56,9 @@ namespace GNT
         void Start()
         {
             OnSceneLoadFinishEvent?.Invoke();
+
+            SceneStartData sceneStartData = StartSceneStaticRef.GetSceneStartData();
+            PlayerMovementStaticRef.SwitchToLayer(StartSceneStaticRef.GetGroundLayer(sceneStartData.startLayerIdx), sceneStartData.positionOnLayer);
         }
 
         void Update()
@@ -71,6 +75,10 @@ namespace GNT
         public PlayerController GetPlayerController()
         {
             return PlayerControllerStaticRef;
+        }
+        public CharacterMovement GerPlayerMovement()
+        {
+            return PlayerMovementStaticRef;
         }
 
         public void RegisterGlobalCharacterReference(string key, GlobalCharacterReference value)

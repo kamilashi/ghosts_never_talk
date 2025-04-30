@@ -177,6 +177,10 @@ public class CatmullRomSpline : MonoBehaviour
     {
         return controlPoints[pointIndex].getLocalPos();
     }
+    public float GetTotalLength()
+    {
+        return totalLength;
+    }
 
     //[ExecuteInEditMode]
     private void OnValidate()
@@ -231,13 +235,15 @@ public class CatmullRomSpline : MonoBehaviour
         // scan left
         while (pointIdx >= 0 && scannedDistance <= scanDistance)
         {
-            if (controlPoints[pointIdx].objectAtPoint != null)
+            scannedDistance = Math.Abs(controlPoints[pointIdx].getLocalPos() - positionOnSpline);
+
+            if (controlPoints[pointIdx].objectAtPoint != null && controlPoints[pointIdx].objectAtPoint.IsInDetectionRange(scannedDistance))
             {
+                Debug.Log("found spline obj left of char at dist. " + scannedDistance);
                 nearestObject = controlPoints[pointIdx].objectAtPoint;
                 break;
             }
 
-            scannedDistance = Math.Abs(controlPoints[pointIdx].getLocalPos() - positionOnSpline);
             pointIdx--;
         }
 
@@ -253,13 +259,15 @@ public class CatmullRomSpline : MonoBehaviour
         // scan right
         while (pointIdx < controlPoints.Count && scannedDistance <= scanDistance && closestDistance > scannedDistance)
         {
-            if (controlPoints[pointIdx].objectAtPoint != null && Math.Abs(controlPoints[pointIdx].getLocalPos() - positionOnSpline) < closestDistance)
+            scannedDistance = Math.Abs(controlPoints[pointIdx].getLocalPos() - positionOnSpline);
+
+            if (controlPoints[pointIdx].objectAtPoint != null && controlPoints[pointIdx].objectAtPoint.IsInDetectionRange(scannedDistance) && Math.Abs(controlPoints[pointIdx].getLocalPos() - positionOnSpline) < closestDistance)
             {
                 nearestObject = controlPoints[pointIdx].objectAtPoint;
+                Debug.Log("found spline obj right of char at dist. " + scannedDistance);
                 break;
             }
 
-            scannedDistance = Math.Abs(controlPoints[pointIdx].getLocalPos() - positionOnSpline);
             pointIdx ++;
         }
 
