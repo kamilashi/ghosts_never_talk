@@ -150,7 +150,7 @@ namespace GNT
             if (splineObject != null && splineObject.IsOfType(SplinePointObjectType.InteractableTeleporter))
             {
                 InteractableTeleporter newTeleporter = (InteractableTeleporter)splineObject;
-                if (currentAvailableTeleporter != newTeleporter)
+                if (currentAvailableTeleporter != newTeleporter && !newTeleporter.isReceiverOnly())
                 {
                     currentAvailableTeleporter?.OnBecomeUnavailable();
                     newTeleporter.OnBecomeAvailable();

@@ -7,7 +7,7 @@ namespace GNT
     {
         [Header("Teleporter")]
         public InteractableTeleporter TargetTeleporter;
-        public bool IsReceiverOnly;
+        //public bool IsReceiverOnly;
 
         private void Awake()
         {
@@ -38,6 +38,11 @@ namespace GNT
         public override void ExecuteSplineObject(PlayerController playerControllerRef = null, CharacterMovement groundMovementRef = null)
         {
             base.ExecuteSplineObject(playerControllerRef, groundMovementRef);
+        }
+
+        public bool isReceiverOnly()
+        {
+            return TargetTeleporter == null;
         }
     }
 }

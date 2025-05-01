@@ -10,7 +10,7 @@ namespace GNT
     {
         Pathfinding.PriorityQueue queueTest = new Pathfinding.PriorityQueue();
 
-        public List<AstarNode> binaryHeap;
+        public List<AStarNode> binaryHeap;
         public float newValue;
 
 
@@ -27,8 +27,7 @@ namespace GNT
         [ContextMenu("Push")]
         public void Push()
         {
-            AstarNode node = new AstarNode();
-            node.cost = newValue;
+            AStarNode node = new AStarNode(null, newValue, null);
 
             queueTest.Enqueue(node);
 
@@ -40,7 +39,7 @@ namespace GNT
         [ContextMenu("Pop")]
         public void Pop()
         {
-            AstarNode? node = queueTest.Dequeue();
+            AStarNode? node = queueTest.Dequeue();
 
             binaryHeap = queueTest.binaryHeap;
 

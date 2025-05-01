@@ -4,50 +4,104 @@ using UnityEngine;
 using GNT;
 using static UnityEditor.Progress;
 using System;
+using UnityEngine.U2D;
+using TreeEditor;
+using UnityEditor.Search;
+using System.Linq;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Pathfinding
 {
     [Serializable]
-    public struct AstarNode
+    public class AStarNode
     {
         public ControlPoint point;
+        //public int controlPointIndex;
         public float cost;
+        public AStarNode prevNode;
+
+        public AStarNode(ControlPoint p, /*int index, */float c, AStarNode pNode)
+        {
+            point = p; 
+            //controlPointIndex = index;
+            cost = c;
+            prevNode = pNode;
+        }
     }
 
     [Serializable]
     public class PriorityQueue
     {
-        public List<AstarNode> binaryHeap;
+        public List<AStarNode> binaryHeap;
         public PriorityQueue() 
         { 
-            binaryHeap = new List<AstarNode>(); 
+            binaryHeap = new List<AStarNode>(); 
         }
 
-        public void Enqueue(AstarNode newNode)
+        public void Enqueue(AStarNode newNode)
         {
             binaryHeap.Add(newNode);
 
-            int newNodeIndex = binaryHeap.Count - 1;
-
-            while (hasParent(newNodeIndex) && getParent(newNodeIndex).cost > newNode.cost) 
-            {
-                swapWithParent(newNodeIndex);
-                newNodeIndex = getParentIndex(newNodeIndex);
-            }
+            sortUp (binaryHeap.Count - 1);
         }
 
-        public AstarNode? Dequeue()
+        public AStarNode? Dequeue()
         {
             if (binaryHeap.Count == 0) 
             {
                 return null;
             }
 
-            AstarNode topNode = binaryHeap[0];
+            AStarNode topNode = binaryHeap[0];
+            binaryHeap[0] = binaryHeap[binaryHeap.Count - 1];
 
-            binaryHeap.RemoveAt(0);
+            binaryHeap.RemoveAt(binaryHeap.Count - 1);
+            sortDown(0);
 
             return topNode;
+        }
+
+        private void sortUp(int startIndex)
+        {
+            int index = startIndex;
+            while (hasParent(index) && getParent(index).cost > binaryHeap[index].cost)
+            {
+                swapWithParent(index);
+                index = getParentIndex(index);
+            }
+        }
+        
+        private void sortDown(int startIndex)
+        {
+            int index = startIndex;
+            while (hasLeftChild(index) || hasRightChild(index))
+            {
+                int minCostChildIndex;
+
+                if (!hasRightChild(index))
+                {
+                    minCostChildIndex = getLeftChildIndex(index);
+                }
+                else
+                {
+                    if (getLeftChild(index).cost < getRightChild(index).cost)
+                    {
+                        minCostChildIndex = getLeftChildIndex(index);
+                    }
+                    else
+                    {
+                        minCostChildIndex = getRightChildIndex(index);
+                    }
+                }
+
+                if (binaryHeap[minCostChildIndex].cost > binaryHeap[index].cost)
+                {
+                    break;
+                }
+
+                swapWithParent(minCostChildIndex);
+                index = minCostChildIndex;
+            }
         }
 
         private bool hasParent(int childIndex)
@@ -64,14 +118,14 @@ namespace Pathfinding
         }
 
         // for index = 0 returns self
-        private AstarNode getParent(int childIndex)
+        private AStarNode getParent(int childIndex)
         {
-            int parentIndex = childIndex == 0 ? 0 : getParentIndex(childIndex);
+            int parentIndex = childIndex <= 0 ? 0 : getParentIndex(childIndex);
             return binaryHeap[parentIndex];
         }
         
         // for node at index = leaf returns self
-        private AstarNode? getLeftChild(int parentIndex)
+        private AStarNode? getLeftChild(int parentIndex)
         {
             int childIndex = getLeftChildIndex(parentIndex);
 
@@ -83,7 +137,7 @@ namespace Pathfinding
             return null;
         }
         
-        private AstarNode? getRightChild(int parentIndex)
+        private AStarNode? getRightChild(int parentIndex)
         {
             int childIndex = getRightChildIndex(parentIndex);
 
@@ -98,7 +152,7 @@ namespace Pathfinding
         private void swapWithParent(int childIndex)
         {
             int parentIndex = getParentIndex(childIndex);
-            AstarNode parentNode = binaryHeap[parentIndex];
+            AStarNode parentNode = binaryHeap[parentIndex];
             binaryHeap[parentIndex] = binaryHeap[childIndex];
             binaryHeap[childIndex] = parentNode;
         }
@@ -118,7 +172,7 @@ namespace Pathfinding
 
         public string PrintToString()
         {
-            int maxWidth = Mathf.CeilToInt (Screen.width / 3.0f);
+            int maxWidth = Mathf.CeilToInt (640 / 3);
             string output = "";
             int row = 0;
             int index = 0;
@@ -148,10 +202,111 @@ namespace Pathfinding
 
             return output;
         }
+
+        public bool IsEmpty()
+        { 
+            return binaryHeap.Count == 0;
+        }
+
+        public bool Contains(ref AStarNode foundNode, ControlPoint referencePoint)
+        {
+            AStarNode node = binaryHeap.Find(e => e.point == referencePoint);
+
+            if (node != null)
+            {
+                foundNode = node;
+                return true;
+            }
+            
+            return false;
+        }
+
+        public void Remove(AStarNode node)
+        {
+            if (binaryHeap.Contains(node))
+            {
+                binaryHeap.Remove(node);
+            } 
+        }
       }
 
-    public class PathFinder
+    public struct MoveCommand
     {
-        Pathfinding.PriorityQueue queueTest = new Pathfinding.PriorityQueue();
+        int targetPointIndex;
+        bool isLinkedPoint;
     }
+
+    public class Pathfinder
+    {
+       public List<MoveCommand> Path;
+
+        public void SetPath(List<MoveCommand> path)
+        {
+            Path = path;
+        }
+
+        public static List<MoveCommand> GetAStarPath(Pathfinding.CatmullRomSpline startSpline, Pathfinding.ControlPoint source, Pathfinding.ControlPoint target)
+        {
+            Pathfinding.PriorityQueue priorityQueue = new Pathfinding.PriorityQueue();
+            Pathfinding.CatmullRomSpline spline = startSpline;
+            List<Pathfinding.ControlPoint> processed = new List<Pathfinding.ControlPoint>();
+            List<MoveCommand> path = new List<MoveCommand>();
+
+            AStarNode node = new AStarNode(source, 0.0f, null);
+            priorityQueue.Enqueue(node);
+
+            while (!priorityQueue.IsEmpty())
+            {
+                AStarNode topNode = priorityQueue.Dequeue();
+
+                if (topNode.point == target) // target reached
+                {
+                    return path;
+                }
+
+                Action<Pathfinding.ControlPoint> processPoint = pointToProcess =>
+                {
+                    if (pointToProcess != null && pointToProcess.wasVisited && !processed.Contains(pointToProcess))
+                    {
+                        AStarNode newNode = toAStarNode(pointToProcess, target, topNode);
+                        AStarNode queuedNode = newNode;
+
+                        if (priorityQueue.Contains(ref queuedNode, newNode.point) && queuedNode.cost > newNode.cost) // if found a short cut
+                        {
+                            priorityQueue.Remove(queuedNode);
+                        }
+
+                        priorityQueue.Enqueue(newNode);
+                    }
+                };
+
+                int pointIndex = startSpline.GetControlPointIndex(topNode.point);
+                ControlPoint left = startSpline.GetLeftPoint(pointIndex);
+                processPoint(left);
+
+                ControlPoint right = startSpline.GetRightPoint(pointIndex);
+                processPoint(right);
+
+                ControlPoint vertical = startSpline.GetLinkedPoint(pointIndex);
+                processPoint(vertical);
+
+                processed.Add(topNode.point);
+            }
+
+            // target cannot be reached!
+
+            return path;
+        }
+
+        private static AStarNode toAStarNode(Pathfinding.ControlPoint currentPoint, Pathfinding.ControlPoint target, AStarNode prevNode)
+        {
+            float nodeCost = Mathf.Abs(currentPoint.localPos - prevNode.point.localPos);
+            float remainingCost = (target.GetPosition() - currentPoint.GetPosition()).sqrMagnitude;
+
+            float cost = prevNode.cost + nodeCost + remainingCost;
+
+            AStarNode node = new AStarNode(currentPoint, cost, prevNode);
+            return node;
+        }
     }
+}

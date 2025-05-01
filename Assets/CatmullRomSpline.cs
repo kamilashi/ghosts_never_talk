@@ -1,6 +1,8 @@
+using GNT;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -198,6 +200,52 @@ namespace Pathfinding
             return totalLength;
         }
 
+        public int GetControlPointIndex(ControlPoint point)
+        {
+            if (controlPoints.Contains(point))
+            {
+                return controlPoints.IndexOf(point);
+            }
+
+            return -1;
+        }
+        
+        public ControlPoint GetControlPoint(int pointIndex)
+        {
+            return pointIndex < 0 || pointIndex >= controlPoints.Count? null : controlPoints[pointIndex];
+        }
+
+        public ControlPoint GetLeftPoint(int pointIndex)
+        {
+            return pointIndex <= 0 ? null : controlPoints[pointIndex - 1];
+        }
+        public ControlPoint GetRightPoint(int pointIndex)
+        {
+            return pointIndex >= controlPoints.Count - 1 ? null : controlPoints[pointIndex + 1];
+        }
+        public ControlPoint GetLinkedPoint(int pointIndex)
+        {
+            if (hasVerticalLink (controlPoints[pointIndex]))
+            {
+                InteractableTeleporter teleporter = (InteractableTeleporter) controlPoints[pointIndex].objectAtPoint;
+                return teleporter.TargetTeleporter.ContainingGroundLayer.MovementSpline.GetControlPoint(teleporter.TargetTeleporter.GetSplinePointIndex());
+            }
+
+            return null;
+        }
+
+        private bool hasVerticalLink(ControlPoint point)
+        {  
+            if(point.objectAtPoint != null && point.objectAtPoint.IsOfType(GNT.SplinePointObjectType.InteractableTeleporter))
+            {
+                InteractableTeleporter teleporter = (InteractableTeleporter) point.objectAtPoint;
+
+                return !teleporter.isReceiverOnly();
+            }
+
+            return false; 
+        }
+
         //[ExecuteInEditMode]
         private void OnValidate()
         {
@@ -255,7 +303,6 @@ namespace Pathfinding
 
                 if (controlPoints[pointIdx].objectAtPoint != null && controlPoints[pointIdx].objectAtPoint.IsInDetectionRange(scannedDistance))
                 {
-                    Debug.Log("found spline obj left of char at dist. " + scannedDistance);
                     nearestObject = controlPoints[pointIdx].objectAtPoint;
                     break;
                 }
@@ -280,7 +327,6 @@ namespace Pathfinding
                 if (controlPoints[pointIdx].objectAtPoint != null && controlPoints[pointIdx].objectAtPoint.IsInDetectionRange(scannedDistance) && Math.Abs(controlPoints[pointIdx].GetLocalPos() - positionOnSpline) < closestDistance)
                 {
                     nearestObject = controlPoints[pointIdx].objectAtPoint;
-                    Debug.Log("found spline obj right of char at dist. " + scannedDistance);
                     break;
                 }
 
@@ -297,7 +343,7 @@ namespace Pathfinding
                 return;
             }
 
-            Gizmos.color = Color.white;
+            Gizmos.color = UnityEngine.Color.white;
 
             //Draw the Catmull-Rom spline between the points
             for (int i = 0; i < controlPoints.Count; i++)
