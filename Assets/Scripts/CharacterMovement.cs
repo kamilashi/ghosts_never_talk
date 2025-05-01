@@ -32,7 +32,6 @@ namespace GNT
     [Serializable]
     struct GroundLayerData
     {
-       // public int indexInScene;
         public GroundLayer currentGorundLayer;
     }
 
@@ -151,7 +150,7 @@ namespace GNT
         public void MoveAlongSpline(float horizontalVelocityPerTimeStep)
         {
             //#TODO this might have to change if we have multiple splines per ground layer
-            CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
+            Pathfinding.CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
             Vector3 newPosition = currentSpline.GetPositionOnSpline(ref splineMovementData.positionOnSpline, ref splineMovementData.availableSplinePointObject, horizontalVelocityPerTimeStep);
             newPosition.y += offsetFromGroundToPivot;
             Vector3 toNewPosition = newPosition - transform.position;
@@ -160,7 +159,7 @@ namespace GNT
 
         public void TeleportToSplinePoint(int pointIndex)
         {
-            CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
+            Pathfinding.CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
 
             SetLocalPositionOnSpline(currentSpline.GetLocalPositionOnSpline(pointIndex));
         }
@@ -206,7 +205,7 @@ namespace GNT
         public float GetAbsoluteDistanceToSplinePoint(int pointIndex)
         {
             //#TODO this might have to change if we have multiple splines per ground layer. Also active walking layer SHOULD live on the entity 
-            CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
+            Pathfinding.CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
             return currentSpline.GetLocalPositionOnSpline(pointIndex) - splineMovementData.positionOnSpline;
         }
 

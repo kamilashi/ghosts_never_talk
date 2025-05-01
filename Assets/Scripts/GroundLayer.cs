@@ -16,7 +16,7 @@ namespace GNT
         public int GroundLayerIndex = -1;
 
         public EdgeCollider2D EdgeCollider;
-        public CatmullRomSpline MovementSpline;
+        public Pathfinding.CatmullRomSpline MovementSpline;
 
         void Awake()
         {
@@ -27,7 +27,7 @@ namespace GNT
 
             if (MovementSpline == null)
             {
-                MovementSpline = this.GetComponentInChildren<CatmullRomSpline>();
+                MovementSpline = this.GetComponentInChildren<Pathfinding.CatmullRomSpline>();
             }
         }
 
