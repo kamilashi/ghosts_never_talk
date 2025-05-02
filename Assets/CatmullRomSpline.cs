@@ -139,14 +139,14 @@ namespace Pathfinding
             controlPoints.InsertRange(0, newControlPoints);
         }
 
-        public Vector3 GetPositionOnSpline(ref float localPosRef, ref GNT.SplinePointObject detectedObject, float increment)
+        public Vector3 GetPositionOnSpline(ref SplineMovementData movementDataRef, float increment)
         {
-            float newLocalPos = localPosRef + increment;
+            float newLocalPos = movementDataRef.positionOnSpline + increment;
 
             int point1Index = 0;
             for (int i = 0; i < controlPoints.Count - 1; i++)
             {
-                if (localPosRef >= controlPoints[i].GetLocalPos() && localPosRef < controlPoints[i + 1].GetLocalPos())
+                if (movementDataRef.positionOnSpline >= controlPoints[i].GetLocalPos() && movementDataRef.positionOnSpline < controlPoints[i + 1].GetLocalPos())
                 {
                     point1Index = i;
                     float safetyError = 0.001f;
@@ -161,19 +161,21 @@ namespace Pathfinding
                         newLocalPos = totalLength - safetyError;
                     }
 
-                    localPosRef = newLocalPos;
+                    movementDataRef.positionOnSpline = newLocalPos;
 
-                    controlPoints[i].Visit();
-                    controlPoints[i + 1].Visit();
+                    controlPoints[i].Visit(); // left
+                    controlPoints[i + 1].Visit(); // right
+
+                    movementDataRef.lastVisitedControlPoint = increment < 0.0f ? controlPoints[i] : controlPoints[i + 1];
 
                     break;
                 }
             }
 
-            float t = (localPosRef - controlPoints[point1Index].GetLocalPos()) / (controlPoints[point1Index + 1].GetLocalPos() - controlPoints[point1Index].GetLocalPos());
+            float t = (movementDataRef.positionOnSpline - controlPoints[point1Index].GetLocalPos()) / (controlPoints[point1Index + 1].GetLocalPos() - controlPoints[point1Index].GetLocalPos());
 
             {
-                detectedObject = scanForSplinePointObjects(point1Index, newLocalPos);
+                movementDataRef.availableSplinePointObject = scanForSplinePointObjects(point1Index, newLocalPos);
             }
 
             return getPositionOnSplineSegment(point1Index, t);
@@ -223,12 +225,14 @@ namespace Pathfinding
         {
             return pointIndex >= controlPoints.Count - 1 ? null : controlPoints[pointIndex + 1];
         }
-        public ControlPoint GetLinkedPoint(int pointIndex)
+        public ControlPoint GetLinkedPoint(ref CatmullRomSpline linkedSplineRef, ref int linkedPointIndex, int pointIndex)
         {
             if (hasVerticalLink (controlPoints[pointIndex]))
             {
                 InteractableTeleporter teleporter = (InteractableTeleporter) controlPoints[pointIndex].objectAtPoint;
-                return teleporter.TargetTeleporter.ContainingGroundLayer.MovementSpline.GetControlPoint(teleporter.TargetTeleporter.GetSplinePointIndex());
+                linkedSplineRef = teleporter.TargetTeleporter.ContainingGroundLayer.MovementSpline;
+                linkedPointIndex = teleporter.TargetTeleporter.GetSplinePointIndex();
+                return linkedSplineRef.GetControlPoint(linkedPointIndex);
             }
 
             return null;

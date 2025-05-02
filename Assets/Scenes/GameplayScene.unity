@@ -1446,7 +1446,6 @@ MonoBehaviour:
   SnapToLocalOffset: 1
   vfxPlayerStaticRef: {fileID: 0}
   TargetTeleporter: {fileID: 415658731}
-  IsReceiverOnly: 0
 --- !u!114 &410870893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1535,7 +1534,6 @@ MonoBehaviour:
   SnapToLocalOffset: 1
   vfxPlayerStaticRef: {fileID: 0}
   TargetTeleporter: {fileID: 410870892}
-  IsReceiverOnly: 0
 --- !u!114 &415658732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7675,6 +7673,7 @@ Transform:
   - {fileID: 1345482918}
   - {fileID: 410870891}
   - {fileID: 629550661}
+  - {fileID: 891208318}
   - {fileID: 714906961}
   m_Father: {fileID: 1728121133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7920,7 +7919,7 @@ MonoBehaviour:
     localPos: 42.383606
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    objectAtPoint: {fileID: 891208320}
     position: {x: 31.630001, y: 0.7, z: 7}
     localPos: 46.16382
     wasVisited: 0
@@ -7988,6 +7987,94 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &891208317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 891208318}
+  - component: {fileID: 891208321}
+  - component: {fileID: 891208320}
+  - component: {fileID: 891208319}
+  m_Layer: 0
+  m_Name: Layer1TeleporterReceiverP12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &891208318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891208317}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 31.630001, y: 0.7, z: 7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 712069333}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &891208319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891208317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c033eab1924cc2045886c534954d9c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VfxPrefab: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
+  EnterSpeed: 5
+  ExitSpeed: 5
+  EnterExitDuration: 1
+  LoopDuration: -1
+--- !u!114 &891208320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891208317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Faction: 0
+  ContainingGroundLayer: {fileID: 0}
+  DetectionRadius: 3
+  splinePointObjectType: 0
+  UIPromptKey: 0
+  InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
+  LocalOffsetX: 0
+  SnapSpeed: 10
+  SnapToLocalOffset: 1
+  vfxPlayerStaticRef: {fileID: 0}
+  TargetTeleporter: {fileID: 0}
+--- !u!114 &891208321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891208317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1990daa751a667e4cb63057580f5e73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shape: 1
+  Extents: 3
 --- !u!1 &896297660
 GameObject:
   m_ObjectHideFlags: 0
@@ -8451,6 +8538,94 @@ Transform:
   m_Children: []
   m_Father: {fileID: 577948973}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -14.9}
+--- !u!1 &1148659130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1148659131}
+  - component: {fileID: 1148659134}
+  - component: {fileID: 1148659133}
+  - component: {fileID: 1148659132}
+  m_Layer: 0
+  m_Name: Layer3TeleporterP9toL1P12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1148659131
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148659130}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 34.7, y: 10.94, z: 12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1436780623}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1148659132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148659130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c033eab1924cc2045886c534954d9c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VfxPrefab: {fileID: 2388805212656680803, guid: a0e59398d086c5f4dadaae739c1f9af2, type: 3}
+  EnterSpeed: 5
+  ExitSpeed: 5
+  EnterExitDuration: 1
+  LoopDuration: -1
+--- !u!114 &1148659133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148659130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb949424429370f4ebe9b90c614ab0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Faction: 0
+  ContainingGroundLayer: {fileID: 0}
+  DetectionRadius: 3
+  splinePointObjectType: 0
+  UIPromptKey: 0
+  InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
+  LocalOffsetX: 0
+  SnapSpeed: 10
+  SnapToLocalOffset: 1
+  vfxPlayerStaticRef: {fileID: 0}
+  TargetTeleporter: {fileID: 891208320}
+--- !u!114 &1148659134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148659130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1990daa751a667e4cb63057580f5e73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shape: 1
+  Extents: 3
 --- !u!1 &1148784269
 GameObject:
   m_ObjectHideFlags: 0
@@ -8542,7 +8717,7 @@ MonoBehaviour:
     localPos: 49.05072
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    objectAtPoint: {fileID: 1148659133}
     position: {x: 34.7, y: 10.94, z: 12}
     localPos: 56.25072
     wasVisited: 0
@@ -9251,6 +9426,12 @@ MonoBehaviour:
   splineMovementData:
     positionOnSpline: 0
     availableSplinePointObject: {fileID: 0}
+    lastVisitedControlPoint:
+      transform: {fileID: 0}
+      objectAtPoint: {fileID: 0}
+      position: {x: 0, y: 0, z: 0}
+      localPos: 0
+      wasVisited: 0
   groundLayerData:
     currentGorundLayer: {fileID: 0}
 --- !u!95 &1294591931
@@ -9326,22 +9507,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5a794cb4245a6449cad388d3e70d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  binaryHeap:
-  - point:
-      transform: {fileID: 0}
-      objectAtPoint: {fileID: 0}
-      position: {x: 0, y: 0, z: 0}
-      localPos: 0
-      wasVisited: 0
-    cost: 3
-  - point:
-      transform: {fileID: 0}
-      objectAtPoint: {fileID: 0}
-      position: {x: 0, y: 0, z: 0}
-      localPos: 0
-      wasVisited: 0
-    cost: 16
-  newValue: 11
+  binaryHeapTest: []
+  newValueTest: 0
+  startSpline: {fileID: 1148784271}
+  sourcePointIndexTest: 8
+  targetSpline: {fileID: 714906962}
+  targetPointIndexTest: 8
+  path: []
+  currentVelocity: 0
+  maxSpeed: 0
 --- !u!1 &1318752994
 GameObject:
   m_ObjectHideFlags: 0
@@ -9599,7 +9773,6 @@ MonoBehaviour:
   SnapToLocalOffset: 1
   vfxPlayerStaticRef: {fileID: 0}
   TargetTeleporter: {fileID: 1659033200}
-  IsReceiverOnly: 0
 --- !u!114 &1349472667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9832,6 +10005,7 @@ Transform:
   - {fileID: 87240160}
   - {fileID: 1659033198}
   - {fileID: 1229356652}
+  - {fileID: 1148659131}
   - {fileID: 1148784270}
   m_Father: {fileID: 1728121133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10306,7 +10480,6 @@ MonoBehaviour:
   SnapToLocalOffset: 1
   vfxPlayerStaticRef: {fileID: 0}
   TargetTeleporter: {fileID: 1349472666}
-  IsReceiverOnly: 0
 --- !u!114 &1659033201
 MonoBehaviour:
   m_ObjectHideFlags: 0

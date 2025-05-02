@@ -13,19 +13,50 @@ using static UnityEngine.GraphicsBuffer;
 namespace Pathfinding
 {
     [Serializable]
+    public enum LinkDirection
+    {
+        Left = -1,
+        Vertical = 0,
+        Right = 1,
+        None = 10
+    }
+
+    [Serializable]
+    public class PathLink
+    {
+        public ControlPoint targetPoint;
+        public int index;
+        public LinkDirection direction;
+    }
+
+    [Serializable]
     public class AStarNode
     {
         public ControlPoint point;
-        //public int controlPointIndex;
+        public LinkDirection direction;
         public float cost;
         public AStarNode prevNode;
+        public CatmullRomSpline spline;
+        public int index;
 
-        public AStarNode(ControlPoint p, /*int index, */float c, AStarNode pNode)
+        public AStarNode(ControlPoint p, float c, AStarNode pNode, LinkDirection prevToThisDir, CatmullRomSpline parentSpline, int pointIndex)
         {
             point = p; 
             //controlPointIndex = index;
             cost = c;
             prevNode = pNode;
+            direction = prevToThisDir;
+            spline = parentSpline;
+            index = pointIndex;
+        }
+
+        public PathLink ToPathLink()
+        {
+            PathLink link = new PathLink();
+            link.direction = direction;
+            link.targetPoint = point;
+            link.index = index;
+            return link;
         }
     }
 
@@ -221,38 +252,33 @@ namespace Pathfinding
             return false;
         }
 
-        public void Remove(AStarNode node)
+        public void Replace(AStarNode oldNode, AStarNode newNode)
         {
-            if (binaryHeap.Contains(node))
+            if (binaryHeap.Contains(oldNode))
             {
-                binaryHeap.Remove(node);
+                int index = binaryHeap.IndexOf(oldNode);
+                binaryHeap[index] = newNode;
+                sortUp(index);
             } 
         }
       }
 
-    public struct MoveCommand
-    {
-        int targetPointIndex;
-        bool isLinkedPoint;
-    }
-
     public class Pathfinder
     {
-       public List<MoveCommand> Path;
-
+        /*
+        public List<MoveCommand> Path;
         public void SetPath(List<MoveCommand> path)
         {
             Path = path;
-        }
+        }*/
 
-        public static List<MoveCommand> GetAStarPath(Pathfinding.CatmullRomSpline startSpline, Pathfinding.ControlPoint source, Pathfinding.ControlPoint target)
+        public static List<PathLink> GetAStarPath(Pathfinding.CatmullRomSpline startSpline, Pathfinding.ControlPoint source, Pathfinding.ControlPoint target, bool ignoreVisitedCondition = false)
         {
             Pathfinding.PriorityQueue priorityQueue = new Pathfinding.PriorityQueue();
-            Pathfinding.CatmullRomSpline spline = startSpline;
-            List<Pathfinding.ControlPoint> processed = new List<Pathfinding.ControlPoint>();
-            List<MoveCommand> path = new List<MoveCommand>();
+            Dictionary<ControlPoint, AStarNode> processed = new Dictionary<ControlPoint, AStarNode>();
+            List<PathLink> path = new List<PathLink>();
 
-            AStarNode node = new AStarNode(source, 0.0f, null);
+            AStarNode node = new AStarNode(source, 0.0f, null, LinkDirection.None, startSpline, startSpline.GetControlPointIndex(source));
             priorityQueue.Enqueue(node);
 
             while (!priorityQueue.IsEmpty())
@@ -261,51 +287,70 @@ namespace Pathfinding
 
                 if (topNode.point == target) // target reached
                 {
+                    // reconstruct path
+                    while (topNode.point != source)
+                    {
+                        path.Add(topNode.ToPathLink());
+                        topNode = topNode.prevNode;
+                    }
+
+                    path.Reverse();
                     return path;
                 }
 
-                Action<Pathfinding.ControlPoint> processPoint = pointToProcess =>
+                Action<Pathfinding.ControlPoint, LinkDirection, CatmullRomSpline, int > processPoint = (pointToProcess, direction, parentSpline, index) =>
                 {
-                    if (pointToProcess != null && pointToProcess.wasVisited && !processed.Contains(pointToProcess))
+                    if (pointToProcess != null && (ignoreVisitedCondition || pointToProcess.wasVisited) && !processed.ContainsKey(pointToProcess))
                     {
-                        AStarNode newNode = toAStarNode(pointToProcess, target, topNode);
+                        AStarNode newNode = toAStarNode(pointToProcess, target, topNode, direction, parentSpline, index);
                         AStarNode queuedNode = newNode;
 
-                        if (priorityQueue.Contains(ref queuedNode, newNode.point) && queuedNode.cost > newNode.cost) // if found a short cut
+                        if (priorityQueue.Contains(ref queuedNode, newNode.point)) // already in the queue
                         {
-                            priorityQueue.Remove(queuedNode);
+                            if(queuedNode.cost > newNode.cost) // if found a short cut
+                            {
+                                priorityQueue.Replace(queuedNode, newNode);
+                            }
                         }
-
-                        priorityQueue.Enqueue(newNode);
+                        else
+                        {
+                            priorityQueue.Enqueue(newNode);
+                        }
                     }
                 };
 
-                int pointIndex = startSpline.GetControlPointIndex(topNode.point);
-                ControlPoint left = startSpline.GetLeftPoint(pointIndex);
-                processPoint(left);
+                CatmullRomSpline spline = topNode.spline;
+                int pointIndex = spline.GetControlPointIndex(topNode.point);
+                ControlPoint left = spline.GetLeftPoint(pointIndex);
+                processPoint(left, LinkDirection.Left, spline, pointIndex - 1);
 
-                ControlPoint right = startSpline.GetRightPoint(pointIndex);
-                processPoint(right);
+                ControlPoint right = spline.GetRightPoint(pointIndex);
+                processPoint(right, LinkDirection.Right, spline, pointIndex + 1);
 
-                ControlPoint vertical = startSpline.GetLinkedPoint(pointIndex);
-                processPoint(vertical);
+                int linkedPointIndex = 0;
+                ControlPoint vertical = spline.GetLinkedPoint(ref spline, ref linkedPointIndex, pointIndex);
+                processPoint(vertical, LinkDirection.Vertical, spline, linkedPointIndex);
 
-                processed.Add(topNode.point);
+                processed.TryAdd(topNode.point, topNode);
             }
 
             // target cannot be reached!
+            path.Clear();
+
+            Debug.Log("Could not find a path from " + source + " to " + target);
 
             return path;
         }
 
-        private static AStarNode toAStarNode(Pathfinding.ControlPoint currentPoint, Pathfinding.ControlPoint target, AStarNode prevNode)
+        private static AStarNode toAStarNode(Pathfinding.ControlPoint currentPoint, Pathfinding.ControlPoint target, AStarNode prevNode, LinkDirection prevToThisDirection, CatmullRomSpline parentSpline, int pointIndex)
         {
-            float nodeCost = Mathf.Abs(currentPoint.localPos - prevNode.point.localPos);
+            float teleportCost = 0.0f;
+            float nodeCost = prevToThisDirection == LinkDirection.Vertical ? teleportCost : Mathf.Abs(currentPoint.localPos - prevNode.point.localPos);
             float remainingCost = (target.GetPosition() - currentPoint.GetPosition()).sqrMagnitude;
 
             float cost = prevNode.cost + nodeCost + remainingCost;
 
-            AStarNode node = new AStarNode(currentPoint, cost, prevNode);
+            AStarNode node = new AStarNode(currentPoint, cost, prevNode, prevToThisDirection, parentSpline, pointIndex);
             return node;
         }
     }

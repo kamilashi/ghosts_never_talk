@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Library;
 using System;
+using Pathfinding;
 
 namespace GNT
 {
@@ -22,11 +23,12 @@ namespace GNT
     };
 
     [Serializable]
-    struct SplineMovementData
+    public struct SplineMovementData
     {
         public float positionOnSpline;
         //#TODOD: here should be the current spline dynamic ref!!!
         public SplinePointObject availableSplinePointObject;
+        public ControlPoint lastVisitedControlPoint;
     }
 
     [Serializable]
@@ -151,7 +153,7 @@ namespace GNT
         {
             //#TODO this might have to change if we have multiple splines per ground layer
             Pathfinding.CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
-            Vector3 newPosition = currentSpline.GetPositionOnSpline(ref splineMovementData.positionOnSpline, ref splineMovementData.availableSplinePointObject, horizontalVelocityPerTimeStep);
+            Vector3 newPosition = currentSpline.GetPositionOnSpline(ref splineMovementData, horizontalVelocityPerTimeStep);
             newPosition.y += offsetFromGroundToPivot;
             Vector3 toNewPosition = newPosition - transform.position;
             transform.Translate(toNewPosition, Space.World);
@@ -191,6 +193,10 @@ namespace GNT
         public SplinePointObject GetAvailableSplinePointObject()
         {
             return splineMovementData.availableSplinePointObject;
+        }
+        public Pathfinding.ControlPoint GetLastVisitedSplinePoint()
+        {
+            return splineMovementData.lastVisitedControlPoint;
         }
         public GroundLayer GetCurrentGroundLayer()
         {
