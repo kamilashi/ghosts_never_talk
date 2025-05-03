@@ -51,6 +51,11 @@ namespace GNT
         public void SetSplinePoint(int pointIndex)
         {
             this.pointIndex = pointIndex;
+            SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null) 
+            {
+                spriteRenderer.sortingOrder = ContainingGroundLayer.SpriteLayerOrder;
+            }
         }
 
         public void SetPosition(Vector3 position)

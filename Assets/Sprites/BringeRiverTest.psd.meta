@@ -106,9 +106,9 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 1585
       y: 2012
-      width: 4948
+      width: 3367
       height: 1828
     spriteID: 2f9513dbd535c014bb46b3ae56b74d1b
     spriteBone: []
@@ -413,6 +413,27 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 0, y: 0}
+  - name: BringeRiverTest_0
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 2013
+      width: 1568
+      height: 1846
+    spriteID: b8f162677326c4147a89f444f74bc400
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 2013}
     spritePosition: {x: 0, y: 0}
   characterData:
     bones: []
