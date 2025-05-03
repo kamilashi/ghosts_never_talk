@@ -74,5 +74,14 @@ namespace GNT
 
             return groundLayers[0];
         }
+
+        [ContextMenu("ReloadSplines")]
+        public void ReloadSplines()
+        {
+            foreach (GroundLayer layer in groundLayers)
+            {
+                layer.MovementSpline.TriggerOnValidate();
+            }
+        }
     }
 }

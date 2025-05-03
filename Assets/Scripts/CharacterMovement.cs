@@ -166,11 +166,11 @@ namespace GNT
             SetLocalPositionOnSpline(currentSpline.GetLocalPositionOnSpline(pointIndex));
         }
         
-        public void TeleportToSplinePoint(int pointIndex, GroundLayer targteLayer)
+        public void TeleportToSplinePoint(int pointIndex, GroundLayer targetLayer)
         {
-            if (targteLayer != groundLayerData.currentGorundLayer)
+            if (targetLayer != groundLayerData.currentGorundLayer)
             {
-                SwitchToLayer(targteLayer);
+                SwitchToLayer(targetLayer);
             }
 
             TeleportToSplinePoint(pointIndex);
@@ -203,16 +203,18 @@ namespace GNT
             return groundLayerData.currentGorundLayer;
         }
 
-        public bool IsAtSplinePoint(int pointIndex, float error = 0.01f)
+        public bool IsAtSplinePoint(int pointIndex, Pathfinding.CatmullRomSpline spline = null, float error = 0.01f)
         {
-            return Mathf.Abs(GetAbsoluteDistanceToSplinePoint(pointIndex)) <= error;
+            Pathfinding.CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
+            bool isSplineCorrect = spline == null || currentSpline == spline;
+            return isSplineCorrect && Mathf.Abs(GetSignedDistanceToPointOnCurrentSpline(pointIndex)) <= error;
         }
 
-        public float GetAbsoluteDistanceToSplinePoint(int pointIndex)
+        public float GetSignedDistanceToPointOnCurrentSpline(int pointIndex)
         {
             //#TODO this might have to change if we have multiple splines per ground layer. Also active walking layer SHOULD live on the entity 
-            Pathfinding.CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
-            return currentSpline.GetLocalPositionOnSpline(pointIndex) - splineMovementData.positionOnSpline;
+
+            return groundLayerData.currentGorundLayer.MovementSpline.GetLocalPositionOnSpline(pointIndex) - splineMovementData.positionOnSpline;
         }
 
 

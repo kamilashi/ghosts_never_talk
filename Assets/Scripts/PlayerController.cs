@@ -11,9 +11,11 @@ namespace GNT
         [Range(0, 1000)]
         private float inputSensitivity;
 
-        private CharacterMovement groundMovement;
-        private MoveDirection lastMoveDirection;
+        private CharacterMovement characterMovement;
+        private CharacterSteering characterSteering;
         private SpriteRenderer spriteRenderer;
+
+        private MoveDirection lastMoveDirection;
 
         // later once we have interactables, this will need to move to that component
         private GroundLayerPositionMapper groundLayerPositionMapper;
@@ -40,7 +42,8 @@ namespace GNT
         {
             lastMoveDirection = MoveDirection.Right;
             moveKeyHoldTimeScaled = 0.0f;
-            groundMovement = gameObject.GetComponentInChildren<CharacterMovement>();
+            characterMovement = gameObject.GetComponentInChildren<CharacterMovement>();
+            characterSteering = gameObject.GetComponentInChildren<CharacterSteering>();
             groundLayerPositionMapper = gameObject.GetComponentInChildren<GroundLayerPositionMapper>();
             spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
             bufferedTeleporter = null;
@@ -60,25 +63,25 @@ namespace GNT
                 if (Input.GetKey(moveLeftMappedKey))
                 {
                     processMoveInput(1.0f);
-                    lastMoveDirection = groundMovement.IsTurning() ? lastMoveDirection : MoveDirection.Left;
-                groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
+                    lastMoveDirection = characterMovement.IsTurning() ? lastMoveDirection : MoveDirection.Left;
+                characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
                 }
                 else if (Input.GetKey(moveRightMappedKey))
                 {
                     processMoveInput(1.0f);
-                    lastMoveDirection = groundMovement.IsTurning() ? lastMoveDirection : MoveDirection.Right;
-                groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
+                    lastMoveDirection = characterMovement.IsTurning() ? lastMoveDirection : MoveDirection.Right;
+                characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
                 }
                 else
                 {
                     processMoveInput(-1.0f);
-                    groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
+                    characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
                 }
 
                 if (currentAvailableTeleporter != null &&  Input.GetKeyDown(interactMappedKey))
                 {
                     resetMovementInput();
-                    currentAvailableTeleporter.Interact(this.transform, groundMovement);
+                    currentAvailableTeleporter.Interact(this.transform, characterMovement);
 
                     // player specific:
                     bufferedTeleporter = currentAvailableTeleporter;
@@ -87,7 +90,7 @@ namespace GNT
                 else if (currentAvailableTrigger != null && Input.GetKeyDown(interactMappedKey))
                 {
                     resetMovementInput();
-                    currentAvailableTrigger.Interact(this.transform, groundMovement);
+                    currentAvailableTrigger.Interact(this.transform, characterMovement);
                 }
             }
             else
@@ -179,7 +182,7 @@ namespace GNT
 
         private SplinePointObject getAvailableSplinePointObject()
         {
-            return groundMovement.GetAvailableSplinePointObject();
+            return characterMovement.GetAvailableSplinePointObject();
         }
 
         private void OnTeleportCamera()
@@ -192,7 +195,7 @@ namespace GNT
 
         public void OnPlayerTeleportTranslateAnimationEvent()
         {
-            bufferedTeleporter.Teleport(groundMovement); // is basically just calling groundMovement.teleportToPoint(idx, groundLayer)
+            bufferedTeleporter.Teleport(characterMovement); // is basically just calling groundMovement.teleportToPoint(idx, groundLayer)
 
             bufferedTeleporter.OnBecomeUnavailable();
             bufferedTeleporter = null;
@@ -270,8 +273,8 @@ namespace GNT
         {
             if (currentAvailableCheckPoint != null)
             {
-                groundMovement.SwitchToLayer(currentAvailableCheckPoint.ContainingGroundLayer);
-                currentAvailableCheckPoint.Respawn(this, groundMovement);
+                //groundMovement.SwitchToLayer(currentAvailableCheckPoint.ContainingGroundLayer);
+                currentAvailableCheckPoint.Respawn(this, characterMovement, characterSteering);
             }
         }
     }

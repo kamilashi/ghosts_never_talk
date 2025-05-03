@@ -22,6 +22,7 @@ public class CheckPoint : SplinePointObject
 
     [SerializeField] private RespawnStateMachine currentState;
     [SerializeField] private CharacterMovement respawneeGroundMovementDynamicRef;
+    [SerializeField] private CharacterSteering respawneeSteeringDynamicRef;
     [SerializeField] private PlayerController respawneePlayerControllerDynamicRef;
 
     [SerializeField] protected VfxPlayer vfxPlayerStaticRef; // maybe move to the SplinePointObject too
@@ -55,17 +56,10 @@ public class CheckPoint : SplinePointObject
                 }
             case RespawnStateMachine.Moving:
                 {
-                    if (respawneeGroundMovementDynamicRef.IsAtSplinePoint(splinePointIdx))
+                    if (respawneeSteeringDynamicRef.HasArrived())
                     {
                         respawneeGroundMovementDynamicRef.StopAndPlayAnimation(respawneeGroundMovementDynamicRef.SpawnAnimation);
                         currentState = RespawnStateMachine.PlayingSpawnAnimation;
-                    }
-                    else
-                    {
-                        float absoluteDistance = respawneeGroundMovementDynamicRef.GetAbsoluteDistanceToSplinePoint(splinePointIdx);
-                        float direction = Mathf.Sign(absoluteDistance);
-                        currentVeclocity += direction * Mathf.Min(Acceleration * Time.deltaTime, Mathf.Abs(absoluteDistance));
-                        respawneeGroundMovementDynamicRef.MoveAlongSpline(currentVeclocity);
                     }
                     break;
                 }
@@ -78,6 +72,7 @@ public class CheckPoint : SplinePointObject
                         currentVeclocity = 0.0f;
                         respawneePlayerControllerDynamicRef = null;
                         respawneeGroundMovementDynamicRef = null;
+                        respawneeSteeringDynamicRef = null;
                         currentState = RespawnStateMachine.Inactive;
                     }
                     break;
@@ -85,11 +80,14 @@ public class CheckPoint : SplinePointObject
         }
     }
 
-    public void Respawn(PlayerController playerController, CharacterMovement groundMovement)
+    public void Respawn(PlayerController playerController, CharacterMovement groundMovement, CharacterSteering characterSteering)
     {
         currentState = RespawnStateMachine.PlayingRespawnAnimation;
         respawneeGroundMovementDynamicRef = groundMovement;
         respawneePlayerControllerDynamicRef = playerController;
+        respawneeSteeringDynamicRef = characterSteering;
+
+        respawneeSteeringDynamicRef.StartSteeringOnPath(pointIndex, ContainingGroundLayer.MovementSpline, 5.0f);
 
         respawneeGroundMovementDynamicRef.StopAndPlayAnimation(respawneeGroundMovementDynamicRef.RespawnAnimation);
         respawneePlayerControllerDynamicRef.SetBlockInput(true);

@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace GNT
 {
-/// <summary>
-/// This class will most likely hold and maybe process the ground movement path for the entire walkable area of this layer
-/// </summary>
+    /// <summary>
+    /// This class will most likely hold and maybe process the ground movement path for the entire walkable area of this layer
+    /// </summary>
     public class GroundLayer : SystemObject
     {
         public SceneInterface ContainerScene;
@@ -20,7 +20,7 @@ namespace GNT
 
         void Awake()
         {
-            if(ContainerScene == null)
+            if (ContainerScene == null)
             {
                 ContainerScene = this.transform.GetComponentInParent<SceneInterface>();
             }
@@ -34,5 +34,6 @@ namespace GNT
         void Update()
         {
         }
+
     }
 }

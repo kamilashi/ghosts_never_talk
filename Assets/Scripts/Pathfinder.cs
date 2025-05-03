@@ -25,6 +25,7 @@ namespace Pathfinding
     public class PathLink
     {
         public ControlPoint targetPoint;
+        public CatmullRomSpline spline;
         public int index;
         public LinkDirection direction;
     }
@@ -56,6 +57,7 @@ namespace Pathfinding
             link.direction = direction;
             link.targetPoint = point;
             link.index = index;
+            link.spline = spline;
             return link;
         }
     }
@@ -265,14 +267,7 @@ namespace Pathfinding
 
     public class Pathfinder
     {
-        /*
-        public List<MoveCommand> Path;
-        public void SetPath(List<MoveCommand> path)
-        {
-            Path = path;
-        }*/
-
-        public static List<PathLink> GetAStarPath(Pathfinding.CatmullRomSpline startSpline, Pathfinding.ControlPoint source, Pathfinding.ControlPoint target, bool ignoreVisitedCondition = false)
+        public static List<PathLink> GetAStarPath(ref Pathfinding.CatmullRomSpline targetSpline, Pathfinding.CatmullRomSpline startSpline, Pathfinding.ControlPoint source, Pathfinding.ControlPoint target, bool ignoreVisitedCondition = false)
         {
             Pathfinding.PriorityQueue priorityQueue = new Pathfinding.PriorityQueue();
             Dictionary<ControlPoint, AStarNode> processed = new Dictionary<ControlPoint, AStarNode>();
@@ -287,6 +282,8 @@ namespace Pathfinding
 
                 if (topNode.point == target) // target reached
                 {
+                    targetSpline = topNode.spline;
+
                     // reconstruct path
                     while (topNode.point != source)
                     {

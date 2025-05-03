@@ -227,7 +227,7 @@ namespace Pathfinding
         }
         public ControlPoint GetLinkedPoint(ref CatmullRomSpline linkedSplineRef, ref int linkedPointIndex, int pointIndex)
         {
-            if (hasVerticalLink (controlPoints[pointIndex]))
+            if (HasVerticalLink(controlPoints[pointIndex]))
             {
                 InteractableTeleporter teleporter = (InteractableTeleporter) controlPoints[pointIndex].objectAtPoint;
                 linkedSplineRef = teleporter.TargetTeleporter.ContainingGroundLayer.MovementSpline;
@@ -238,7 +238,7 @@ namespace Pathfinding
             return null;
         }
 
-        private bool hasVerticalLink(ControlPoint point)
+        public bool HasVerticalLink(ControlPoint point)
         {  
             if(point.objectAtPoint != null && point.objectAtPoint.IsOfType(GNT.SplinePointObjectType.InteractableTeleporter))
             {
@@ -290,6 +290,11 @@ namespace Pathfinding
                     }
                 }
             }
+        }
+
+        public void TriggerOnValidate()
+        {
+            OnValidate();
         }
 
         private GNT.SplinePointObject scanForSplinePointObjects(int leftPointIdx, float positionOnSpline)

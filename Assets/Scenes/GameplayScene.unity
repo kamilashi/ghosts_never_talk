@@ -7159,7 +7159,7 @@ Transform:
   m_GameObject: {fileID: 629550660}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.05, y: -3.99, z: 7}
+  m_LocalPosition: {x: 22.630001, y: 4.07, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7216,6 +7216,7 @@ MonoBehaviour:
   currentVeclocity: 0
   currentState: 0
   respawneeGroundMovementDynamicRef: {fileID: 0}
+  respawneeSteeringDynamicRef: {fileID: 0}
   respawneePlayerControllerDynamicRef: {fileID: 0}
   vfxPlayerStaticRef: {fileID: 0}
 --- !u!212 &629550665
@@ -7864,7 +7865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlPoints:
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 629550664}
+    objectAtPoint: {fileID: 0}
     position: {x: -11.05, y: -3.99, z: 7}
     localPos: 0
     wasVisited: 0
@@ -7904,7 +7905,7 @@ MonoBehaviour:
     localPos: 33.18356
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    objectAtPoint: {fileID: 629550664}
     position: {x: 22.630001, y: 4.07, z: 7}
     localPos: 36.211445
     wasVisited: 0
@@ -9509,13 +9510,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   binaryHeapTest: []
   newValueTest: 0
-  startSpline: {fileID: 1148784271}
+  startSplineTest: {fileID: 0}
   sourcePointIndexTest: 8
-  targetSpline: {fileID: 714906962}
+  targetSplineTest: {fileID: 0}
   targetPointIndexTest: 8
-  path: []
   currentVelocity: 0
   maxSpeed: 0
+  currentState: 0
+  path: []
 --- !u!1 &1318752994
 GameObject:
   m_ObjectHideFlags: 0
@@ -10027,7 +10029,7 @@ MonoBehaviour:
   SpriteLayerOrder: 8
   GroundLayerIndex: -1
   EdgeCollider: {fileID: 87240161}
-  MovementSpline: {fileID: 0}
+  MovementSpline: {fileID: 1148784271}
 --- !u!1 &1469329728
 GameObject:
   m_ObjectHideFlags: 0
