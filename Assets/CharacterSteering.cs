@@ -2,9 +2,11 @@ using Library;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
-using static CheckPoint;
+
+#if UNITY_EDITOR
+using UnityEditor.Search;
+#endif
 
 namespace GNT
 {
@@ -17,6 +19,7 @@ namespace GNT
             Arrived
         }
 
+#if UNITY_EDITOR
         [Header("Sorting test")]
         Pathfinding.PriorityQueue queueTest = new Pathfinding.PriorityQueue();
         public List<AStarNode> binaryHeapTest;
@@ -27,6 +30,7 @@ namespace GNT
         public int sourcePointIndexTest;
         public Pathfinding.CatmullRomSpline targetSplineTest;
         public int targetPointIndexTest;
+#endif
 
         [Header("Functional")]
         CharacterMovement characterMovementStaticRef;
@@ -164,6 +168,8 @@ namespace GNT
             return currentState == SteeringStateMachine.Arrived;
         }
 
+
+#if UNITY_EDITOR
         [ContextMenu("FindPath")]
         private void FindPathTest()
         {
@@ -201,5 +207,6 @@ namespace GNT
 
             binaryHeapTest = queueTest.binaryHeap;
         }
+#endif
     }
 }

@@ -29,6 +29,9 @@ namespace GNT
 
         void Awake()
         {
+#if !UNITY_EDITOR
+            ReloadSplines();
+#endif
         }
 
         void Update()

@@ -229,7 +229,7 @@ namespace GNT
         public void SwitchToLayer(GroundLayer targetGroundLayer, float positionOnLayer = -1.0f)
         {
             groundLayerData.currentGorundLayer = targetGroundLayer;
-            spriteRendererStaticRef.sortingOrder = targetGroundLayer.SpriteLayerOrder;
+            spriteRendererStaticRef.sortingOrder = targetGroundLayer.SpriteLayerOrder + 1; // on top of the ground layer
 
             if (positionOnLayer >= 0.0)
             {

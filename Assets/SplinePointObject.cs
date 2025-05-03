@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 
 namespace GNT

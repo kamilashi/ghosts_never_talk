@@ -106,8 +106,11 @@ namespace Library
             System.IO.StreamWriter writer = new System.IO.StreamWriter(wholePath, false);
             writer.WriteLine(content);
             writer.Close();
+
+#if UNITY_EDITOR
             //Re-import the file to update the reference in the editor
             UnityEditor.AssetDatabase.ImportAsset(wholePath);
+#endif
 
             //Print the text from the file
             UnityEngine.TextAsset asset = (UnityEngine.TextAsset) UnityEngine.Resources.Load(resourceFolder + fileNameNoExt);

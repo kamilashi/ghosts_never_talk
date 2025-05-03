@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using GNT;
-using static UnityEditor.Progress;
 using System;
+using UnityEngine;
+
+#if UNITY_EDITOR
+using static UnityEditor.Progress;
 using UnityEngine.U2D;
 using TreeEditor;
 using UnityEditor.Search;
-using System.Linq;
 using static UnityEngine.GraphicsBuffer;
+#endif
 
 namespace Pathfinding
 {

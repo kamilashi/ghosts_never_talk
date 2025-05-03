@@ -1,13 +1,16 @@
 using GNT;
 using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
+
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine;
 using UnityEngine.U2D;
+#endif
 
 namespace Pathfinding
 {
@@ -79,65 +82,7 @@ namespace Pathfinding
 
         [SerializeField] private float totalLength;
 
-        [ContextMenu("Initialize")]
-        void Initialize()
-        {
-            controlPoints.Clear();
-            totalLength = 0.0f;
 
-            uint numPoints = System.Math.Max(4u, initializeSettings.numControlPoints);
-
-            ControlPoint startPoint = new ControlPoint(this.transform.position, 0.0f);
-            controlPoints.Add(startPoint);
-
-            for (int i = 1; i < numPoints; i++)
-            {
-                totalLength += initializeSettings.distanceBetwPoints;
-                ControlPoint point = new ControlPoint(controlPoints[i - 1].GetPosition(), totalLength);
-                point.position.x += initializeSettings.distanceBetwPoints;
-                controlPoints.Add(point);
-            }
-        }
-
-        [ContextMenu("AddPointsRight")]
-        void AddPointsRight()
-        {
-            uint numPoints = initializeSettings.numControlPoints;
-            int prevCount = controlPoints.Count;
-
-            for (int i = 0; i < numPoints; i++)
-            {
-                totalLength += initializeSettings.distanceBetwPoints;
-                ControlPoint point = new ControlPoint(controlPoints[prevCount + i - 1].GetPosition(), totalLength);
-                point.position.x += initializeSettings.distanceBetwPoints;
-                controlPoints.Add(point);
-            }
-        }
-
-
-        [ContextMenu("AddPointsLeft")]
-        void AddPointsLeft()
-        {
-            uint numPoints = initializeSettings.numControlPoints;
-
-            List<ControlPoint> newControlPoints = new List<ControlPoint>();
-            float newTotalLength = 0.0f;
-
-            ControlPoint startPoint = new ControlPoint(controlPoints[0].position, 0.0f);
-            startPoint.position.x -= numPoints * initializeSettings.distanceBetwPoints;
-            newControlPoints.Add(startPoint);
-
-            for (int i = 1; i < numPoints; i++)
-            {
-                newTotalLength += initializeSettings.distanceBetwPoints;
-                ControlPoint point = new ControlPoint(newControlPoints[i - 1].GetPosition(), newTotalLength);
-                point.position.x += initializeSettings.distanceBetwPoints;
-                newControlPoints.Add(point);
-            }
-
-            totalLength += newTotalLength;
-            controlPoints.InsertRange(0, newControlPoints);
-        }
 
         public Vector3 GetPositionOnSpline(ref SplineMovementData movementDataRef, float increment)
         {
@@ -250,52 +195,6 @@ namespace Pathfinding
             return false; 
         }
 
-        //[ExecuteInEditMode]
-        private void OnValidate()
-        {
-            if (controlPoints == null || controlPoints.Count == 0)
-            {
-                return;
-            }
-
-            totalLength = 0.0f;
-
-            controlPoints[0].SetLocalPos(0.0f);
-            if (controlPoints[0].objectAtPoint != null)
-            {
-                controlPoints[0].objectAtPoint.SetSplinePoint(0);
-                controlPoints[0].objectAtPoint.SetPosition(controlPoints[0].GetPosition());
-
-                if (ObjectScanDistance > 0.0f && controlPoints[0].objectAtPoint.DetectionRadius > ObjectScanDistance)
-                {
-                    Debug.LogWarning("Please increase the ObjectScanDistance of spline " + this.name + "!");
-                }
-            }
-
-            for (int i = 1; i < controlPoints.Count; i++)
-            {
-                Vector3 prevToThis = controlPoints[i].GetPosition() - controlPoints[i - 1].GetPosition();
-                float distance = prevToThis.magnitude;
-                totalLength += distance;
-                controlPoints[i].SetLocalPos(totalLength);
-
-                if (controlPoints[i].objectAtPoint != null)
-                {
-                    controlPoints[i].objectAtPoint.SetSplinePoint(i);
-                    controlPoints[i].objectAtPoint.SetPosition(controlPoints[i].GetPosition());
-
-                    if (ObjectScanDistance > 0.0f && controlPoints[i].objectAtPoint.DetectionRadius > ObjectScanDistance)
-                    {
-                        Debug.LogWarning("Please increase the ObjectScanDistance of spline " + this.name + "!");
-                    }
-                }
-            }
-        }
-
-        public void TriggerOnValidate()
-        {
-            OnValidate();
-        }
 
         private GNT.SplinePointObject scanForSplinePointObjects(int leftPointIdx, float positionOnSpline)
         {
@@ -345,6 +244,112 @@ namespace Pathfinding
             return nearestObject;
         }
 
+        private void OnValidate()
+        {
+            if (controlPoints == null || controlPoints.Count == 0)
+            {
+                return;
+            }
+
+            totalLength = 0.0f;
+
+            controlPoints[0].SetLocalPos(0.0f);
+            if (controlPoints[0].objectAtPoint != null)
+            {
+                controlPoints[0].objectAtPoint.SetSplinePoint(0);
+                controlPoints[0].objectAtPoint.SetPosition(controlPoints[0].GetPosition());
+
+                if (ObjectScanDistance > 0.0f && controlPoints[0].objectAtPoint.DetectionRadius > ObjectScanDistance)
+                {
+                    Debug.LogWarning("Please increase the ObjectScanDistance of spline " + this.name + "!");
+                }
+            }
+
+            for (int i = 1; i < controlPoints.Count; i++)
+            {
+                Vector3 prevToThis = controlPoints[i].GetPosition() - controlPoints[i - 1].GetPosition();
+                float distance = prevToThis.magnitude;
+                totalLength += distance;
+                controlPoints[i].SetLocalPos(totalLength);
+
+                if (controlPoints[i].objectAtPoint != null)
+                {
+                    controlPoints[i].objectAtPoint.SetSplinePoint(i);
+                    controlPoints[i].objectAtPoint.SetPosition(controlPoints[i].GetPosition());
+
+                    if (ObjectScanDistance > 0.0f && controlPoints[i].objectAtPoint.DetectionRadius > ObjectScanDistance)
+                    {
+                        Debug.LogWarning("Please increase the ObjectScanDistance of spline " + this.name + "!");
+                    }
+                }
+            }
+        }
+        public void TriggerOnValidate()
+        {
+            OnValidate();
+        }
+
+#if UNITY_EDITOR
+        [ContextMenu("Initialize")]
+        void Initialize()
+        {
+            controlPoints.Clear();
+            totalLength = 0.0f;
+
+            uint numPoints = System.Math.Max(4u, initializeSettings.numControlPoints);
+
+            ControlPoint startPoint = new ControlPoint(this.transform.position, 0.0f);
+            controlPoints.Add(startPoint);
+
+            for (int i = 1; i < numPoints; i++)
+            {
+                totalLength += initializeSettings.distanceBetwPoints;
+                ControlPoint point = new ControlPoint(controlPoints[i - 1].GetPosition(), totalLength);
+                point.position.x += initializeSettings.distanceBetwPoints;
+                controlPoints.Add(point);
+            }
+        }
+
+        [ContextMenu("AddPointsRight")]
+        void AddPointsRight()
+        {
+            uint numPoints = initializeSettings.numControlPoints;
+            int prevCount = controlPoints.Count;
+
+            for (int i = 0; i < numPoints; i++)
+            {
+                totalLength += initializeSettings.distanceBetwPoints;
+                ControlPoint point = new ControlPoint(controlPoints[prevCount + i - 1].GetPosition(), totalLength);
+                point.position.x += initializeSettings.distanceBetwPoints;
+                controlPoints.Add(point);
+            }
+        }
+
+
+        [ContextMenu("AddPointsLeft")]
+        void AddPointsLeft()
+        {
+            uint numPoints = initializeSettings.numControlPoints;
+
+            List<ControlPoint> newControlPoints = new List<ControlPoint>();
+            float newTotalLength = 0.0f;
+
+            ControlPoint startPoint = new ControlPoint(controlPoints[0].position, 0.0f);
+            startPoint.position.x -= numPoints * initializeSettings.distanceBetwPoints;
+            newControlPoints.Add(startPoint);
+
+            for (int i = 1; i < numPoints; i++)
+            {
+                newTotalLength += initializeSettings.distanceBetwPoints;
+                ControlPoint point = new ControlPoint(newControlPoints[i - 1].GetPosition(), newTotalLength);
+                point.position.x += initializeSettings.distanceBetwPoints;
+                newControlPoints.Add(point);
+            }
+
+            totalLength += newTotalLength;
+            controlPoints.InsertRange(0, newControlPoints);
+        }
+
         void OnDrawGizmos()
         {
             if (controlPoints == null || controlPoints.Count == 0)
@@ -387,6 +392,7 @@ namespace Pathfinding
                 lastPos = newPos;
             }
         }
+#endif
 
         //Clamp the list positions to allow looping
         int ClampListPos(int pointIdx)
