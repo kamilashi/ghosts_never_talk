@@ -21,6 +21,7 @@ namespace GNT
         private MoveDirection lastMoveDirection;
         private float moveKeyHoldTimeScaled;
         [SerializeField] private bool acceptInput = true;
+        [SerializeField] private bool processSplinePoints = true;
 
         [SerializeField] private InteractableTeleporter currentAvailableTeleporter;
         private InteractableTeleporter bufferedTeleporter;
@@ -98,6 +99,11 @@ namespace GNT
                 GameManager.Instance.DialogueViewStaticRef.UserRequestedViewAdvancement();
             }
 
+            if(!processSplinePoints)
+            {
+                return;
+            }
+
             {
                 SplinePointObject availableObject = getAvailableSplinePointObject();
 
@@ -106,12 +112,14 @@ namespace GNT
                 processAvailableTeleporter(availableObject);
 
                 processAvailableTrigger(availableObject);
+                
+                processKillZone(availableObject);
             }
         }
 
         private void processAvailableCheckpoint(SplinePointObject splineObject)
         {
-            if (splineObject != null && splineObject.IsOfType(SplinePointObjectType.CheckPoint))
+            if (splineObject != null && splineObject.CanExecuteSplineObject() && splineObject.IsOfType(SplinePointObjectType.CheckPoint))
             {
                 CheckPoint newCheckPoint = (CheckPoint)splineObject;
                 if (newCheckPoint != currentAvailableCheckPoint)
@@ -174,6 +182,14 @@ namespace GNT
                 currentAvailableTeleporter = null;
             }
         }
+        
+        private void processKillZone(SplinePointObject splineObject)
+        {
+            if (splineObject != null && splineObject.CanExecuteSplineObject() && splineObject.IsOfType(SplinePointObjectType.KillZone))
+            {
+                TriggerRespawn();
+            }
+        }
 
 
         private void processMoveInput(float sign)
@@ -214,9 +230,9 @@ namespace GNT
         {
             return moveKeyHoldTimeScaled;
         }
-        private void setAcceptInput(bool isEnabled)
+        private void setParameterEnabled(ref bool parameter, bool isEnabled)
         {
-            acceptInput = isEnabled;
+            parameter = isEnabled;
         }
         private void resetMovementInput()
         {
@@ -224,7 +240,12 @@ namespace GNT
         }
         public void SetBlockInput(bool blockInputEnabled)
         {
-            setAcceptInput(!blockInputEnabled);
+            setParameterEnabled(ref acceptInput, !blockInputEnabled);
+        }
+        
+        public void SetBlockSplinePointProcessing(bool blockProcessingEnabled)
+        {
+            setParameterEnabled(ref processSplinePoints, !blockProcessingEnabled);
         }
 
         public void BlockInputAnimationEvent(float duration)
@@ -232,12 +253,12 @@ namespace GNT
             // Create event handler delegate and pass it to the duration event constructor
             ProcessingHelpers.OnFinishedCallbackDelegate eventHandlerDelegate = OnBlockInputDurationEnd;
             GameManager.Instance.AnimationEventProcessorInstance.RegisterDurationEvent(duration, eventHandlerDelegate);
-            setAcceptInput(false);
+            SetBlockInput(true);
         }
 
         public void OnBlockInputDurationEnd()
         {
-            setAcceptInput(true);
+            SetBlockInput(false);
         }
 
         public Interactable GetAvailableInteractable()
@@ -270,12 +291,12 @@ namespace GNT
         }
 
 
-        [ContextMenu("RespawnTest")]
-        void RespawnTest()
+        [ContextMenu("TriggerRespawn")]
+        void TriggerRespawn()
         {
             if (currentAvailableCheckPoint != null)
             {
-                playerRespawn.Respawn(currentAvailableCheckPoint);
+                playerRespawn.StartRespawn();
             }
             else
             {

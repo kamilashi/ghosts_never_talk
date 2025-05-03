@@ -22,6 +22,7 @@ namespace GNT
         CheckPoint,
         InteractableTeleporter,
         InteractableTrigger,
+        KillZone,
        // AutoTrigger
     }
 
@@ -40,10 +41,7 @@ namespace GNT
 
         protected void BaseAwakeSplinePointObject()
         {
-            if (ContainingGroundLayer == null)
-            {
-                ContainingGroundLayer = this.transform.GetComponentInParent<GroundLayer>();
-            }
+            //setGroundLayer();
 
             isLocked = false;
             isHidden = false;
@@ -53,6 +51,8 @@ namespace GNT
 
         public void SetSplinePoint(int pointIndex)
         {
+            setGroundLayer();
+
             this.pointIndex = pointIndex;
             SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null) 
@@ -95,5 +95,21 @@ namespace GNT
         {
             return splinePointObjectType == type;
         }
+
+        private void setGroundLayer()
+        {
+            if (ContainingGroundLayer == null)
+            {
+                ContainingGroundLayer = this.transform.GetComponentInParent<GroundLayer>();
+            }
+        }
+
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            setGroundLayer();
+        }
+#endif
     }
 }
