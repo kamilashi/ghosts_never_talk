@@ -7212,12 +7212,6 @@ MonoBehaviour:
   ContainingGroundLayer: {fileID: 712069334}
   DetectionRadius: 5
   splinePointObjectType: 0
-  Acceleration: 1
-  currentVeclocity: 0
-  currentState: 0
-  respawneeGroundMovementDynamicRef: {fileID: 0}
-  respawneeSteeringDynamicRef: {fileID: 0}
-  respawneePlayerControllerDynamicRef: {fileID: 0}
   vfxPlayerStaticRef: {fileID: 0}
 --- !u!212 &629550665
 SpriteRenderer:
@@ -9311,10 +9305,10 @@ GameObject:
   - component: {fileID: 1294591925}
   - component: {fileID: 1294591929}
   - component: {fileID: 1294591931}
-  - component: {fileID: 1294591932}
   - component: {fileID: 1294591933}
   - component: {fileID: 1294591934}
   - component: {fileID: 1294591935}
+  - component: {fileID: 1294591936}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -9387,7 +9381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputSensitivity: 1
-  moveKeyHoldTimeScaled: 0
+  acceptInput: 1
   currentAvailableTeleporter: {fileID: 0}
   currentAvailableTrigger: {fileID: 0}
   currentAvailableCheckPoint: {fileID: 0}
@@ -9456,18 +9450,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1294591932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1294591924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03236189ecc5ee449a03d30147f24021, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1294591933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9518,6 +9500,22 @@ MonoBehaviour:
   maxSpeed: 0
   currentState: 0
   path: []
+--- !u!114 &1294591936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294591924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b323518a705b314aaaf56215b78d455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  playerMovement: {fileID: 0}
+  playerSteering: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &1318752994
 GameObject:
   m_ObjectHideFlags: 0
@@ -12245,7 +12243,7 @@ Transform:
   m_GameObject: {fileID: 6924891890353894833}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.900001, y: -4.9, z: 6.06}
+  m_LocalPosition: {x: 10.900001, y: -4.98, z: 6.06}
   m_LocalScale: {x: 0.86571425, y: 0.86571425, z: 0.86571425}
   m_ConstrainProportionsScale: 0
   m_Children: []
