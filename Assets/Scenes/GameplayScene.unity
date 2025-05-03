@@ -9801,6 +9801,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ab4354444990d48a33c361898814ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentAnimationStateHash: 0
+  PreviousAnimationStateHash: 0
 --- !u!114 &1294591935
 MonoBehaviour:
   m_ObjectHideFlags: 0

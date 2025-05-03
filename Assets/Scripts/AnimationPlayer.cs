@@ -7,8 +7,8 @@ namespace GNT
     public class AnimationPlayer : MonoBehaviour
     {
         AnimatorStateInfo CurrentAnimationState;
-       [SerializeField] int CurrentAnimationStateHash = 0;
-       [SerializeField] int PreviousAnimationStateHash = 0;
+        int CurrentAnimationStateHash = 0;
+        int PreviousAnimationStateHash = 0;
 
         Animator animatorStaticRef;
 
