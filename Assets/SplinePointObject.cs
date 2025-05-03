@@ -30,7 +30,7 @@ namespace GNT
 
         [SerializeField] protected SplinePointObjectType splinePointObjectType;
 
-        protected int splinePointIdx;
+        protected int pointIndex;
         protected bool isLocked;
         protected bool isHidden;
         // here can be the parent spline
@@ -50,7 +50,7 @@ namespace GNT
 
         public void SetSplinePoint(int pointIndex)
         {
-            splinePointIdx = pointIndex;
+            this.pointIndex = pointIndex;
         }
 
         public void SetPosition(Vector3 position)
@@ -64,7 +64,7 @@ namespace GNT
 
         public int GetSplinePointIndex()
         {
-            return splinePointIdx;
+            return pointIndex;
         }
 
         public bool IsInDetectionRange(float currentDistance)

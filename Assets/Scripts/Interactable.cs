@@ -23,19 +23,6 @@ namespace GNT
             vfxPlayerStaticRef = gameObject.GetComponent<VfxPlayer>();
         }
 
-/*
-        public bool IsInRangeX(Vector3 interactorPos/ *, ref float squareDistance* /)
-        { 
-            bool isInRange = false;
-
-            Vector3 toInteractor = interactorPos;
-            toInteractor -= this.transform.position;
-
-            isInRange = Mathf.Abs(toInteractor.x) <= InteractRadius;
-
-            return isInRange;
-        }*/
-
         private IEnumerator MoveToInteractionX(Transform interactorTransform, System.Action onCoroutineFinishedInteractAction, CharacterMovement interactorGroundMovement = null)
         {
             if(SnapToLocalOffset)

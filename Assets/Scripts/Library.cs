@@ -80,6 +80,11 @@ namespace Library
 
     public static class Helpers
     {
+        public static float MinValue(float signedInput, float unsignedReference)
+        {
+            return Mathf.Sign(signedInput) * Mathf.Min(Mathf.Abs(signedInput), unsignedReference);
+        }
+
         public static float GetDeltaYToScreenBottom(UnityEngine.Vector3 objectPos, UnityEngine.Vector3 currentCamPos, float vertFOV)
         {
             float distanceFromCamera = System.Math.Abs(objectPos.z - currentCamPos.z);

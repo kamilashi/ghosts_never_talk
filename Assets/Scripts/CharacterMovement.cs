@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Library;
 using System;
+using Pathfinding;
 
 namespace GNT
 {
@@ -22,17 +23,17 @@ namespace GNT
     };
 
     [Serializable]
-    struct SplineMovementData
+    public struct SplineMovementData
     {
         public float positionOnSpline;
         //#TODOD: here should be the current spline dynamic ref!!!
         public SplinePointObject availableSplinePointObject;
+        public ControlPoint lastVisitedControlPoint;
     }
 
     [Serializable]
     struct GroundLayerData
     {
-       // public int indexInScene;
         public GroundLayer currentGorundLayer;
     }
 
@@ -151,8 +152,8 @@ namespace GNT
         public void MoveAlongSpline(float horizontalVelocityPerTimeStep)
         {
             //#TODO this might have to change if we have multiple splines per ground layer
-            CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
-            Vector3 newPosition = currentSpline.GetPositionOnSpline(ref splineMovementData.positionOnSpline, ref splineMovementData.availableSplinePointObject, horizontalVelocityPerTimeStep);
+            Pathfinding.CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
+            Vector3 newPosition = currentSpline.GetPositionOnSpline(ref splineMovementData, horizontalVelocityPerTimeStep);
             newPosition.y += offsetFromGroundToPivot;
             Vector3 toNewPosition = newPosition - transform.position;
             transform.Translate(toNewPosition, Space.World);
@@ -160,16 +161,16 @@ namespace GNT
 
         public void TeleportToSplinePoint(int pointIndex)
         {
-            CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
+            Pathfinding.CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
 
             SetLocalPositionOnSpline(currentSpline.GetLocalPositionOnSpline(pointIndex));
         }
         
-        public void TeleportToSplinePoint(int pointIndex, GroundLayer targteLayer)
+        public void TeleportToSplinePoint(int pointIndex, GroundLayer targetLayer)
         {
-            if (targteLayer != groundLayerData.currentGorundLayer)
+            if (targetLayer != groundLayerData.currentGorundLayer)
             {
-                SwitchToLayer(targteLayer);
+                SwitchToLayer(targetLayer);
             }
 
             TeleportToSplinePoint(pointIndex);
@@ -193,21 +194,27 @@ namespace GNT
         {
             return splineMovementData.availableSplinePointObject;
         }
+        public Pathfinding.ControlPoint GetLastVisitedSplinePoint()
+        {
+            return splineMovementData.lastVisitedControlPoint;
+        }
         public GroundLayer GetCurrentGroundLayer()
         {
             return groundLayerData.currentGorundLayer;
         }
 
-        public bool IsAtSplinePoint(int pointIndex, float error = 0.01f)
+        public bool IsAtSplinePoint(int pointIndex, Pathfinding.CatmullRomSpline spline = null, float error = 0.01f)
         {
-            return Mathf.Abs(GetAbsoluteDistanceToSplinePoint(pointIndex)) <= error;
+            Pathfinding.CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
+            bool isSplineCorrect = spline == null || currentSpline == spline;
+            return isSplineCorrect && Mathf.Abs(GetSignedDistanceToPointOnCurrentSpline(pointIndex)) <= error;
         }
 
-        public float GetAbsoluteDistanceToSplinePoint(int pointIndex)
+        public float GetSignedDistanceToPointOnCurrentSpline(int pointIndex)
         {
             //#TODO this might have to change if we have multiple splines per ground layer. Also active walking layer SHOULD live on the entity 
-            CatmullRomSpline currentSpline = groundLayerData.currentGorundLayer.MovementSpline;
-            return currentSpline.GetLocalPositionOnSpline(pointIndex) - splineMovementData.positionOnSpline;
+
+            return groundLayerData.currentGorundLayer.MovementSpline.GetLocalPositionOnSpline(pointIndex) - splineMovementData.positionOnSpline;
         }
 
 

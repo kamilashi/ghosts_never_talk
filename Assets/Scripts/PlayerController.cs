@@ -9,18 +9,18 @@ namespace GNT
     {
         [SerializeField]
         [Range(0, 1000)]
-        private float inputSensitivity;
+        private float inputSensitivity; // setup in the explorer
 
-        private CharacterMovement groundMovement;
-        private MoveDirection lastMoveDirection;
+
+        // setup internally:
+        private CharacterMovement characterMovement;
+        private CharacterSteering characterSteering;
+        private PlayerRespawn playerRespawn;
         private SpriteRenderer spriteRenderer;
 
-        // later once we have interactables, this will need to move to that component
-        private GroundLayerPositionMapper groundLayerPositionMapper;
-
-        [SerializeField] private float moveKeyHoldTimeScaled;
-        private bool acceptInput = true;
-
+        private MoveDirection lastMoveDirection;
+        private float moveKeyHoldTimeScaled;
+        [SerializeField] private bool acceptInput = true;
 
         [SerializeField] private InteractableTeleporter currentAvailableTeleporter;
         private InteractableTeleporter bufferedTeleporter;
@@ -31,18 +31,17 @@ namespace GNT
         // #Todo: get this data from control map
         KeyCode moveLeftMappedKey = KeyCode.A;
         KeyCode moveRightMappedKey = KeyCode.D;
-        
         KeyCode advanceDialogueMappedKey = KeyCode.Space;
-
         KeyCode interactMappedKey = KeyCode.F;
 
         void Awake()
         {
             lastMoveDirection = MoveDirection.Right;
             moveKeyHoldTimeScaled = 0.0f;
-            groundMovement = gameObject.GetComponentInChildren<CharacterMovement>();
-            groundLayerPositionMapper = gameObject.GetComponentInChildren<GroundLayerPositionMapper>();
-            spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+            characterMovement = gameObject.GetComponent<CharacterMovement>();
+            characterSteering = gameObject.GetComponent<CharacterSteering>();
+            playerRespawn = gameObject.GetComponent<PlayerRespawn>();
+            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             bufferedTeleporter = null;
             currentAvailableTrigger = null;
             currentAvailableCheckPoint = null;
@@ -60,34 +59,33 @@ namespace GNT
                 if (Input.GetKey(moveLeftMappedKey))
                 {
                     processMoveInput(1.0f);
-                    lastMoveDirection = groundMovement.IsTurning() ? lastMoveDirection : MoveDirection.Left;
-                groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
+                    lastMoveDirection = characterMovement.IsTurning() ? lastMoveDirection : MoveDirection.Left;
+                characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
                 }
                 else if (Input.GetKey(moveRightMappedKey))
                 {
                     processMoveInput(1.0f);
-                    lastMoveDirection = groundMovement.IsTurning() ? lastMoveDirection : MoveDirection.Right;
-                groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
+                    lastMoveDirection = characterMovement.IsTurning() ? lastMoveDirection : MoveDirection.Right;
+                characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
                 }
                 else
                 {
                     processMoveInput(-1.0f);
-                    groundMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
+                    characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Stand);
                 }
 
                 if (currentAvailableTeleporter != null &&  Input.GetKeyDown(interactMappedKey))
                 {
                     resetMovementInput();
-                    currentAvailableTeleporter.Interact(this.transform, groundMovement);
+                    currentAvailableTeleporter.Interact(this.transform, characterMovement);
 
-                    // player specific:
                     bufferedTeleporter = currentAvailableTeleporter;
                     OnTeleportCamera();
                 }
                 else if (currentAvailableTrigger != null && Input.GetKeyDown(interactMappedKey))
                 {
                     resetMovementInput();
-                    currentAvailableTrigger.Interact(this.transform, groundMovement);
+                    currentAvailableTrigger.Interact(this.transform, characterMovement);
                 }
             }
             else
@@ -127,9 +125,10 @@ namespace GNT
 
         private void processAvailableTrigger(SplinePointObject splineObject)
         {
+            InteractableTrigger newTrigger = null;
             if (splineObject != null && splineObject.IsOfType(SplinePointObjectType.InteractableTrigger))
             {
-                InteractableTrigger newTrigger = (InteractableTrigger) splineObject;
+                newTrigger = (InteractableTrigger) splineObject;
                 if (currentAvailableTrigger != newTrigger)
                 {
                     currentAvailableTrigger?.OnBecomeUnavailable();
@@ -138,7 +137,9 @@ namespace GNT
                     currentAvailableTrigger = newTrigger;
                 }
             }
-            else if (currentAvailableTrigger != null)
+
+            // found no available triggers:
+            if (newTrigger == null && currentAvailableTrigger != null)
             {
                 currentAvailableTrigger.OnBecomeUnavailable();
                 currentAvailableTrigger = null;
@@ -147,9 +148,11 @@ namespace GNT
 
         private void processAvailableTeleporter(SplinePointObject splineObject)
         {
-            if (splineObject != null && splineObject.IsOfType(SplinePointObjectType.InteractableTeleporter))
+            InteractableTeleporter newTeleporter = null;
+
+            if (splineObject != null && splineObject.IsOfType(SplinePointObjectType.InteractableTeleporter) && !((InteractableTeleporter)splineObject).isReceiverOnly())
             {
-                InteractableTeleporter newTeleporter = (InteractableTeleporter)splineObject;
+                newTeleporter = (InteractableTeleporter)splineObject;
                 if (currentAvailableTeleporter != newTeleporter)
                 {
                     currentAvailableTeleporter?.OnBecomeUnavailable();
@@ -163,7 +166,9 @@ namespace GNT
                     }
                 }
             }
-            else if (currentAvailableTeleporter != null)
+            
+            // found no available teleporters:
+            if (newTeleporter == null && currentAvailableTeleporter != null)
             {
                 currentAvailableTeleporter.OnBecomeUnavailable();
                 currentAvailableTeleporter = null;
@@ -179,7 +184,7 @@ namespace GNT
 
         private SplinePointObject getAvailableSplinePointObject()
         {
-            return groundMovement.GetAvailableSplinePointObject();
+            return characterMovement.GetAvailableSplinePointObject();
         }
 
         private void OnTeleportCamera()
@@ -192,7 +197,7 @@ namespace GNT
 
         public void OnPlayerTeleportTranslateAnimationEvent()
         {
-            bufferedTeleporter.Teleport(groundMovement); // is basically just calling groundMovement.teleportToPoint(idx, groundLayer)
+            bufferedTeleporter.Teleport(characterMovement); // is basically just calling groundMovement.teleportToPoint(idx, groundLayer)
 
             bufferedTeleporter.OnBecomeUnavailable();
             bufferedTeleporter = null;
@@ -270,8 +275,11 @@ namespace GNT
         {
             if (currentAvailableCheckPoint != null)
             {
-                groundMovement.SwitchToLayer(currentAvailableCheckPoint.ContainingGroundLayer);
-                currentAvailableCheckPoint.Respawn(this, groundMovement);
+                playerRespawn.Respawn(currentAvailableCheckPoint);
+            }
+            else
+            {
+                Debug.LogError("No available check points!");
             }
         }
     }
