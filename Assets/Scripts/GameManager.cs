@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ProcessingHelpers;
+using Library;
 // this is persistent
 
 namespace GNT
 {
     public class GameManager : MonoBehaviour
     {
+        [Header("Menual Setup")]
         private static GameManager globalDataInstance; // singleton
 
         public SceneInterface StartSceneStaticRef; // read only, set in the inspector only, invisible to other scripts
@@ -18,7 +20,10 @@ namespace GNT
         public CustomDialogueView DialogueViewStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
         public Yarn.Unity.DialogueRunner DialogueRunnerStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
 
+        [Header("Global Data")]
+        public float ForegroundShiftDuration;
 
+        [Header("Debug View")]
         public SceneInterface ActiveSceneDynamicRef; //read + write only from the owner script #todo : maybe should be handled by the scene manager,global reference to which should be stored here - should be visible to other scripts
 
         public Dictionary<string, GlobalCharacterReference> GlobalCharacterRefDictionary;
@@ -59,6 +64,8 @@ namespace GNT
 
             SceneStartData sceneStartData = StartSceneStaticRef.GetSceneStartData();
             PlayerMovementStaticRef.SwitchToLayer(StartSceneStaticRef.GetGroundLayer(sceneStartData.startLayerIdx), sceneStartData.positionOnLayer);
+
+            PlayerMovementStaticRef.LayerSwitchEvent += GameManager.Instance.OnLayerSwitch; // special handling when the player switches layers
         }
 
         void Update()
@@ -96,6 +103,25 @@ namespace GNT
         public GlobalCharacterReference GetGlobalCharacterByReference(string key)
         {
             return GlobalCharacterRefDictionary[key];
+        }
+
+        public void OnLayerSwitch(int oldIndex, int newIndex)
+        {
+            GroundLayer foreGroundLayer = ActiveSceneDynamicRef.GetGroundLayer(oldIndex);
+            if (newIndex > oldIndex && foreGroundLayer.ShiftScale > 0.0f) // switched inwards (further away), the now foreground layer might need shifting down;
+            {
+                float downShiftScale = foreGroundLayer.ShiftScale;
+                float distanceToScreenBottom = Helpers.GetDeltaYToScreenBottom(foreGroundLayer.transform.position, GetActiveCamera().transform.position, GetActiveCamera().fieldOfView);
+                float boundingHeight = foreGroundLayer.GetBoundingHeight();
+
+                // start shifing down
+                ActiveSceneDynamicRef.ShiftForegroundDown(oldIndex, downShiftScale * (boundingHeight + distanceToScreenBottom), ForegroundShiftDuration);
+            }
+            else if (ActiveSceneDynamicRef.GetGroundLayer(newIndex).IsShiftedDown()) // switched out (closer)
+            {
+                // shift back up
+                ActiveSceneDynamicRef.ShiftForegroundUp(newIndex, ForegroundShiftDuration);
+            }
         }
     }
 }

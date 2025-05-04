@@ -14,9 +14,9 @@ namespace GNT
 
         // setup internally:
         private CharacterMovement characterMovement;
-        private CharacterSteering characterSteering;
         private PlayerRespawn playerRespawn;
         private SpriteRenderer spriteRenderer;
+        private Animator animator;
 
         private MoveDirection lastMoveDirection;
         private float moveKeyHoldTimeScaled;
@@ -40,9 +40,9 @@ namespace GNT
             lastMoveDirection = MoveDirection.Right;
             moveKeyHoldTimeScaled = 0.0f;
             characterMovement = gameObject.GetComponent<CharacterMovement>();
-            characterSteering = gameObject.GetComponent<CharacterSteering>();
             playerRespawn = gameObject.GetComponent<PlayerRespawn>();
             spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            animator = gameObject.GetComponent<Animator>();
             bufferedTeleporter = null;
             currentAvailableTrigger = null;
             currentAvailableCheckPoint = null;
@@ -114,6 +114,17 @@ namespace GNT
                 processAvailableTrigger(availableObject);
                 
                 processKillZone(availableObject);
+            }
+
+            if (characterMovement.GetCurrentGroundLayer().IsShiftedDown()) 
+            {
+                spriteRenderer.enabled = false;
+                animator.speed = 0.0f;
+            }
+            else
+            {
+                spriteRenderer.enabled = true;
+                animator.speed = 1.0f;
             }
         }
 
@@ -289,7 +300,6 @@ namespace GNT
         {
             return advanceDialogueMappedKey.ToString();
         }
-
 
         [ContextMenu("TriggerRespawn")]
         void TriggerRespawn()

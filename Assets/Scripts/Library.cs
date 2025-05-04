@@ -76,6 +76,11 @@ namespace Library
 
             return output;
         }
+
+        public static float EaseOutCubic(float input)
+        {
+            return 1 - Mathf.Pow(1 - input, 3);
+        }
     }
 
     public static class Helpers

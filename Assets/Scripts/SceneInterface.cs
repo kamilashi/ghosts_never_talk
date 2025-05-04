@@ -1,3 +1,4 @@
+using Library;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -78,6 +79,60 @@ namespace GNT
             return groundLayers[0];
         }
 
+        public void ShiftForegroundDown(int layerIndex, float distance, float duration)
+        {
+            GroundLayer layer = groundLayers[layerIndex];
+
+            Action onFinished = () =>
+            {
+                layer.SetShiftDownDistance(distance);
+                layer.SetIsShiftedDown(true);
+            };
+
+            StartCoroutine(ShiftLayerVertically(layer, distance, -1.0f, duration,onFinished));
+
+        }
+        
+        public void ShiftForegroundUp(int layerIndex, float duration)
+        {
+            GroundLayer layer = groundLayers[layerIndex];
+
+            Action onFinished = () =>
+            {
+                layer.SetShiftDownDistance(0.0f);
+                layer.SetIsShiftedDown(false);
+            };
+
+            StartCoroutine(ShiftLayerVertically(layer, layer.GetShiftDownDistance(), 1.0f, duration, onFinished));
+        }
+
+        private IEnumerator ShiftLayerVertically(GroundLayer layer, float distance, float direction /*1 = Up, -1 = down*/, float duration, System.Action onCoroutineFinishedInteractAction)
+        {
+                Transform layerAssetsTransform = layer.LayerAssetsContainer.transform;
+                Vector3 startPosition = layerAssetsTransform.position;
+                Vector3 endPosition = startPosition;
+                endPosition.y += direction * distance;
+                float timer = 0.0f;
+
+                do
+                {
+                    float progressLinear = timer / duration;
+                    float progressTweened = SmoothingFuncitons.EaseOutCubic(progressLinear);
+
+                    timer += Time.deltaTime;
+
+                    Vector3 newPosition = Vector3.Lerp(startPosition, endPosition, progressTweened);
+                    layerAssetsTransform.Translate(newPosition - layerAssetsTransform.position);
+
+                    yield return null;
+                }
+                while (timer <= duration);
+
+
+            onCoroutineFinishedInteractAction?.Invoke();
+        }
+
+
         [ContextMenu("ReloadSplines")]
         public void ReloadSplines()
         {
@@ -85,6 +140,10 @@ namespace GNT
             {
                 layer.MovementSpline.TriggerOnValidate();
             }
+        }
+
+        public void OnLayerSwitch(int oldLayerIndex, int newLayerIndex)
+        {
         }
     }
 }

@@ -7539,6 +7539,7 @@ MonoBehaviour:
   PlayerMovementStaticRef: {fileID: 1294591929}
   DialogueViewStaticRef: {fileID: 1233174499}
   DialogueRunnerStaticRef: {fileID: 3579681405842511146}
+  ForegroundShiftDuration: 0.7
   ActiveSceneDynamicRef: {fileID: 0}
 --- !u!4 &644905460
 Transform:
@@ -7928,12 +7929,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8149592f92bb4e48a886a30579edb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ContainerScene: {fileID: 0}
-  LayerAssetsContainer: {fileID: 0}
+  LayerAssetsContainer: {fileID: 577948972}
   ScreenBottomHook: {fileID: 2027566995}
+  ShiftScale: 0.1
+  BoundingHeight: -1
+  BoundingHeightReferenceSprite: {fileID: 4531219711628149473}
+  ContainerScene: {fileID: 0}
   SpriteLayerOrder: 91
   GroundLayerIndex: -1
-  EdgeCollider: {fileID: 1345482917}
   MovementSpline: {fileID: 714906962}
 --- !u!1 &714374341
 GameObject:
@@ -9168,12 +9171,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8149592f92bb4e48a886a30579edb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ContainerScene: {fileID: 0}
-  LayerAssetsContainer: {fileID: 0}
+  LayerAssetsContainer: {fileID: 947421027}
   ScreenBottomHook: {fileID: 1571432039}
+  ShiftScale: 0
+  BoundingHeight: 0
+  BoundingHeightReferenceSprite: {fileID: 0}
+  ContainerScene: {fileID: 0}
   SpriteLayerOrder: 10
   GroundLayerIndex: -1
-  EdgeCollider: {fileID: 298525315}
   MovementSpline: {fileID: 681233483}
 --- !u!1 &1229356651
 GameObject:
@@ -9801,8 +9806,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ab4354444990d48a33c361898814ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentAnimationStateHash: 0
-  PreviousAnimationStateHash: 0
 --- !u!114 &1294591935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10344,12 +10347,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8149592f92bb4e48a886a30579edb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ContainerScene: {fileID: 0}
-  LayerAssetsContainer: {fileID: 0}
+  LayerAssetsContainer: {fileID: 947421027}
   ScreenBottomHook: {fileID: 1469329728}
+  ShiftScale: 0
+  BoundingHeight: 0
+  BoundingHeightReferenceSprite: {fileID: 0}
+  ContainerScene: {fileID: 0}
   SpriteLayerOrder: 8
   GroundLayerIndex: -1
-  EdgeCollider: {fileID: 87240161}
   MovementSpline: {fileID: 1148784271}
 --- !u!1 &1469329728
 GameObject:

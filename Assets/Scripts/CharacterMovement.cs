@@ -62,6 +62,8 @@ namespace GNT
         Animator animatorStaticRef;
         AnimationPlayer animationPlayerStaticRef;
 
+        public Action<int, int> LayerSwitchEvent;
+
         void Awake()
         {
 // #ToDo: refactor this
@@ -228,6 +230,8 @@ namespace GNT
         }
         public void SwitchToLayer(GroundLayer targetGroundLayer, float positionOnLayer = -1.0f)
         {
+            int oldLayerId = groundLayerData.currentGorundLayer? groundLayerData.currentGorundLayer.GroundLayerIndex : targetGroundLayer.GroundLayerIndex;
+
             groundLayerData.currentGorundLayer = targetGroundLayer;
             spriteRendererStaticRef.sortingOrder = targetGroundLayer.SpriteLayerOrder + 1; // on top of the ground layer
 
@@ -239,6 +243,8 @@ namespace GNT
             {
                 SetLocalPositionOnSpline(groundLayerData.currentGorundLayer.MovementSpline.GetTotalLength());
             }
+
+            LayerSwitchEvent?.Invoke(oldLayerId, targetGroundLayer.GroundLayerIndex);
 
            Debug.Log("switched to layerIdx " + targetGroundLayer.GroundLayerIndex);
         }
