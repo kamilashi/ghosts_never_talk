@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,9 +77,10 @@ namespace GNT
             vfxPlayerStaticRef.PlayVfxExit();
         }
 
-        public void Interact(Transform interactorTransform, CharacterMovement groundMovement = null)
+        public void Interact(Transform interactorTransform, CharacterMovement groundMovement = null, Action OnMoveFinished = null)
         {
-            StartCoroutine(MoveToInteractionX(interactorTransform, onInteractCoroutineFinished, groundMovement));
+            OnMoveFinished += onInteractCoroutineFinished;
+            StartCoroutine(MoveToInteractionX(interactorTransform, OnMoveFinished, groundMovement));
         }
 
     }

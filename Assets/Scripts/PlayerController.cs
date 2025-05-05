@@ -78,6 +78,8 @@ namespace GNT
                 if (currentAvailableTeleporter != null &&  Input.GetKeyDown(interactMappedKey))
                 {
                     resetMovementInput();
+                    characterMovement.ResetMovement();
+                    SetBlockInput(true);
                     currentAvailableTeleporter.Interact(this.transform, characterMovement);
 
                     bufferedTeleporter = currentAvailableTeleporter;
@@ -86,7 +88,9 @@ namespace GNT
                 else if (currentAvailableTrigger != null && Input.GetKeyDown(interactMappedKey))
                 {
                     resetMovementInput();
-                    currentAvailableTrigger.Interact(this.transform, characterMovement);
+                    characterMovement.ResetMovement();
+                    SetBlockInput(true);
+                    currentAvailableTrigger.Interact(this.transform, characterMovement, OnBlockInputDurationEnd);
                 }
             }
             else

@@ -191,6 +191,7 @@ namespace GNT
         public void ResetMovement()
         {
             SetMovementInput((GNT.MoveDirection) inputDirection, MoveSpeed.Stand);
+            currentHorizontalVelocity = 0.0f;   
         }
         public SplinePointObject GetAvailableSplinePointObject()
         {
