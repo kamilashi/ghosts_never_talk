@@ -7535,6 +7535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartSceneStaticRef: {fileID: 1728121134}
   MainCameraStaticRef: {fileID: 318446024}
+  CameraMovementStaticRef: {fileID: 318446026}
   PlayerControllerStaticRef: {fileID: 1294591926}
   PlayerMovementStaticRef: {fileID: 1294591929}
   DialogueViewStaticRef: {fileID: 1233174499}

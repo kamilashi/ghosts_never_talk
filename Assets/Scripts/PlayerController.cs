@@ -221,7 +221,7 @@ namespace GNT
         private void OnTeleportCamera()
         {
             // the animation should come from the teleporting interactable!
-            CameraMovement playerCameraMovement = GameManager.Instance.GetActiveCamera().GetComponent<CameraMovement>();
+            CameraMovement playerCameraMovement = GameManager.Instance.CameraMovementStaticRef;
             playerCameraMovement.SetPlayerFollowTeleportDampLambda();
             playerCameraMovement.Dolly(2.0f);
         }
@@ -233,7 +233,7 @@ namespace GNT
             bufferedTeleporter.OnBecomeUnavailable();
             bufferedTeleporter = null;
 
-            CameraMovement playerCameraMovement = GameManager.Instance.GetActiveCamera().GetComponent<CameraMovement>();
+            CameraMovement playerCameraMovement = GameManager.Instance.CameraMovementStaticRef;
             playerCameraMovement.ResetDolly();
         }
 

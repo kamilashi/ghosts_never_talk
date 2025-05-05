@@ -13,12 +13,13 @@ namespace GNT
         [Header("Menual Setup")]
         private static GameManager globalDataInstance; // singleton
 
-        public SceneInterface StartSceneStaticRef; // read only, set in the inspector only, invisible to other scripts
-        public Camera MainCameraStaticRef; // read only, set in the inspector only, invisible to other scripts
-        public PlayerController PlayerControllerStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
-        public CharacterMovement PlayerMovementStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
-        public CustomDialogueView DialogueViewStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
-        public Yarn.Unity.DialogueRunner DialogueRunnerStaticRef; // read only, reference needs to be set in the inspector, visible too other scripts
+        public SceneInterface StartSceneStaticRef; 
+        public Camera MainCameraStaticRef; 
+        public CameraMovement CameraMovementStaticRef; 
+        public PlayerController PlayerControllerStaticRef; 
+        public CharacterMovement PlayerMovementStaticRef; 
+        public CustomDialogueView DialogueViewStaticRef; 
+        public Yarn.Unity.DialogueRunner DialogueRunnerStaticRef; 
 
         [Header("Global Data")]
         public float ForegroundShiftDuration;
@@ -62,10 +63,17 @@ namespace GNT
         {
             OnSceneLoadFinishEvent?.Invoke();
 
-            SceneStartData sceneStartData = StartSceneStaticRef.GetSceneStartData();
-            PlayerMovementStaticRef.SwitchToLayer(StartSceneStaticRef.GetGroundLayer(sceneStartData.startLayerIdx), sceneStartData.positionOnLayer);
+            // this will move into the scene init code
+            {
+                SceneStartData sceneStartData = StartSceneStaticRef.GetSceneStartData();
+                PlayerMovementStaticRef.SwitchToLayer(StartSceneStaticRef.GetGroundLayer(sceneStartData.startLayerIdx), sceneStartData.positionOnLayer);
 
-            PlayerMovementStaticRef.LayerSwitchEvent += GameManager.Instance.OnLayerSwitch; // special handling when the player switches layers
+                Vector3 cameraPosition = PlayerMovementStaticRef.transform.position;
+                cameraPosition.z += CameraMovementStaticRef.defaultPlayerOffsetZ;
+                MainCameraStaticRef.transform.Translate(cameraPosition - MainCameraStaticRef.transform.position);
+            }
+
+            PlayerMovementStaticRef.LayerSwitchEvent += GameManager.Instance.OnLayerSwitch; // special handling when the player switches layers, should happen AFTER the first scene load layer switch
         }
 
         void Update()
