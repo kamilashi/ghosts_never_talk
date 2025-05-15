@@ -95,6 +95,7 @@ namespace Pathfinding
                 {
                     point1Index = i;
                     float safetyError = 0.001f;
+
                     // clamp to end points:
                     if (newLocalPos < 0.0f)
                     {
