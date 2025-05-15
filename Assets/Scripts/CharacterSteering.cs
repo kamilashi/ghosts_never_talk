@@ -3,6 +3,8 @@ using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
+
 
 #if UNITY_EDITOR
 using UnityEditor.Search;
@@ -119,6 +121,12 @@ namespace GNT
 
         public void ProcessSteering()
         {
+            if (characterMovementStaticRef.GetCurrentGroundLayer().IsShiftedDown())
+            {
+                currentVelocity = 0.0f;
+                return;
+            }
+
             float error = path.Count == 0 ? 0.01f : 0.5f;
 
             if (characterMovementStaticRef.IsAtSplinePoint(nextTarget.index, nextTarget.spline, error))
@@ -145,7 +153,6 @@ namespace GNT
                 currentVelocity = SmoothingFuncitons.ApproachReferenceLinear(currentVelocity, direction * maxSpeed, characterMovementStaticRef.Acceleration * Time.deltaTime);
 
                 float translation = Helpers.MinValue (currentVelocity * Time.deltaTime, Mathf.Abs (absoluteDistance));
-
 
                 characterMovementStaticRef.MoveAlongSpline(translation);
             }
