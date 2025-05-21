@@ -1,12 +1,22 @@
 #pragma kernel writeLocalUvCoordY
 #pragma kernel writeLocalUvCoordWithBoundsY
+#pragma kernel writeVerticallyInvertedUvCoords
+#pragma kernel writeFlippedMerappedUvCoords
 #pragma kernel clearRenderTexture
 
 shared RWTexture2D<float4> localSpriteUVRenderTexture;
 
 float localTopPixel;
 float localBottomPixel;
+float spriteHeightInPixels;
+
+float localLeftPixel;
+float localRightPixel;
+float spriteWidthInPixels;
+
+
 float textureHeightInPixels;
+float textureWidthInPixels;
 
 float topUvBoudY;
 float bottomUvBoudY;
@@ -30,7 +40,42 @@ void writeLocalUvCoordY(uint3 id : SV_DispatchThreadID)
     }
 }
 
-#define blocksize 1024
+[numthreads(1, 1, 1)]
+void writeVerticallyInvertedUvCoords(uint3 id : SV_DispatchThreadID)
+{
+    uint pixelCoordX = id.x;
+    uint pixelCoordY = id.y;
+    
+    float topUvY = ((float) localTopPixel) / (textureHeightInPixels - 1);
+    float bottomUvY = ((float) localBottomPixel) / (textureHeightInPixels - 1);
+    
+    if (pixelCoordY >= localBottomPixel && pixelCoordY < localTopPixel && pixelCoordX >= localLeftPixel && pixelCoordX < localRightPixel)
+    //if (pixelCoordY >= 0 && pixelCoordY <= 10 && pixelCoordX >= 0 && pixelCoordX < 10)
+    {
+        float currentUvX = ((float) pixelCoordX) / (textureWidthInPixels-1);
+        float currentUvY = ((float) pixelCoordY) / (textureHeightInPixels-1);
+        
+        float invertedY = (bottomUvY + topUvY - currentUvY);
+        
+        localSpriteUVRenderTexture[id.xy] = float4(currentUvX, invertedY, 0.0, 1.0);
+    }
+}
+
+[numthreads(1, 1, 1)]
+void writeFlippedMerappedUvCoords(uint3 id : SV_DispatchThreadID)
+{
+    uint pixelCoordX = id.x;
+    uint pixelCoordY = id.y;
+    
+    if (pixelCoordY >= localBottomPixel && pixelCoordY <= localTopPixel && pixelCoordX >= localLeftPixel && pixelCoordX <= localRightPixel)
+    {
+        float invertedY = 1 - ((float) pixelCoordY - localBottomPixel) / (spriteHeightInPixels);
+        float invertedX = 1 - ((float) pixelCoordX - localLeftPixel) / (spriteWidthInPixels);
+        
+        localSpriteUVRenderTexture[id.xy] = float4(invertedX, invertedY, 0.0, 1.0);
+    }
+}
+
 [numthreads(blocksize, 1, 1)]
 void writeLocalUvCoordWithBoundsY(uint3 id : SV_DispatchThreadID)
 {

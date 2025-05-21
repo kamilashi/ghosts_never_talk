@@ -100,6 +100,27 @@ namespace Graphics
             SetGlobalDistanceFadeParams();
         }
 
+        [ContextMenu("WriteInvertedUVDataFromSprites")]
+        private void WriteInvertedUVDataFromSprites()
+        {
+            bool fetchedAnyData = false;
+            foreach (Transform sprite in spritesContainer.transform)
+            {
+                if (sprite.GetComponent<LocalUVConverter>() != null)
+                {
+                    LocalUVConverter uvConverterComponent = sprite.GetComponent<LocalUVConverter>();
+                    uvConverterComponent.WriteInvertedSpriteDataIntoRenderTexture(ref localSpriteUVRenderTexture, ref localUVConverterComputeShader);
+                    fetchedAnyData = true;
+                    break;
+                }
+            }
+
+            if (fetchedAnyData)
+            {
+                Library.TextureWriter.SaveRenderTextureToFile(localSpriteUVRenderTexture, outputTextureName, true, Library.TextureWriter.SaveTextureFileFormat.PNG);
+            }
+        }
+        
         [ContextMenu("WriteLocalUVDataFromSpritesYCoordOnly")]
         private void WriteLocalUVDataFromSpritesYCoordOnly()
         {

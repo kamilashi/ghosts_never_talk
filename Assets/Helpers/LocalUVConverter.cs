@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Graphics
         private float localTopPixel;
         private float localBottomPixel;
         private float textureHeightInPixels;
+
 
         [Header("Sprite Local Bottom Fade")]
         public bool bottomFadeEnabled = false;
@@ -28,6 +30,36 @@ namespace Graphics
         public float intensity = 0.8f;
         public float farClipMofidier = 0.0f;
         public float nearClipModifier = 0.0f;
+
+        [Header("Debug View:")]
+        public SpriteData currentSpruteData;
+
+        [Serializable]
+        public struct SpriteData
+        {
+            public float localTopPixel;
+            public float localBottomPixel;
+            public float spriteHeightInPixels;
+
+            public float localLeftPixel;
+            public float localRightPixel;
+            public float spriteWidthInPixels;
+
+            public int textureHeightInPixels;
+            public int textureWidthtInPixels;
+
+            public void clear()
+            {
+                localTopPixel = 0.0f;
+                localBottomPixel = 0.0f;
+                spriteHeightInPixels = 0.0f;
+                localLeftPixel = 0.0f;
+                localRightPixel = 0.0f;
+                spriteWidthInPixels = 0.0f;
+                textureHeightInPixels = 0;
+                textureWidthtInPixels = 0;
+            }
+        }
 
         //public RenderTexture localSpriteUVRenderTexture;
         //public ComputeShader localUVConverterComputeShader;
@@ -62,6 +94,21 @@ namespace Graphics
             localBottomPixelRef = spriteRenderer.sprite.rect.position.y;
             textureHeightInPixelsRef = spriteRenderer.sprite.texture.height;
         }
+        
+        void GetLocalSpriteData(ref SpriteData localSpriteDataRef)
+        {
+            SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            localSpriteDataRef.localTopPixel = Mathf.Round(spriteRenderer.sprite.rect.position.y + spriteRenderer.sprite.rect.height);
+            localSpriteDataRef.localBottomPixel= Mathf.Round(spriteRenderer.sprite.rect.position.y);
+            localSpriteDataRef.spriteHeightInPixels = Mathf.Round(spriteRenderer.sprite.rect.height);
+            
+            localSpriteDataRef.localLeftPixel = Mathf.Round(spriteRenderer.sprite.rect.position.x);
+            localSpriteDataRef.localRightPixel= Mathf.Round(spriteRenderer.sprite.rect.position.x + spriteRenderer.sprite.rect.width);
+            localSpriteDataRef.spriteWidthInPixels = Mathf.Round(spriteRenderer.sprite.rect.width);
+           
+            localSpriteDataRef.textureHeightInPixels = spriteRenderer.sprite.texture.height;
+            localSpriteDataRef.textureWidthtInPixels = spriteRenderer.sprite.texture.width;
+        }
 
        void SetLocalSpriteUVs()
         {
@@ -92,6 +139,35 @@ namespace Graphics
 
             spriteRenderer.SetPropertyBlock(materialPropertyBlock);
         }
+        public void WriteInvertedSpriteDataIntoRenderTexture(ref RenderTexture targetOutput, ref ComputeShader shader)
+        {
+            SpriteData spriteData = new SpriteData();
+            spriteData.clear();
+
+            GetLocalSpriteData(ref spriteData);
+
+            currentSpruteData = spriteData;
+
+           Debug.Assert(targetOutput.height == spriteData.textureHeightInPixels);
+
+            int writeLocalUvDataKernel = shader.FindKernel("writeVerticallyInvertedUvCoords");
+
+            shader.SetTexture(writeLocalUvDataKernel, "localSpriteUVRenderTexture", targetOutput);
+
+            shader.SetFloat("localTopPixel", spriteData.localTopPixel);
+            shader.SetFloat("localBottomPixel", spriteData.localBottomPixel);
+            shader.SetFloat("spriteHeightInPixels", spriteData.spriteHeightInPixels);
+
+            shader.SetFloat("localLeftPixel", spriteData.localLeftPixel);
+            shader.SetFloat("localRightPixel", spriteData.localRightPixel);
+            shader.SetFloat("spriteWidthInPixels", spriteData.spriteWidthInPixels);
+
+            shader.SetFloat("textureHeightInPixels", (float) spriteData.textureHeightInPixels);
+            shader.SetFloat("textureWidthInPixels", (float) spriteData.textureWidthtInPixels);
+
+            shader.Dispatch(writeLocalUvDataKernel, spriteData.textureWidthtInPixels, spriteData.textureHeightInPixels, 1);
+            //shader.Dispatch(writeLocalUvDataKernel, 10, 10, 1);
+        }
 
         public void WriteLocalUVCoordYIntoRenderTexture(ref RenderTexture targetOutput, ref ComputeShader shader)
         {
@@ -113,7 +189,6 @@ namespace Graphics
 
             shader.Dispatch(writeLocalUvCoordKernel, 1, textHeightInPixels, 1);
         }
-
         public void WriteLocalUVDataIntoRenderTexture(ref RenderTexture targetOutput, ref ComputeShader shader)
         {
             float locTopPixel = 0.0f;
@@ -132,8 +207,8 @@ namespace Graphics
             shader.SetFloat("localBottomPixel", locBottomPixel);
             shader.SetFloat("textureHeightInPixels", (float)textHeightInPixels);
 
-            shader.SetFloat("topUvBoudY", (float) (locTopPixel / ((float)textHeightInPixels)));
-            shader.SetFloat("bottomUvBoudY", (float) (locBottomPixel/ ((float)textHeightInPixels)));
+            shader.SetFloat("topUvBoudY", (float)(locTopPixel / ((float)textHeightInPixels)));
+            shader.SetFloat("bottomUvBoudY", (float)(locBottomPixel / ((float)textHeightInPixels)));
 
             shader.Dispatch(writeLocalUvDataKernel, 1, textHeightInPixels, 1);
         }

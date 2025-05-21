@@ -563,7 +563,7 @@ SpriteRenderer:
   m_Size: {x: 0.33789062, y: 0.33789062}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &162637372
@@ -703,6 +703,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!1 &239716712
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +936,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &243819987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,7 +1264,7 @@ SpriteRenderer:
   m_Size: {x: 0.33789062, y: 0.33789062}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &318472325
@@ -1453,6 +1471,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!212 &396855190
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6601,7 +6628,7 @@ SpriteRenderer:
   m_Size: {x: 0.33789062, y: 0.33789062}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &424397640
@@ -6712,6 +6739,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &424397644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6833,6 +6869,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!1 &491543486
 GameObject:
   m_ObjectHideFlags: 0
@@ -6903,6 +6948,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!212 &491543490
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7063,6 +7117,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &501187127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7185,6 +7248,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &524692980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7693,6 +7765,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!212 &692316364
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8047,6 +8128,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &714374345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8177,6 +8267,137 @@ MonoBehaviour:
   ObjectScanDistance: -1
   resolution: 10
   totalLength: 51.73123
+--- !u!1 &733366275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 733366276}
+  - component: {fileID: 733366279}
+  - component: {fileID: 733366278}
+  - component: {fileID: 733366277}
+  m_Layer: 11
+  m_Name: TerrainPatches_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &733366276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733366275}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
+  m_LocalPosition: {x: -5.5799956, y: 2.4800003, z: 5.1999993}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1710739561}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &733366277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733366275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c197720cfad334d9848d42b71ba70a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceCamera: {fileID: 0}
+  unitScaleReference: {fileID: 0}
+--- !u!114 &733366278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733366275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 1
+  yCutOff: 0.054
+  fadeOutStart: 0.865
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 965
+    localBottomPixel: 848
+    spriteHeightInPixels: 117
+    localLeftPixel: 25
+    localRightPixel: 985
+    spriteWidthInPixels: 960
+    textureHeightInPixels: 1024
+    textureWidthtInPixels: 1024
+--- !u!212 &733366279
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733366275}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8b0a0ac79a7bf2e4497d6981a9c4a434, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 55
+  m_Sprite: {fileID: -396481929, guid: 968b1b1f4be636540bfb7ae2ab29102d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 7.5, y: 0.9140625}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &818394513
 GameObject:
   m_ObjectHideFlags: 0
@@ -8211,9 +8432,9 @@ MonoBehaviour:
   farClipMofidier: 0
   nearClipModifier: 0
   nightMode: 0
-  spritesContainer: {fileID: 1218737937}
+  spritesContainer: {fileID: 1710739560}
   localSpriteUVRenderTexture: {fileID: 8400000, guid: d0304d55ac017c342a3f739ca42de02b, type: 2}
-  outputTextureName: TerrainPatchesLocalUVData
+  outputTextureName: TerrainPatchesInvertedUVData
   localUVConverterComputeShader: {fileID: 7200000, guid: 2afc1383f28e76a4fb190d8eb5016d40, type: 3}
 --- !u!4 &818394515
 Transform:
@@ -8230,6 +8451,137 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &828373535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 828373536}
+  - component: {fileID: 828373539}
+  - component: {fileID: 828373538}
+  - component: {fileID: 828373537}
+  m_Layer: 11
+  m_Name: TerrainPatches_6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &828373536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828373535}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
+  m_LocalPosition: {x: -1.48, y: 1.13, z: -8.86}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1710739561}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &828373537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828373535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c197720cfad334d9848d42b71ba70a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceCamera: {fileID: 0}
+  unitScaleReference: {fileID: 0}
+--- !u!114 &828373538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828373535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 1
+  yCutOff: 0.113
+  fadeOutStart: 0.158
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 474
+    localBottomPixel: 264
+    spriteHeightInPixels: 210
+    localLeftPixel: 619
+    localRightPixel: 967
+    spriteWidthInPixels: 348
+    textureHeightInPixels: 1024
+    textureWidthtInPixels: 1024
+--- !u!212 &828373539
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828373535}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8b0a0ac79a7bf2e4497d6981a9c4a434, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 200
+  m_Sprite: {fileID: 577539574, guid: 968b1b1f4be636540bfb7ae2ab29102d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 7.5, y: 0.9140625}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &891208317
 GameObject:
   m_ObjectHideFlags: 0
@@ -8438,6 +8790,7 @@ Transform:
   - {fileID: 692316362}
   - {fileID: 447259254}
   - {fileID: 1218737938}
+  - {fileID: 1710739561}
   - {fileID: 1182053127}
   - {fileID: 126006661}
   - {fileID: 1339279889}
@@ -8703,7 +9056,7 @@ SpriteRenderer:
   m_Size: {x: 0.33789062, y: 0.33789062}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1047988948
@@ -8721,6 +9074,137 @@ Transform:
   m_Children: []
   m_Father: {fileID: 947421028}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1048836485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1048836486}
+  - component: {fileID: 1048836489}
+  - component: {fileID: 1048836488}
+  - component: {fileID: 1048836487}
+  m_Layer: 11
+  m_Name: TerrainPatches_4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1048836486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048836485}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
+  m_LocalPosition: {x: 8.080008, y: 2.6900005, z: 3.5706053}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1710739561}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1048836487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048836485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c197720cfad334d9848d42b71ba70a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceCamera: {fileID: 0}
+  unitScaleReference: {fileID: 0}
+--- !u!114 &1048836488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048836485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0.112
+  fadeOutStart: 0.12
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 731
+    localBottomPixel: 512
+    spriteHeightInPixels: 219
+    localLeftPixel: 59
+    localRightPixel: 990
+    spriteWidthInPixels: 931
+    textureHeightInPixels: 1024
+    textureWidthtInPixels: 1024
+--- !u!212 &1048836489
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048836485}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8b0a0ac79a7bf2e4497d6981a9c4a434, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 65
+  m_Sprite: {fileID: 283957237, guid: 968b1b1f4be636540bfb7ae2ab29102d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 7.2734375, y: 1.7109375}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1116114646
 GameObject:
   m_ObjectHideFlags: 0
@@ -8787,7 +9271,7 @@ SpriteRenderer:
   m_Size: {x: 0.33789062, y: 0.33789062}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1116114648
@@ -9073,7 +9557,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.0002617804, w: 1}
   m_LocalPosition: {x: 21.460001, y: -6.22, z: 7.0899997}
-  m_LocalScale: {x: 0.99142885, y: 0.99142885, z: 0.9914287}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1151388028544149544}
@@ -9100,7 +9584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1218737938
 Transform:
   m_ObjectHideFlags: 0
@@ -9606,6 +10090,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &1239344699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10280,7 +10773,7 @@ SpriteRenderer:
   m_Size: {x: 0.33789062, y: 0.33789062}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1408815077
@@ -10659,6 +11152,15 @@ MonoBehaviour:
   intensity: 0
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!1 &1571432039
 GameObject:
   m_ObjectHideFlags: 0
@@ -10738,6 +11240,137 @@ Transform:
   - {fileID: 1819789682}
   m_Father: {fileID: 1728121133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1616149244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1616149245}
+  - component: {fileID: 1616149248}
+  - component: {fileID: 1616149247}
+  - component: {fileID: 1616149246}
+  m_Layer: 11
+  m_Name: TerrainPatches_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1616149245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616149244}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
+  m_LocalPosition: {x: -0.82, y: 3.67, z: 0.98}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1710739561}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1616149246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616149244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c197720cfad334d9848d42b71ba70a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceCamera: {fileID: 0}
+  unitScaleReference: {fileID: 0}
+--- !u!114 &1616149247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616149244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0.081
+  fadeOutStart: 0.198
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 213
+    localBottomPixel: 31
+    spriteHeightInPixels: 182
+    localLeftPixel: 38
+    localRightPixel: 487
+    spriteWidthInPixels: 449
+    textureHeightInPixels: 1024
+    textureWidthtInPixels: 1024
+--- !u!212 &1616149248
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616149244}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8b0a0ac79a7bf2e4497d6981a9c4a434, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 60
+  m_Sprite: {fileID: -820986877, guid: 968b1b1f4be636540bfb7ae2ab29102d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.5078125, y: 1.421875}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1659033197
 GameObject:
   m_ObjectHideFlags: 0
@@ -10826,6 +11459,42 @@ MonoBehaviour:
   ExitSpeed: 5
   EnterExitDuration: 1
   LoopDuration: -1
+--- !u!1 &1710739560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1710739561}
+  m_Layer: 0
+  m_Name: RIverBankSprites2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1710739561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710739560}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0.0002617804, w: 1}
+  m_LocalPosition: {x: 21.460001, y: -6.22, z: 7.0899997}
+  m_LocalScale: {x: 0.99142885, y: 0.99142885, z: 0.9914287}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 733366276}
+  - {fileID: 1616149245}
+  - {fileID: 1048836486}
+  - {fileID: 828373536}
+  - {fileID: 2065041379}
+  m_Father: {fileID: 947421028}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1728121132
 GameObject:
   m_ObjectHideFlags: 0
@@ -11169,6 +11838,137 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 0
   Extents: 5
+--- !u!1 &2065041378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2065041379}
+  - component: {fileID: 2065041382}
+  - component: {fileID: 2065041381}
+  - component: {fileID: 2065041380}
+  m_Layer: 11
+  m_Name: TerrainPatches_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &2065041379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065041378}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.0002617804, w: 1}
+  m_LocalPosition: {x: 5.23, y: 3.17, z: 4.801153}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1710739561}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2065041380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065041378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c197720cfad334d9848d42b71ba70a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceCamera: {fileID: 0}
+  unitScaleReference: {fileID: 0}
+--- !u!114 &2065041381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065041378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fa644ee0b8e0d469ced01754a03022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomFadeEnabled: 1
+  overrideGlobalBottomFade: 0
+  yCutOff: 0.032
+  fadeOutStart: 0.257
+  fadeOutEnd: 0
+  distanceFadeEnabled: 1
+  overrideGlobalDistanceFade: 0
+  intensity: 0.8
+  farClipMofidier: 0
+  nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 431
+    localBottomPixel: 293
+    spriteHeightInPixels: 138
+    localLeftPixel: 45
+    localRightPixel: 363
+    spriteWidthInPixels: 318
+    textureHeightInPixels: 1024
+    textureWidthtInPixels: 1024
+--- !u!212 &2065041382
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065041378}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8b0a0ac79a7bf2e4497d6981a9c4a434, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 55
+  m_Sprite: {fileID: 1228295229, guid: 968b1b1f4be636540bfb7ae2ab29102d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 1
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.484375, y: 1.078125}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!4 &24882304135669259
 Transform:
   m_ObjectHideFlags: 0
@@ -12671,6 +13471,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!68 &4531219711628149475
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -12860,6 +13669,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &5946512967786516825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12930,6 +13748,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &6366259843138025470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13089,6 +13916,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &6619493202465956099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13163,6 +13999,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &6924891890353894835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13234,6 +14079,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &7344077984826869658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13285,6 +14139,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &7352426875779228823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13373,6 +14236,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &7432414771379210402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14400,7 +15272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &8164078558970409715
 GameObject:
   m_ObjectHideFlags: 0
@@ -14418,7 +15290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &8164078559105490338
 GameObject:
   m_ObjectHideFlags: 0
@@ -14436,7 +15308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &8164078559393270376
 GameObject:
   m_ObjectHideFlags: 0
@@ -14454,7 +15326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &8373432842580204293
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14529,6 +15401,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &8373432842580204295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14595,6 +15476,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &8559051476886656154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14650,6 +15540,15 @@ MonoBehaviour:
   intensity: 0.8
   farClipMofidier: 0
   nearClipModifier: 0
+  currentSpruteData:
+    localTopPixel: 0
+    localBottomPixel: 0
+    spriteHeightInPixels: 0
+    localLeftPixel: 0
+    localRightPixel: 0
+    spriteWidthInPixels: 0
+    textureHeightInPixels: 0
+    textureWidthtInPixels: 0
 --- !u!114 &8981550823841676705
 MonoBehaviour:
   m_ObjectHideFlags: 0
