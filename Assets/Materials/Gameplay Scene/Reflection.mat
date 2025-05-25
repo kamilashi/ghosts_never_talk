@@ -61,11 +61,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LocalUvDataTexture:
-        m_Texture: {fileID: 2800000, guid: 73cc5436b1e91204ca51c55af2ebb362, type: 3}
+        m_Texture: {fileID: 2800000, guid: fd6db9c4f24002b46b9f9e812385f945, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 465e1a7dca9ac75498e1f40f6e6fc585, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1f3e2adfb73fb834987f7bd59781ebd0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -121,7 +121,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _PositionOffsetY: -1
+    - _PositionOffsetY: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1

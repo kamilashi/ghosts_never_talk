@@ -111,7 +111,6 @@ namespace Graphics
                     LocalUVConverter uvConverterComponent = sprite.GetComponent<LocalUVConverter>();
                     uvConverterComponent.WriteInvertedSpriteDataIntoRenderTexture(ref localSpriteUVRenderTexture, ref localUVConverterComputeShader);
                     fetchedAnyData = true;
-                    break;
                 }
             }
 
