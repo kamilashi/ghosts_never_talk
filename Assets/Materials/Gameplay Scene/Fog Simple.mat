@@ -105,7 +105,7 @@ Material:
     - _EnvironmentReflections: 1
     - _FogAlphaContrast: 1
     - _FogDensityFactor: 0
-    - _FogTextureSampleScale: 34.8
+    - _FogTextureSampleScale: 1
     - _FogTextureScrollSpeed: 0.018
     - _GlossMapScale: 0
     - _Glossiness: 0
