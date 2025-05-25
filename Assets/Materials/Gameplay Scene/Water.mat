@@ -98,7 +98,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DensityFallOff: 3.7
+    - _DensityFallOff: 16
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -125,10 +125,10 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _SufraceBlendEdge2: 0.722
+    - _SufraceBlendEdge2: 0.689
     - _Surface: 0
-    - _SurfaceBlendDistance: 0.18
-    - _SurfaceBlendEdge1: 0.305
+    - _SurfaceBlendDistance: 0.37
+    - _SurfaceBlendEdge1: 0.095
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
