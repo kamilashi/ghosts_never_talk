@@ -14,6 +14,9 @@ namespace GNT
         [Header("Player Prompt")]
         public UIPlayerPrompt PlayerPromptStaticRef;
         public Vector2 offsetInPixels;
+        
+        [Header("Main Menu")]
+        public MainMenu MainMenuStaticRef;
 
         private Yarn.Unity.DialogueRunner dialogueRunnerStaticRef;
         private PlayerController playerConrtollerStaticRef;
@@ -52,6 +55,11 @@ namespace GNT
                 {
                     PlayerPromptStaticRef.gameObject.SetActive(false);
                 }
+            }
+
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                MainMenuStaticRef.ToggleMenu();
             }
         }
 

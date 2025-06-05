@@ -5,6 +5,7 @@ using UnityEngine;
 using ProcessingHelpers;
 using Library;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 // this is persistent
 
 namespace GNT
@@ -37,7 +38,10 @@ namespace GNT
         public Scene LoadedLevelScene;
         //private List<AsyncOperation> loadOperations = new List<AsyncOperation>();
         private AsyncOperation loadOperation;
+        private AsyncOperation unloadOperation;
+
         private Coroutine sceneLoadingCoroutine;
+        private float loadingProgress = -1.0f;
 
         public static GameManager Instance
         {
@@ -60,10 +64,9 @@ namespace GNT
             AnimationEventProcessorInstance = new AnimationEventProcessor();
 
             GlobalCharacterRefDictionary = new Dictionary<string, GlobalCharacterReference>();
+            loadOperation = null;
 
-            Debug.Assert(StartSceneReference.sceneName != "", "Please initialize the name of the scene " + this.name);
-
-            LoadScene(StartSceneReference.sceneName);
+            //LoadScene(StartSceneReference.sceneName);
         }
 
         void Update()
@@ -72,8 +75,16 @@ namespace GNT
             AnimationEventProcessorInstance.Run(Time.deltaTime);
         }
 
-        private void LoadScene(string sceneName)
+        public void LoadScene(string sceneName)
         {
+            if (IsLoadingInProgress() || IsSceneActive(sceneName))
+            {
+                Debug.LogError("Level load request failed, either a load/unload op is running or the level is already loaded!");
+                return;
+            }
+
+            loadingProgress = 0.0f;
+
             loadOperation = (SceneManager.LoadSceneAsync(StartSceneReference.sceneName, LoadSceneMode.Additive));
 
             if (sceneLoadingCoroutine != null)
@@ -87,23 +98,28 @@ namespace GNT
         IEnumerator LoadAdditiveScene(AsyncOperation asyncLoad, string sceneName)
         {
             while (!asyncLoad.isDone)
+            {
+                loadingProgress = asyncLoad.progress;
                 yield return null;
+            }
 
-            Scene additiveScene = SceneManager.GetSceneByName(sceneName);
-            while (!additiveScene.isLoaded)
+            LoadedLevelScene = SceneManager.GetSceneByName(sceneName);
+
+            while (!LoadedLevelScene.isLoaded)
+            {
+                loadingProgress = asyncLoad.progress;
                 yield return null;
+            }
 
-            LoadedLevelScene = additiveScene;
             GameObject sceneInterfaceGameObject = GameObject.FindWithTag("LevelScene");
             SceneInterface loadedScene = sceneInterfaceGameObject.GetComponent<SceneInterface>();
 
             StartOnLevel(loadedScene);
+            loadingProgress = -1.0f;
         }
 
         void StartOnLevel(SceneInterface levelSceneInterface)
         {
-            OnSceneLoadFinishEvent?.Invoke();
-
             SetActiveScene(levelSceneInterface);
 
             ActiveSceneDynamicRef.OnLoadInitialize();
@@ -121,6 +137,18 @@ namespace GNT
             PlayerMovementStaticRef.LayerSwitchEvent += GameManager.Instance.OnLayerSwitch; // special handling when the player switches layers, should happen AFTER the first scene load layer switch
             PlayerControllerStaticRef.OnLevelLoadInitialize();
             CameraMovementStaticRef.OnLevelLoadInitialize();
+
+            OnSceneLoadFinishEvent?.Invoke();
+        }
+
+        private bool IsLoadingInProgress()
+        {
+            return loadingProgress >= 0.0f /*|| (LoadedLevelScene != null && !LoadedLevelScene.isLoaded)*/;
+        }
+
+        private bool IsSceneActive(string sceneName)
+        {
+            return ActiveSceneDynamicRef != null && (ActiveSceneDynamicRef.GetSceneReference().sceneName.Equals(sceneName));
         }
 
         private void SetActiveScene(SceneInterface sceneInterface)
