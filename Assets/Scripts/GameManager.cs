@@ -15,8 +15,6 @@ namespace GNT
         [Header("Menual Setup")]
         private static GameManager globalDataInstance; // singleton
 
-        public SceneReference StartSceneReference;
-        //public SceneInterface StartSceneStaticRef; 
         public Camera MainCameraStaticRef; 
         public CameraMovement CameraMovementStaticRef; 
         public PlayerController PlayerControllerStaticRef; 
@@ -85,7 +83,7 @@ namespace GNT
 
             loadingProgress = 0.0f;
 
-            loadOperation = (SceneManager.LoadSceneAsync(StartSceneReference.sceneName, LoadSceneMode.Additive));
+            loadOperation = (SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive));
 
             if (sceneLoadingCoroutine != null)
             {
@@ -195,6 +193,11 @@ namespace GNT
                 float downShiftScale = foreGroundLayer.ShiftScale;
                 float distanceToScreenBottom = Helpers.GetDeltaYToScreenBottom(foreGroundLayer.transform.position, GetActiveCamera().transform.position, GetActiveCamera().fieldOfView);
                 float boundingHeight = foreGroundLayer.GetBoundingHeight();
+
+                if (boundingHeight < 0.0f) 
+                {
+                    return;
+                }
 
                 // start shifing down
                 ActiveSceneDynamicRef.ShiftForegroundDown(oldIndex, downShiftScale * (boundingHeight + distanceToScreenBottom), ForegroundShiftDuration);

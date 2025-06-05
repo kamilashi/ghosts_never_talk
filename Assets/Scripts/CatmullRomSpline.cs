@@ -17,7 +17,7 @@ namespace Pathfinding
     [Serializable]
     public struct InitializeSettings
     {
-        public float distanceBetwPoints;
+        public float distanceBetwPoints /*= 5.0f*/;
         public uint numControlPoints;
     }
 
@@ -349,6 +349,19 @@ namespace Pathfinding
 
             totalLength += newTotalLength;
             controlPoints.InsertRange(0, newControlPoints);
+        }
+
+        [ContextMenu("ApplyRootPosition")]
+        void ApplyRootPosition()
+        {
+            Vector3 oldRoot = controlPoints[0].position;
+            controlPoints[0].position = transform.position;
+
+            for (int i = 1; i < controlPoints.Count; i++)
+            {
+                Vector3 offset = controlPoints[i].position - oldRoot;
+                controlPoints[i].position = transform.position + offset;
+            }
         }
 
         void OnDrawGizmos()
