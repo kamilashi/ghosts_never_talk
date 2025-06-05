@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProcessingHelpers;
 using Library;
+using UnityEngine.SceneManagement;
 // this is persistent
 
 namespace GNT
@@ -13,7 +14,8 @@ namespace GNT
         [Header("Menual Setup")]
         private static GameManager globalDataInstance; // singleton
 
-        public SceneInterface StartSceneStaticRef; 
+        public SceneReference StartSceneReference;
+        //public SceneInterface StartSceneStaticRef; 
         public Camera MainCameraStaticRef; 
         public CameraMovement CameraMovementStaticRef; 
         public PlayerController PlayerControllerStaticRef; 
@@ -31,6 +33,11 @@ namespace GNT
         public AnimationEventProcessor AnimationEventProcessorInstance;
 
         public static event Action OnSceneLoadFinishEvent;
+
+        public Scene LoadedLevelScene;
+        //private List<AsyncOperation> loadOperations = new List<AsyncOperation>();
+        private AsyncOperation loadOperation;
+        private Coroutine sceneLoadingCoroutine;
 
         public static GameManager Instance
         {
@@ -54,19 +61,57 @@ namespace GNT
 
             GlobalCharacterRefDictionary = new Dictionary<string, GlobalCharacterReference>();
 
-            // until we have loading and save data:
-            ActiveSceneDynamicRef = StartSceneStaticRef;
-            ActiveSceneDynamicRef.OnLoadInitialize();
+            Debug.Assert(StartSceneReference.sceneName != "", "Please initialize the name of the scene " + this.name);
+
+            LoadScene(StartSceneReference.sceneName);
         }
 
-        void Start()
+        void Update()
+        {
+            // #todo: move to some game processor/simulation script?
+            AnimationEventProcessorInstance.Run(Time.deltaTime);
+        }
+
+        private void LoadScene(string sceneName)
+        {
+            loadOperation = (SceneManager.LoadSceneAsync(StartSceneReference.sceneName, LoadSceneMode.Additive));
+
+            if (sceneLoadingCoroutine != null)
+            {
+                StopCoroutine(sceneLoadingCoroutine);
+            }
+
+            sceneLoadingCoroutine = StartCoroutine(LoadAdditiveScene(loadOperation, sceneName));
+        }
+
+        IEnumerator LoadAdditiveScene(AsyncOperation asyncLoad, string sceneName)
+        {
+            while (!asyncLoad.isDone)
+                yield return null;
+
+            Scene additiveScene = SceneManager.GetSceneByName(sceneName);
+            while (!additiveScene.isLoaded)
+                yield return null;
+
+            LoadedLevelScene = additiveScene;
+            GameObject sceneInterfaceGameObject = GameObject.FindWithTag("LevelScene");
+            SceneInterface loadedScene = sceneInterfaceGameObject.GetComponent<SceneInterface>();
+
+            StartOnLevel(loadedScene);
+        }
+
+        void StartOnLevel(SceneInterface levelSceneInterface)
         {
             OnSceneLoadFinishEvent?.Invoke();
 
+            SetActiveScene(levelSceneInterface);
+
+            ActiveSceneDynamicRef.OnLoadInitialize();
+
             // this will move into the scene init code
             {
-                SceneStartData sceneStartData = StartSceneStaticRef.GetSceneStartData();
-                PlayerMovementStaticRef.SwitchToLayer(StartSceneStaticRef.GetGroundLayer(sceneStartData.startLayerIdx), sceneStartData.positionOnLayer);
+                SceneStartData sceneStartData = ActiveSceneDynamicRef.GetSceneStartData();
+                PlayerMovementStaticRef.SwitchToLayer(ActiveSceneDynamicRef.GetGroundLayer(sceneStartData.startLayerIdx), sceneStartData.positionOnLayer);
 
                 Vector3 cameraPosition = PlayerMovementStaticRef.transform.position;
                 cameraPosition.z += CameraMovementStaticRef.defaultPlayerOffsetZ;
@@ -74,12 +119,13 @@ namespace GNT
             }
 
             PlayerMovementStaticRef.LayerSwitchEvent += GameManager.Instance.OnLayerSwitch; // special handling when the player switches layers, should happen AFTER the first scene load layer switch
+            PlayerControllerStaticRef.OnLevelLoadInitialize();
+            CameraMovementStaticRef.OnLevelLoadInitialize();
         }
 
-        void Update()
+        private void SetActiveScene(SceneInterface sceneInterface)
         {
-            // #todo: move to some game processor/simulation script?
-            AnimationEventProcessorInstance.Run(Time.deltaTime);
+            ActiveSceneDynamicRef = sceneInterface;
         }
 
         public Camera GetActiveCamera()

@@ -50,6 +50,7 @@ namespace GNT
         private void Awake()
         {
             currentFollowPlayerDampLambda = 0.0f;
+            isCameraMovementEnabled = false;
         }
 
         void Start()
@@ -135,6 +136,11 @@ namespace GNT
 
             isCameraMoving = (deltaPosition.sqrMagnitude) <= cameraStoppedError * cameraStoppedError;
             }
+        }
+
+        public void OnLevelLoadInitialize()
+        {
+            isCameraMovementEnabled = true;
         }
 
         private void SetCurrentPlayerFollowDampLambda(float dampLambdaOverride)

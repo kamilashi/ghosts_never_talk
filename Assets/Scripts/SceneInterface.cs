@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GNT
 {
@@ -19,20 +20,29 @@ namespace GNT
         Out
     }
 
+    [Serializable]
+    public struct SceneReference
+    {
+        public int sceneHandle;
+        public string sceneName;
+    }
+
     public class SceneInterface : MonoBehaviour
     {
+        [Header("Scene parameters")]
+        public SceneStartData SceneStartData; // set in the inspector only
+        public List<GroundLayer> GroundLayers; // set in the inspector only
 
         [SerializeField]
-        private SceneStartData sceneStartData; // set in the inspector only
-
-        [SerializeField]
-        private List<GroundLayer> groundLayers;
+        private SceneReference sceneReference;
 
         void Awake()
         {
 #if !UNITY_EDITOR
             ReloadSplines();
 #endif
+
+            Debug.Assert( gameObject.tag == "LevelScene", "The LevelScene tag of " + this.name + " is not set!");
         }
 
         void Update()
@@ -42,46 +52,52 @@ namespace GNT
 
         public SceneStartData GetSceneStartData()
         {
-            return sceneStartData;
+            return SceneStartData;
+        }
+        public SceneReference GetSceneReference()
+        {
+            return sceneReference;
         }
 
         public void OnLoadInitialize()
         {
+            sceneReference.sceneHandle = gameObject.scene.handle;
+            sceneReference.sceneName = gameObject.scene.name;
             // delegate to load funcitonality and move to globalData
-            for (int index = 0; index < groundLayers.Count; index++)
+            for (int index = 0; index < GroundLayers.Count; index++)
             {
-                groundLayers[index].GroundLayerIndex = index;
+                GroundLayers[index].GroundLayerIndex = index;
             }
         }
         
         public GroundLayer GetGroundLayer(int targetIndex)
         {
-            return groundLayers[targetIndex];
+            return GroundLayers[targetIndex];
         }
 
         public GroundLayer GetFartherOrThisGroundLayer(int currentIndex)
         {
-            if (currentIndex < groundLayers.Count - 1)
+            if (currentIndex < GroundLayers.Count - 1)
             {
-                return groundLayers[currentIndex + 1];
+                return GroundLayers[currentIndex + 1];
             }
 
-            return groundLayers[groundLayers.Count - 1];
+            return GroundLayers[GroundLayers.Count - 1];
         }
 
         public GroundLayer GetCloserOrThisGroundLayer(int currentIndex)
         {
             if (currentIndex > 0)
             {
-                return groundLayers[currentIndex - 1];
+                return GroundLayers[currentIndex - 1];
             }
 
-            return groundLayers[0];
+            return GroundLayers[0];
         }
 
         public void ShiftForegroundDown(int layerIndex, float distance, float duration)
         {
-            GroundLayer layer = groundLayers[layerIndex];
+            GroundLayer layer = GroundLayers[layerIndex];
 
             Action onFinished = () =>
             {
@@ -95,7 +111,7 @@ namespace GNT
         
         public void ShiftForegroundUp(int layerIndex, float duration)
         {
-            GroundLayer layer = groundLayers[layerIndex];
+            GroundLayer layer = GroundLayers[layerIndex];
 
             Action onFinished = () =>
             {
@@ -136,7 +152,7 @@ namespace GNT
         [ContextMenu("ReloadSplines")]
         public void ReloadSplines()
         {
-            foreach (GroundLayer layer in groundLayers)
+            foreach (GroundLayer layer in GroundLayers)
             {
                 layer.MovementSpline.TriggerOnValidate();
             }

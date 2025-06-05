@@ -46,6 +46,7 @@ namespace GNT
             bufferedTeleporter = null;
             currentAvailableTrigger = null;
             currentAvailableCheckPoint = null;
+            processSplinePoints = false;
         }   
         
         void Start()
@@ -61,13 +62,13 @@ namespace GNT
                 {
                     processMoveInput(1.0f);
                     lastMoveDirection = characterMovement.IsTurning() ? lastMoveDirection : MoveDirection.Left;
-                characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
+                    characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
                 }
                 else if (Input.GetKey(moveRightMappedKey))
                 {
                     processMoveInput(1.0f);
                     lastMoveDirection = characterMovement.IsTurning() ? lastMoveDirection : MoveDirection.Right;
-                characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
+                    characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
                 }
                 else
                 {
@@ -130,6 +131,11 @@ namespace GNT
                 spriteRenderer.enabled = true;
                 animator.speed = 1.0f;
             }
+        }
+
+        public void OnLevelLoadInitialize()
+        {
+            processSplinePoints = true;
         }
 
         private void processAvailableCheckpoint(SplinePointObject splineObject)
