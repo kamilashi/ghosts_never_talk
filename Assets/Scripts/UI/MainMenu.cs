@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour
     
     public void OnLoadLevelPressed(string levelSceneName)
     {
-        GameManager.Instance.LoadScene(levelSceneName);
+        GameManager.Instance.RequestSceneLoad(levelSceneName);
     }
 
     public void ToggleMenu()

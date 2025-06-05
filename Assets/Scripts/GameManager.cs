@@ -34,12 +34,11 @@ namespace GNT
         public static event Action OnSceneLoadFinishEvent;
 
         public Scene LoadedLevelScene;
-        //private List<AsyncOperation> loadOperations = new List<AsyncOperation>();
-        private AsyncOperation loadOperation;
-        private AsyncOperation unloadOperation;
+        private AsyncOperation loadUnloadOperation;
 
         private Coroutine sceneLoadingCoroutine;
         private float loadingProgress = -1.0f;
+        private float unloadingProgress = -1.0f;
 
         public static GameManager Instance
         {
@@ -62,9 +61,8 @@ namespace GNT
             AnimationEventProcessorInstance = new AnimationEventProcessor();
 
             GlobalCharacterRefDictionary = new Dictionary<string, GlobalCharacterReference>();
-            loadOperation = null;
+            loadUnloadOperation = null;
 
-            //LoadScene(StartSceneReference.sceneName);
         }
 
         void Update()
@@ -73,7 +71,7 @@ namespace GNT
             AnimationEventProcessorInstance.Run(Time.deltaTime);
         }
 
-        public void LoadScene(string sceneName)
+        public void RequestSceneLoad(string sceneName)
         {
             if (IsLoadingInProgress() || IsSceneActive(sceneName))
             {
@@ -81,19 +79,21 @@ namespace GNT
                 return;
             }
 
-            loadingProgress = 0.0f;
+            StopAllCoroutines();
+            CameraMovementStaticRef.SetCameraMovementEnabled(false);
 
-            loadOperation = (SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive));
-
-            if (sceneLoadingCoroutine != null)
+            if (SceneManager.sceneCount > 1)
             {
-                StopCoroutine(sceneLoadingCoroutine);
+                Action onUnloadFinished = () => LoadScene(sceneName);
+                UnloadScene(ActiveSceneDynamicRef.GetSceneReference().sceneName, onUnloadFinished);
             }
-
-            sceneLoadingCoroutine = StartCoroutine(LoadAdditiveScene(loadOperation, sceneName));
+            else
+            {
+                LoadScene(sceneName);
+            }
         }
 
-        IEnumerator LoadAdditiveScene(AsyncOperation asyncLoad, string sceneName)
+        IEnumerator LoadAdditiveScene(AsyncOperation asyncLoad, string sceneName, Action onLoadFinishedAction)
         {
             while (!asyncLoad.isDone)
             {
@@ -109,11 +109,63 @@ namespace GNT
                 yield return null;
             }
 
+            onLoadFinishedAction?.Invoke();
+            loadingProgress = -1.0f;
+        }
+        
+        IEnumerator UnloadAdditiveScene(AsyncOperation asyncLoadUnload, string sceneName, Action onUnloadFinishedAction)
+        {
+            while (!asyncLoadUnload.isDone)
+            {
+                unloadingProgress = asyncLoadUnload.progress;
+                yield return null;
+            }
+
+            while (SceneManager.sceneCount !=1)
+            {
+                unloadingProgress = asyncLoadUnload.progress;
+                yield return null;
+            }
+
+            onUnloadFinishedAction?.Invoke();
+            unloadingProgress = -1.0f;
+        }
+
+        private void OnSceneLoadFinished()
+        {
             GameObject sceneInterfaceGameObject = GameObject.FindWithTag("LevelScene");
             SceneInterface loadedScene = sceneInterfaceGameObject.GetComponent<SceneInterface>();
 
             StartOnLevel(loadedScene);
-            loadingProgress = -1.0f;
+            CameraMovementStaticRef.SetCameraMovementEnabled(true);
+        }
+
+        private void LoadScene(string sceneName)
+        {
+            loadingProgress = 0.0f;
+
+            loadUnloadOperation = (SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive));
+
+            if (sceneLoadingCoroutine != null)
+            {
+                StopCoroutine(sceneLoadingCoroutine);
+            }
+
+            sceneLoadingCoroutine = StartCoroutine(LoadAdditiveScene(loadUnloadOperation, sceneName, OnSceneLoadFinished));
+        }
+
+        private void UnloadScene(string sceneName, Action onUnloadFinishedAction = null)
+        {
+            unloadingProgress = 0.0f;
+
+            loadUnloadOperation = (SceneManager.UnloadSceneAsync(sceneName));
+
+            if (sceneLoadingCoroutine != null)
+            {
+                StopCoroutine(sceneLoadingCoroutine);
+            }
+
+            sceneLoadingCoroutine = StartCoroutine(UnloadAdditiveScene(loadUnloadOperation, sceneName, onUnloadFinishedAction));
         }
 
         void StartOnLevel(SceneInterface levelSceneInterface)
@@ -142,6 +194,10 @@ namespace GNT
         private bool IsLoadingInProgress()
         {
             return loadingProgress >= 0.0f /*|| (LoadedLevelScene != null && !LoadedLevelScene.isLoaded)*/;
+        }
+        private bool IsUnloadingInProgress()
+        {
+            return unloadingProgress >= 0.0f /*|| (LoadedLevelScene != null && !LoadedLevelScene.isLoaded)*/;
         }
 
         private bool IsSceneActive(string sceneName)

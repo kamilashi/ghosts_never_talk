@@ -299,7 +299,7 @@ namespace GNT
 
         private void setCameraPlayerFollowEnabled(bool isEnabled)
         {
-            GameManager.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetPlayerFollowEnabled(isEnabled);
+            GameManager.Instance.GetActiveCamera().GetComponent<CameraMovement>().SetCameraMovementEnabled(isEnabled);
         }
 
         public string GetInteractKey()

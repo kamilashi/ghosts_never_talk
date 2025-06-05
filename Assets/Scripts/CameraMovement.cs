@@ -153,7 +153,7 @@ namespace GNT
             SetCurrentPlayerFollowDampLambda (cameraFollowPlayerTeleportDampLambda);
         }
 
-        public void SetPlayerFollowEnabled(bool isEnabled)
+        public void SetCameraMovementEnabled(bool isEnabled)
         {
             isCameraMovementEnabled = isEnabled;
         }
