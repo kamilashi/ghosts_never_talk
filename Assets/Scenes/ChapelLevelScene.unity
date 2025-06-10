@@ -464,7 +464,7 @@ Transform:
   m_GameObject: {fileID: 106042915}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -3.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -629,27 +629,27 @@ MonoBehaviour:
   controlPoints:
   - transform: {fileID: 0}
     objectAtPoint: {fileID: 0}
-    position: {x: -8.28, y: 0, z: 8.21}
+    position: {x: -8.28, y: 0, z: 5.11}
     localPos: 0
     wasVisited: 0
   - transform: {fileID: 0}
     objectAtPoint: {fileID: 0}
-    position: {x: -3.2799997, y: 0, z: 8.21}
+    position: {x: -3.2799997, y: 0, z: 5.11}
     localPos: 5
     wasVisited: 0
   - transform: {fileID: 0}
     objectAtPoint: {fileID: 9157171423595088359}
-    position: {x: 1.7200003, y: 0, z: 8.21}
+    position: {x: 1.7200003, y: 0, z: 5.11}
     localPos: 10
     wasVisited: 0
   - transform: {fileID: 0}
     objectAtPoint: {fileID: 0}
-    position: {x: 6.7200003, y: 0, z: 8.21}
+    position: {x: 6.7200003, y: 0, z: 5.11}
     localPos: 15
     wasVisited: 0
   - transform: {fileID: 0}
     objectAtPoint: {fileID: 0}
-    position: {x: 11.72, y: 0, z: 8.21}
+    position: {x: 11.72, y: 0, z: 5.11}
     localPos: 20
     wasVisited: 0
   initializeSettings:
@@ -713,6 +713,11 @@ MonoBehaviour:
   - {fileID: 106042917}
   - {fileID: 198666103}
   - {fileID: 1952739728}
+  CameraConstraints:
+    up: 5
+    down: 0
+    left: -40
+    right: 40
   sceneReference:
     sceneHandle: 0
     sceneName: 
@@ -953,7 +958,7 @@ Transform:
   m_GameObject: {fileID: 451452534}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.28, y: 0, z: 4.25}
+  m_LocalPosition: {x: -6.72, y: 0, z: 6.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

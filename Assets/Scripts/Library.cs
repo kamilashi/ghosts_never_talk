@@ -83,7 +83,7 @@ namespace Library
         }
     }
 
-    public static class Helpers
+    public static class Misc
     {
         public static float MinValue(float signedInput, float unsignedReference)
         {

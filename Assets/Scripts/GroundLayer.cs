@@ -38,7 +38,10 @@ namespace GNT
                 MovementSpline = this.GetComponentInChildren<Pathfinding.CatmullRomSpline>();
             }
 
-            Debug.Assert(! (BoundingHeight == -1 && BoundingHeightReferenceSprite == null), "Please, specify either the bounding height reference sprite, or the height in meters, this is needed for shifting down foreground layers when switching in!");
+            if(BoundingHeight == -1 && BoundingHeightReferenceSprite == null)
+            {
+                Debug.LogWarning("Please, specify either the bounding height reference sprite, or the height in meters, this is needed for shifting down foreground layers when switching in!");
+            }
 
             if (BoundingHeightReferenceSprite != null)
             {

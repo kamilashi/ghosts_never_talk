@@ -247,7 +247,7 @@ namespace GNT
             if (newIndex > oldIndex && foreGroundLayer.ShiftScale > 0.0f) // switched inwards (further away), the now foreground layer might need shifting down;
             {
                 float downShiftScale = foreGroundLayer.ShiftScale;
-                float distanceToScreenBottom = Helpers.GetDeltaYToScreenBottom(foreGroundLayer.transform.position, GetActiveCamera().transform.position, GetActiveCamera().fieldOfView);
+                float distanceToScreenBottom = Misc.GetDeltaYToScreenBottom(foreGroundLayer.transform.position, GetActiveCamera().transform.position, GetActiveCamera().fieldOfView);
                 float boundingHeight = foreGroundLayer.GetBoundingHeight();
 
                 if (boundingHeight < 0.0f) 

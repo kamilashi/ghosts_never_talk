@@ -77,10 +77,10 @@ namespace GNT
             vfxPlayerStaticRef.PlayVfxExit();
         }
 
-        public void Interact(Transform interactorTransform, CharacterMovement groundMovement = null, Action OnMoveFinished = null)
+        public Coroutine Interact(Transform interactorTransform, CharacterMovement groundMovement = null, Action OnMoveFinished = null)
         {
             OnMoveFinished += onInteractCoroutineFinished;
-            StartCoroutine(MoveToInteractionX(interactorTransform, OnMoveFinished, groundMovement));
+            return StartCoroutine(MoveToInteractionX(interactorTransform, OnMoveFinished, groundMovement));
         }
 
     }

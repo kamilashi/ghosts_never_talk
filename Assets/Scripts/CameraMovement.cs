@@ -49,8 +49,9 @@ namespace GNT
 
         private void Awake()
         {
-            currentFollowPlayerDampLambda = 0.0f;
             isCameraMovementEnabled = false;
+
+            ResetTemporaries();
         }
 
         void Start()
@@ -114,6 +115,8 @@ namespace GNT
                 // external dolly requests:
                 predictedCameraPosition.z += dollyAmountExternal;
 
+                ApplyCameraConstraints(ref predictedCameraPosition, GameManager.Instance.ActiveSceneDynamicRef.CameraConstraints);
+
                 Vector3 currrentCameraPosition = this.gameObject.transform.position;
 
             float lerpedCameraFollowPlayerDampLambda;
@@ -129,20 +132,32 @@ namespace GNT
 
 
                 Vector3 deltaPosition = Library.SmoothingFuncitons.Damp(currrentCameraPosition, predictedCameraPosition, new Vector3(lerpedCameraFollowPlayerDampLambda, lerpedCameraFollowPlayerDampLambda, dollyDampLambda), Time.deltaTime);
-            deltaPosition -= currrentCameraPosition;
+                deltaPosition -= currrentCameraPosition;
 
 
-            gameObject.transform.Translate(deltaPosition);
+                gameObject.transform.Translate(deltaPosition);
 
-            isCameraMoving = (deltaPosition.sqrMagnitude) <= cameraStoppedError * cameraStoppedError;
+                isCameraMoving = (deltaPosition.sqrMagnitude) <= cameraStoppedError * cameraStoppedError;
             }
         }
 
         public void OnLevelLoadInitialize()
         {
             isCameraMovementEnabled = true;
+
+            ResetTemporaries();
+            ResetDolly();
+        }
+        private void ResetTemporaries()
+        {
+            currentFollowPlayerDampLambda = 0.0f;
         }
 
+        private void ApplyCameraConstraints(ref Vector3 predictedCameraPosition, CameraConstraints constraints)
+        {
+            predictedCameraPosition.x = Mathf.Clamp( predictedCameraPosition.x, constraints.left, constraints.right);
+            predictedCameraPosition.y = Mathf.Clamp( predictedCameraPosition.y, constraints.down, constraints.up);
+        }
         private void SetCurrentPlayerFollowDampLambda(float dampLambdaOverride)
         {
             currentFollowPlayerDampLambda = dampLambdaOverride;

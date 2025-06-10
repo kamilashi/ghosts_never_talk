@@ -28,6 +28,7 @@ namespace GNT
 
         [SerializeField] private InteractableTrigger currentAvailableTrigger;
         [SerializeField] private CheckPoint currentAvailableCheckPoint;
+        [SerializeField] private Coroutine currentInteraction;
 
         // #Todo: get this data from control map
         KeyCode moveLeftMappedKey = KeyCode.A;
@@ -37,16 +38,16 @@ namespace GNT
 
         void Awake()
         {
-            lastMoveDirection = MoveDirection.Right;
-            moveKeyHoldTimeScaled = 0.0f;
             characterMovement = gameObject.GetComponent<CharacterMovement>();
             playerRespawn = gameObject.GetComponent<PlayerRespawn>();
             spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             animator = gameObject.GetComponent<Animator>();
-            bufferedTeleporter = null;
-            currentAvailableTrigger = null;
-            currentAvailableCheckPoint = null;
+
             processSplinePoints = false;
+
+            lastMoveDirection = MoveDirection.Right;
+
+            ResetTemporaries();
         }   
         
         void Start()
@@ -78,25 +79,27 @@ namespace GNT
 
                 if (currentAvailableTeleporter != null &&  Input.GetKeyDown(interactMappedKey))
                 {
-                    resetMovementInput();
+                    ResetMovementInput();
                     characterMovement.ResetMovement();
                     SetBlockInput(true);
-                    currentAvailableTeleporter.Interact(this.transform, characterMovement);
+                    StopCoroutineIfExists(ref currentInteraction);
+                    currentInteraction = currentAvailableTeleporter.Interact(this.transform, characterMovement, OnInteractionEnd);
 
                     bufferedTeleporter = currentAvailableTeleporter;
                     OnTeleportCamera();
                 }
                 else if (currentAvailableTrigger != null && Input.GetKeyDown(interactMappedKey))
                 {
-                    resetMovementInput();
+                    ResetMovementInput();
                     characterMovement.ResetMovement();
                     SetBlockInput(true);
-                    currentAvailableTrigger.Interact(this.transform, characterMovement, OnBlockInputDurationEnd);
+                    StopCoroutineIfExists(ref currentInteraction);
+                    currentInteraction = currentAvailableTrigger.Interact(this.transform, characterMovement, OnInteractionEnd);
                 }
             }
             else
             {
-                resetMovementInput();
+                ResetMovementInput();
             }
 
             if (acceptInput && Input.GetKeyDown(advanceDialogueMappedKey))
@@ -135,7 +138,22 @@ namespace GNT
 
         public void OnLevelLoadInitialize()
         {
+            //lastMoveDirection = MoveDirection.Right;
+            ResetTemporaries();
+            ResetMovementInput();
+
+            characterMovement.StopAndPlayAnimation(characterMovement.SpawnAnimation);
+
             processSplinePoints = true;
+        }
+        
+        private void ResetTemporaries()
+        {
+            bufferedTeleporter = null;
+            currentAvailableTrigger = null;
+            currentAvailableCheckPoint = null;
+            currentAvailableTeleporter = null;
+            currentInteraction = null;
         }
 
         private void processAvailableCheckpoint(SplinePointObject splineObject)
@@ -255,7 +273,7 @@ namespace GNT
         {
             parameter = isEnabled;
         }
-        private void resetMovementInput()
+        private void ResetMovementInput()
         {
             moveKeyHoldTimeScaled = 0.0f;
         }
@@ -280,6 +298,11 @@ namespace GNT
         public void OnBlockInputDurationEnd()
         {
             SetBlockInput(false);
+        }
+        public void OnInteractionEnd()
+        {
+            SetBlockInput(false);
+            currentInteraction = null;
         }
 
         public Interactable GetAvailableInteractable()
@@ -309,6 +332,14 @@ namespace GNT
         public string GetAdvanceDialogueKey()
         {
             return advanceDialogueMappedKey.ToString();
+        }
+
+        private void StopCoroutineIfExists(ref Coroutine coroutine)
+        {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
         }
 
         [ContextMenu("TriggerRespawn")]

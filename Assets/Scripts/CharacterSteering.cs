@@ -152,7 +152,7 @@ namespace GNT
 
                 currentVelocity = SmoothingFuncitons.ApproachReferenceLinear(currentVelocity, direction * maxSpeed, characterMovementStaticRef.Acceleration * Time.deltaTime);
 
-                float translation = Helpers.MinValue (currentVelocity * Time.deltaTime, Mathf.Abs (absoluteDistance));
+                float translation = Misc.MinValue (currentVelocity * Time.deltaTime, Mathf.Abs (absoluteDistance));
 
                 characterMovementStaticRef.MoveAlongSpline(translation);
             }

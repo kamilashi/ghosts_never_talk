@@ -27,14 +27,25 @@ namespace GNT
         public string sceneName;
     }
 
+    [Serializable]
+    public struct CameraConstraints
+    {
+        public float up;
+        public float down;
+        public float left;
+        public float right;
+    }
+
     public class SceneInterface : MonoBehaviour
     {
         [Header("Scene parameters")]
         public SceneStartData SceneStartData; // set in the inspector only
         public List<GroundLayer> GroundLayers; // set in the inspector only
+        public CameraConstraints CameraConstraints;
 
         [SerializeField]
         private SceneReference sceneReference;
+
 
         void Awake()
         {
