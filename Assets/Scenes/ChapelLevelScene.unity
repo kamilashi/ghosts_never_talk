@@ -715,7 +715,7 @@ MonoBehaviour:
   - {fileID: 1952739728}
   CameraConstraints:
     up: 5
-    down: 0
+    down: 2
     left: -40
     right: 40
   sceneReference:
