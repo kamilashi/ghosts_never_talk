@@ -57,6 +57,8 @@ namespace GNT
 
         void Update()
         {
+            bool receivedMoveInput = false;
+
             if(acceptInput && !GameManager.Instance.DialogueRunnerStaticRef.IsDialogueRunning)
             { 
                 if (Input.GetKey(moveLeftMappedKey))
@@ -64,12 +66,16 @@ namespace GNT
                     processMoveInput(1.0f);
                     lastMoveDirection = characterMovement.IsTurning() ? lastMoveDirection : MoveDirection.Left;
                     characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
+
+                    receivedMoveInput = true;
                 }
                 else if (Input.GetKey(moveRightMappedKey))
                 {
                     processMoveInput(1.0f);
                     lastMoveDirection = characterMovement.IsTurning() ? lastMoveDirection : MoveDirection.Right;
                     characterMovement.SetMovementInput(lastMoveDirection, MoveSpeed.Run);
+
+                    receivedMoveInput = true;
                 }
                 else
                 {
@@ -107,7 +113,9 @@ namespace GNT
                 GameManager.Instance.DialogueViewStaticRef.UserRequestedViewAdvancement();
             }
 
-            if(!processSplinePoints)
+            animator.SetBool("walkInputReceived", receivedMoveInput);
+
+            if (!processSplinePoints)
             {
                 return;
             }
@@ -138,7 +146,6 @@ namespace GNT
 
         public void OnLevelLoadInitialize()
         {
-            //lastMoveDirection = MoveDirection.Right;
             ResetTemporaries();
             ResetMovementInput();
 
@@ -163,7 +170,6 @@ namespace GNT
                 CheckPoint newCheckPoint = (CheckPoint)splineObject;
                 if (newCheckPoint != currentAvailableCheckPoint)
                 {
-                    //currentAvailableCheckPoint?.OnBecomeUnavailable();
                     newCheckPoint.OnBecomeAvailable();
                     currentAvailableCheckPoint = newCheckPoint;
                 }

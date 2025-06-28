@@ -189,6 +189,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: triggerTurning
     m_EventTreshold: 0
+  - m_ConditionMode: 4
+    m_ConditionEvent: idleToWalkSpeedBlend
+    m_EventTreshold: 0.8
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -819287204303402678}
   m_Solo: 0
@@ -197,9 +200,9 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 2.3920718e-10
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_ExitTime: 0.49676138
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -265,8 +268,8 @@ AnimatorStateTransition:
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_ExitTime: 7.3936773e-10
+  m_TransitionOffset: 0.004924454
+  m_ExitTime: 0.16372672
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -395,9 +398,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: idleToWalkSpeedBlend
-    m_EventTreshold: 0.7
+  - m_ConditionMode: 2
+    m_ConditionEvent: walkInputReceived
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8024361813247832291}
   m_Solo: 0
@@ -420,9 +423,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: idleToWalkSpeedBlend
-    m_EventTreshold: 0.7
+  - m_ConditionMode: 2
+    m_ConditionEvent: walkInputReceived
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8024361813247832291}
   m_Solo: 0
@@ -746,9 +749,12 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: walkInputReceived
+    m_EventTreshold: 0.5
   - m_ConditionMode: 3
     m_ConditionEvent: idleToWalkSpeedBlend
-    m_EventTreshold: 0.1
+    m_EventTreshold: 0.8
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3113119984979568687}
   m_Solo: 0
@@ -756,8 +762,8 @@ AnimatorStateTransition:
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_ExitTime: 0.1
+  m_TransitionOffset: 0.003967102
+  m_ExitTime: 0.16708577
   m_HasExitTime: 0
   m_HasFixedDuration: 0
   m_InterruptionSource: 0
@@ -791,6 +797,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: triggerTeleport
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: walkInputReceived
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -871,9 +883,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: idleToWalkSpeedBlend
-    m_EventTreshold: 0.7
+  - m_ConditionMode: 1
+    m_ConditionEvent: walkInputReceived
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2871656270402163906}
   m_Solo: 0
@@ -955,9 +967,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 1
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0.0048795957
+  m_ExitTime: 0.9934871
   m_HasExitTime: 1
   m_HasFixedDuration: 0
   m_InterruptionSource: 0
@@ -1098,9 +1110,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: idleToWalkSpeedBlend
-    m_EventTreshold: 0.7
+  - m_ConditionMode: 1
+    m_ConditionEvent: walkInputReceived
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2871656270402163906}
   m_Solo: 0
@@ -1187,9 +1199,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: idleToWalkSpeedBlend
-    m_EventTreshold: 0.1
+  - m_ConditionMode: 2
+    m_ConditionEvent: walkInputReceived
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7478785724058402336}
   m_Solo: 0
@@ -1198,7 +1210,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.1
+  m_ExitTime: 0.49271697
   m_HasExitTime: 0
   m_HasFixedDuration: 0
   m_InterruptionSource: 0

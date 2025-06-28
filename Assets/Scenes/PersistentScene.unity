@@ -294,7 +294,7 @@ MonoBehaviour:
   TeleportAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   RespawnAnimation: {fileID: 7400000, guid: 09b57991bd3b9cd45b9f422737cc529b, type: 2}
   SpawnAnimation: {fileID: 7400000, guid: 51b9bc9ae0240d74fbe9b7c9873094a9, type: 2}
-  offsetFromGroundToPivot: 2
+  offsetFromGroundToPivot: 2.5
   splineMovementData:
     positionOnSpline: 0
     availableSplinePointObject: {fileID: 0}
@@ -471,7 +471,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.55, y: -2.14, z: 7}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 425409372}
