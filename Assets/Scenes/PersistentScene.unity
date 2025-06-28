@@ -3195,9 +3195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6525efcb7eb9234a90564c4dbe5993e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartSceneReference:
-    sceneHandle: 0
-    sceneName: CemeteryLevelScene
   MainCameraStaticRef: {fileID: 966648405}
   CameraMovementStaticRef: {fileID: 966648407}
   PlayerControllerStaticRef: {fileID: 63263747}
