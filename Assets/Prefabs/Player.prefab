@@ -234,6 +234,9 @@ MonoBehaviour:
   RespawnAnimation: {fileID: 7400000, guid: 09b57991bd3b9cd45b9f422737cc529b, type: 2}
   SpawnAnimation: {fileID: 7400000, guid: 51b9bc9ae0240d74fbe9b7c9873094a9, type: 2}
   offsetFromGroundToPivot: 2.5
+  spriteRenderers:
+  - {fileID: 7474345424336906136}
+  - {fileID: 4408768669466225754}
   splineMovementData:
     positionOnSpline: 0
     availableSplinePointObject: {fileID: 0}

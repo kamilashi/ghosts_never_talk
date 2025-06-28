@@ -32,24 +32,36 @@ namespace GNT
     }
 
     [Serializable]
-    struct GroundLayerData
+    public struct GroundLayerData
     {
         public GroundLayer currentGorundLayer;
     }
 
     public class CharacterMovement : MonoBehaviour
     {
+        [Header("Setup in Prefab")]
+
         public int[] SpeedValues = new int[(int) GNT.MoveSpeed.Count];
         public float Acceleration = 0.0f; // only settable in the inspector
 
         //#TODO this should move to some animation mapper
         public AnimationClip TeleportAnimation;
         public AnimationClip RespawnAnimation; 
-        public AnimationClip SpawnAnimation; 
+        public AnimationClip SpawnAnimation;
 
-        [SerializeField] float offsetFromGroundToPivot;
-        [SerializeField] SplineMovementData splineMovementData;
-        [SerializeField] GroundLayerData groundLayerData; // for now set inspector - later should be loaded + managed during the switch
+        public float offsetFromGroundToPivot;
+
+        public List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+
+        [Header("Auto Setup")]
+
+        Animator animatorStaticRef;
+        AnimationPlayer animationPlayerStaticRef;
+
+        [Header("Debug View")]
+
+        public SplineMovementData splineMovementData;
+        public GroundLayerData groundLayerData; // for now set inspector - later should be loaded + managed during the switch
 
         int inputDirection = 1;   // input (horizontal) direction received from controller
         int inputSpeed = 0;   // input speed received from controller
@@ -57,10 +69,6 @@ namespace GNT
         bool freezeMovement = false;
 
         float currentHorizontalVelocity; // working speed that is used for smooth movement, range from - MaxSpeed to  MaxSpeed
-
-        SpriteRenderer spriteRendererStaticRef;
-        Animator animatorStaticRef;
-        AnimationPlayer animationPlayerStaticRef;
 
         public Action<int, int> LayerSwitchEvent;
 
@@ -73,7 +81,6 @@ namespace GNT
             Assert.AreNotEqual(0, Acceleration);
 #endif
             animatorStaticRef = gameObject.GetComponent<Animator>();
-            spriteRendererStaticRef = gameObject.GetComponent<SpriteRenderer>();
             animationPlayerStaticRef = gameObject.GetComponent<AnimationPlayer>();
         }
 
@@ -234,7 +241,7 @@ namespace GNT
             int oldLayerId = groundLayerData.currentGorundLayer? groundLayerData.currentGorundLayer.GroundLayerIndex : targetGroundLayer.GroundLayerIndex;
 
             groundLayerData.currentGorundLayer = targetGroundLayer;
-            spriteRendererStaticRef.sortingOrder = targetGroundLayer.SpriteLayerOrder + 1; // on top of the ground layer
+            SetSpriteOrder(targetGroundLayer.SpriteLayerOrder + 1); // on top of the ground layer
 
             if (positionOnLayer >= 0.0)
             {
@@ -279,6 +286,14 @@ namespace GNT
             }
 
             return false;
+        }
+
+        private void SetSpriteOrder(int layerOrder)
+        {
+            foreach(SpriteRenderer spriteRenderer in spriteRenderers)
+            {
+                spriteRenderer.sortingOrder = layerOrder;
+            }
         }
     }
 }
