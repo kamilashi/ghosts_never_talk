@@ -12,9 +12,9 @@ namespace GNT
 {
     public class GameManager : MonoBehaviour
     {
-        [Header("Menual Setup")]
         private static GameManager globalDataInstance; // singleton
 
+        [Header("Setup in Scene")]
         public Camera MainCameraStaticRef; 
         public CameraMovement CameraMovementStaticRef; 
         public PlayerController PlayerControllerStaticRef; 
@@ -22,7 +22,7 @@ namespace GNT
         public CustomDialogueView DialogueViewStaticRef; 
         public Yarn.Unity.DialogueRunner DialogueRunnerStaticRef; 
 
-        [Header("Global Data")]
+        [Header("Setup Parameters")]
         public float ForegroundShiftDuration;
 
         [Header("Debug View")]

@@ -477,9 +477,9 @@ MonoBehaviour:
   ShiftScale: 1
   BoundingHeight: -1
   BoundingHeightReferenceSprite: {fileID: 0}
+  SpriteLayerOrder: 0
   ScreenBottomHook: {fileID: 1932713423}
   ContainerScene: {fileID: 0}
-  SpriteLayerOrder: 0
   GroundLayerIndex: -1
   MovementSpline: {fileID: 764338839}
 --- !u!1 &330713801
@@ -540,7 +540,7 @@ MonoBehaviour:
   CameraConstraints:
     up: 5
     down: 2
-    left: -40
+    left: -10
     right: 40
   sceneReference:
     sceneHandle: 0
@@ -1848,7 +1848,7 @@ PrefabInstance:
     - target: {fileID: 9157171423800492016, guid: 81df7455f72133f4182641953cb8014b, type: 3}
       propertyPath: TargetTeleporter
       value: 
-      objectReference: {fileID: 538096815}
+      objectReference: {fileID: 1806850849}
     - target: {fileID: 9157171423800492016, guid: 81df7455f72133f4182641953cb8014b, type: 3}
       propertyPath: ContainingGroundLayer
       value: 
@@ -2361,9 +2361,9 @@ MonoBehaviour:
   ShiftScale: 1
   BoundingHeight: -1
   BoundingHeightReferenceSprite: {fileID: 0}
+  SpriteLayerOrder: 0
   ScreenBottomHook: {fileID: 1232761392}
   ContainerScene: {fileID: 0}
-  SpriteLayerOrder: 0
   GroundLayerIndex: -1
   MovementSpline: {fileID: 4711617714540015570}
 --- !u!4 &779034525304655938

@@ -183,6 +183,15 @@ namespace Pathfinding
 
             return null;
         }
+        private ControlPoint GetLinkedPoint(int pointIndex)
+        {
+            Debug.Assert(HasVerticalLink(controlPoints[pointIndex]));
+
+            InteractableTeleporter teleporter = (InteractableTeleporter) controlPoints[pointIndex].objectAtPoint;
+            CatmullRomSpline linkedSplineRef = teleporter.TargetTeleporter.ContainingGroundLayer.MovementSpline;
+            int linkedPointIndex = teleporter.TargetTeleporter.GetSplinePointIndex();
+            return linkedSplineRef.GetControlPoint(linkedPointIndex);
+        }
 
         public bool HasVerticalLink(ControlPoint point)
         {  
@@ -371,21 +380,31 @@ namespace Pathfinding
                 return;
             }
 
-            Gizmos.color = UnityEngine.Color.white;
+            const float heightOffset = 0.1f;
 
-            //Draw the Catmull-Rom spline between the points
             for (int i = 0; i < controlPoints.Count; i++)
             {
-                Gizmos.DrawIcon(controlPoints[i].GetPosition(), "Solid_circle_red.png");
+                Gizmos.color = UnityEngine.Color.white;
+                //Gizmos.DrawIcon(controlPoints[i].GetPosition(), "Solid_circle_red.png");
                 Vector3 textPosigion = controlPoints[i].GetPosition();
                 textPosigion.y += 0.5f;
                 UnityEditor.Handles.Label(textPosigion, "p " + i);
 
-                DisplayCatmullRomSpline(i);
+                DisplayCatmullRomSpline(i, heightOffset);
+
+                if (!HasVerticalLink(controlPoints[i]))
+                {
+                    continue;
+                }
+
+                // display link:
+                ControlPoint linkedPoint = GetLinkedPoint(i);
+
+                DisplayLink(controlPoints[i], linkedPoint, heightOffset);
             }
         }
 
-        void DisplayCatmullRomSpline(int pointIdx)
+        void DisplayCatmullRomSpline(int pointIdx, float heightOffset = 0.0f)
         {
             Vector3 p0 = controlPoints[ClampListPos(pointIdx - 1)].GetPosition();
             Vector3 p1 = controlPoints[pointIdx].position;
@@ -394,6 +413,7 @@ namespace Pathfinding
 
             //The start position of the line
             Vector3 lastPos = p1;
+            lastPos.y += heightOffset;
 
             for (int i = 1; i <= resolution; i++)
             {
@@ -401,10 +421,41 @@ namespace Pathfinding
 
                 Vector3 newPos = GetCatmullRomPosition(t, p0, p1, p2, p3);
 
+                newPos.y += heightOffset;   
+
                 Gizmos.DrawLine(lastPos, newPos);
 
                 lastPos = newPos;
             }
+        }
+
+        void DisplayLink(ControlPoint from, ControlPoint to, float heightOffset = 0.0f)
+        {
+            bool isBilateral = (((InteractableTeleporter)to.objectAtPoint).TargetTeleporter == (from.objectAtPoint as InteractableTeleporter));
+
+            if (isBilateral) 
+            {
+                Gizmos.color = UnityEngine.Color.green;
+            }
+            else
+            {
+                Gizmos.color = UnityEngine.Color.red;
+
+                Vector3 direction = (from.position - to.position).normalized;
+
+                Vector3 arrowHeadLeft = to.position + Vector3.up * heightOffset;
+                arrowHeadLeft += direction;
+                Vector3 arrowHeadRight = arrowHeadLeft;
+
+                direction = Vector3.Cross(direction, Vector3.up);
+                arrowHeadLeft += direction;
+                arrowHeadRight -= direction;
+
+                Gizmos.DrawLine(arrowHeadLeft, to.position);
+                Gizmos.DrawLine(arrowHeadRight, to.position);
+            }
+
+            Gizmos.DrawLine(from.position, to.position);
         }
 #endif
 

@@ -1254,7 +1254,7 @@ MonoBehaviour:
   Faction: 0
   ContainingGroundLayer: {fileID: 712069334}
   DetectionRadius: 3
-  splinePointObjectType: 0
+  splinePointObjectType: 1
   UIPromptKey: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
@@ -1342,7 +1342,7 @@ MonoBehaviour:
   Faction: 0
   ContainingGroundLayer: {fileID: 1219938348}
   DetectionRadius: 3
-  splinePointObjectType: 0
+  splinePointObjectType: 1
   UIPromptKey: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
@@ -7621,7 +7621,7 @@ MonoBehaviour:
   Faction: 0
   ContainingGroundLayer: {fileID: 712069334}
   DetectionRadius: 3
-  splinePointObjectType: 0
+  splinePointObjectType: 1
   UIPromptKey: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
@@ -8715,7 +8715,7 @@ MonoBehaviour:
   Faction: 0
   ContainingGroundLayer: {fileID: 1219938348}
   DetectionRadius: 3
-  splinePointObjectType: 0
+  splinePointObjectType: 1
   UIPromptKey: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
@@ -9290,7 +9290,7 @@ MonoBehaviour:
   Faction: 0
   ContainingGroundLayer: {fileID: 1436780624}
   DetectionRadius: 3
-  splinePointObjectType: 0
+  splinePointObjectType: 1
   UIPromptKey: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
@@ -10703,7 +10703,7 @@ MonoBehaviour:
   Faction: 0
   ContainingGroundLayer: {fileID: 1436780624}
   DetectionRadius: 3
-  splinePointObjectType: 0
+  splinePointObjectType: 1
   UIPromptKey: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0

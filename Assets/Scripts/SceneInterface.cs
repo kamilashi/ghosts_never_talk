@@ -38,13 +38,13 @@ namespace GNT
 
     public class SceneInterface : MonoBehaviour
     {
-        [Header("Scene parameters")]
+        [Header("Setup in Scene")]
         public SceneStartData SceneStartData; // set in the inspector only
         public List<GroundLayer> GroundLayers; // set in the inspector only
         public CameraConstraints CameraConstraints;
 
-        [SerializeField]
-        private SceneReference sceneReference;
+        [Header("Debug View")]
+        public SceneReference sceneReference;
 
 
         void Awake()
