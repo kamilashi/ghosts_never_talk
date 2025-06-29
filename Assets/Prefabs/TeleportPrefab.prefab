@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6239568362000149745}
   - component: {fileID: 140309652783273683}
   m_Layer: 0
-  m_Name: Teleport
+  m_Name: TeleportPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,13 +64,13 @@ MonoBehaviour:
   Faction: 0
   ContainingGroundLayer: {fileID: 0}
   DetectionRadius: 3
-  splinePointObjectType: 0
+  splinePointObjectType: 1
   UIPromptKey: 0
   InteractAnimation: {fileID: 7400000, guid: 65ade55850e6dc045a3da0295f32c1af, type: 2}
   LocalOffsetX: 0
   SnapSpeed: 10
   SnapToLocalOffset: 1
-  vfxPlayerStaticRef: {fileID: 0}
+  vfxPlayerStaticRef: {fileID: 6239568362000149745}
   TargetTeleporter: {fileID: 0}
 --- !u!114 &6239568362000149745
 MonoBehaviour:

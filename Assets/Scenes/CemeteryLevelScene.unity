@@ -7309,12 +7309,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LayerAssetsContainer: {fileID: 577948972}
-  ScreenBottomHook: {fileID: 2027566995}
   ShiftScale: 0.1
   BoundingHeight: -1
   BoundingHeightReferenceSprite: {fileID: 4531219711628149473}
-  ContainerScene: {fileID: 0}
   SpriteLayerOrder: 91
+  ScreenBottomHook: {fileID: 2027566995}
+  ContainerScene: {fileID: 0}
   GroundLayerIndex: -1
   MovementSpline: {fileID: 714906962}
 --- !u!1 &714374341
@@ -8170,12 +8170,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LayerAssetsContainer: {fileID: 947421027}
-  ScreenBottomHook: {fileID: 1571432039}
   ShiftScale: 0
   BoundingHeight: 0
   BoundingHeightReferenceSprite: {fileID: 0}
-  ContainerScene: {fileID: 0}
   SpriteLayerOrder: 10
+  ScreenBottomHook: {fileID: 1571432039}
+  ContainerScene: {fileID: 0}
   GroundLayerIndex: -1
   MovementSpline: {fileID: 681233483}
 --- !u!1 &1229356651
@@ -8972,12 +8972,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LayerAssetsContainer: {fileID: 947421027}
-  ScreenBottomHook: {fileID: 1469329728}
   ShiftScale: 0
   BoundingHeight: 0
   BoundingHeightReferenceSprite: {fileID: 0}
-  ContainerScene: {fileID: 0}
   SpriteLayerOrder: 8
+  ScreenBottomHook: {fileID: 1469329728}
+  ContainerScene: {fileID: 0}
   GroundLayerIndex: -1
   MovementSpline: {fileID: 1148784271}
 --- !u!1 &1469329728

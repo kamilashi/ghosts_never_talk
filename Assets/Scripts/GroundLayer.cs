@@ -9,20 +9,23 @@ namespace GNT
     /// </summary>
     public class GroundLayer : SystemObject
     {
-        [Header("Manual Setup")]
+        [Header("Setup in Scene")]
         public GameObject LayerAssetsContainer;
-        public GameObject ScreenBottomHook;
-        [Range(0.0f , 1.0f)] public float ShiftScale = 1.0f;
+        [Range(0.0f , 1.0f)] public float ShiftScale = 0.0f;
         public float BoundingHeight = -1.0f;
         public SpriteRenderer BoundingHeightReferenceSprite = null;
+        public int SpriteLayerOrder;
+
+        [Header("Setup in Prefab")]
+        public GameObject ScreenBottomHook;
 
         [Header("Auto Setup")]
         public SceneInterface ContainerScene;
-        public int SpriteLayerOrder;
         public int GroundLayerIndex = -1;
 
         public Pathfinding.CatmullRomSpline MovementSpline;
 
+        [Header("Debug View")]
         private bool isShiftedDown = false;
         private float shiftDownDistance = 0.0f;
 
@@ -38,14 +41,13 @@ namespace GNT
                 MovementSpline = this.GetComponentInChildren<Pathfinding.CatmullRomSpline>();
             }
 
-            if(BoundingHeight == -1 && BoundingHeightReferenceSprite == null)
-            {
-                Debug.LogWarning("Please, specify either the bounding height reference sprite, or the height in meters, this is needed for shifting down foreground layers when switching in!");
-            }
-
             if (BoundingHeightReferenceSprite != null)
             {
                 BoundingHeight = BoundingHeightReferenceSprite.bounds.size.y;
+            }
+            else if(ShiftScale > 0 && BoundingHeight == -1)
+            {
+                Debug.LogError("Please, specify either the bounding height reference sprite, or the height in meters, this is needed for shifting down foreground layers when switching in!");
             }
         }
 
