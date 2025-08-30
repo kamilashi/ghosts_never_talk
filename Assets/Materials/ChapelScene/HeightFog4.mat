@@ -104,7 +104,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FogTextureIntensity: 0.877
+    - _FogTextureIntensity: 0.613
     - _FogTextureScrollSpeed: 0.009
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -122,17 +122,17 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _SurfaceBlendDistance: 1.2
-    - _SurfaceBlendEdge1: 0.291
-    - _SurfaceBlendEdge2: 0.464
+    - _SurfaceBlendDistance: 1.6
+    - _SurfaceBlendEdge1: 0.192
+    - _SurfaceBlendEdge2: 0.275
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FarColor: {r: 0.2028302, g: 0.2028302, b: 0.2028302, a: 0}
-    - _NearColor: {r: 0.6432004, g: 0.6886792, b: 0.656844, a: 0}
+    - _FarColor: {r: 0.6226415, g: 0.61089355, b: 0.61089355, a: 0}
+    - _NearColor: {r: 0.5169099, g: 0.5707547, b: 0.5303711, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5507254474522490793
