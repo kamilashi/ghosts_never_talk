@@ -32,6 +32,7 @@ namespace GNT
         public AnimationEventProcessor AnimationEventProcessorInstance;
 
         public static event Action OnSceneLoadFinishEvent;
+        public static bool isLoaded = false;
 
         public Scene LoadedLevelScene;
         private AsyncOperation loadUnloadOperation;
@@ -39,6 +40,7 @@ namespace GNT
         private Coroutine sceneLoadingCoroutine;
         private float loadingProgress = -1.0f;
         private float unloadingProgress = -1.0f;
+
 
         public static GameManager Instance
         {
@@ -54,15 +56,15 @@ namespace GNT
             if (globalDataInstance == null)
             {
                 globalDataInstance = gameObject.GetComponent<GameManager>();
+                isLoaded = true;
+
+                // Hack, this should be in the project settings:
+                Physics2D.queriesStartInColliders = false;
+                AnimationEventProcessorInstance = new AnimationEventProcessor();
+
+                GlobalCharacterRefDictionary = new Dictionary<string, GlobalCharacterReference>();
+                loadUnloadOperation = null;
             }
-
-            // Hack, this should be in the project settings:
-            Physics2D.queriesStartInColliders = false;
-            AnimationEventProcessorInstance = new AnimationEventProcessor();
-
-            GlobalCharacterRefDictionary = new Dictionary<string, GlobalCharacterReference>();
-            loadUnloadOperation = null;
-
         }
 
         void Update()
