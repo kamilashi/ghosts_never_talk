@@ -143,6 +143,9 @@
         },
         {
             "m_Id": "4949ea43e06f4adb992cbc6437ffe822"
+        },
+        {
+            "m_Id": "e86410c7a58c4e7fa95c7b15ecb83884"
         }
     ],
     "m_GroupDatas": [],
@@ -501,6 +504,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "e86410c7a58c4e7fa95c7b15ecb83884"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "9ab22fdcd6714d1ca55dffa673caca8e"
+                },
+                "m_SlotId": -1166735826
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "e92e5f6b504644a385172a0e75e94e06"
                 },
                 "m_SlotId": 0
@@ -628,6 +645,20 @@
     "m_SupportsLODCrossFade": false,
     "m_CustomEditorGUI": "",
     "m_SupportVFX": false
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
+    "m_ObjectId": "083ec55ced2f49ddaa7f60b2cac4b56b",
+    "m_Id": 0,
+    "m_DisplayName": "Out",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": false,
+    "m_DefaultValue": false
 }
 
 {
@@ -1636,7 +1667,7 @@
     "m_RefNameGeneratedByDisplayName": "DensityFallOff",
     "m_DefaultReferenceName": "_DensityFallOff",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -1989,6 +2020,20 @@
     },
     "m_Labels": [],
     "m_Space": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
+    "m_ObjectId": "7b4f07359c09421ca8bf094e0110fc73",
+    "m_Id": -1166735826,
+    "m_DisplayName": "IsWater",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_IsWater",
+    "m_StageCapability": 3,
+    "m_Value": false,
+    "m_DefaultValue": false
 }
 
 {
@@ -2600,6 +2645,9 @@
             "m_Id": "1998991379e14f6c9a3401c405eb7077"
         },
         {
+            "m_Id": "7b4f07359c09421ca8bf094e0110fc73"
+        },
+        {
             "m_Id": "c368263e40e840808ebb56318665a4be"
         }
     ],
@@ -2617,14 +2665,16 @@
         "76c0b2d4-f00e-4c0f-91e5-5ca5905cada5",
         "a8617483-dd51-4962-9341-ebf1955c0426",
         "6be70e47-995c-4e59-89a6-3d041b4fb032",
-        "7e466bf2-1650-4cc6-a1d9-ec9d81f54497"
+        "7e466bf2-1650-4cc6-a1d9-ec9d81f54497",
+        "2376d083-ae68-49cd-8422-53bc415a9d6c"
     ],
     "m_PropertyIds": [
         1215784396,
         977206235,
         921482452,
         322141833,
-        942166402
+        942166402,
+        -1166735826
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -3451,7 +3501,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_DensityFallOff",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -3627,6 +3677,46 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BooleanNode",
+    "m_ObjectId": "e86410c7a58c4e7fa95c7b15ecb83884",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Boolean",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -1762.9544677734375,
+            "y": 1617.131103515625,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "083ec55ced2f49ddaa7f60b2cac4b56b"
+        }
+    ],
+    "synonyms": [
+        "switch",
+        "true",
+        "false",
+        "on",
+        "off"
+    ],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Value": true
 }
 
 {

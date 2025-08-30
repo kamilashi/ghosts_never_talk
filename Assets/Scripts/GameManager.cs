@@ -93,7 +93,7 @@ namespace GNT
             }
         }
 
-        IEnumerator LoadAdditiveScene(AsyncOperation asyncLoad, string sceneName, Action onLoadFinishedAction)
+        IEnumerator LoadAdditiveScene(AsyncOperation asyncLoad, string sceneName, Action<Scene> onLoadFinishedAction)
         {
             while (!asyncLoad.isDone)
             {
@@ -109,7 +109,7 @@ namespace GNT
                 yield return null;
             }
 
-            onLoadFinishedAction?.Invoke();
+            onLoadFinishedAction?.Invoke(LoadedLevelScene);
             loadingProgress = -1.0f;
         }
         
@@ -131,13 +131,14 @@ namespace GNT
             unloadingProgress = -1.0f;
         }
 
-        private void OnSceneLoadFinished()
+        private void OnSceneLoadFinished(Scene loadedScene)
         {
             GameObject sceneInterfaceGameObject = GameObject.FindWithTag("LevelScene");
-            SceneInterface loadedScene = sceneInterfaceGameObject.GetComponent<SceneInterface>();
+            SceneInterface loadedSceneInterface = sceneInterfaceGameObject.GetComponent<SceneInterface>();
 
-            StartOnLevel(loadedScene);
+            StartOnLevel(loadedSceneInterface);
             CameraMovementStaticRef.SetCameraMovementEnabled(true);
+            SceneManager.SetActiveScene(loadedScene);
         }
 
         private void LoadScene(string sceneName)
