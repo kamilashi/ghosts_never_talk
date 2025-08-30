@@ -15,8 +15,8 @@ namespace GNT
         public bool useConstantFollowPlayerDampLambda = true;
         public float cameraFollowPlayerTeleportDampLambda = 5.0f;
         public float followPlayerDampLambdaUpdateSpeed = 5.5f;
-        [Range(-10, 0)]
-        public float defaultPlayerOffsetZ = -7.0f;
+        [Range(-50, 0)]
+        public float defaultPlayerOffsetZ = -30.0f;
 
         [Header("Horizontal lookahead")]
         [Range(0, 10)]

@@ -2633,7 +2633,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 70
-  field of view: 77.766174
+  field of view: 40.910343
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2713,7 +2713,7 @@ MonoBehaviour:
   useConstantFollowPlayerDampLambda: 0
   cameraFollowPlayerTeleportDampLambda: 5
   followPlayerDampLambdaUpdateSpeed: 10
-  defaultPlayerOffsetZ: -7
+  defaultPlayerOffsetZ: -20
   directionChangeReactionSpeed: 2
   maxLookaheadDistanceX: 4.17
   lookaheadDirectionDampLambda: 0.75

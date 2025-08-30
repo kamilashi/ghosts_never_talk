@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 static class AutoLoadSceneEditor
 {
-    private static string persistentScenePath = "Assets/Scenes/PersistentScene.unity";
+    //private static string persistentScenePath = "Assets/Scenes/PersistentScene.unity";
+    private static string persistentSceneName = "PersistentScene";
 
     [InitializeOnLoadMethod]
     static void OnLoad()
@@ -15,26 +16,11 @@ static class AutoLoadSceneEditor
 
         EditorApplication.playModeStateChanged += (PlayModeStateChange c) =>
         {
-            Debug.Log($"[Probe] playModeStateChanged: {c}");
-            if(c == PlayModeStateChange.EnteredPlayMode)
+
+            if(c == PlayModeStateChange.EnteredPlayMode && SceneManager.GetActiveScene().name != persistentSceneName)
             {
-                SceneManager.LoadScene("PersistentScene");
+                SceneManager.LoadScene(persistentSceneName);
             }
         };
-    }
-
-    private static void OnSceneOpened(Scene scene, OpenSceneMode mode)
-    {
-        // Check if the opened scene is not the one we want
-        if (scene.path != persistentScenePath)
-        {
-            // Delay the loading to avoid conflicts
-            EditorApplication.delayCall += () =>
-            {
-                EditorSceneManager.OpenScene(persistentScenePath, OpenSceneMode.Single);
-            };
-        }
-
-        Debug.Log($"[Probe] sceneOpened: {scene.path} ({mode})");
     }
 }
