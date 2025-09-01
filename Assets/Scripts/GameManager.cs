@@ -175,6 +175,9 @@ namespace GNT
         {
             SetActiveScene(levelSceneInterface);
 
+            CameraMovementStaticRef.defaultPlayerOffsetZ = -levelSceneInterface.CameraParameters.distanceFromPlayer;
+            MainCameraStaticRef.fieldOfView = levelSceneInterface.CameraParameters.fieldOfView;
+
             ActiveSceneDynamicRef.OnLoadInitialize();
 
             // this will move into the scene init code

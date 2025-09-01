@@ -36,12 +36,20 @@ namespace GNT
         public float right;
     }
 
+    [Serializable]
+    public struct CameraParameters
+    {
+        public float distanceFromPlayer;
+        public float fieldOfView;
+    }
+
     public class SceneInterface : MonoBehaviour
     {
         [Header("Setup in Scene")]
         public SceneStartData SceneStartData; // set in the inspector only
         public List<GroundLayer> GroundLayers; // set in the inspector only
         public CameraConstraints CameraConstraints;
+        public CameraParameters CameraParameters;
 
         [Header("Debug View")]
         public SceneReference sceneReference;
