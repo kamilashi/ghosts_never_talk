@@ -1,0 +1,87 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace GNT
+{
+    public class Interactable : SplinePointObject
+    {
+        [Header("Interactable")]
+        public int UIPromptKey;
+       // public float InteractRadius;
+        public AnimationClip InteractAnimation; //#TODO: this should be a name reference, and not the animation itself
+        public float LocalOffsetX;
+        public float SnapSpeed = 1.0f;
+        public bool SnapToLocalOffset = true;
+
+        [SerializeField]
+        protected VfxPlayer vfxPlayerStaticRef;
+
+        protected void BaseAwakeInteractable()
+        {
+            base.BaseAwakeSplinePointObject();
+            vfxPlayerStaticRef = gameObject.GetComponent<VfxPlayer>();
+        }
+
+        private IEnumerator MoveToInteractionX(Transform interactorTransform, System.Action onCoroutineFinishedInteractAction, CharacterMovement interactorGroundMovement = null)
+        {
+            if(SnapToLocalOffset)
+            {
+                Vector3 targetWorldPosition = this.transform.position;
+                targetWorldPosition.x += LocalOffsetX;
+                float currentDistance = -1.0f;
+                float initialDistanceX = Mathf.Abs(interactorTransform.position.x - transform.position.x);
+                float epsilon = 0.01f;
+
+                do
+                {
+                    Vector3 toInteractable = targetWorldPosition;
+                    toInteractable -= interactorTransform.position;
+
+                    currentDistance = Mathf.Abs(toInteractable.x);
+
+                    float travelProgressLinear = currentDistance / initialDistanceX;
+
+                    float velocityX = Mathf.Sign(toInteractable.x) * Mathf.Min(SnapSpeed * Time.deltaTime * Mathf.SmoothStep(0.2f, 0.8f, travelProgressLinear), currentDistance);
+                    Vector3 translate = Vector3.zero;
+                    translate.x = velocityX;
+                    interactorTransform.Translate(translate);
+
+                    if (interactorGroundMovement != null)
+                    {
+                        interactorGroundMovement.AddSplineLocalOffset(velocityX);
+                    }
+
+                    yield return null;
+                }
+                while (currentDistance > epsilon);
+            }
+            
+            if (interactorGroundMovement != null)
+            {
+                interactorGroundMovement.StopAndPlayAnimation(InteractAnimation);
+            }
+
+            onCoroutineFinishedInteractAction?.Invoke();
+        }
+
+        protected virtual void onInteractCoroutineFinished()
+        { }
+        public virtual void OnBecomeAvailable()
+        {
+            vfxPlayerStaticRef.PlayVfxEnter(ContainingGroundLayer.SpriteLayerOrder, DetectionRadius * 2.0f);
+        }
+        public virtual void OnBecomeUnavailable()
+        {
+            vfxPlayerStaticRef.PlayVfxExit();
+        }
+
+        public Coroutine Interact(Transform interactorTransform, CharacterMovement groundMovement = null, Action OnMoveFinished = null)
+        {
+            OnMoveFinished += onInteractCoroutineFinished;
+            return StartCoroutine(MoveToInteractionX(interactorTransform, OnMoveFinished, groundMovement));
+        }
+
+    }
+}
