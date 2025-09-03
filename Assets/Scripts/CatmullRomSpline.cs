@@ -102,7 +102,7 @@ namespace Pathfinding
                         newLocalPos = 0.0f + safetyError;
                     }
 
-                    if (newLocalPos > totalLength)
+                    if (newLocalPos >= totalLength)
                     {
                         newLocalPos = totalLength - safetyError;
                     }

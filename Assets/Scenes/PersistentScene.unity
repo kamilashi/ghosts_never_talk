@@ -2719,7 +2719,7 @@ MonoBehaviour:
   lookaheadDirectionDampLambda: 0.75
   adjustToScreenBottomHook: 1
   dollyOnHeightChange: 1
-  dollyDampLambda: 0.8
+  dollyDampLambda: 5
   maxDollyAmount: 7
   playerToGroundHeightDifferenceThreshold: 2.6
   currentFollowPlayerDampLambda: 0
