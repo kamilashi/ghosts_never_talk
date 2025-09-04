@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/Audio/SoundBanks/Desktop/Common.bank
   Name: Common
   StudioPath: bank:/Common
-  lastModified: 638925221991222070
+  lastModified: 638925907197309356
   FileSizes:
   - Name: Desktop
     Value: 1433184
@@ -86,10 +86,10 @@ MonoBehaviour:
   - {fileID: 9001548358444736133}
   IsStream: 1
   Is3D: 1
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 5.6
+  MinDistance: 5
+  MaxDistance: 15
   Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -118,7 +118,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -3540114020703880306}
   cacheVersion: 131849
-  cacheTime: 638925273550771621
+  cacheTime: 638925914474185814
   SerializableEventsDict:
   - key: event:/Chapel/ChapelAmbience
     index: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   - {fileID: -5248124324009147206}
   IsStream: 1
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters:
   - {fileID: -4704512310855603823}
   MinDistance: 1
@@ -241,8 +241,8 @@ MonoBehaviour:
   Path: Assets/Audio/SoundBanks/Desktop/Chapel.bank
   Name: Chapel
   StudioPath: bank:/Chapel
-  lastModified: 638925273550771621
+  lastModified: 638925914474185814
   FileSizes:
   - Name: Desktop
-    Value: 7557472
+    Value: 7557440
   Exists: 1

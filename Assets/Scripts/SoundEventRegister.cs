@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class SoundEventRegister : MonoBehaviour
 {
-    public LayerMask triggerLayerMask;
-
     private FMODUnity.StudioEventEmitter[] emitters;
     public static int emitterObjectsCount = 0;
 

@@ -10,27 +10,40 @@ using static UnityEngine.Rendering.DebugUI;
 namespace GNT
 {
     [Serializable]
-    public class SoundEventData
+    public abstract class ParameterBlendData
     {
         public string eventPath;
         public string parameterName;
-        public float interpolationDuration;
-        public float startValue = -1;
-        public float endValue;
 
-        public int eventId;
+        [SerializeField]
+        private int eventId;
+        public void SetId(int id) { this.eventId = id; }
+        public int GetId() { return this.eventId; }
+    }
+
+    [Serializable]
+    public class OneShotBlendData : ParameterBlendData
+    {
+        public float interpolationDuration;
+        public float startValue;
+        public bool starFromCurrent;
+        public float endValue;
+    }
+
+    [Serializable]
+    public class ContinuousBlendData : ParameterBlendData
+    {
+        public float leftValue;
+        public float rightValue;
     }
 
     public class AudioBlender : SplinePointObject
     {
-        [Header("Audio Bledner")]
+        [Header("Audio Blender")]
 
-        public List<SoundEventData> onEnterRangeBlendEvents;
-        public List<SoundEventData> onExitRangeBlendEvents;
-
-        public List<SoundEventData> directionalBlends;
-
-        //private List<Coroutine> interpolateSoundParameterCoroutines;
+        public List<OneShotBlendData> onEnterRangeBlends;
+        public List<OneShotBlendData> onExitRangeBlends;
+        public List<ContinuousBlendData> directionalBlends;
 
         private void Awake()
         {
@@ -47,34 +60,34 @@ namespace GNT
 
         private void FetchEventIds()
         {
-            for (int i = 0; i < onEnterRangeBlendEvents.Count; i++)
+            for (int i = 0; i < onEnterRangeBlends.Count; i++)
             {
-                SoundEventData data = onEnterRangeBlendEvents[i];
-                data.eventId = GameManager.Instance.FetchSoundbanEventId(data.eventPath);
+                ParameterBlendData data = onEnterRangeBlends[i];
+                data.SetId(GameManager.Instance.FetchSoundbanEventId(data.eventPath));
             }
 
-            for (int i = 0; i < onExitRangeBlendEvents.Count; i++)
+            for (int i = 0; i < onExitRangeBlends.Count; i++)
             {
-                SoundEventData data = onExitRangeBlendEvents[i];
-                data.eventId = GameManager.Instance.FetchSoundbanEventId(data.eventPath);
+                ParameterBlendData data = onExitRangeBlends[i]; 
+                data.SetId(GameManager.Instance.FetchSoundbanEventId(data.eventPath));
             }
 
             for (int i = 0; i < directionalBlends.Count; i++)
             {
-                SoundEventData data = directionalBlends[i];
-                data.eventId = GameManager.Instance.FetchSoundbanEventId(data.eventPath);
+                ParameterBlendData data = directionalBlends[i];
+                data.SetId(GameManager.Instance.FetchSoundbanEventId(data.eventPath));
             }
         }
 
         public override void AutoTriggerInRange(ref SplineMovementData movementDataRef)
         {
             Debug.Log("Triggered on in range");
-            foreach (SoundEventData soundData in onEnterRangeBlendEvents)
+            foreach (OneShotBlendData soundData in onEnterRangeBlends)
             {
                 StartOneShotBlend(soundData);
             }
 
-            foreach (SoundEventData soundData in directionalBlends)
+            foreach (ContinuousBlendData soundData in directionalBlends)
             {
                 StartContinuousBlend(soundData, ref movementDataRef);
             }
@@ -84,15 +97,15 @@ namespace GNT
         {
             Debug.Log("Triggered on out of range");
 
-            foreach (SoundEventData soundData in onExitRangeBlendEvents)
+            foreach (OneShotBlendData soundData in onExitRangeBlends)
             {
                 StartOneShotBlend(soundData);
             }
         }
 
-        private void StartOneShotBlend(SoundEventData soundData)
+        private void StartOneShotBlend(OneShotBlendData soundData)
         {
-            EventInstance eventInstance = GameManager.Instance.GetSoundbankEventInstance(soundData.eventId);
+            EventInstance eventInstance = GameManager.Instance.GetSoundbankEventInstance(soundData.GetId());
             float startValue = soundData.startValue;
             
             if(startValue < 0)
@@ -103,11 +116,11 @@ namespace GNT
             StartCoroutine(InterpolateParameterOneShot(startValue, soundData.endValue, soundData.interpolationDuration, eventInstance, soundData.parameterName));
         }
 
-        private void StartContinuousBlend(SoundEventData soundData, ref SplineMovementData movementDataRef)
+        private void StartContinuousBlend(ContinuousBlendData soundData, ref SplineMovementData movementDataRef)
         {
-            EventInstance eventInstance = GameManager.Instance.GetSoundbankEventInstance(soundData.eventId);
+            EventInstance eventInstance = GameManager.Instance.GetSoundbankEventInstance(soundData.GetId());
 
-            StartCoroutine(InterpolateParameterContinuous(soundData.startValue, soundData.endValue, movementDataRef, eventInstance, soundData.parameterName));
+            StartCoroutine(InterpolateParameterContinuous(soundData.leftValue, soundData.rightValue, movementDataRef, eventInstance, soundData.parameterName));
         }
 
         private IEnumerator InterpolateParameterOneShot(float start, float target, float duration, EventInstance soundEventInstance, string parameterName)

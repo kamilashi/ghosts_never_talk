@@ -1296,21 +1296,19 @@ MonoBehaviour:
   ContainingGroundLayer: {fileID: 657883359}
   DetectionRadius: 10
   splinePointObjectType: 4
-  onEnterRangeBlendEvents: []
-  onExitRangeBlendEvents: []
+  onEnterRangeBlends: []
+  onExitRangeBlends: []
   directionalBlends:
   - eventPath: event:/Chapel/ChapelAmbience
     parameterName: ChapelAmbienceDepth1
-    interpolationDuration: 0
-    startValue: 0.2
-    endValue: 0
     eventId: 0
+    leftValue: 0.2
+    rightValue: 0
   - eventPath: event:/Common/OutdoorsAmbience
     parameterName: OutdoorsAmbienceIntencity
-    interpolationDuration: 0
-    startValue: 0
-    endValue: 1
     eventId: 0
+    leftValue: 0
+    rightValue: 1
 --- !u!1 &521987393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,7 +3444,7 @@ Transform:
   m_GameObject: {fileID: 1296742766}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.03, y: 0, z: 1.9}
+  m_LocalPosition: {x: 2.37, y: -1.01, z: 6.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3471,8 +3469,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 40, y: 4, z: 40}
-  m_Center: {x: 0, y: 1.82, z: 0}
+  m_Size: {x: 40, y: 4, z: 63.68}
+  m_Center: {x: 0, y: 3.37, z: 0}
 --- !u!114 &1296742770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3502,8 +3500,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 5.6
+  OverrideMinDistance: 5
+  OverrideMaxDistance: 15
 --- !u!1001 &1346413188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5174,9 +5172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aa26ffd18ae024a9a19c8f7baf0458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &2016040851
 GameObject:
   m_ObjectHideFlags: 0
