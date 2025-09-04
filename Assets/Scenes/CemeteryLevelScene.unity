@@ -767,6 +767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 2
+  IsEnabledLocal: 0
 --- !u!212 &239716716
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1276,6 +1277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 3
+  IsEnabledLocal: 0
 --- !u!114 &410870894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1364,6 +1366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 3
+  IsEnabledLocal: 0
 --- !u!114 &415658733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6900,6 +6903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 0
   Extents: 5
+  IsEnabledLocal: 0
 --- !u!114 &629550663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7032,32 +7036,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlPoints:
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 239716714}
+    gameplayTrigger: {fileID: 239716714}
+    autoTriggers: []
     position: {x: -26.6, y: -4.25, z: 11.38}
     localPos: 0
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: -19.5, y: -4.25, z: 11.38}
     localPos: 7.1000004
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: -11.9, y: -4.25, z: 11.38}
     localPos: 14.700001
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 415658731}
+    gameplayTrigger: {fileID: 415658731}
+    autoTriggers: []
     position: {x: -5.6, y: -4.25, z: 11.38}
     localPos: 21
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 1349472666}
+    gameplayTrigger: {fileID: 1349472666}
+    autoTriggers: []
     position: {x: 4.15, y: -4.25, z: 11.38}
     localPos: 30.75
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 12.4, y: -4.25, z: 11.38}
     localPos: 39
     wasVisited: 0
@@ -7401,67 +7411,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlPoints:
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: -11.05, y: -3.99, z: 7}
     localPos: 0
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: -2.53, y: -3.99, z: 7}
     localPos: 8.52
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 410870892}
+    gameplayTrigger: {fileID: 410870892}
+    autoTriggers: []
     position: {x: 3.85, y: -3.99, z: 7}
     localPos: 14.900001
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 7.63, y: -3.99, z: 7}
     localPos: 18.68
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 10.63, y: -3.27, z: 7}
     localPos: 21.76519
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 13.63, y: -0.84, z: 7}
     localPos: 25.625877
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 16.630001, y: 1.99, z: 7}
     localPos: 29.750063
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 19.630001, y: 3.66, z: 7}
     localPos: 33.18356
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 629550664}
+    gameplayTrigger: {fileID: 629550664}
+    autoTriggers: []
     position: {x: 22.63, y: 4.07, z: 7}
     localPos: 36.211445
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 25.630001, y: 4.03, z: 7}
     localPos: 39.21171
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 28.630001, y: 3, z: 7}
     localPos: 42.383606
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 891208320}
+    gameplayTrigger: {fileID: 891208320}
+    autoTriggers: []
     position: {x: 31.630001, y: 0.7, z: 7}
     localPos: 46.16382
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 34.63, y: -3.99, z: 7}
     localPos: 51.73123
     wasVisited: 0
@@ -7471,6 +7494,38 @@ MonoBehaviour:
   ObjectScanDistance: -1
   resolution: 10
   totalLength: 51.73123
+--- !u!1 &880177800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 880177801}
+  m_Layer: 0
+  m_Name: SoundEventEmitters
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &880177801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880177800}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 21.49066, y: 0.54459685, z: 37.50039}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1955646143}
+  m_Father: {fileID: 1728121133}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &891208317
 GameObject:
   m_ObjectHideFlags: 0
@@ -7559,6 +7614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 3
+  IsEnabledLocal: 0
 --- !u!1 &896297660
 GameObject:
   m_ObjectHideFlags: 0
@@ -7905,52 +7961,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlPoints:
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: -17.91, y: 0.94, z: 12}
     localPos: 0
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: -10.12, y: 0.94, z: 12}
     localPos: 7.79
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: -2.9099998, y: 1.66, z: 12}
     localPos: 15.035861
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 2.0900002, y: 6.71, z: 12}
     localPos: 22.142372
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 5.72, y: 10.23, z: 12}
     localPos: 27.198784
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 1659033200}
+    gameplayTrigger: {fileID: 1659033200}
+    autoTriggers: []
     position: {x: 8.24, y: 10.83, z: 12}
     localPos: 29.789228
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 12.3, y: 10.94, z: 12}
     localPos: 33.85072
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 0}
+    gameplayTrigger: {fileID: 0}
+    autoTriggers: []
     position: {x: 19.4, y: 10.94, z: 12}
     localPos: 40.950718
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 1229356656}
+    gameplayTrigger: {fileID: 1229356656}
+    autoTriggers: []
     position: {x: 27.5, y: 10.94, z: 12}
     localPos: 49.05072
     wasVisited: 0
   - transform: {fileID: 0}
-    objectAtPoint: {fileID: 5113738415921902940}
+    gameplayTrigger: {fileID: 5113738415921902940}
+    autoTriggers: []
     position: {x: 34.7, y: 10.94, z: 12}
     localPos: 56.25072
     wasVisited: 0
@@ -8161,6 +8227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 3
+  IsEnabledLocal: 0
 --- !u!114 &1229356656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8653,6 +8720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 3
+  IsEnabledLocal: 0
 --- !u!114 &1349472668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8942,6 +9010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 0
   Extents: 5
+  IsEnabledLocal: 0
 --- !u!1 &1536384515
 GameObject:
   m_ObjectHideFlags: 0
@@ -9110,6 +9179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 0
   Extents: 5
+  IsEnabledLocal: 0
 --- !u!1 &1595396765
 GameObject:
   m_ObjectHideFlags: 0
@@ -9191,6 +9261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 3
+  IsEnabledLocal: 0
 --- !u!114 &1659033200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9264,6 +9335,7 @@ Transform:
   - {fileID: 1436780623}
   - {fileID: 1219938347}
   - {fileID: 712069333}
+  - {fileID: 880177801}
   - {fileID: 1318752996}
   - {fileID: 1595396766}
   - {fileID: 418369244}
@@ -9405,6 +9477,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1595396766}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1955646142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1955646143}
+  - component: {fileID: 1955646144}
+  m_Layer: 0
+  m_Name: Ambience
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1955646143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955646142}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 880177801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1955646144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955646142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 572283638
+      Data2: 1263119488
+      Data3: 14661309
+      Data4: -420735805
+    Path: event:/Common/OutdoorsAmbience
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params:
+  - Name: OutdoorsAmbienceIntencity
+    Value: 1
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &2027566995
 GameObject:
   m_ObjectHideFlags: 0
@@ -9451,6 +9588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 0
   Extents: 5
+  IsEnabledLocal: 0
 --- !u!4 &24882304135669259
 Transform:
   m_ObjectHideFlags: 0
@@ -10250,6 +10388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shape: 1
   Extents: 3
+  IsEnabledLocal: 0
 --- !u!4 &3627170456520905647
 Transform:
   m_ObjectHideFlags: 0

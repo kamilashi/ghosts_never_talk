@@ -109,10 +109,10 @@ namespace Pathfinding
             int point1Index = 0;
             for (int i = 0; i < controlPoints.Count - 1; i++)
             {
-                if (movementDataRef.positionOnSpline >= controlPoints[i].GetLocalPos() && movementDataRef.positionOnSpline < controlPoints[i + 1].GetLocalPos())
+                if (movementDataRef.positionOnSpline >= controlPoints[i].GetLocalPos() && movementDataRef.positionOnSpline <= controlPoints[i + 1].GetLocalPos())
                 {
                     point1Index = i;
-                    float safetyError = 0.001f;
+                    float safetyError = 0.00f;
 
                     // clamp to end points:
                     if (newLocalPos < 0.0f)
@@ -120,7 +120,7 @@ namespace Pathfinding
                         newLocalPos = 0.0f + safetyError;
                     }
 
-                    if (newLocalPos >= totalLength)
+                    if (newLocalPos > totalLength)
                     {
                         newLocalPos = totalLength - safetyError;
                     }
@@ -276,16 +276,7 @@ namespace Pathfinding
                 pointIdx--;
             }
 
-            // we are already at the right most point, nothing to scan for
-            if (leftPointIdx == controlPoints.Count - 1)
-            {
-                movementDataRef.availableGameplayTrigger = nearestObject;
-                movementDataRef.availableAutoTriggersThisFrame = autoTriggerPoints;
-                return;
-            }
-
             currentDistance = 0.0f;
-            gameplayTriggerClosestDistance = 0.0f;
             pointIdx = leftPointIdx + 1;
 
             // scan right
