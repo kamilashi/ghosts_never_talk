@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6402688259022514686}
   - component: {fileID: 4408768669466225754}
   - component: {fileID: 604604196216353445}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 1230631155012812494}
   - component: {fileID: 691231128624736194}
   - component: {fileID: 97441729175150045}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PlayerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

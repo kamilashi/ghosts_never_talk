@@ -3466,17 +3466,17 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4087
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 40, y: 4, z: 40}
-  m_Center: {x: 0, y: 3.47, z: 0}
+  m_Center: {x: 0, y: 1.82, z: 0}
 --- !u!114 &1296742770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5087,10 +5087,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4087
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -5121,15 +5121,15 @@ MonoBehaviour:
       Data4: -1082580415
     Path: event:/Chapel/ChapelAmbience
   Event: 
-  EventPlayTrigger: 3
-  EventStopTrigger: 4
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
   NonRigidbodyVelocity: 0
   Params:
   - Name: ChapelAmbienceDepth1
-    Value: 0.535
+    Value: 0.2
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
@@ -5154,8 +5154,8 @@ MonoBehaviour:
       Data4: -420735805
     Path: event:/Common/OutdoorsAmbience
   Event: 
-  EventPlayTrigger: 3
-  EventStopTrigger: 4
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
@@ -5178,6 +5178,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aa26ffd18ae024a9a19c8f7baf0458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2016040851
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,46 +28,38 @@ namespace GNT
         public List<SoundEventData> onExitRangeBlendEvents;
 
         public List<SoundEventData> directionalBlends;
-/*
+
         private void Awake()
         {
-            if(!GameManager.isLoaded)
-            {
-                return;
-            };
-
-
             splinePointObjectType = SplinePointObjectType.AutoTriggerRange;
 
-            GameManager.OnSceneLoadFinishEvent += GetEventIds;
+            GameManager.OnSceneLoadFinishEvent += FetchEventIds;
 
             base.BaseAwakeSplinePointObject();
         }
-
         private void OnDestroy()
         {
-            GameManager.OnInitialized -= GetEventIds;
-        }*/
+            GameManager.OnSceneLoadFinishEvent -= FetchEventIds;
+        }
 
-        [ContextMenu("GetEventIds")]
-        private void GetEventIds()
+        private void FetchEventIds()
         {
             for (int i = 0; i < onEnterRangeBlendEvents.Count; i++)
             {
                 SoundEventData data = onEnterRangeBlendEvents[i];
-                data.eventId = GameManager.Instance.GetSoundbanEventId(data.eventPath);
+                data.eventId = GameManager.Instance.FetchSoundbanEventId(data.eventPath);
             }
 
             for (int i = 0; i < onExitRangeBlendEvents.Count; i++)
             {
                 SoundEventData data = onExitRangeBlendEvents[i];
-                data.eventId = GameManager.Instance.GetSoundbanEventId(data.eventPath);
+                data.eventId = GameManager.Instance.FetchSoundbanEventId(data.eventPath);
             }
 
             for (int i = 0; i < directionalBlends.Count; i++)
             {
                 SoundEventData data = directionalBlends[i];
-                data.eventId = GameManager.Instance.GetSoundbanEventId(data.eventPath);
+                data.eventId = GameManager.Instance.FetchSoundbanEventId(data.eventPath);
             }
         }
 
@@ -78,8 +70,6 @@ namespace GNT
             {
                 HandleOneShotSoundEvent(soundData);
             }
-
-            //emitter.Play();
         }
 
         public override void AutoTriggerOutOfRange()
@@ -94,8 +84,8 @@ namespace GNT
 
         private void HandleOneShotSoundEvent(SoundEventData soundData)
         {
-            //EventInstance eventInstance = GameManager.Instance.GetSoundbankEvent(soundData.eventId);
-            EventInstance eventInstance = GameManager.Instance.SoundbankEvents[GameManager.Instance.SoundbankEventIDs[soundData.eventPath]];
+            EventInstance eventInstance = GameManager.Instance.GetSoundbankEventInstance(soundData.eventId);
+            //EventInstance eventInstance = GameManager.Instance.SoundbankEmitters[GameManager.Instance.SoundbankEmitterIDs[soundData.eventPath]];
             float startValue;
             eventInstance.getParameterByName(soundData.parameterName, out startValue);
             //eventInstance.stop(0);
@@ -117,7 +107,6 @@ namespace GNT
                 soundEventInstance.setParameterByName(parameterName, current);
                 yield return null;
             }
-
         }
     }
 }

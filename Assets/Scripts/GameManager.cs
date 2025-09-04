@@ -239,23 +239,7 @@ namespace GNT
             return PlayerMovementStaticRef;
         }
 
-        /*
-                public int RegisterSoundbankEvent(string eventPath)
-                {
-                    if(!SoundbankEventIDs.ContainsKey(eventPath))
-                    {
-                        int index = SoundbankEvents.Count;
-
-                        FMOD.Studio.EventInstance eventInstance = RuntimeManager.CreateInstance(eventPath);
-                        SoundbankEvents.Add(eventInstance);
-                        SoundbankEventIDs.Add(eventPath, index);
-                        return index;
-                    }
-
-                    return SoundbankEventIDs[eventPath];
-                }*/
-
-        public int GetSoundbanEventId(string eventPath)
+        public int FetchSoundbanEventId(string eventPath)
         {
             if (SoundbankEventIDs.ContainsKey(eventPath))
             {
@@ -269,19 +253,25 @@ namespace GNT
 
         public int RegisterSoundbankEvent(FMOD.Studio.EventInstance eventInstance, string eventPath)
         {
+            int index;
             if (!SoundbankEventIDs.ContainsKey(eventPath))
             {
-                int index = SoundbankEvents.Count;
+                index = SoundbankEvents.Count;
 
                 SoundbankEvents.Add(eventInstance);
                 SoundbankEventIDs.Add(eventPath, index);
                 return index;
             }
+            else
+            {
+                index = SoundbankEventIDs[eventPath];
+                SoundbankEvents[index] = eventInstance;
+            }
 
             return SoundbankEventIDs[eventPath];
         }
 
-        public FMOD.Studio.EventInstance GetSoundbankEvent(int index)
+        public FMOD.Studio.EventInstance GetSoundbankEventInstance(int index)
         {
             return SoundbankEvents[index];
         }
