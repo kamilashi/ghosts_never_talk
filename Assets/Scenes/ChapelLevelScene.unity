@@ -1259,7 +1259,7 @@ Transform:
   m_GameObject: {fileID: 517687458}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.1, y: -1.72, z: -13.760001}
+  m_LocalPosition: {x: 22.4, y: -0.98, z: -13.760001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1293,36 +1293,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Faction: 0
-  ContainingGroundLayer: {fileID: 1952739728}
+  ContainingGroundLayer: {fileID: 657883359}
   DetectionRadius: 10
   splinePointObjectType: 4
-  onEnterRangeBlendEvents:
+  onEnterRangeBlendEvents: []
+  onExitRangeBlendEvents: []
+  directionalBlends:
+  - eventPath: event:/Chapel/ChapelAmbience
+    parameterName: ChapelAmbienceDepth1
+    interpolationDuration: 0
+    startValue: 0.2
+    endValue: 0
+    eventId: 0
   - eventPath: event:/Common/OutdoorsAmbience
     parameterName: OutdoorsAmbienceIntencity
-    interpolationDuration: 3
-    leftValue: 0
+    interpolationDuration: 0
+    startValue: 0
     endValue: 1
     eventId: 0
-  - eventPath: event:/Chapel/ChapelAmbience
-    parameterName: ChapelAmbienceDepth1
-    interpolationDuration: 3
-    leftValue: 0
-    endValue: 0
-    eventId: 0
-  onExitRangeBlendEvents:
-  - eventPath: event:/Common/OutdoorsAmbience
-    parameterName: OutdoorsAmbienceIntencity
-    interpolationDuration: 3
-    leftValue: 0
-    endValue: 0
-    eventId: 0
-  - eventPath: event:/Chapel/ChapelAmbience
-    parameterName: ChapelAmbienceDepth1
-    interpolationDuration: 3
-    leftValue: 0
-    endValue: 0.2
-    eventId: 0
-  directionalBlends: []
 --- !u!1 &521987393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,7 +1511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Faction: 0
-  ContainingGroundLayer: {fileID: 198666103}
+  ContainingGroundLayer: {fileID: 0}
   DetectionRadius: 1
   splinePointObjectType: 1
   UIPromptKey: 0
@@ -2258,13 +2246,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4711055827285624795, guid: b5a5304380e17be44bcc915320a875ec, type: 3}
-      propertyPath: controlPoints.Array.data[10].autoTriggers.Array.size
+      propertyPath: controlPoints.Array.data[7].autoTriggers.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711055827285624795, guid: b5a5304380e17be44bcc915320a875ec, type: 3}
+      propertyPath: controlPoints.Array.data[10].autoTriggers.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4711055827285624795, guid: b5a5304380e17be44bcc915320a875ec, type: 3}
       propertyPath: controlPoints.Array.data[2].autoTriggers.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4711055827285624795, guid: b5a5304380e17be44bcc915320a875ec, type: 3}
+      propertyPath: controlPoints.Array.data[7].autoTriggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 517687462}
     - target: {fileID: 4711055827285624795, guid: b5a5304380e17be44bcc915320a875ec, type: 3}
       propertyPath: controlPoints.Array.data[10].autoTriggers.Array.data[0]
       value: 
@@ -4542,7 +4538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Faction: 0
-  ContainingGroundLayer: {fileID: 198666103}
+  ContainingGroundLayer: {fileID: 0}
   DetectionRadius: 1
   splinePointObjectType: 1
   UIPromptKey: 0

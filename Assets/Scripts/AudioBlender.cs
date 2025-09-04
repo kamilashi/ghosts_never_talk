@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using FMODUnity;
+using Pathfinding;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace GNT
         public string eventPath;
         public string parameterName;
         public float interpolationDuration;
-        public float leftValue;
+        public float startValue = -1;
         public float endValue;
 
         public int eventId;
@@ -28,6 +29,8 @@ namespace GNT
         public List<SoundEventData> onExitRangeBlendEvents;
 
         public List<SoundEventData> directionalBlends;
+
+        //private List<Coroutine> interpolateSoundParameterCoroutines;
 
         private void Awake()
         {
@@ -63,37 +66,51 @@ namespace GNT
             }
         }
 
-        public override void AutoTriggerInRange()
+        public override void AutoTriggerInRange(ref SplineMovementData movementDataRef)
         {
             Debug.Log("Triggered on in range");
             foreach (SoundEventData soundData in onEnterRangeBlendEvents)
             {
-                HandleOneShotSoundEvent(soundData);
+                StartOneShotBlend(soundData);
+            }
+
+            foreach (SoundEventData soundData in directionalBlends)
+            {
+                StartContinuousBlend(soundData, ref movementDataRef);
             }
         }
 
-        public override void AutoTriggerOutOfRange()
+        public override void AutoTriggerOutOfRange(ref SplineMovementData movementDataRef)
         {
             Debug.Log("Triggered on out of range");
 
             foreach (SoundEventData soundData in onExitRangeBlendEvents)
             {
-                HandleOneShotSoundEvent(soundData);
+                StartOneShotBlend(soundData);
             }
         }
 
-        private void HandleOneShotSoundEvent(SoundEventData soundData)
+        private void StartOneShotBlend(SoundEventData soundData)
         {
             EventInstance eventInstance = GameManager.Instance.GetSoundbankEventInstance(soundData.eventId);
-            //EventInstance eventInstance = GameManager.Instance.SoundbankEmitters[GameManager.Instance.SoundbankEmitterIDs[soundData.eventPath]];
-            float startValue;
-            eventInstance.getParameterByName(soundData.parameterName, out startValue);
-            //eventInstance.stop(0);
+            float startValue = soundData.startValue;
+            
+            if(startValue < 0)
+            {
+                eventInstance.getParameterByName(soundData.parameterName, out startValue);
+            }
 
-            StartCoroutine(InterpolateParameter(startValue, soundData.endValue, soundData.interpolationDuration, eventInstance, soundData.parameterName));
+            StartCoroutine(InterpolateParameterOneShot(startValue, soundData.endValue, soundData.interpolationDuration, eventInstance, soundData.parameterName));
         }
 
-        private IEnumerator InterpolateParameter(float start, float target, float duration, EventInstance soundEventInstance, string parameterName)
+        private void StartContinuousBlend(SoundEventData soundData, ref SplineMovementData movementDataRef)
+        {
+            EventInstance eventInstance = GameManager.Instance.GetSoundbankEventInstance(soundData.eventId);
+
+            StartCoroutine(InterpolateParameterContinuous(soundData.startValue, soundData.endValue, movementDataRef, eventInstance, soundData.parameterName));
+        }
+
+        private IEnumerator InterpolateParameterOneShot(float start, float target, float duration, EventInstance soundEventInstance, string parameterName)
         {
             float current = start;
             float progress = 0.0f;
@@ -105,6 +122,24 @@ namespace GNT
                 progress = Math.Clamp(progress, 0.0f, 1.0f);
                 current = Mathf.Lerp(start, target, progress);
                 soundEventInstance.setParameterByName(parameterName, current);
+                yield return null;
+            }
+        }
+
+        private IEnumerator InterpolateParameterContinuous(float start, float target, SplineMovementData movementDataRef, EventInstance soundEventInstance, string parameterName)
+        {
+            float current = start;
+            float progress = 0.0f;
+            ControlPoint splinePoint = ContainingGroundLayer.MovementSpline.GetControlPoint(pointIndex);
+            float leftPoint = Math.Max(splinePoint.localPos - DetectionRadius, 0.0f);
+            float rightPoint = Math.Min(splinePoint.localPos + DetectionRadius, ContainingGroundLayer.MovementSpline.GetTotalLength());
+
+            while (progress >= 0f && progress <= 1.0f)
+            {
+                progress = (movementDataRef.positionOnSpline - leftPoint) / (rightPoint - leftPoint);
+                current = Mathf.Lerp(start, target, Math.Clamp(progress, 0.0f, 1.0f));
+                soundEventInstance.setParameterByName(parameterName, current);
+
                 yield return null;
             }
         }

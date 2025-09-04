@@ -144,7 +144,7 @@ namespace Pathfinding
 
                 ScanForSplinePointObjects(ref movementDataRef, point1Index, newLocalPos);
 
-                TriggerRangedObjects(availableRangedObjectsLastFrame, movementDataRef.availableAutoTriggersThisFrame);
+                TriggerRangedObjects(availableRangedObjectsLastFrame, movementDataRef.availableAutoTriggersThisFrame, ref movementDataRef);
             }
 
             return getPositionOnSplineSegment(point1Index, t);
@@ -228,19 +228,19 @@ namespace Pathfinding
             return false; 
         }
 
-        public void TriggerRangedObjects(List<SplinePointObject> oldAvailableObjects, List<SplinePointObject> newAvailableObjects)
+        public void TriggerRangedObjects(List<SplinePointObject> oldAvailableObjects, List<SplinePointObject> newAvailableObjects, ref SplineMovementData movementDataRef)
         {
             var newInactive = (oldAvailableObjects ?? Enumerable.Empty<SplinePointObject>()).Where(o => o != null);
             var newActive = (newAvailableObjects ?? Enumerable.Empty<SplinePointObject>()).Where(o => o != null);
 
             foreach (var trigger in newActive.Except(newInactive))
             {
-                trigger.AutoTriggerInRange();
+                trigger.AutoTriggerInRange(ref movementDataRef);
             }
 
             foreach (var trigger in newInactive.Except(newActive))
             {
-                trigger.AutoTriggerOutOfRange();
+                trigger.AutoTriggerOutOfRange(ref movementDataRef);
             }
         }
 

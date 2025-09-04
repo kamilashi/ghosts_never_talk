@@ -101,12 +101,12 @@ namespace GNT
         }
 
         // either auto trigger/apply something or prepare for interaction (like become available)
-        public virtual void AutoTriggerInRange()
+        public virtual void AutoTriggerInRange(ref SplineMovementData movementDataRef)
         {
 
         }
 
-        public virtual void AutoTriggerOutOfRange()
+        public virtual void AutoTriggerOutOfRange(ref SplineMovementData movementDataRef)
         {
 
         }
@@ -124,7 +124,7 @@ namespace GNT
 
         private void setGroundLayer()
         {
-            if (ContainingGroundLayer == null)
+            //if (ContainingGroundLayer == null)
             {
                 ContainingGroundLayer = this.transform.GetComponentInParent<GroundLayer>();
             }

@@ -23,7 +23,7 @@ namespace GNT
     };
 
     [Serializable]
-    public struct SplineMovementData
+    public class SplineMovementData
     {
         public float positionOnSpline;
         //#TODOD: here should be the current spline dynamic ref!!!

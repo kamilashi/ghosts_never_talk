@@ -16,7 +16,6 @@ static class AutoLoadSceneEditor
 
         EditorApplication.playModeStateChanged += (PlayModeStateChange c) =>
         {
-
             if(c == PlayModeStateChange.EnteredPlayMode && SceneManager.GetActiveScene().name != persistentSceneName)
             {
                 SceneManager.LoadScene(persistentSceneName);
