@@ -6,6 +6,7 @@ using ProcessingHelpers;
 using Library;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using FMODUnity;
 // this is persistent
 
 namespace GNT
@@ -32,6 +33,7 @@ namespace GNT
         public AnimationEventProcessor AnimationEventProcessorInstance;
 
         public static event Action OnSceneLoadFinishEvent;
+        public static event Action OnInitialized;
         public static bool isLoaded = false;
 
         public Scene LoadedLevelScene;
@@ -41,6 +43,8 @@ namespace GNT
         private float loadingProgress = -1.0f;
         private float unloadingProgress = -1.0f;
 
+        public List<FMOD.Studio.EventInstance> SoundbankEvents ;
+        public Dictionary<string, int> SoundbankEventIDs;
 
         public static GameManager Instance
         {
@@ -63,7 +67,12 @@ namespace GNT
                 AnimationEventProcessorInstance = new AnimationEventProcessor();
 
                 GlobalCharacterRefDictionary = new Dictionary<string, GlobalCharacterReference>();
+                SoundbankEvents = new List<FMOD.Studio.EventInstance>();
+                SoundbankEventIDs = new Dictionary<string, int>();
+
                 loadUnloadOperation = null;
+
+                OnInitialized?.Invoke();
             }
         }
 
@@ -228,6 +237,53 @@ namespace GNT
         public CharacterMovement GerPlayerMovement()
         {
             return PlayerMovementStaticRef;
+        }
+
+        /*
+                public int RegisterSoundbankEvent(string eventPath)
+                {
+                    if(!SoundbankEventIDs.ContainsKey(eventPath))
+                    {
+                        int index = SoundbankEvents.Count;
+
+                        FMOD.Studio.EventInstance eventInstance = RuntimeManager.CreateInstance(eventPath);
+                        SoundbankEvents.Add(eventInstance);
+                        SoundbankEventIDs.Add(eventPath, index);
+                        return index;
+                    }
+
+                    return SoundbankEventIDs[eventPath];
+                }*/
+
+        public int GetSoundbanEventId(string eventPath)
+        {
+            if (SoundbankEventIDs.ContainsKey(eventPath))
+            {
+                return SoundbankEventIDs[eventPath];
+            }
+
+            Debug.LogError("The requested sound bank " + eventPath + " has not been registered!");
+
+            return -1;
+        }
+
+        public int RegisterSoundbankEvent(FMOD.Studio.EventInstance eventInstance, string eventPath)
+        {
+            if (!SoundbankEventIDs.ContainsKey(eventPath))
+            {
+                int index = SoundbankEvents.Count;
+
+                SoundbankEvents.Add(eventInstance);
+                SoundbankEventIDs.Add(eventPath, index);
+                return index;
+            }
+
+            return SoundbankEventIDs[eventPath];
+        }
+
+        public FMOD.Studio.EventInstance GetSoundbankEvent(int index)
+        {
+            return SoundbankEvents[index];
         }
 
         public void RegisterGlobalCharacterReference(string key, GlobalCharacterReference value)

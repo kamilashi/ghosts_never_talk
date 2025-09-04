@@ -35,10 +35,12 @@ namespace GNT
             teleporteeGroundMovement.TeleportToSplinePoint(TargetTeleporter.pointIndex, TargetTeleporter.ContainingGroundLayer);
         }
 
+
+/*
         public override void ExecuteSplineObject(PlayerController playerControllerRef = null, CharacterMovement groundMovementRef = null)
         {
             base.ExecuteSplineObject(playerControllerRef, groundMovementRef);
-        }
+        }*/
 
         public bool isReceiverOnly()
         {

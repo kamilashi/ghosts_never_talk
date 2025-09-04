@@ -2590,7 +2590,6 @@ GameObject:
   m_Component:
   - component: {fileID: 966648409}
   - component: {fileID: 966648405}
-  - component: {fileID: 966648408}
   - component: {fileID: 966648407}
   - component: {fileID: 966648406}
   m_Layer: 0
@@ -2723,14 +2722,6 @@ MonoBehaviour:
   maxDollyAmount: 7
   playerToGroundHeightDifferenceThreshold: 2.6
   currentFollowPlayerDampLambda: 0
---- !u!81 &966648408
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 966648404}
-  m_Enabled: 1
 --- !u!4 &966648409
 Transform:
   m_ObjectHideFlags: 0

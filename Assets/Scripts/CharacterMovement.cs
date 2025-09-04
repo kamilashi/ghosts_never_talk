@@ -27,8 +27,11 @@ namespace GNT
     {
         public float positionOnSpline;
         //#TODOD: here should be the current spline dynamic ref!!!
-        public SplinePointObject availableSplinePointObject;
+        public SplinePointObject availableGameplayTrigger;
+
+        public List<SplinePointObject> availableAutoTriggersThisFrame;
         public ControlPoint lastVisitedControlPoint;
+        public SplinePointObjectFaction splineUserFaction;
     }
 
     [Serializable]
@@ -202,7 +205,7 @@ namespace GNT
         }
         public SplinePointObject GetAvailableSplinePointObject()
         {
-            return splineMovementData.availableSplinePointObject;
+            return splineMovementData.availableGameplayTrigger;
         }
         public Pathfinding.ControlPoint GetLastVisitedSplinePoint()
         {

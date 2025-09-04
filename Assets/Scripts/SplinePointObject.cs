@@ -19,12 +19,22 @@ namespace GNT
     
     public enum SplinePointObjectType
     {
-        CheckPoint,
+        CheckPoint, // needs to be converted into an "AutoTrigger" object
         InteractableTeleporter,
         InteractableTrigger,
-        KillZone,
-       // AutoTrigger
+        KillZone, // needs to be converted into an "AutoTrigger" object that deals maximum damage to the faction user
+
+        AutoTriggerRange
     }
+
+/*
+    public enum TriggerEvent
+    {
+        Range,
+        Cross,
+        //LeftCross,
+        //RightCross
+    }*/
 
     public abstract class SplinePointObject : MonoBehaviour
     {
@@ -33,6 +43,8 @@ namespace GNT
         public float DetectionRadius = -1;
 
         [SerializeField] protected SplinePointObjectType splinePointObjectType;
+        //[Header("Auto Trigger")]
+        //public TriggerEvent triggerEvent = TriggerEvent.Range;
 
         protected int pointIndex;
         protected bool isLocked;
@@ -41,12 +53,11 @@ namespace GNT
 
         protected void BaseAwakeSplinePointObject()
         {
-            //setGroundLayer();
-
             isLocked = false;
             isHidden = false;
 
             Debug.Assert(DetectionRadius > 0.0f, "DetectionRadius is not set!");
+            //Debug.Assert(splinePointObjectType == SplinePointObjectType.AutoTrigger && actionType == TriggerActionType.None, "AutoTriggerActionType of" + name + "is not set!");
         }
 
         public void SetSplinePoint(int pointIndex)
@@ -79,6 +90,10 @@ namespace GNT
         {
             return !isHidden && currentDistance <= DetectionRadius;
         }
+        public bool IsCorrectFaction(SplinePointObjectFaction userFaction)
+        {
+            return !isHidden && (Faction == SplinePointObjectFaction.All || userFaction == Faction);
+        }
 
         public bool CanExecuteSplineObject()
         {
@@ -86,10 +101,21 @@ namespace GNT
         }
 
         // either auto trigger/apply something or prepare for interaction (like become available)
-        public virtual void ExecuteSplineObject(PlayerController playerControllerRef = null, CharacterMovement groundMovementRef = null)
-        { 
+        public virtual void AutoTriggerInRange()
+        {
 
         }
+
+        public virtual void AutoTriggerOutOfRange()
+        {
+
+        }
+
+        /*
+                public virtual void ExecuteSplineObject(PlayerController playerControllerRef = null, CharacterMovement groundMovementRef = null)
+                { 
+
+                }*/
 
         public bool IsOfType(SplinePointObjectType type)
         {

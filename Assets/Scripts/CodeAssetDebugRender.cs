@@ -7,32 +7,34 @@ namespace GNT
     [ExecuteAlways]
     public class CodeAssetDebugRender : MonoBehaviour
     {
-        static bool isEnabled;
-
         public enum RenderShape
         {
             LineX,
-            CrossXY
+            CrossXY,
+            Bounds
         }
 
         public RenderShape Shape = RenderShape.LineX;
         public float Extents = 5.0f;
-        public static bool IsEnabled;
+
+        static bool IsEnabledGlobal;
+        public bool IsEnabledLocal = false;
+
         void Start()
         {
 
         }
 
         [ContextMenu("ToggleVisibility")]
-        void ToggleVisibility()
+        void ToggleGlobalVisibility()
         {
-            isEnabled = !isEnabled;
+            IsEnabledGlobal = !IsEnabledGlobal;
         }
 
         [ExecuteAlways]
         void Update()
         {
-            if(!isEnabled)
+            if(!IsEnabledGlobal && !IsEnabledLocal)
             { 
                 return; 
             }
@@ -41,7 +43,6 @@ namespace GNT
             {
                 case RenderShape.LineX:
                     {
-
                         Vector3 leftEnd = new Vector3();
                         Vector3 rightEnd = new Vector3();
                         rightEnd = (transform.position);
@@ -67,6 +68,19 @@ namespace GNT
                         lineEnd.y += Extents;
                         lineStart.y -= Extents;
                         Debug.DrawLine(lineStart, lineEnd, Color.magenta, Time.deltaTime, false);
+                    }
+                    break;
+                case RenderShape.Bounds:
+                    {
+                        Vector3 endPoint = new Vector3();
+                        Vector3 offset = new Vector3(0.0f, 1.0f, 0.0f);
+                        endPoint = (transform.position);
+                        endPoint.x -= Extents;
+                        Debug.DrawLine(endPoint, endPoint + offset, Color.magenta, Time.deltaTime, false);
+
+                        endPoint = (transform.position);
+                        endPoint.x += Extents;
+                        Debug.DrawLine(endPoint, endPoint + offset, Color.magenta, Time.deltaTime, false);
                     }
                     break;
                 default:

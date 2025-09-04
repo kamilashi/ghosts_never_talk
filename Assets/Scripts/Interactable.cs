@@ -20,8 +20,8 @@ namespace GNT
 
         protected void BaseAwakeInteractable()
         {
-            base.BaseAwakeSplinePointObject();
             vfxPlayerStaticRef = gameObject.GetComponent<VfxPlayer>();
+            base.BaseAwakeSplinePointObject();
         }
 
         private IEnumerator MoveToInteractionX(Transform interactorTransform, System.Action onCoroutineFinishedInteractAction, CharacterMovement interactorGroundMovement = null)

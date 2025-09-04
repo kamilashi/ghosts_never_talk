@@ -165,8 +165,8 @@ namespace GNT
 
             if (nextTarget.direction == Pathfinding.LinkDirection.Vertical)
             {
-                Debug.Assert(currentPoint.objectAtPoint != null);
-                ((InteractableTeleporter)currentPoint.objectAtPoint).Teleport(characterMovementStaticRef);
+                Debug.Assert(currentPoint.gameplayTrigger != null);
+                ((InteractableTeleporter)currentPoint.gameplayTrigger).Teleport(characterMovementStaticRef);
             }
         }
 

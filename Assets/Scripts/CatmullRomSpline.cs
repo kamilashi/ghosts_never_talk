@@ -5,6 +5,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
+using System.Linq;
+
+using static Unity.Burst.Intrinsics.X86.Avx;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -25,7 +29,8 @@ namespace Pathfinding
     public class ControlPoint
     {
         public Transform transform;
-        public GNT.SplinePointObject objectAtPoint;
+        public GNT.SplinePointObject gameplayTrigger;
+        public List<GNT.SplinePointObject> autoTriggers;
         public Vector3 position;
         public float localPos;
         public bool wasVisited;
@@ -44,6 +49,21 @@ namespace Pathfinding
             this.transform = null;
             this.localPos = localPos; // distance from start
             this.wasVisited = false;
+        }
+
+        public List<GNT.SplinePointObject> GetAvailableAutoTriggers(float range, SplinePointObjectFaction userFaction)
+        {
+            List < GNT.SplinePointObject > triggersInRange = new List<SplinePointObject> ();
+
+            foreach (GNT.SplinePointObject trigger in autoTriggers)
+            {
+                if(trigger.IsCorrectFaction(userFaction) && trigger.IsInDetectionRange(range))
+                {
+                    triggersInRange.Add(trigger);
+                }
+            }
+
+            return triggersInRange;
         }
 
         public Vector3 GetPosition()
@@ -82,8 +102,6 @@ namespace Pathfinding
 
         [SerializeField] private float totalLength;
 
-
-
         public Vector3 GetPositionOnSpline(ref SplineMovementData movementDataRef, float increment)
         {
             float newLocalPos = movementDataRef.positionOnSpline + increment;
@@ -121,7 +139,12 @@ namespace Pathfinding
             float t = (movementDataRef.positionOnSpline - controlPoints[point1Index].GetLocalPos()) / (controlPoints[point1Index + 1].GetLocalPos() - controlPoints[point1Index].GetLocalPos());
 
             {
-                movementDataRef.availableSplinePointObject = scanForSplinePointObjects(point1Index, newLocalPos);
+                List<SplinePointObject> availableRangedObjectsLastFrame = new List<SplinePointObject>();
+                availableRangedObjectsLastFrame = movementDataRef.availableAutoTriggersThisFrame;
+
+                ScanForSplinePointObjects(ref movementDataRef, point1Index, newLocalPos);
+
+                TriggerRangedObjects(availableRangedObjectsLastFrame, movementDataRef.availableAutoTriggersThisFrame);
             }
 
             return getPositionOnSplineSegment(point1Index, t);
@@ -175,7 +198,7 @@ namespace Pathfinding
         {
             if (HasVerticalLink(controlPoints[pointIndex]))
             {
-                InteractableTeleporter teleporter = (InteractableTeleporter) controlPoints[pointIndex].objectAtPoint;
+                InteractableTeleporter teleporter = (InteractableTeleporter) controlPoints[pointIndex].gameplayTrigger;
                 linkedSplineRef = teleporter.TargetTeleporter.ContainingGroundLayer.MovementSpline;
                 linkedPointIndex = teleporter.TargetTeleporter.GetSplinePointIndex();
                 return linkedSplineRef.GetControlPoint(linkedPointIndex);
@@ -187,7 +210,7 @@ namespace Pathfinding
         {
             Debug.Assert(HasVerticalLink(controlPoints[pointIndex]));
 
-            InteractableTeleporter teleporter = (InteractableTeleporter) controlPoints[pointIndex].objectAtPoint;
+            InteractableTeleporter teleporter = (InteractableTeleporter) controlPoints[pointIndex].gameplayTrigger;
             CatmullRomSpline linkedSplineRef = teleporter.TargetTeleporter.ContainingGroundLayer.MovementSpline;
             int linkedPointIndex = teleporter.TargetTeleporter.GetSplinePointIndex();
             return linkedSplineRef.GetControlPoint(linkedPointIndex);
@@ -195,9 +218,9 @@ namespace Pathfinding
 
         public bool HasVerticalLink(ControlPoint point)
         {  
-            if(point.objectAtPoint != null && point.objectAtPoint.IsOfType(GNT.SplinePointObjectType.InteractableTeleporter))
+            if(point.gameplayTrigger != null && point.gameplayTrigger.IsOfType(GNT.SplinePointObjectType.InteractableTeleporter))
             {
-                InteractableTeleporter teleporter = (InteractableTeleporter) point.objectAtPoint;
+                InteractableTeleporter teleporter = (InteractableTeleporter) point.gameplayTrigger;
 
                 return !teleporter.isReceiverOnly();
             }
@@ -205,53 +228,89 @@ namespace Pathfinding
             return false; 
         }
 
+        public void TriggerRangedObjects(List<SplinePointObject> oldAvailableObjects, List<SplinePointObject> newAvailableObjects)
+        {
+            var newInactive = (oldAvailableObjects ?? Enumerable.Empty<SplinePointObject>()).Where(o => o != null);
+            var newActive = (newAvailableObjects ?? Enumerable.Empty<SplinePointObject>()).Where(o => o != null);
 
-        private GNT.SplinePointObject scanForSplinePointObjects(int leftPointIdx, float positionOnSpline)
+            foreach (var trigger in newActive.Except(newInactive))
+            {
+                trigger.AutoTriggerInRange();
+            }
+
+            foreach (var trigger in newInactive.Except(newActive))
+            {
+                trigger.AutoTriggerOutOfRange();
+            }
+        }
+
+        private void ScanForSplinePointObjects(ref SplineMovementData movementDataRef, int leftPointIdx, float positionOnSpline)
         {
             GNT.SplinePointObject nearestObject = null;
 
             int pointIdx = leftPointIdx;
             float scanDistance = ObjectScanDistance < 0 ? totalLength : ObjectScanDistance;
-            float scannedDistance = 0.0f;
+            float gameplayTriggerClosestDistance = float.MaxValue;
+            float currentDistance = 0.0f;
+            List<SplinePointObject> autoTriggerPoints = new List<SplinePointObject>();
 
             // scan left
-            while (pointIdx >= 0 && scannedDistance <= scanDistance)
+            while (pointIdx >= 0 && currentDistance <= scanDistance)
             {
-                scannedDistance = Math.Abs(controlPoints[pointIdx].GetLocalPos() - positionOnSpline);
+                ControlPoint scannedPoint = controlPoints[pointIdx];
+                currentDistance = Math.Abs(scannedPoint.GetLocalPos() - positionOnSpline);
 
-                if (controlPoints[pointIdx].objectAtPoint != null && controlPoints[pointIdx].objectAtPoint.IsInDetectionRange(scannedDistance))
+                // get the first gameplay trigger on the left
+                if (nearestObject == null && scannedPoint.gameplayTrigger != null && scannedPoint.gameplayTrigger.IsInDetectionRange(currentDistance))
                 {
-                    nearestObject = controlPoints[pointIdx].objectAtPoint;
-                    break;
+                    nearestObject = scannedPoint.gameplayTrigger;
+                    gameplayTriggerClosestDistance = currentDistance;
+                }
+
+                List<SplinePointObject> availableRangedAutoTriggers = scannedPoint.GetAvailableAutoTriggers(currentDistance, movementDataRef.splineUserFaction);
+                if (availableRangedAutoTriggers.Count > 0)
+                {
+                    autoTriggerPoints.AddRange(availableRangedAutoTriggers);
                 }
 
                 pointIdx--;
             }
 
+            // we are already at the right most point, nothing to scan for
             if (leftPointIdx == controlPoints.Count - 1)
             {
-                return nearestObject;
+                movementDataRef.availableGameplayTrigger = nearestObject;
+                movementDataRef.availableAutoTriggersThisFrame = autoTriggerPoints;
+                return;
             }
 
-            float closestDistance = nearestObject == null ? float.MaxValue : Math.Abs(controlPoints[pointIdx].GetLocalPos() - positionOnSpline);
-            scannedDistance = 0.0f;
+            currentDistance = 0.0f;
+            gameplayTriggerClosestDistance = 0.0f;
             pointIdx = leftPointIdx + 1;
 
             // scan right
-            while (pointIdx < controlPoints.Count && scannedDistance <= scanDistance && closestDistance > scannedDistance)
+            while (pointIdx < controlPoints.Count && currentDistance <= scanDistance)
             {
-                scannedDistance = Math.Abs(controlPoints[pointIdx].GetLocalPos() - positionOnSpline);
+                ControlPoint scannedPoint = controlPoints[pointIdx];
+                currentDistance = Math.Abs(scannedPoint.GetLocalPos() - positionOnSpline);
 
-                if (controlPoints[pointIdx].objectAtPoint != null && controlPoints[pointIdx].objectAtPoint.IsInDetectionRange(scannedDistance) && Math.Abs(controlPoints[pointIdx].GetLocalPos() - positionOnSpline) < closestDistance)
+                // get the first gameplay trigger if it's closer than the one from the left
+                if (scannedPoint.gameplayTrigger != null && currentDistance < gameplayTriggerClosestDistance && scannedPoint.gameplayTrigger.IsInDetectionRange(currentDistance))
                 {
-                    nearestObject = controlPoints[pointIdx].objectAtPoint;
-                    break;
+                    nearestObject = scannedPoint.gameplayTrigger;
+                }
+
+                List<SplinePointObject> availableRangedAutoTriggers = scannedPoint.GetAvailableAutoTriggers(currentDistance, movementDataRef.splineUserFaction);
+                if (availableRangedAutoTriggers.Count > 0)
+                {
+                    autoTriggerPoints.AddRange(availableRangedAutoTriggers);
                 }
 
                 pointIdx++;
             }
 
-            return nearestObject;
+            movementDataRef.availableGameplayTrigger = nearestObject;
+            movementDataRef.availableAutoTriggersThisFrame = autoTriggerPoints;
         }
 
         private void OnValidate()
@@ -263,16 +322,27 @@ namespace Pathfinding
 
             totalLength = 0.0f;
 
-            controlPoints[0].SetLocalPos(0.0f);
-            if (controlPoints[0].objectAtPoint != null)
-            {
-                controlPoints[0].objectAtPoint.SetSplinePoint(0);
-                controlPoints[0].objectAtPoint.SetPosition(controlPoints[0].GetPosition());
 
-                if (ObjectScanDistance > 0.0f && controlPoints[0].objectAtPoint.DetectionRadius > ObjectScanDistance)
+            System.Action<int, SplinePointObject> validatePoint = (splinePointIndex, splineObject) => 
+            {
+                splineObject.SetSplinePoint(splinePointIndex);
+                splineObject.SetPosition(controlPoints[splinePointIndex].GetPosition());
+
+                if (ObjectScanDistance > 0.0f && splineObject.DetectionRadius > ObjectScanDistance)
                 {
                     Debug.LogWarning("Please increase the ObjectScanDistance of spline " + this.name + "!");
                 }
+            };
+
+            controlPoints[0].SetLocalPos(0.0f);
+            if (controlPoints[0].gameplayTrigger != null)
+            {
+                validatePoint(0, controlPoints[0].gameplayTrigger);
+            }
+
+            foreach (SplinePointObject autoTrigger in controlPoints[0].autoTriggers)
+            {
+                validatePoint(0, autoTrigger);
             }
 
             for (int i = 1; i < controlPoints.Count; i++)
@@ -282,15 +352,14 @@ namespace Pathfinding
                 totalLength += distance;
                 controlPoints[i].SetLocalPos(totalLength);
 
-                if (controlPoints[i].objectAtPoint != null)
+                if (controlPoints[i].gameplayTrigger != null)
                 {
-                    controlPoints[i].objectAtPoint.SetSplinePoint(i);
-                    controlPoints[i].objectAtPoint.SetPosition(controlPoints[i].GetPosition());
+                    validatePoint(i, controlPoints[i].gameplayTrigger);
+                }
 
-                    if (ObjectScanDistance > 0.0f && controlPoints[i].objectAtPoint.DetectionRadius > ObjectScanDistance)
-                    {
-                        Debug.LogWarning("Please increase the ObjectScanDistance of spline " + this.name + "!");
-                    }
+                foreach (SplinePointObject autoTrigger in controlPoints[i].autoTriggers)
+                {
+                    validatePoint(i, autoTrigger);
                 }
             }
         }
@@ -431,7 +500,7 @@ namespace Pathfinding
 
         void DisplayLink(ControlPoint from, ControlPoint to, float heightOffset = 0.0f)
         {
-            bool isBilateral = (((InteractableTeleporter)to.objectAtPoint).TargetTeleporter == (from.objectAtPoint as InteractableTeleporter));
+            bool isBilateral = (((InteractableTeleporter)to.gameplayTrigger).TargetTeleporter == (from.gameplayTrigger as InteractableTeleporter));
 
             if (isBilateral) 
             {

@@ -47,6 +47,8 @@ namespace GNT
 
             lastMoveDirection = MoveDirection.Right;
 
+            characterMovement.splineMovementData.splineUserFaction = SplinePointObjectFaction.Player;
+
             ResetTemporaries();
         }   
         

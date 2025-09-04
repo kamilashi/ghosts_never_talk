@@ -1,0 +1,248 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5248124324009147206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Common.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/SoundBanks/Desktop/Common.bank
+  Name: Common
+  StudioPath: bank:/Common
+  lastModified: 638925221991222070
+  FileSizes:
+  - Name: Desktop
+    Value: 1433184
+  Exists: 1
+--- !u!114 &-4704512310855603823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/OutdoorsAmbience/OutdoorsAmbienceIntencity
+  m_EditorClassIdentifier: 
+  Name: OutdoorsAmbienceIntencity
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 929506116
+    data2: 737985419
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-3540114020703880306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/SoundBanks/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638925221950030808
+  FileSizes:
+  - Name: Desktop
+    Value: 1136
+  Exists: 1
+--- !u!114 &-2246467507413719431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Chapel/Spacial/ChapelChoir
+  m_EditorClassIdentifier: 
+  Path: event:/Chapel/Spacial/ChapelChoir
+  Guid:
+    Data1: 1446941090
+    Data2: 1326443426
+    Data3: 1456498311
+    Data4: 662672371
+  Banks:
+  - {fileID: 9001548358444736133}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 5.6
+  Length: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -3540114020703880306}
+  - {fileID: 9001548358444736133}
+  - {fileID: -5248124324009147206}
+  - {fileID: 1619360350341011830}
+  EditorEvents:
+  - {fileID: 6085220406588343191}
+  - {fileID: -2246467507413719431}
+  - {fileID: 8461047747680431503}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: 1619360350341011830}
+  StringsBanks:
+  - {fileID: -3540114020703880306}
+  cacheVersion: 131849
+  cacheTime: 638925273550771621
+  SerializableEventsDict:
+  - key: event:/Chapel/ChapelAmbience
+    index: 0
+  - key: event:/Chapel/Spacial/ChapelChoir
+    index: 1
+  - key: event:/Common/OutdoorsAmbience
+    index: 2
+--- !u!114 &1619360350341011830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/SoundBanks/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638925221950003114
+  FileSizes:
+  - Name: Desktop
+    Value: 1074
+  Exists: 1
+--- !u!114 &2610107175270343144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/ChapelAmbience/ChapelAmbienceDepth1
+  m_EditorClassIdentifier: 
+  Name: ChapelAmbienceDepth1
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 172781975
+    data2: 870500327
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &6085220406588343191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Chapel/ChapelAmbience
+  m_EditorClassIdentifier: 
+  Path: event:/Chapel/ChapelAmbience
+  Guid:
+    Data1: -1995720844
+    Data2: 1098035204
+    Data3: 419600028
+    Data4: -1082580415
+  Banks:
+  - {fileID: 9001548358444736133}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 2610107175270343144}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8461047747680431503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Common/OutdoorsAmbience
+  m_EditorClassIdentifier: 
+  Path: event:/Common/OutdoorsAmbience
+  Guid:
+    Data1: 572283638
+    Data2: 1263119488
+    Data3: 14661309
+    Data4: -420735805
+  Banks:
+  - {fileID: -5248124324009147206}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -4704512310855603823}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &9001548358444736133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Chapel.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/SoundBanks/Desktop/Chapel.bank
+  Name: Chapel
+  StudioPath: bank:/Chapel
+  lastModified: 638925273550771621
+  FileSizes:
+  - Name: Desktop
+    Value: 7557472
+  Exists: 1
