@@ -93,6 +93,14 @@ namespace GNT
             StopAllCoroutines();
             CameraMovementStaticRef.SetCameraMovementEnabled(false);
 
+            for(int i = 0; i < SoundbankEvents.Count; i++)
+            {
+                SoundbankEvents[i].stop(0);
+            }
+
+            SoundbankEvents.Clear();
+            SoundbankEventIDs.Clear();
+
             if (SceneManager.sceneCount > 1)
             {
                 Action onUnloadFinished = () => LoadScene(sceneName);
