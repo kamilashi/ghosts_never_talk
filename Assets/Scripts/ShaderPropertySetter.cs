@@ -20,11 +20,11 @@ namespace Graphics
         [Range(0, 1)]
         public float fadeOutEnd = 0.0f;*/
 
-        [Header("Sprite Global Distance Fade")]
+        /*[Header("Sprite Global Distance Fade")]
         [Range(0, 1)]
         public float intensity = 0.8f;
         public float farClipMofidier = 0.0f;
-        public float nearClipModifier = 0.0f;
+        public float nearClipModifier = 0.0f;*/
 
         [Header("Sprite Global Lighting")]
         [Range(0, 1)]
@@ -44,8 +44,9 @@ namespace Graphics
         [ExecuteInEditMode]
         void Update()
         {
-           // SetGlobalBottomFadeParams();
-            SetGlobalDistanceFadeParams();
+            // SetGlobalBottomFadeParams();
+            // SetGlobalDistanceFadeParams();
+            SetGlobalCameraParams();
             SetGlobalLightingParams();
         }
 
@@ -64,12 +65,13 @@ namespace Graphics
             Shader.SetGlobalFloat("_Sprite_BottomFade_YOffset", yCutOff);
         }*/
 
+/*
         void SetGlobalDistanceFadeParams()
         {
             Shader.SetGlobalFloat("_Sprite_DistanceFade_Intensity", intensity);
             Shader.SetGlobalFloat("_Sprite_DistanceFade_FarClipModifier", farClipMofidier);
             Shader.SetGlobalFloat("_Sprite_DistanceFade_NearClipModifier", nearClipModifier);
-        }
+        }*/
 
         void SetGlobalLightingParams()
         {
@@ -97,7 +99,7 @@ namespace Graphics
         }*/
         public void SetGlobalSpriteDistanceFadeParameters()
         {
-            SetGlobalDistanceFadeParams();
+            //SetGlobalDistanceFadeParams();
         }
 
         [ContextMenu("WriteLocalUVDataFromSpritesYCoordOnly")]

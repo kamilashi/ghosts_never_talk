@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mesh Gameplay Scene
-  m_Shader: {fileID: -6465566751694194690, guid: ccda53bc8b929cb4481a7d0c78a1fc9f, type: 3}
+  m_Name: SpriteChapelScene
+  m_Shader: {fileID: -6465566751694194690, guid: 5b9a3787ec724274da2652da5adbd5c4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -44,6 +44,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FogTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -95,42 +99,47 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FarClipModifier: -22.44
+    - _FogAlphaContrast: 0
+    - _FogDensityFactor: 0
+    - _FogTextureSampleScale: 0
+    - _FogTextureScrollSpeed: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientEnd: 0
-    - _GradientStart: 1
-    - _Intensity01: 0.137
-    - _MainCamFarPlane: 21
-    - _MainCamNearPlane: 0.3
-    - _MainCamZPos: -4.36
+    - _MainCamFarPlane: 0
+    - _MainCamNearPlane: 0
+    - _MainCamZPos: 0
     - _Metallic: 0
-    - _NearClipModifier: 30.1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _SampleTexture: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Sprite_BottomFade_FadeOutEnd: 0
+    - _Sprite_BottomFade_FadeOutStart: 0.014
+    - _Sprite_BottomFade_YOffset: 0
+    - _Sprite_DistanceFade_Enabled: 1
+    - _Sprite_DistanceFade_FarClipModifier: -17.13
+    - _Sprite_DistanceFade_Intensity: 0.866
+    - _Sprite_DistanceFade_NearClipModifier: 20.3
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _Base: {r: 0.36862746, g: 0.3647059, b: 0.36862746, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BottomColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FarColor: {r: 0.81574446, g: 0.9150943, b: 0.80286574, a: 0}
+    - _FarColor: {r: 0.5977438, g: 0.6367924, b: 0.63509464, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tint: {r: 0.05767174, g: 0.26048377, b: 0.45283014, a: 0}
+    - _TopColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &6581084876135567795
+--- !u!114 &7697557550057565555
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

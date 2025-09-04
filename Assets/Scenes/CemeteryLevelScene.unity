@@ -7297,7 +7297,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1e84c039debd87b47a5f9cffd99d468e, type: 2}
+  - {fileID: 2100000, guid: 8b0a0ac79a7bf2e4497d6981a9c4a434, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7343,9 +7343,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomFadeEnabled: 1
   overrideGlobalBottomFade: 0
-  yCutOff: 0.081
-  fadeOutStart: 0.283
-  fadeOutEnd: 0
+  yCutOff: 0.21
+  fadeOutStart: 0.43
+  fadeOutEnd: 0.111
   distanceFadeEnabled: 1
   overrideGlobalDistanceFade: 0
   intensity: 0.8
