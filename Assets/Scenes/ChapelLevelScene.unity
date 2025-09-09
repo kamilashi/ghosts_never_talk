@@ -529,6 +529,14 @@ MonoBehaviour:
   Params:
   - Name: OutdoorsAmbienceIntencity
     Value: 1
+  - Name: MasterVolume
+    Value: 1
+  - Name: MusicVolume
+    Value: 1
+  - Name: NatureVolume
+    Value: 0
+  - Name: SpookinessVolume
+    Value: 0
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20

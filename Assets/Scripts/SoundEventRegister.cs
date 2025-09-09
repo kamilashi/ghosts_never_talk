@@ -11,10 +11,13 @@ public class SoundEventRegister : MonoBehaviour
 
     void Awake()
     {
+
+#if UNITY_EDITOR
         if (!GameManager.isLoaded)
         {
             return;
         }
+#endif
 
         emitterObjectsCount++;
 

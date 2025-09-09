@@ -31,6 +31,12 @@ namespace GNT
 
         private void Start()
         {
+#if UNITY_EDITOR
+            if(!GameManager.isLoaded)
+            {
+                return;
+            }
+#endif
             globalCharacterReference = new GlobalCharacterReference(GlobalCharacterReferenceKey, GlobalCharacterReferenceName, this.gameObject);
             dialogueRunnerStaticRef = GameManager.Instance.DialogueRunnerStaticRef;
 

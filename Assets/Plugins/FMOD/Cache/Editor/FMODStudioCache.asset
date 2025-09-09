@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: Assets/Audio/SoundBanks/Desktop/Common.bank
   Name: Common
   StudioPath: bank:/Common
-  lastModified: 638925907197309356
+  lastModified: 638927532000124622
   FileSizes:
   - Name: Desktop
-    Value: 1433184
+    Value: 5331584
   Exists: 1
 --- !u!114 &-4704512310855603823
 MonoBehaviour:
@@ -30,9 +30,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/OutdoorsAmbience/OutdoorsAmbienceIntencity
+  m_Name: parameter:/OutdoorsAmbience/MasterVolume
   m_EditorClassIdentifier: 
-  Name: OutdoorsAmbienceIntencity
+  Name: MasterVolume
   StudioPath: 
   Min: 0
   Max: 1
@@ -59,10 +59,10 @@ MonoBehaviour:
   Path: Assets/Audio/SoundBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638925221950030808
+  lastModified: 638926965237699562
   FileSizes:
   - Name: Desktop
-    Value: 1136
+    Value: 1266
   Exists: 1
 --- !u!114 &-2246467507413719431
 MonoBehaviour:
@@ -91,6 +91,30 @@ MonoBehaviour:
   MinDistance: 5
   MaxDistance: 15
   Length: 0
+--- !u!114 &-79712556512132268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/OutdoorsAmbience/SpookinessVolume
+  m_EditorClassIdentifier: 
+  Name: SpookinessVolume
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1420375248
+    data2: 835540179
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +142,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -3540114020703880306}
   cacheVersion: 131849
-  cacheTime: 638925914474185814
+  cacheTime: 638927532000124622
   SerializableEventsDict:
   - key: event:/Chapel/ChapelAmbience
     index: 0
@@ -126,6 +150,30 @@ MonoBehaviour:
     index: 1
   - key: event:/Common/OutdoorsAmbience
     index: 2
+--- !u!114 &586573257243617459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/OutdoorsAmbience/MusicVolume
+  m_EditorClassIdentifier: 
+  Name: MusicVolume
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3701679399
+    data2: 2756885011
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &1619360350341011830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +189,7 @@ MonoBehaviour:
   Path: Assets/Audio/SoundBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638925221950003114
+  lastModified: 638926965237689480
   FileSizes:
   - Name: Desktop
     Value: 1074
@@ -198,6 +246,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &6831964816902106958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/OutdoorsAmbience/NatureVolume
+  m_EditorClassIdentifier: 
+  Name: NatureVolume
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3014742482
+    data2: 484675115
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &8461047747680431503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +295,9 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: -4704512310855603823}
+  - {fileID: 6831964816902106958}
+  - {fileID: -79712556512132268}
+  - {fileID: 586573257243617459}
   MinDistance: 1
   MaxDistance: 20
   Length: 0

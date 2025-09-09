@@ -6818,6 +6818,78 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   referenceCamera: {fileID: 0}
   unitScaleReference: {fileID: 0}
+--- !u!1 &558301292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 558301293}
+  - component: {fileID: 558301294}
+  - component: {fileID: 558301295}
+  m_Layer: 0
+  m_Name: NatureAmbientBlendRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &558301293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558301292}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 34.63, y: -3.99, z: 7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 712069333}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &558301294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558301292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b2688b832c95a4292cc0cd86c01034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Faction: 0
+  ContainingGroundLayer: {fileID: 712069334}
+  DetectionRadius: 7
+  splinePointObjectType: 0
+  onEnterRangeBlends: []
+  onExitRangeBlends: []
+  directionalBlends:
+  - eventPath: event:/Common/OutdoorsAmbience
+    parameterName: NatureVolume
+    eventId: 0
+    leftValue: 0.7
+    rightValue: 0.3
+--- !u!114 &558301295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558301292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1990daa751a667e4cb63057580f5e73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shape: 2
+  Extents: 7
+  IsEnabledLocal: 0
 --- !u!1 &577948972
 GameObject:
   m_ObjectHideFlags: 0
@@ -7220,6 +7292,8 @@ Transform:
   - {fileID: 629550661}
   - {fileID: 891208318}
   - {fileID: 714906961}
+  - {fileID: 1402030377}
+  - {fileID: 558301293}
   m_Father: {fileID: 1728121133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &712069334
@@ -7442,7 +7516,8 @@ MonoBehaviour:
     wasVisited: 0
   - transform: {fileID: 0}
     gameplayTrigger: {fileID: 0}
-    autoTriggers: []
+    autoTriggers:
+    - {fileID: 1402030378}
     position: {x: 13.63, y: -0.84, z: 7}
     localPos: 25.625877
     wasVisited: 0
@@ -7484,7 +7559,8 @@ MonoBehaviour:
     wasVisited: 0
   - transform: {fileID: 0}
     gameplayTrigger: {fileID: 0}
-    autoTriggers: []
+    autoTriggers:
+    - {fileID: 558301294}
     position: {x: 34.63, y: -3.99, z: 7}
     localPos: 51.73123
     wasVisited: 0
@@ -8821,6 +8897,78 @@ Transform:
   m_Children: []
   m_Father: {fileID: 947421028}
   m_LocalEulerAnglesHint: {x: 70.39, y: 0, z: 0}
+--- !u!1 &1402030376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1402030377}
+  - component: {fileID: 1402030378}
+  - component: {fileID: 1402030379}
+  m_Layer: 0
+  m_Name: NatureAmbientBlendLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1402030377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402030376}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.63, y: -0.84, z: 7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 712069333}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1402030378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402030376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b2688b832c95a4292cc0cd86c01034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Faction: 0
+  ContainingGroundLayer: {fileID: 712069334}
+  DetectionRadius: 12
+  splinePointObjectType: 0
+  onEnterRangeBlends: []
+  onExitRangeBlends: []
+  directionalBlends:
+  - eventPath: event:/Common/OutdoorsAmbience
+    parameterName: NatureVolume
+    eventId: 0
+    leftValue: 0
+    rightValue: 0.7
+--- !u!114 &1402030379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402030376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1990daa751a667e4cb63057580f5e73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shape: 2
+  Extents: 12
+  IsEnabledLocal: 1
 --- !u!1 &1408815075
 GameObject:
   m_ObjectHideFlags: 0
@@ -9540,6 +9688,14 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params:
   - Name: OutdoorsAmbienceIntencity
+    Value: 1
+  - Name: MasterVolume
+    Value: 1
+  - Name: MusicVolume
+    Value: 1
+  - Name: NatureVolume
+    Value: 0
+  - Name: SpookinessVolume
     Value: 1
   OverrideAttenuation: 0
   OverrideMinDistance: 1

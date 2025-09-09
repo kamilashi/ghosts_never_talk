@@ -45,14 +45,19 @@ namespace GNT
         public List<OneShotBlendData> onExitRangeBlends;
         public List<ContinuousBlendData> directionalBlends;
 
+        private List<Coroutine> directionalBlendCoroutines;
+
         private void Awake()
         {
             splinePointObjectType = SplinePointObjectType.AutoTriggerRange;
 
             GameManager.OnSceneLoadFinishEvent += FetchEventIds;
 
+            directionalBlendCoroutines = new List<Coroutine>();
+
             base.BaseAwakeSplinePointObject();
         }
+
         private void OnDestroy()
         {
             GameManager.OnSceneLoadFinishEvent -= FetchEventIds;
@@ -101,6 +106,16 @@ namespace GNT
             {
                 StartOneShotBlend(soundData);
             }
+
+            if(directionalBlendCoroutines.Count > 0)
+            {
+                foreach(Coroutine coroutine in directionalBlendCoroutines)
+                {
+                    StopCoroutine(coroutine);
+                }
+
+                directionalBlendCoroutines.Clear();
+            }
         }
 
         private void StartOneShotBlend(OneShotBlendData soundData)
@@ -113,14 +128,15 @@ namespace GNT
                 eventInstance.getParameterByName(soundData.parameterName, out startValue);
             }
 
-            StartCoroutine(InterpolateParameterOneShot(startValue, soundData.endValue, soundData.interpolationDuration, eventInstance, soundData.parameterName));
+           StartCoroutine(InterpolateParameterOneShot(startValue, soundData.endValue, soundData.interpolationDuration, eventInstance, soundData.parameterName));
         }
 
         private void StartContinuousBlend(ContinuousBlendData soundData, ref SplineMovementData movementDataRef)
         {
             EventInstance eventInstance = GameManager.Instance.GetSoundbankEventInstance(soundData.GetId());
 
-            StartCoroutine(InterpolateParameterContinuous(soundData.leftValue, soundData.rightValue, movementDataRef, eventInstance, soundData.parameterName));
+            int coroutineId = directionalBlendCoroutines.Count;
+            directionalBlendCoroutines.Add(StartCoroutine(InterpolateParameterContinuous(soundData.leftValue, soundData.rightValue, movementDataRef, eventInstance, soundData.parameterName, coroutineId)));
         }
 
         private IEnumerator InterpolateParameterOneShot(float start, float target, float duration, EventInstance soundEventInstance, string parameterName)
@@ -139,7 +155,7 @@ namespace GNT
             }
         }
 
-        private IEnumerator InterpolateParameterContinuous(float start, float target, SplineMovementData movementDataRef, EventInstance soundEventInstance, string parameterName)
+        private IEnumerator InterpolateParameterContinuous(float start, float target, SplineMovementData movementDataRef, EventInstance soundEventInstance, string parameterName, int coroutineId)
         {
             float current = start;
             float progress = 0.0f;
@@ -155,6 +171,8 @@ namespace GNT
 
                 yield return null;
             }
+
+            directionalBlendCoroutines.RemoveAt(coroutineId);
         }
     }
 }
